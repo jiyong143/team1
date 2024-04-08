@@ -1,6 +1,7 @@
 package kr.kh.team1.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -12,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.MidGroupService;
 
 
 @Controller
@@ -21,6 +24,10 @@ public class HomeController {
 	@Autowired
 	
 	MemberService memberService;
+	
+    @Autowired
+	
+	MidGroupService midGroupService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -36,7 +43,10 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		ArrayList <MidGroupVO> midList = midGroupService.getMidGroupList(); 
+		model.addAttribute("midList",midList);
+		
+		return "/main/home";
 	}
 	
 }

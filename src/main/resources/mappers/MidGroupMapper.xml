@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team1.dao.MidGroupDAO">
+
+<resultMap type="kr.kh.team1.model.vo.MidGroupVO" id="MidGroupMap">
+		<id property="mg_num" column="mg_num"/>
+		<result property="mg_tg_num" column="mg_tg_num"/>
+		<result property="mg_title" column="mg_title"/>
+		<collection property="topgroup" ofType="kr.kh.team1.model.vo.TopGroupVO"
+			column="mg_tg_num" select="selectTopGroup"/>
+</resultMap>
+	
+	<select id="selectMidGroupList" resultMap="MidGroupMap">
+	   select * from midgroup join topgroup  on mg_tg_num = tg_num
+	</select>
+</mapper>
