@@ -14,19 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.kh.team1.service.MemberService;
 
-
 @Controller
 public class HomeController {
 	
 	@Autowired
-	
 	MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -35,8 +33,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "/main/home";
 	}
 	
 }
