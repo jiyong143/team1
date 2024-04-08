@@ -16,7 +16,8 @@ CREATE TABLE `member` (
 	`me_addr`	varchar(25)	not	NULL,
 	`me_authority`	varchar(5)	not	NULL default 'user',
 	`me_state`	varchar(4)	not	NULL default '이용중',
-	`me_manner`	double	not	NULL default 36.5
+	`me_manner`	double	not	NULL default 36.5,
+    `me_fi_num` int
 );
 
 DROP TABLE IF EXISTS `topGroup`;
@@ -300,4 +301,11 @@ ALTER TABLE `trade_outcome` ADD CONSTRAINT `FK_trade_review_TO_trade_outcome_1` 
 )
 REFERENCES `trade_review` (
 	`tr_num`
+);
+
+ALTER TABLE member ADD CONSTRAINT FK_file_TO_member_1 FOREIGN KEY (
+	me_fi_num
+)
+REFERENCES file (
+	fi_num
 );
