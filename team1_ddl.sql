@@ -11,7 +11,7 @@ CREATE TABLE `member` (
 	`me_email`	varchar(30) not	NULL,
 	`me_gender`	varchar(5)	not	NULL,
 	`me_name`	varchar(15)	not	NULL,
-	`me_birth`	int	not	NULL,
+	`me_birth`	Datetime not	NULL,
 	`me_phone`	varchar(13)	not	NULL,
 	`me_addr`	varchar(25)	not	NULL,
 	`me_authority`	varchar(5)	not	NULL default 'user',

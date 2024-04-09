@@ -1,3 +1,7 @@
+
+.classpath
+.project
+
 # Miscellaneous
 *.java.hsp
 *.sonarj
@@ -53,3 +57,4 @@ cached-antora-playbook.yml
 
 target/
 test/resources
+
