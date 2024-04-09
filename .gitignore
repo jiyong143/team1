@@ -1,4 +1,4 @@
-
+.prefs
 .classpath
 .project
 
@@ -58,3 +58,5 @@ cached-antora-playbook.yml
 target/
 test/resources
 
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.jdt.core.prefs

@@ -11,7 +11,7 @@ import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.service.ProductService;
 
 @Controller
-public class ProductController {
+public class LKJController {
 	
 	@Autowired
 	ProductService productService;
