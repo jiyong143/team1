@@ -18,7 +18,7 @@ public class ProductController {
 	
 	@GetMapping("/product/list")
 	public String productList(Model model) {
-		ArrayList<ProductVO>list = productService.getProductList();
+		ArrayList<ProductVO> list = productService.getProductList();
 		
 		model.addAttribute("title", "거래글 리스트");
 		model.addAttribute("list", list);

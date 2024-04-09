@@ -62,7 +62,7 @@
 		<c:forEach items="${list}" var="product" varStatus="vs">
 			<tr>
 				<td>${list.size() - vs.index}</td>
-				<td>${product.pr_mi_num}</td>
+				<td>${product.pr_mg_num}</td>
 				<td>
 					<c:url value="/product/detail" var="url">
 						<c:param name="page" value="${pm.cri.page}"/>
@@ -70,7 +70,7 @@
 						<c:param name="search" value="${pm.cri.search}"/>
 						<c:param name="prNum" value="${product.pr_num}"/>
 					</c:url>
-					<a href="${url}">${product.pr_title }</a>
+					<a href="${url}">${product.pr_name }</a>
 				</td>
 				<td>
 					<c:url value="/product/list" var="url">
@@ -78,6 +78,7 @@
 						<c:param name="search" value="${product.pr_me_id}"/>
 					</c:url>
 					<a href="${url}">${product.pr_me_id }</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>

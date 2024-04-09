@@ -3,16 +3,5 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.TopGroupDAO">
-	<resultMap type="kr.kh.team1.model.vo.TopGroupVO" id="TopGroupMap">
-			<id property="tg_num" column="tg_num"/>
-			<result property="tg_title" column="tg_title"/>
-			<collection property="midGroupList" ofType="kr.kh.team1.model.vo.MidGroupVO"
-				column="tg_num" select="selectMidGroup"/>
-	</resultMap> 
-	<select id="selectTopGroupList" resultMap ="TopGroupMap">
-	    select * from topgroup
-	</select>
-	<select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
-		select * from midgroup where mg_tg_num = #{tg_num}
-	</select>
+
 </mapper>
