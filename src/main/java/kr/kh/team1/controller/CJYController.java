@@ -14,13 +14,14 @@ public class CJYController {
 	@Autowired 
 	ProductService productService; 
 
+
    @GetMapping("/product/list") 
    public String productList(Model model, int mNum) { 
 	   ArrayList <ProductVO> productList = productService.getProductList(mNum);    
 	   model.addAttribute("pList",productList); 
 	   return "/product/list";  
+
    }
-    
     
     
 
