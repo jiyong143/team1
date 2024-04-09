@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team1.model.vo.ChatRoomVO;
 
+
 public interface ChatDAO {
 
 	ChatRoomVO selectChatRoom(@Param("user")String user, @Param("pr_num")int pr_num);
