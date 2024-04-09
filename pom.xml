@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.kh</groupId>
-	<artifactId>team1</artifactId>
+	<artifactId>team1My</artifactId>
 	<name>team1</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
@@ -59,6 +59,7 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -115,6 +116,9 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
+		</dependency> 
+		  
+
 		</dependency>   
 		<!-- log4j2 -->
 		<dependency>
@@ -122,36 +126,42 @@
 			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 			<version>1.16</version>
 		</dependency>
+  
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.32</version>
 		</dependency>     
+
 		<!-- mybatis 의존성 추가 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>
 		    <version>3.4.1</version>
 		</dependency>
+
 		<!-- mybatis-spring 의존성 추가 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>1.3.0</version>
 		</dependency>
+
 		<!-- mysql-connector-java 의존성 추가 -->
 		<dependency>
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.11</version>
 		</dependency>
+
 		<!-- spring-jdbc 추가 -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+
 		<!-- Tiles -->
 		<dependency>
 		    <groupId>org.apache.tiles</groupId>
@@ -178,6 +188,7 @@
 		    <artifactId>tiles-template</artifactId>
 		    <version>${org.apache.tiles-version}</version>
 		</dependency>
+
 		<!--스프링시큐리티 web 라이브러리-->
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
@@ -194,18 +205,20 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
-		    <!-- pom.xml -->
+
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.3.2</version>
 		</dependency>
+
 		<!-- @Resource 사용을 위한  -->
 		<dependency>
 		    <groupId>javax.annotation</groupId>
 		    <artifactId>javax.annotation-api</artifactId>
 		    <version>1.3.2</version>
 		</dependency>
+
 		<!-- json -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -217,6 +230,7 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.2</version>
 		</dependency>
+
 	</dependencies>
     <build>
         <plugins>

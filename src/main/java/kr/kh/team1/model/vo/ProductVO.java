@@ -1,6 +1,5 @@
 package kr.kh.team1.model.vo;
 
-
 import java.sql.Date;
 
 import lombok.Data;
@@ -22,5 +21,7 @@ public class ProductVO {
 	private int pr_view; 
 	private Date pr_date; 
 	private String pr_buyId;
+  private String pr_mg_name;
+  private String pr_tg_name;
 
 }
