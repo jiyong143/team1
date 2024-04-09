@@ -22,7 +22,7 @@
 		</li>
 	</c:if>
 	<li class="nav-item">
-			<a class="nav-link" href="<c:url value="/post/list"/>">게시글</a>
+			<a class="nav-link" href="<c:url value="/product/list"/>">게시글</a>
 	</li>
 	</ul>
 </nav>

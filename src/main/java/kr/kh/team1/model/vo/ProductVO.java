@@ -2,6 +2,11 @@ package kr.kh.team1.model.vo;
 
 import java.util.Date;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class ProductVO {
 	
 	private int pr_num; 

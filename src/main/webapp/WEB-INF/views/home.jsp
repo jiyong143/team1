@@ -22,7 +22,7 @@
 			<a class="nav-link" href="<c:url value="/login"/>">로그인</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="<c:url value="/list"/>">중고 매매</a>
+			<a class="nav-link" href="<c:url value="/list"/>">거래글</a>
 		</li>
 	</ul>
 </nav>
