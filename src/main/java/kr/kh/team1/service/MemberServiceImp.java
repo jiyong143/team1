@@ -73,6 +73,4 @@ public class MemberServiceImp implements MemberService {
 		return member == null;
 	}
 	
-	
-	
 }

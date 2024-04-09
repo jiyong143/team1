@@ -1,5 +1,6 @@
 package kr.kh.team1.model.vo;
 
+
 import java.sql.Date;
 
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberVO {
+
 	String me_id;
 	String me_pw;
 	String me_email;
@@ -21,4 +23,5 @@ public class MemberVO {
 	double me_manner;
 	int me_fi_num;
 	String me_pw2;
+
 }
