@@ -7,9 +7,9 @@ DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(15)	NOT NULL primary key,
-	`me_pw`	varchar(20) not	NULL,
+	`me_pw`	varchar(200) not NULL,
 	`me_email`	varchar(30) not	NULL,
-	`me_gender`	varchar(2)	not	NULL,
+	`me_gender`	varchar(5)	not	NULL,
 	`me_name`	varchar(15)	not	NULL,
 	`me_birth`	int	not	NULL,
 	`me_phone`	varchar(13)	not	NULL,
