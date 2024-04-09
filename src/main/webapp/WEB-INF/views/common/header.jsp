@@ -26,3 +26,13 @@
 	</li>
 	</ul>
 </nav>
+<nav role="navigation">
+  <ul id="main-menu">
+  <c:forEach items="${midList }" var="mid">
+    <li><a href="#">${mid.mg_title }</a>
+      
+    </li>
+   </c:forEach>
+  </ul>
+</nav>
+	
