@@ -1,23 +1,67 @@
 package kr.kh.team1.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.service.ChatService;
+import kr.kh.team1.utils.SseEmitters;
 
-@Controller
+@RestController
 public class IBHController {
 
 	@Autowired
 	ChatService chatService;
+	
+	private final SseEmitters sseEmitters; 
+	
+	@Autowired 
+	public IBHController(SseEmitters sseEmitters) {  
+		this.sseEmitters = sseEmitters;  
+	}  
+	
+	@RequestMapping(value = "/ex1")
+	public ModelAndView ex1(ModelAndView mv,String name, Integer age) {
+		System.out.println("예제1 - 화면에서 전달한 이름 : " + name);
+		System.out.println("예제1 - 화면에서 전달한 나이 : " + age);
+		mv.setViewName("/main/ex1");
+		return mv;
+	}
+	
+	@GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)  
+	  public ResponseEntity<SseEmitter> connect() {  
+	      SseEmitter emitter = new SseEmitter(60 * 1000L);
+	      sseEmitters.add(emitter);
+	      try {  
+	          emitter.send(SseEmitter.event()
+	                  .name("connect")  
+	                  .data("connected!"));
+	          count();
+	      } catch (IOException e) {  
+	          throw new RuntimeException(e);  
+	      }  
+	      return ResponseEntity.ok(emitter);
+	  }  
+	
+	  @GetMapping("/count")  
+	  public ResponseEntity<Void> count() {  
+	      sseEmitters.count();
+	      return ResponseEntity.ok().build();
+	  }  
+	
 	
 	@GetMapping("/chat/chatList")
 	public String makeChatRoom(Model model, HttpSession session) {
@@ -40,4 +84,5 @@ public class IBHController {
 		
 		return "/chat/chatList";
 	}
+	
 }
