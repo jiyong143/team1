@@ -12,7 +12,7 @@
 	<select id="selectTopGroupList" resultMap ="TopGroupMap">
 	    select * from topgroup
 	</select>
-	<select id="selectMidGroup" resultType="MidGroupVO">
+	<select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
 		select * from midgroup where mg_tg_num = #{tg_num}
 	</select>
 </mapper>
