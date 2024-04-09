@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ChatStateVo {
+public class ChatStateVO {
 	
 	private int cs_num; 
 	private int cs_cr_num; 

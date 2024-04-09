@@ -1,8 +1,6 @@
 package kr.kh.team1.model.vo;
 
 
-import java.util.Date;
-
 import java.sql.Date;
 
 import lombok.Data;
