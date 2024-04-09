@@ -7,7 +7,66 @@
 <select id="selectProductList" resultType="ProductVO">
     select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                           join topgroup on mg_tg_num = tg_num 
-    where pr_mg_num = #{num}
+        <if test='cri.type == "all"'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%')
+  			or pr_place like concat('%', #{cri.search}, '%'))
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}	
+  		</if>
+  		<if test='cri.type == "title"'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.type == "address"'>
+  			where pr_place like concat('%', #{cri.search}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}
+  		</if>
+  		
+  		<if test='cri.order == "desc"'>
+  		    order by pr_price desc
+  		</if>
+  		
+  		<if test='cri.order == "asc"'>
+  		    order by pr_price asc
+  		</if>
+  		
+  		<if test='cri.order == "pr_num"'>
+  		    order by pr_num desc
+  		</if>
+  		<if test='cri.order == "pr_view"'>
+  		    order by pr_view desc
+  		</if>
+  		<if test='cri.order == "pr_basket"'>
+  		    order by pr_basket desc
+  		</if>
+    limit #{cri.pageStart} , #{cri.perPageNum}
+</select>
+
+<select id="selectProductTotalCount" resultType="int">
+    select count(*) from product join midgroup on pr_mg_num = mg_num 
+                          join topgroup on mg_tg_num = tg_num 
+        <if test='cri.type == "all"'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%')
+  			or pr_place like concat('%', #{cri.search}, '%'))
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}	
+  		</if>
+  		<if test='cri.type == "title"'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.type == "address"'>
+  			where pr_place like concat('%', #{cri.search}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}
+  		</if>
 </select>
    
 </mapper>

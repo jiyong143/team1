@@ -8,6 +8,29 @@
 <body>
 <div class="container">
 	<h1>상품 목록</h1>
+	<form action="<c:url value="/product/list"/>" method="get" id="searchForm">
+	<input type="hidden" value="${num }" name="mNum">
+		<div class="input-group mb-3">
+			<select class="form-control" name="type">
+				<option value="all" <c:if test="${pm.cri.type == 'all' }">selected</c:if>>전체(제목,내용,주소)</option>
+				<option value="title" <c:if test="${pm.cri.type == 'title' }">selected</c:if>>제목, 내용</option>
+				<option value="address" <c:if test="${pm.cri.type == 'address' }">selected</c:if>>주소</option>
+			</select>
+			<input type="text" class="form-control" name="search" value="${pm.cri.search }">
+			<input type="int" value="${pm.cri.minPrice }" name="minPrice" placeholder="최소 가격">
+			<input type="int" value="${pm.cri.maxPrice }" name="maxPrice" placeholder="최대 가격">
+			<button class="btn btn-outline-success">검색</button>
+		</div>
+		<select class="form-control col-4 offset-8 mb-4" name="order">
+			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
+			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>
+			<option value="pr_basket" <c:if test="${pm.cri.order == 'pr_basket' }">selected</c:if>>찜순</option>
+			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
+			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
+		</select>
+	</form>
+	
+	
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -44,7 +67,47 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="<c:url value="/post/insert"/>" class="btn btn-outline-success">글쓰기</a>
+	
+	<ul class="pagination justify-content-center">
+		<c:if test="${pm.prev}">
+			<li class="page-item">
+				<c:url var="url" value="/product/list">
+					<c:param name="page" value="${pm.startPage - 1}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="mNum"  value="${num }" />
+				</c:url>
+				<a class="page-link" href="${url}">이전</a>
+			</li>
+		</c:if>
+		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+			<c:set var="active" value="${pm.cri.page == i ?'active':'' }"/>
+			<li class="page-item ${active}">
+				<c:url var="url" value="/product/list">
+					<c:param name="page" value="${i}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="mNum"  value="${num }" />
+				</c:url>
+				<a class="page-link" href="${url}">${i}</a>
+			</li>
+		</c:forEach>
+		<c:if test="${pm.next}">
+			<li class="page-item">
+				<c:url var="url" value="/product/list">
+					<c:param name="page" value="${pm.endPage + 1}"/>
+					<c:param name="search" value="${pm.cri.search}"/>
+					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="mNum"  value="${num }" />
+				</c:url>
+				<a class="page-link" href="${url}">다음</a>
+			</li>
+		</c:if>
+	</ul>
+	<a href="<c:url value="/product/insert"/>" class="btn btn-outline-success">글쓰기</a>
 </div>
 <script type="text/javascript">
 $("[name=order]").change(function(){

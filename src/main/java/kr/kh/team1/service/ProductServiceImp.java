@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team1.dao.ProductDAO;
 import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.pagination.Criteria;
 
 @Service
 public class ProductServiceImp implements ProductService {
@@ -15,8 +16,13 @@ public class ProductServiceImp implements ProductService {
 	ProductDAO productDao;
 
 	@Override
-	public ArrayList<ProductVO> getProductList(int mNum) { 
-		return productDao.selectProductList(mNum); 
+	public ArrayList<ProductVO> getProductList(int mNum, Criteria cri) { 
+		return productDao.selectProductList(mNum, cri);  
+	}
+
+	@Override
+	public int getProductTotalCount(int mNum, Criteria cri) {
+		return productDao.selectProductTotalCount(mNum, cri);  
 	}
 
 }
