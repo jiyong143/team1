@@ -1,8 +1,0 @@
-package kr.kh.team1.controller;
-
-import org.springframework.stereotype.Controller;
-
-@Controller
-public class CJYController {
-
-}
