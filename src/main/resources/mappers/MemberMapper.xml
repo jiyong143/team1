@@ -10,4 +10,10 @@
 	<select id="selectMember" resultType="kr.kh.team1.model.vo.MemberVO">
 		select * from member where me_id = #{me_id}
 	</select>
+	<select id="selectMemberEmail" resultType="kr.kh.team1.model.vo.MemberVO">
+		select * from member where me_email = #{email}
+	</select>
+	<select id="selectMemberPhone" resultType="kr.kh.team1.model.vo.MemberVO">
+		select * from member where me_phone = #{phone}
+	</select>
 </mapper>

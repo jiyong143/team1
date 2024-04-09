@@ -72,6 +72,18 @@ public class MemberServiceImp implements MemberService {
 		MemberVO member = memberDao.selectMember(id);
 		return member == null;
 	}
+
+	@Override
+	public boolean emailCheck(String email) {
+		MemberVO member = memberDao.selectMemberEmail(email);
+		return member == null;
+	}
+
+	@Override
+	public boolean phoneCheck(String phone) {
+		MemberVO member = memberDao.selectMemberPhone(phone);
+		return member == null;
+	}
 	
 	
 	

@@ -64,6 +64,7 @@
 		<div class="form-group">
 			<label for="phone">핸드폰 번호(OOO-OOOO-OOOO):</label>
 			<input type="tel" class="form-control" id="phone" name="me_phone" required>
+			<label id="phone-error" class="error text-danger" for="phone"></label>
 		</div>
 		<div class="form-group">
 			<label for="addr">주소:</label>
@@ -136,7 +137,11 @@ $("form").validate({
 		}
 	},
 	submitHandler : function(form){
-		return idCheckDup();
+		
+		if(idCheckDup() && emailCheckDup() && phoneCheckDup()) {
+			return true;
+		}
+		return false;
 	}
 });
 
@@ -185,8 +190,76 @@ function idCheckDup(){
 	});
 	return result;
 }
+
+function emailCheckDup(){
+	$("#email-error").text("");
+	$("#email-error").hide();
+	let email = $('[name=me_email]').val();
+	let obj = {
+		email : email
+	}
+	let result = false;
+	
+	$.ajax({
+		async : false,
+		url : '<c:url value="/email/check/dup"/>', 
+		type : 'get', 
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			result = data.result;
+			if(!result){
+				$("#email-error").text("이미 사용중인 이메일입니다.");
+				$("#email-error").show();
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	return result;
+}
+
+function phoneCheckDup(){
+	$("#phone-error").text("");
+	$("#phone-error").hide();
+	//입력된 아이디를 가져옴
+	let phone = $('[name=me_phone]').val();
+	let obj = {
+		phone : phone
+	}
+	
+	let result = false;
+	
+	$.ajax({
+		async : false,
+		url : '<c:url value="/phone/check/dup"/>', 
+		type : 'get', 
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			result = data.result;
+			if(!result){
+				$("#phone-error").text("이미 사용중인 번호입니다.");
+				$("#phone-error").show();
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	return result;
+}
+
+
 $('[name=me_id]').on('input',function(){
 	idCheckDup();
+})
+$('[name=me_email]').on('input',function(){
+	emailCheckDup();
+})
+$('[name=me_phone]').on('input',function(){
+	phoneCheckDup();
 })
 </script>
 
