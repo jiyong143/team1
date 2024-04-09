@@ -44,7 +44,6 @@ public class HomeController {
 		
 		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
 		model.addAttribute("list",topGroupList);
-		
 		return "/main/home";
 	}
 	
