@@ -19,7 +19,6 @@
 	    <property name="username" value="root"></property>
 	    <property name="password" value="root"></property>
 	</bean> 
-	
 	<!-- mapper 정보 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	    <property name="dataSource" ref="dataSource" />
