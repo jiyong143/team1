@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TopGroupVO {
+public class TopGroupVO { 
 	
 	private int tg_num; 
 	private String tg_title;
