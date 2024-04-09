@@ -11,7 +11,7 @@ public class CJYController {
    public String productList(Model model, int mNum) {
 	   
 	   
-	   
+	   return "";
    }
     
     
