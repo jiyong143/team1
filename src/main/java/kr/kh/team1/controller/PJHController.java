@@ -3,6 +3,8 @@ package kr.kh.team1.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +50,10 @@ public class PJHController {
 	}
 	
 	@PostMapping("/member/login")
-	public String loginPost(Model model, LoginDTO loginDto) {
+	public String loginPost(Model model, LoginDTO loginDto, HttpSession session) {
 		MemberVO user = memberService.login(loginDto);
 		model.addAttribute("user", user);//user라는 이름으로 전송
+		session.setAttribute("user", user);
 		if(user != null) {
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인을 했습니다.");
