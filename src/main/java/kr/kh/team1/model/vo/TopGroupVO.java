@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TopGroupVO {
 	
-	@Autowired
-	MidGroupService midGroupService;
-	
 	private int tg_num; 
 	private String tg_title;
+	private ArrayList<MidGroupVO> midGroupList; 
 	
 
 }

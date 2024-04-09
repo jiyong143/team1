@@ -27,13 +27,29 @@
 	</li>
 	</ul>
 </nav>
-<nav role="navigation">
-  <ul id="main-menu">
-  <c:forEach items="${midList }" var="mid">
-    <li><a href="#">${mid.mg_title }</a>
-      
-    </li>
-   </c:forEach>
-  </ul>
-</nav>
+
+
+<nav class="category-container">
+		<div class="category-toggle" onclick="toggleCategory()">
+			<span></span><span></span><span></span>
+		</div>
+		<div class="category" id="category">
+			<div class="category-box">
+				<c:forEach items="${list}" var="top">
+					<h3>${top.tg_title}</h3>
+					<hr>
+					<div class="board-list">
+						<c:forEach items="${top.midGroupList}" var="mid">
+							<c:url var="url" value="/product/list">
+								<c:param name="mNum" value="${mid.mg_num}" />
+							</c:url>
+							<h5>
+								<li><a href="${url}">${mid.mg_title}</a></li>
+							</h5>
+						</c:forEach>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</nav>
 	

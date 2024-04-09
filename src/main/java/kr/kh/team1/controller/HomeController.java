@@ -13,9 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.service.MemberService;
-import kr.kh.team1.service.MidGroupService;
+import kr.kh.team1.service.TopGroupService;
 
 
 @Controller
@@ -26,8 +26,7 @@ public class HomeController {
 	MemberService memberService;
 	
     @Autowired
-	
-	MidGroupService midGroupService;
+	TopGroupService topGroupService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -43,8 +42,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		ArrayList <MidGroupVO> midList = midGroupService.getMidGroupList(); 
-		model.addAttribute("midList",midList);
+		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
+		model.addAttribute("list",topGroupList);
 		
 		return "/main/home";
 	}
