@@ -5,9 +5,9 @@
 <configuration>
    <typeAliases>
         <!-- Mapper 에서 resultType을 간단히 줄여쓰기 위해 typeAlias를 활용 -->
-          <typeAlias type="kr.kh.team1.model.vo.MemberVO" alias="MemberVO"/>
-           <typeAlias type="kr.kh.team1.model.vo.TopGroupVO" alias="TopGroupVO"/>
-           <typeAlias type="kr.kh.team1.model.vo.MidGroupVO" alias="MidGroupVO"/>
-           <typeAlias type="kr.kh.team1.model.vo.ProductVO" alias="ProductVO"/>
+        <typeAlias type="kr.kh.team1.model.vo.MemberVO" alias="MemberVO"/>
+        <typeAlias type="kr.kh.team1.model.vo.TopGroupVO" alias="TopGroupVO"/>
+        <typeAlias type="kr.kh.team1.model.vo.MidGroupVO" alias="MidGroupVO"/>
+        <typeAlias type="kr.kh.team1.model.vo.ProductVO" alias="ProductVO"/>
    </typeAliases>
 </configuration>
