@@ -27,29 +27,33 @@
 		<li class="nav-item">
 			<a class="nav-link" href="<c:url value="/chat/chatList"/>">판매자와의 대화</a>
 		</li>
+		<li class="nav-item">
+	    	<a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
+	    </li>
 	</ul>
 </nav>
+<script type="text/javascript">
 
-<nav class="category-container">
-	<div class="category-toggle" onclick="toggleCategory()">
-		<span></span><span></span><span></span>
-	</div>
-	<div class="category" id="category">
-		<div class="category-box">
-			<c:forEach items="${list}" var="top">
-				<h3>${top.tg_title}</h3>
-				<hr>
-				<div class="board-list">
-					<c:forEach items="${top.midGroupList}" var="mid">
-						<c:url var="url" value="/product/list">
-							<c:param name="mNum" value="${mid.mg_num}" />
-						</c:url>
-						<h5>
-							<li><a href="${url}">${mid.mg_title}</a></li>
-						</h5>
-					</c:forEach>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-</nav>
+//이벤트 생성
+const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
+
+sse.addEventListener('connect', (e) => {
+	const { data: receivedConnectData } = e;
+	console.log('connect event data: ',receivedConnectData);  // "connected!"
+});
+
+sse.addEventListener('receive', e => {  
+    const { data: receivedData } = e;  
+    obj = JSON.parse(receivedData);
+    console.log(obj)
+    console.log("보낸 사람 : " + obj.from);
+    console.log("메세지 : " + obj.msg)
+});
+
+//페이지 이동 시 sse 연결 끊기.
+window.addEventListener('beforeunload', function (e) {
+	if (sse) {
+  	sse.close(); // SSE 연결 닫기
+  }
+});
+</script>

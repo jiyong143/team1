@@ -55,6 +55,7 @@
 	</form>
 	<table class="table table-hover">
 		<thead>
+			<tr>
 				<th>번호</th>
 				<th>대분류</th>
 				<th>중분류</th>
