@@ -16,6 +16,7 @@
 		<div class="form-group">
 			<label for="id">아이디:</label>
 			<input type="text" class="form-control" id="id" name="me_id" required>
+			<label id="id-error" class="error text-danger" for="id"></label>
 			<label id="id-error2" class="error text-danger"></label>
 		</div>
 		<div class="form-group">
@@ -32,6 +33,7 @@
 			<label for="email">이메일:</label>
 			<input type="email" class="form-control" id="email" name="me_email" required>
 			<label id="email-error" class="error text-danger" for="email"></label>
+			<label id="email-error2" class="error text-danger"></label>
 		</div>
 		
 		<div class="from-group">
@@ -56,18 +58,23 @@
 		<div class="form-group">
 			<label for="name">이름:</label>
 			<input type="text" class="form-control" id="name" name="me_name" required>
+			<label id="name-error" class="error text-danger" for="name"></label>
 		</div>
 		<div class="form-group">
 			<label for="birth">생년월일:</label>
 			<input type="date" class="form-control" id="birth" name="me_birth" required>
+			<label id="birth-error" class="error text-danger" for="birth"></label>
 		</div>
 		<div class="form-group">
 			<label for="phone">핸드폰 번호(OOO-OOOO-OOOO):</label>
 			<input type="tel" class="form-control" id="phone" name="me_phone" required>
+			<label id="phone-error" class="error text-danger" for="phone"></label>
+			<label id="phone-error2" class="error text-danger"></label>
 		</div>
 		<div class="form-group">
 			<label for="addr">주소:</label>
 			<input type="text" class="form-control" id="addr" name="me_addr" required>
+			<label id="addr-error" class="error text-danger" for="addr"></label>
 		</div>
 		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
 	</form>
@@ -136,7 +143,11 @@ $("form").validate({
 		}
 	},
 	submitHandler : function(form){
-		return idCheckDup();
+		
+		if(idCheckDup() && emailCheckDup() && phoneCheckDup()) {
+			return true;
+		}
+		return false;
 	}
 });
 
@@ -185,8 +196,82 @@ function idCheckDup(){
 	});
 	return result;
 }
+
+function emailCheckDup(){
+	$("#email-error2").text("");
+	$("#email-error2").hide();
+	let email = $('[name=me_email]').val();
+	let obj = {
+		email : email
+	}
+	let result2 = false;
+	let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+	if(!emailRegex.test(email)){
+		return false;
+	}
+	$.ajax({
+		async : false,
+		url : '<c:url value="/email/check/dup"/>', 
+		type : 'get', 
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			result2 = data.result;
+			if(!result2){
+				$("#email-error2").text("이미 사용중인 이메일입니다.");
+				$("#email-error2").show();
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	return result2;
+}
+
+function phoneCheckDup(){
+	$("#phone-error2").text("");
+	$("#phone-error2").hide();
+	//입력된 아이디를 가져옴
+	let phone = $('[name=me_phone]').val();
+	let obj = {
+		phone : phone
+	}
+	let phoneRegex = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+	if(!phoneRegex.test(phone)){
+		return false;
+	}
+	let result3 = false;
+	
+	$.ajax({
+		async : false,
+		url : '<c:url value="/phone/check/dup"/>', 
+		type : 'get', 
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			result3 = data.result;
+			if(!result3){
+				$("#phone-error2").text("이미 사용중인 번호입니다.");
+				$("#phone-error2").show();
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	return result3;
+}
+
+
 $('[name=me_id]').on('input',function(){
 	idCheckDup();
+})
+$('[name=me_email]').on('input',function(){
+	emailCheckDup();
+})
+$('[name=me_phone]').on('input',function(){
+	phoneCheckDup();
 })
 </script>
 

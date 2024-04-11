@@ -15,3 +15,6 @@ public interface MemberDAO {
 	MemberVO selectMemberPhone(@Param("phone")String phone);
 	
 }
+
+
+

@@ -15,7 +15,7 @@ public class TopGroupVO {
 	
 	private int tg_num; 
 	private String tg_title;
-	private ArrayList<MidGroupVO> midGroupList; 
+	private ArrayList<MidGroupVO> midGroupList;
 	
 
 }
