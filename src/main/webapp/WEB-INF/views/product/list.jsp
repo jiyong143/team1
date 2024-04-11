@@ -651,7 +651,12 @@ html {
       <label for="search" class="flex items-center justify-between">
         <span class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] text-heading"><path d="M10.0278 19.0556C14.3233 19.0556 17.8056 15.5733 17.8056 11.2778C17.8056 6.98223 14.3233 3.5 10.0278 3.5C5.73223 3.5 2.25 6.98223 2.25 11.2778C2.25 15.5733 5.73223 19.0556 10.0278 19.0556Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M21 21.8999L15.5 16.8999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </span>
-         <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요? 카페상품, 앱상품 모두 검색" aria-label="search-header" autocomplete="off">
+        <form action="<c:url value="/product/list"/>" method="get">
+         <input type="hidden" value="${num }" name="mNum">
+         <input type="hidden" value="${tname }" name="tName">
+         <input type="hidden" value="${mName}" name="mName">
+         <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요? 카페상품, 앱상품 모두 검색" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
+         </form>
       </label>
     </form>
    </div>
@@ -672,7 +677,9 @@ html {
 <div class="os-viewport os-viewport-native-scrollbars-invisible os-viewport-native-scrollbars-overlaid">
 <div class="os-content" style="padding: 0px; height: 100%; width: 100%;">
 <div class="h-full bg-white border rounded-md rounded-t-none border-gray-150">
-<div class="flex justify-center items-center h-[528px]"><svg width="48px" height="48px" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_1457_156476)"><path d="M3.05225 47.2382C1.9325 47.5436 0.905039 46.5161 1.21042 45.3964L5.82304 28.4835L19.9652 42.6256L3.05225 47.2382Z" fill="#DDE1E4"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M0.500005 24C0.500008 10.7452 11.2452 -1.37836e-06 24.5 -8.87953e-07C37.7548 -3.9755e-07 48.5 10.7452 48.5 24C48.5 37.2548 37.7548 48 24.5 48C11.2452 48 0.500002 37.2548 0.500005 24ZM17.5 23.9998C17.5 22.3438 16.156 20.9998 14.5 20.9998C12.844 20.9998 11.5 22.3438 11.5 23.9998C11.5 25.6558 12.844 26.9998 14.5 26.9998C16.156 26.9998 17.5 25.6558 17.5 23.9998ZM24.5 20.9998C26.156 20.9998 27.5 22.3438 27.5 23.9998C27.5 25.6558 26.156 26.9998 24.5 26.9998C22.844 26.9998 21.5 25.6558 21.5 23.9998C21.5 22.3438 22.844 20.9998 24.5 20.9998ZM37.5 23.9998C37.5 22.3438 36.156 20.9998 34.5 20.9998C32.844 20.9998 31.5 22.3438 31.5 23.9998C31.5 25.6558 32.844 26.9998 34.5 26.9998C36.156 26.9998 37.5 25.6558 37.5 23.9998Z" fill="#DDE1E4"></path></g><defs><clipPath id="clip0_1457_156476"><rect width="48" height="48" fill="white" transform="translate(48.5 48) rotate(-180)"></rect></clipPath></defs></svg></div></div>
+<div class="flex justify-center items-center h-[528px]">
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -684,11 +691,30 @@ html {
   </div>
  </div>
  
+ <div class="os-scrollbar os-scrollbar-vertical os-scrollbar-unusable os-scrollbar-auto-hidden"> 
+    <div class="os-scrollbar-track os-scrollbar-track-off">
+       <div class="os-scrollbar-handle" style="transform: translate(0px, 0px);">
+       </div>
+    </div>
+ </div>
  
+ <div class="os-scrollbar-corner">
+  </div>
+ </div>
+ </div>
+ </div>
  
- <div class="os-scrollbar-corner"></div></div></div></div><div class="hidden lg:flex relative w-[300px]"><ul class="flex w-full text-sm font-medium list-none text-jnGray-900 break-keep"><li class="flex items-center justify-center pr-3"><button class="ga4_main_top_menu flex items-center justify-center"><div class="relative cursor-pointer" id="채팅하기"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" id="채팅하기" size="24"><path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.797 12.2c0 1.639-.438 3.175-1.204 4.5l.46 3.035a.9.9 0 0 1-1.23.968l-2.526-.708a9 9 0 1 1 4.5-7.796" clip-rule="evenodd"></path><path fill="#141313" stroke="#141313" stroke-width="0.15" d="M8.864 12.2a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Z"></path></svg></div><p id="채팅하기" class="ml-1">채팅하기</p></button></li><li class="after:contents-[&quot;&quot;] after:absolute after:w-[1px] after:h-4 after:bg-jnGray-300 after:right-0 before:contents-[&quot;&quot;] before:absolute before:w-[1px] before:h-4 before:bg-jnGray-300 before:left-0 ga4_main_top_menu relative flex items-center justify-center px-3"><a class="flex items-center justify-center [&amp;>p]:ml-1" href="/product/form?type=regist"><svg id="판매하기" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.6859 20.6926H4.92323C3.88605 20.6926 3.08773 19.8241 3.20716 18.8409L4.49579 8.32142C4.5775 7.63983 5.18096 7.12109 5.89756 7.12109H15.8168C16.5334 7.12109 17.1369 7.6338 17.2186 8.32142L17.91 14.0701" stroke="currentColor" stroke-width="1.5"></path><path d="M8.35938 9.35156V9.5868C8.35938 10.7751 9.47828 11.7462 10.8486 11.7462C12.219 11.7462 13.3379 10.7751 13.3379 9.5868V9.35156" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.35938 7.72983V6.25112C7.35938 4.34555 8.90414 2.80078 10.8097 2.80078V2.80078C12.7153 2.80078 14.26 4.34555 14.26 6.25112V7.72983" stroke="currentColor" stroke-width="1.5"></path><path d="M17.1179 22.4245C19.3694 22.4245 21.1968 20.5969 21.1968 18.347C21.1968 16.0972 19.3694 14.2695 17.1179 14.2695C14.8665 14.2695 13.0391 16.0972 13.0391 18.347C13.0391 20.5969 14.8665 22.4245 17.1179 22.4245Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.1406 19.9298V16.7461" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5312 18.3439H18.7149" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p id="판매하기">판매하기</p></a></li><li class="relative flex flex-1 pl-3"><button class="flex items-center justify-center [&amp;>p]:ml-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" size="24"><path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.775 7.716a3.619 3.619 0 1 1-7.238.005 3.619 3.619 0 0 1 7.238-.005M13.15 13.371c-4.026 0-7.298 3.184-7.4 7.145h14.8c-.102-3.961-3.374-7.145-7.4-7.145"></path></svg><p>마이</p></button></li></ul></div></div>
+ <div class="hidden lg:flex relative w-[300px]">
+   <ul class="flex w-full text-sm font-medium list-none text-jnGray-900 break-keep">
+    <li class="flex items-center justify-center pr-3">
+    <button class="ga4_main_top_menu flex items-center justify-center">
+   <div class="relative cursor-pointer" id="채팅하기"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" id="채팅하기" size="24">
+    <path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.797 12.2c0 1.639-.438 3.175-1.204 4.5l.46 3.035a.9.9 0 0 1-1.23.968l-2.526-.708a9 9 0 1 1 4.5-7.796" clip-rule="evenodd"></path>
+    <path fill="#141313" stroke="#141313" stroke-width="0.15" d="M8.864 12.2a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Z"></path></svg>
+   </div>
+     <p id="채팅하기" class="ml-1">채팅하기</p>
+      </button></li><li class="after:contents-[&quot;&quot;] after:absolute after:w-[1px] after:h-4 after:bg-jnGray-300 after:right-0 before:contents-[&quot;&quot;] before:absolute before:w-[1px] before:h-4 before:bg-jnGray-300 before:left-0 ga4_main_top_menu relative flex items-center justify-center px-3"><a class="flex items-center justify-center [&amp;>p]:ml-1" href="/product/form?type=regist"><svg id="판매하기" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.6859 20.6926H4.92323C3.88605 20.6926 3.08773 19.8241 3.20716 18.8409L4.49579 8.32142C4.5775 7.63983 5.18096 7.12109 5.89756 7.12109H15.8168C16.5334 7.12109 17.1369 7.6338 17.2186 8.32142L17.91 14.0701" stroke="currentColor" stroke-width="1.5"></path><path d="M8.35938 9.35156V9.5868C8.35938 10.7751 9.47828 11.7462 10.8486 11.7462C12.219 11.7462 13.3379 10.7751 13.3379 9.5868V9.35156" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.35938 7.72983V6.25112C7.35938 4.34555 8.90414 2.80078 10.8097 2.80078V2.80078C12.7153 2.80078 14.26 4.34555 14.26 6.25112V7.72983" stroke="currentColor" stroke-width="1.5"></path><path d="M17.1179 22.4245C19.3694 22.4245 21.1968 20.5969 21.1968 18.347C21.1968 16.0972 19.3694 14.2695 17.1179 14.2695C14.8665 14.2695 13.0391 16.0972 13.0391 18.347C13.0391 20.5969 14.8665 22.4245 17.1179 22.4245Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.1406 19.9298V16.7461" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5312 18.3439H18.7149" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p id="판매하기">판매하기</p></a></li><li class="relative flex flex-1 pl-3"><button class="flex items-center justify-center [&amp;>p]:ml-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" size="24"><path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.775 7.716a3.619 3.619 0 1 1-7.238.005 3.619 3.619 0 0 1 7.238-.005M13.15 13.371c-4.026 0-7.298 3.184-7.4 7.145h14.8c-.102-3.961-3.374-7.145-7.4-7.145"></path></svg><p>마이</p></button></li></ul></div></div>
   <div class="relative">
-<svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <line x1="0.7" y1="2.85664" x2="19.3" y2="2.85664" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
 <line x1="0.7" y1="9.99922" x2="19.3" y2="9.99922" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
 <line x1="0.7" y1="17.1438" x2="19.3" y2="17.1437" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
@@ -696,13 +722,15 @@ html {
 <circle cx="13.2552" cy="17.2335" r="1.83333" fill="white" stroke="#141313" stroke-width="1.4"></circle>
 <circle cx="6.11458" cy="10.0326" r="1.83333" fill="white" stroke="#141313" stroke-width="1.4"></circle></svg>
 </button>
-<h1 class="text-[28px] font-normal mb-[10px]">검색 결과</h1>
-<table class="hidden lg:table filterTable"><tbody><tr><td class="flex items-center justify-between">
+
+<table class="hidden lg:table filterTable">
+<tbody>
+<tr>
+<td class="flex items-center justify-between">
 <p>카테고리</p>
-<button>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none">
-<path stroke="#9CA3AF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M8 2v12M2 8h12"></path>
-</svg></button></td><td><div class="flex items-center w-full chawkbazarBreadcrumb">
+</td>
+<td>
+<div class="flex items-center w-full chawkbazarBreadcrumb">
 <ol class="flex flex-wrap items-center w-full mt-0 lg:mt-0">
 	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${tName }
 	</li>
@@ -720,6 +748,7 @@ html {
 <input type="hidden" value="${tname }" name="tName">
 <input type="hidden" value="${mName}" name="mName">
 <input type="hidden" value="${num }" name="mNum">
+<input type="hidden" value="${pm.cri.place }" name="place">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 가격" data-idx="0" name="minPrice">
 <span class="mx-[6px]"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="4" fill="none" class="inline">
 <path fill="#5A616B" d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
@@ -732,12 +761,14 @@ html {
 <tr>
 <td>거래 희망 주소</td>
 <td class="price-filter">
-<form action="<c:url value="/product/list"/>">
+<form action="<c:url value="/product/list"/>" method="get">
 <input type="hidden" value="${tname }" name="tName">
 <input type="hidden" value="${mName}" name="mName">
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="address" name="type">
-<input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="search">
+<input type="hidden" value="${pm.cri.minPrice }" name="minPrice">
+<input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
+<input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white">적용</button>
 </form>
 </td>
@@ -753,22 +784,7 @@ html {
 </tr>
 </div>
 <div class="container">
-	<form action="<c:url value="/product/list"/>" method="get" id="searchForm">
-	<input type="hidden" value="${num }" name="mNum">
-		<div class="input-group mb-3">
-			<select class="form-control" name="type">
-				<option value="all" <c:if test="${pm.cri.type == 'all' }">selected</c:if>>전체(제목,내용,주소)</option>
-				<option value="title" <c:if test="${pm.cri.type == 'title' }">selected</c:if>>제목, 내용</option>
-				<option value="address" <c:if test="${pm.cri.type == 'address' }">selected</c:if>>주소</option>
-			</select>
-			<input type="text" class="form-control" name="search" value="${pm.cri.search }">
-			<input type="int" value="${pm.cri.minPrice }" name="minPrice" placeholder="최소 가격">
-			<input type="int" value="${pm.cri.maxPrice }" name="maxPrice" placeholder="최대 가격">
-			<button class="btn btn-outline-success">검색</button>
-		</div>
-  <div class="container">
-  <h2>검색결과</h2>
-  <p>현재 페이지 정보</p>            
+  <div class="container">          
   <table class="table table-bordered mb-3">
     <tbody>
       <tr>
@@ -797,7 +813,7 @@ html {
 			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
 			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
 		</select>
-	</form>
+
 	<table class="table table-hover">
 		<thead>
 			<tr>

@@ -6,22 +6,15 @@
 <select id="selectProductList" resultType="ProductVO">
     select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                           join topgroup on mg_tg_num = tg_num 
-        <if test='cri.type == "all"'>
+        <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
   			or pr_content like concat('%', #{cri.search}, '%')
   			or pr_place like concat('%', #{cri.search}, '%'))
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
   			and  pr_mg_num = #{num}	
   		</if>
-  		<if test='cri.type == "title"'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.type == "address"'>
-  			where pr_place like concat('%', #{cri.search}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  		<if test='cri.search == ""'>
+  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_place like concat('%', #{cri.place}, '%')
   			and  pr_mg_num = #{num}
   		</if>
   		
@@ -46,24 +39,17 @@
 </select>
 
 <select id="selectProductTotalCount" resultType="int">
-    select count(*) from product join midgroup on pr_mg_num = mg_num 
+    select count(*)from product join midgroup on pr_mg_num = mg_num 
                           join topgroup on mg_tg_num = tg_num 
-        <if test='cri.type == "all"'>
+        <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
   			or pr_content like concat('%', #{cri.search}, '%')
   			or pr_place like concat('%', #{cri.search}, '%'))
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
   			and  pr_mg_num = #{num}	
   		</if>
-  		<if test='cri.type == "title"'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.type == "address"'>
-  			where pr_place like concat('%', #{cri.search}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  		<if test='cri.search == ""'>
+  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_place like concat('%', #{cri.place}, '%')
   			and  pr_mg_num = #{num}
   		</if>
 </select>

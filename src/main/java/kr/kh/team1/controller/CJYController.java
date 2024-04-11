@@ -15,7 +15,7 @@ import kr.kh.team1.service.ProductService;
 @Controller
 public class CJYController {
 	
-	@Autowired 
+	@Autowired
 	ProductService productService; 
 
 
