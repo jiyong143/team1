@@ -64,6 +64,7 @@
 			<label for="birth">생년월일:</label>
 			<input type="date" class="form-control" id="birth" name="me_birth" required>
 			<label id="birth-error" class="error text-danger" for="birth"></label>
+			<label id="birth-error2" class="error text-danger"></label>
 		</div>
 		<div class="form-group">
 			<label for="phone">핸드폰 번호(OOO-OOOO-OOOO):</label>
@@ -144,7 +145,7 @@ $("form").validate({
 	},
 	submitHandler : function(form){
 		
-		if(idCheckDup() && emailCheckDup() && phoneCheckDup()) {
+		if(idCheckDup() && emailCheckDup() && phoneCheckDup() && birthCheckDup()) {
 			return true;
 		}
 		return false;
@@ -263,6 +264,36 @@ function phoneCheckDup(){
 	return result3;
 }
 
+function birthCheckDup(){
+	$("#birth-error2").text("");
+	$("#birth-error2").hide();
+	//입력된 아이디를 가져옴
+	let birth = $('[name=me_birth]').val();
+	let obj = {
+		birth : birth
+	}
+	let result = false;
+	//서버에 아이디를 전송해서 사용 가능/불가능 처리
+	$.ajax({
+		async : false,
+		url : '<c:url value="/birth/check/dup"/>', 
+		type : 'get', 
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			result = data.result;
+			if(!result){
+				$("#birth-error2").text("입력할 수 없는 생년월일입니다.");
+				$("#birth-error2").show();
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+	return result;
+}
+
 
 $('[name=me_id]').on('input',function(){
 	idCheckDup();
@@ -272,6 +303,9 @@ $('[name=me_email]').on('input',function(){
 })
 $('[name=me_phone]').on('input',function(){
 	phoneCheckDup();
+})
+$('[name=me_birth]').on('input',function(){
+	birthCheckDup();
 })
 </script>
 

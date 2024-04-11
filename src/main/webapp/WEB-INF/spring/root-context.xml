@@ -27,5 +27,4 @@
 	</bean>
 	<!-- dao 패키지 연결 -->
 	<mybatis-spring:scan base-package="kr.kh.team1.dao"/>
-			
 </beans>

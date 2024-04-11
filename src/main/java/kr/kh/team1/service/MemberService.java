@@ -14,4 +14,6 @@ public interface MemberService {
 	boolean emailCheck(String email);
 
 	boolean phoneCheck(String phone);
+
+	boolean birthCheck(String birth);
 }
