@@ -30,6 +30,7 @@
 	</ul>
 </nav>
 
+
 <nav class="category-container">
 	<div class="category-toggle" onclick="toggleCategory()">
 		<span></span><span></span><span></span>
@@ -43,6 +44,8 @@
 					<c:forEach items="${top.midGroupList}" var="mid">
 						<c:url var="url" value="/product/list">
 							<c:param name="mNum" value="${mid.mg_num}" />
+							<c:param name="tName" value="${top.tg_title}" />
+							<c:param name="mName" value="${mid.mg_title}" />
 						</c:url>
 						<h5>
 							<li><a href="${url}">${mid.mg_title}</a></li>
