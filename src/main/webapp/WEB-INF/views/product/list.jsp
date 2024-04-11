@@ -7,7 +7,6 @@
 </head>
 <body>
 <div class="container">
-	<h1>상품 목록</h1>
 	<form action="<c:url value="/product/list"/>" method="get" id="searchForm">
 	<input type="hidden" value="${num }" name="mNum">
 		<div class="input-group mb-3">
