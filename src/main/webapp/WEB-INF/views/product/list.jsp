@@ -55,26 +55,7 @@
 	</form>
 	<table class="table table-hover">
 		<thead>
-			<tr>
-        
-				<td>${list.size() - vs.index}</td>
-				<td>${product.pr_mg_num}</td>
-				<td>
-					<c:url value="/product/detail" var="url">
-						<c:param name="page" value="${pm.cri.page}"/>
-						<c:param name="type" value="${pm.cri.type}"/>
-						<c:param name="search" value="${pm.cri.search}"/>
-						<c:param name="prNum" value="${product.pr_num}"/>
-					</c:url>
-					<a href="${url}">${product.pr_name}</a>
-				</td>
-				<td>
-					<c:url value="/product/list" var="url">
-						<c:param name="type" value="writer"/>
-						<c:param name="search" value="${product.pr_me_id}"/>
-					</c:url>
-					<a href="${url}">${product.pr_me_id }</a>
-          
+			<tr> 
 				<th>번호</th>
 				<th>대분류</th>
 				<th>중분류</th>
