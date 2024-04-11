@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatMessageVO {
 	
-	private int cm_num; 
-	private int cm_cr_num; 
-	private String cm_me_id; 
+	private int cm_num;
+	private int cm_cr_num;
+	private String cm_me_id;
 	private String cm_content; 
 	private Date cm_time;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team1.dao.ChatDAO;
 import kr.kh.team1.model.dto.MessageDTO;
+import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 
 @Service
@@ -49,6 +50,11 @@ public class ChatServiceImp implements ChatService {
 			return false;
 		
 		return chatDao.insertChat(message);
+	}
+
+	@Override
+	public ArrayList<ChatMessageVO> getChatMessageList(int cr_num) {
+		return chatDao.selectChatMessgeList(cr_num);
 	}
 
 }

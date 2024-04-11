@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team1.model.dto.MessageDTO;
+import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 
 
@@ -17,5 +18,7 @@ public interface ChatDAO {
 	ArrayList<ChatRoomVO> selectChatRoomList(@Param("me_id")String me_id);
 
 	boolean insertChat(@Param("msg")MessageDTO message);
+
+	ArrayList<ChatMessageVO> selectChatMessgeList(@Param("cr_num")int cr_num);
 
 }

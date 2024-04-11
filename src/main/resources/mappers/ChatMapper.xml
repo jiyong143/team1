@@ -38,4 +38,9 @@
    		insert into chat_message(cm_cr_num, cm_me_id, cm_content, cm_time)
    		value(#{msg.cm_cr_num}, #{msg.cm_me_id}, #{msg.cm_content}, now())
    </insert>
+   
+   <!-- 채팅 내용 -->
+   <select id="selectChatMessgeList" resultType="kr.kh.team1.model.vo.ChatMessageVO">
+   		select * from chat_message where cm_cr_num = #{cr_num}
+   </select>
 </mapper>

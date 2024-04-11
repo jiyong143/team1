@@ -2,6 +2,8 @@ package kr.kh.team1.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,11 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import kr.kh.team1.model.dto.MessageDTO;
+import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.service.ChatService;
@@ -69,13 +75,14 @@ public class IBHController {
 		System.out.println(crv);
 		SseEmitter emitter;
 
+		if(user.getMe_id().equals(crv.getProduct().getPr_me_id())) {
+			// msg를 보낼 상대방의 에미터를 가져옴
+			emitter = sseEmitters.get(crv.getCr_me_id());
+		}else {
+			emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
+		}
+	
 		try { 
-			if(user.getMe_id().equals(crv.getProduct().getPr_me_id())) {
-				// msg를 보낼 상대방의 에미터를 가져옴
-				emitter = sseEmitters.get(crv.getCr_me_id());
-			}else {
-				emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
-			}
 			MessageDTO message = new MessageDTO(crv.getCr_num() ,user.getMe_id(), msg);
 			
 			emitter.send(SseEmitter.event()
@@ -87,5 +94,15 @@ public class IBHController {
 			throw new RuntimeException(e);
 		}
 		return "전송을 성공했습니다.";  
+	}
+	
+	@ResponseBody
+	@GetMapping("/sse/list")
+	public Map<String, Object> list(@RequestBody ChatMessageVO ChatMessageVo){
+		Map<String, Object> map = new HashMap<String, Object>();
+		int cr_num = 2;
+		ArrayList<ChatMessageVO> chatMsg  = chatService.getChatMessageList(cr_num);
+		map.put("list", chatMsg);
+		return map;
 	}
 }
