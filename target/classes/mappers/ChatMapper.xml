@@ -32,4 +32,10 @@
    <select id="selectChatRoomList" resultType="kr.kh.team1.model.vo.ChatRoomVO">
    		select * from chat_room where cr_me_id = #{me_id}
    </select>
+   
+   <!-- 채팅 내용 DB에 저장 -->
+   <insert id="insertChat">
+   		insert into chat_message(cm_cr_num, cm_me_id, cm_content, cm_time)
+   		value(1, #{msg.}, #{}, now())
+   </insert>
 </mapper>
