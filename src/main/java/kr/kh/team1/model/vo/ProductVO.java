@@ -21,7 +21,7 @@ public class ProductVO {
 	private int pr_view; 
 	private Date pr_date; 
 	private String pr_buyId;
-  private String pr_mg_name;
-  private String pr_tg_name;
+	private String pr_mg_name;
+	private String pr_tg_name;
 
 }

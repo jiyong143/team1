@@ -43,7 +43,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
-		model.addAttribute("pList",topGroupList);
+		model.addAttribute("list",topGroupList);
 		return "/main/home";
 	}
 	
