@@ -10,5 +10,9 @@ public interface MemberService {
 	MemberVO login(LoginDTO loginDto);
 
 	boolean idCheck(String id);
+	
+	boolean emailCheck(String email);
+	
+	boolean phoneCheck(String email);
 
 }
