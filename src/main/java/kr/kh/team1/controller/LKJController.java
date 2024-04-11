@@ -7,22 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import kr.kh.team1.model.vo.ProductVO;
-import kr.kh.team1.service.ProductService;
+import kr.kh.team1.model.vo.SurportVO;
+import kr.kh.team1.service.SuportService;
 
 @Controller
 public class LKJController {
-	
-	@Autowired
-	ProductService productService;
-	
-	@GetMapping("/product/list")
-	public String productList(Model model) {
-		ArrayList<ProductVO>list = productService.getProductList();
-		
-		model.addAttribute("title", "거래글 리스트");
-		model.addAttribute("list", list);
-		return "/product/list";
-	}
 
+	@Autowired
+	private SuportService surportService;
+	
+	@GetMapping("/suport/list")
+	public String surportList(Model model) {
+		ArrayList<SurportVO> list = surportService.getSurportList();
+		
+		return "/surport/list";
+	}
 }

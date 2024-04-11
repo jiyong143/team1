@@ -9,19 +9,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductVO {
 	
-	int pr_num; 
-	int pr_mg_num;
-	String pr_me_id;
-	String pr_name;
-	String pr_place; 
-	String pr_content;  
-	int pr_price; 
-	String pr_ps_state;  
-	int pr_basket; 
-	int pr_view; 
-	Date pr_date; 
-	String pr_buyId;
-	String pr_mg_name;
-	String pr_tg_name;
+	private int pr_num; 
+	private int pr_mg_num;
+	private String pr_me_id;
+	private String pr_name;
+	private String pr_place; 
+	private String pr_content;  
+	private int pr_price; 
+	private String pr_ps_state;  
+	private int pr_basket; 
+	private int pr_view; 
+	private Date pr_date; 
+	private String pr_buyId;
+	private String pr_mg_name;
+	private String pr_tg_name;
 
 }

@@ -27,6 +27,9 @@
 		<li class="nav-item">
 			<a class="nav-link" href="<c:url value="/chat/chatList"/>">판매자와의 대화</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
+		</li>
 	</ul>
 </nav>
 

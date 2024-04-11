@@ -22,7 +22,7 @@ public class IBHController {
 	@GetMapping("/chat/chatList")
 	public String makeChatRoom(Model model, HttpSession session) {
 	
-		int pr_num = 1;	// 임시 제품번호W
+		int pr_num = 1;	// 임시 제품번호
 		
 		// 로그인한 회원
 		MemberVO user = (MemberVO)session.getAttribute("user");
