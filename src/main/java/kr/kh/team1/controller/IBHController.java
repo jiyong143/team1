@@ -10,11 +10,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.service.ChatService;
@@ -32,57 +33,59 @@ public class IBHController {
 	public IBHController(SseEmitters sseEmitters) {  
 		this.sseEmitters = sseEmitters;  
 	}  
+
 	
-	@RequestMapping(value = "/ex1")
-	public ModelAndView ex1(ModelAndView mv,String name, Integer age) {
-		System.out.println("예제1 - 화면에서 전달한 이름 : " + name);
-		System.out.println("예제1 - 화면에서 전달한 나이 : " + age);
-		mv.setViewName("/main/ex1");
-		return mv;
-	}
-	
-	@GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)  
-	  public ResponseEntity<SseEmitter> connect() {  
-	      SseEmitter emitter = new SseEmitter(60 * 1000L);
-	      sseEmitters.add(emitter);
-	      try {  
-	          emitter.send(SseEmitter.event()
-	                  .name("connect")  
-	                  .data("connected!"));
-	          count();
-	      } catch (IOException e) {  
-	          throw new RuntimeException(e);  
-	      }  
-	      return ResponseEntity.ok(emitter);
-	  }  
-	
-	  @GetMapping("/count")  
-	  public ResponseEntity<Void> count() {  
-	      sseEmitters.count();
-	      return ResponseEntity.ok().build();
-	  }  
-	
-	
-	@GetMapping("/chat/chatList")
-	public String makeChatRoom(Model model, HttpSession session) {
-	
-		int pr_num = 1;	// 임시 제품번호
+	@GetMapping(value = "/sse/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)  
+	public ResponseEntity<SseEmitter> connect(HttpSession session) { 
 		
-		// 로그인한 회원
+		SseEmitter emitter = new SseEmitter(60 * 1000L);  
 		MemberVO user = (MemberVO)session.getAttribute("user");
-
-		// 회원과 판매글을 가지고 채팅방이 생성되었는지 확인
-		ChatRoomVO room = chatService.getChatRoom(user.getMe_id(), pr_num);
-
-		if(room == null) {
-			// 존재하지 않으면 채팅방 객체를 생성해서 서비스에게 채팅방을 만들라고 시킴
-			chatService.insertChatRoom(user.getMe_id(), pr_num);
-		}
 		
-		ArrayList<ChatRoomVO> chatRoomList =  chatService.selectChatRoomList(user.getMe_id());
-		model.addAttribute("chatRoomList", chatRoomList);
+		if(user == null)
+			return ResponseEntity.ok(emitter);	// 연결 성공 여부
+		sseEmitters.add(user.getMe_id(), emitter);
 		
-		return "/chat/chatList";
+		try {  
+			emitter.send(SseEmitter.event()  
+	              .name("connect")  
+	              .data("connected!"));  
+		} catch (IOException e) {  
+			throw new RuntimeException(e);  
+		}  
+		return ResponseEntity.ok(emitter);  
 	}
 	
+	
+	@PostMapping(value = "/sse/send", produces = "application/text; charset=UTF-8")  
+	public String send(HttpSession session, @RequestParam("msg") String msg) {  
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user == null)
+			return "로그인을 하지 않았습니다.";
+		
+		// 회원 + 상품 번호 채팅방 가져옴
+		int pr_num = 2;
+		ChatRoomVO crv = chatService.getChatRoom(user.getMe_id(), pr_num);
+		System.out.println(crv);
+		SseEmitter emitter;
+
+		try { 
+			if(user.getMe_id().equals(crv.getProduct().getPr_me_id())) {
+				// msg를 보낼 상대방의 에미터를 가져옴
+				emitter = sseEmitters.get(crv.getCr_me_id());
+			}else {
+				emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
+			}
+			MessageDTO message = new MessageDTO(crv.getCr_num() ,user.getMe_id(), msg);
+			
+			emitter.send(SseEmitter.event()
+	              .name("receive")
+	              .data(message));
+			
+			boolean res = chatService.insertChat(message);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return "전송을 성공했습니다.";  
+	}
 }

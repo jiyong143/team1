@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.util.ArrayList;
 
+import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 
 public interface ChatService {
@@ -11,4 +12,6 @@ public interface ChatService {
 	boolean insertChatRoom(String me_id, int pr_num);
 
 	ArrayList<ChatRoomVO> selectChatRoomList(String me_id);
+
+	boolean insertChat(MessageDTO message);
 }
