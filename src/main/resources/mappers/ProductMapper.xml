@@ -8,8 +8,9 @@
                           join topgroup on mg_tg_num = tg_num 
         <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%')
-  			or pr_place like concat('%', #{cri.search}, '%'))
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_place like concat('%', #{cri.place}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
   			and  pr_mg_num = #{num}	
   		</if>
   		<if test='cri.search == ""'>
@@ -39,12 +40,13 @@
 </select>
 
 <select id="selectProductTotalCount" resultType="int">
-    select count(*)from product join midgroup on pr_mg_num = mg_num 
+     select count(*) from product join midgroup on pr_mg_num = mg_num 
                           join topgroup on mg_tg_num = tg_num 
         <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%')
-  			or pr_place like concat('%', #{cri.search}, '%'))
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_place like concat('%', #{cri.place}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
   			and  pr_mg_num = #{num}	
   		</if>
   		<if test='cri.search == ""'>

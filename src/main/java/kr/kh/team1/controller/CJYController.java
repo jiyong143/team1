@@ -2,6 +2,8 @@ package kr.kh.team1.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +22,15 @@ public class CJYController {
 
 
    @GetMapping("/product/list") 
-   public String productList(Model model, int mNum, Criteria cri, String mName, String tName) { 
+   public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) { 
 	   ArrayList <ProductVO> productList = productService.getProductList(mNum, cri); 
 	   int totalCount = productService.getProductTotalCount(mNum, cri);
 	   PageMaker pm = new PageMaker(3, cri, totalCount);
 	   model.addAttribute("pm", pm);
 	   model.addAttribute("pList",productList); 
 	   model.addAttribute("num" , mNum);
-	   model.addAttribute("mName" , mName);
-	   model.addAttribute("tName" , tName); 
+	   session.setAttribute("MName",mName); 
+	   session.setAttribute("TName",tName);
 	   return "/product/list";  
 
    }

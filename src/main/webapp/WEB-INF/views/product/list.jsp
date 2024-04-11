@@ -653,8 +653,11 @@ html {
         </span>
         <form action="<c:url value="/product/list"/>" method="get">
          <input type="hidden" value="${num }" name="mNum">
-         <input type="hidden" value="${tname }" name="tName">
-         <input type="hidden" value="${mName}" name="mName">
+         <input type="hidden" value="${TName }" name="tName">
+         <input type="hidden" value="${MName}" name="mName">
+         <input type="hidden" value="${pm.cri.place}" name="place">
+         <input type="hidden" value="${pm.cri.minPrice}" name="minPrice">
+         <input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
          <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요? 카페상품, 앱상품 모두 검색" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
          </form>
       </label>
@@ -732,10 +735,10 @@ html {
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
 <ol class="flex flex-wrap items-center w-full mt-0 lg:mt-0">
-	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${tName }
+	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${TName }
 	</li>
 	<li class="pl-0 mx-2 mt-0 text-sm leading-5 text-jnGray-500 lg:mt-0">&gt;</li>
-	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${mName }
+	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${MName }
 	</li>
 </ol>
 </div>
@@ -745,15 +748,16 @@ html {
 <td>가격</td>
 <td class="price-filter">
 <form action="<c:url value="/product/list"/>" method="get">
-<input type="hidden" value="${tname }" name="tName">
-<input type="hidden" value="${mName}" name="mName">
+<input type="hidden" value="${TName }" name="tName">
+<input type="hidden" value="${MName}" name="mName">
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="${pm.cri.place }" name="place">
-<input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 가격" data-idx="0" name="minPrice">
+<input type="hidden" value="${pm.cri.search }" name="search">
+<input type="number" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 가격" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
 <span class="mx-[6px]"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="4" fill="none" class="inline">
 <path fill="#5A616B" d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
 </svg></span>
-<input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최대 가격" data-idx="1" name="maxPrice">
+<input type="number" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최대 가격" data-idx="1" name="maxPrice" value="${pm.cri.maxPrice }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white">적용</button>
 </form>
 </td>
@@ -762,12 +766,13 @@ html {
 <td>거래 희망 주소</td>
 <td class="price-filter">
 <form action="<c:url value="/product/list"/>" method="get">
-<input type="hidden" value="${tname }" name="tName">
-<input type="hidden" value="${mName}" name="mName">
+<input type="hidden" value="${TName }" name="tName">
+<input type="hidden" value="${MName}" name="mName">
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="address" name="type">
 <input type="hidden" value="${pm.cri.minPrice }" name="minPrice">
 <input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
+<input type="hidden" value="${pm.cri.search }" name="search">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white">적용</button>
 </form>
@@ -777,7 +782,10 @@ html {
 <td>옵션</td>
 <td>
 <ul class="flex undefined">
-<li class="mr-5"><label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack"><svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="text-base ps-1">판매완료 상품 포함</span></label><input id="saleYn" class="hidden" type="checkbox" value="SALE_N">
+<li class="mr-5">
+<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack"><svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-base ps-1">판매완료 상품 포함</span></label>
+<input id="saleYn" class="hidden" type="checkbox" value="SALE_N">
 </li>
 </ul>
 </td>
@@ -813,6 +821,7 @@ html {
 			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
 			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
 		</select>
+
 
 	<table class="table table-hover">
 		<thead>
