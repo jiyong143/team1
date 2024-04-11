@@ -40,15 +40,13 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-//		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
-//		model.addAttribute("pList",topGroupList);
+		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
+		model.addAttribute("list",topGroupList);
 		return "/main/home";
 	}
-	
 	@GetMapping("/sse")
 	public String sse() {
 
 		return "/chat/sse";
 	}
 }
-

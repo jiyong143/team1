@@ -73,14 +73,6 @@ public class PJHController {
 		return map;
 	}
 	
-//	@GetMapping("/logout")
-//	public String logout(Model model, HttpSession session) {
-//		session.removeAttribute("user");
-//		model.addAttribute("msg", "로그아웃 했습니다.");
-//		model.addAttribute("url", "/");
-//		return "message";
-//	}
-	
 	@ResponseBody
 	@GetMapping("/email/check/dup")
 	public Map<String, Object> emailCheckDup(@RequestParam("email") String email){
@@ -98,5 +90,13 @@ public class PJHController {
 		map.put("result", res);
 		return map;
 	}
+	
+//	@GetMapping("/logout")
+//	public String logout(Model model, HttpSession session) {
+//		session.removeAttribute("user");
+//		model.addAttribute("msg", "로그아웃 했습니다.");
+//		model.addAttribute("url", "/");
+//		return "message";
+//	}
 	
 }

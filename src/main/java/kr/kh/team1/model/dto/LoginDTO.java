@@ -1,7 +1,6 @@
 package kr.kh.team1.model.dto;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
