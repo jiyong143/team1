@@ -18,14 +18,17 @@
 		</c:if>
 		<c:if test="${user!=null }">
 			<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/logout"/>">로그아웃</a>
+				<a class="nav-link" href="<c:url value="/member/logout"/>">로그아웃</a>
 			</li>
 		</c:if>
 		<li class="nav-item">
-				<a class="nav-link" href="<c:url value="/product/list"/>">게시글</a>
+			<a class="nav-link" href="<c:url value="/product/list"/>">게시글</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="<c:url value="/chat/chatList"/>">판매자와의 대화</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<c:url value="/member/mypage"/>">마이</a>
 		</li>
 	</ul>
 </nav>
