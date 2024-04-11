@@ -10,5 +10,5 @@ public interface MemberService {
 	MemberVO login(LoginDTO loginDto);
 
 	boolean idCheck(String id);
-	
+
 }

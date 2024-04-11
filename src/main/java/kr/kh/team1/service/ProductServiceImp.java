@@ -10,12 +10,14 @@ import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 
 @Service
-public class ProductServiceImp implements ProductService {
+public class ProductServiceImp implements ProductService{
+
 	
 	@Autowired
 	ProductDAO productDao;
 
 	@Override
+
 	public ArrayList<ProductVO> getProductList(int mNum, Criteria cri) { 
 		return productDao.selectProductList(mNum, cri);  
 	}
@@ -23,6 +25,7 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public int getProductTotalCount(int mNum, Criteria cri) {
 		return productDao.selectProductTotalCount(mNum, cri);  
-	}
+  }
+  
 
 }

@@ -21,6 +21,30 @@
 			<input type="int" value="${pm.cri.maxPrice }" name="maxPrice" placeholder="최대 가격">
 			<button class="btn btn-outline-success">검색</button>
 		</div>
+  <div class="container">
+  <h2>검색결과</h2>
+  <p>현재 페이지 정보</p>            
+  <table class="table table-bordered mb-3">
+    <tbody>
+      <tr>
+        <td>카테고리</td>
+        <td>중분류</td>
+      </tr>
+      <tr>
+        <td>평균가격</td>
+        <td>중분류 평균가</td>
+      </tr>
+      <tr>
+        <td>가장 높은 가격</td>
+        <td>중분류 최고가</td>
+      </tr>
+        <tr>
+        <td>가장 낮은 가격</td>
+        <td>중분류 최저가</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 		<select class="form-control col-4 offset-8 mb-4" name="order">
 			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
 			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>
@@ -29,8 +53,6 @@
 			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
 		</select>
 	</form>
-	
-	
 	<table class="table table-hover">
 		<thead>
 			<tr>
