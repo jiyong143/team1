@@ -23,4 +23,5 @@ public class ProductVO {
 	private String pr_buyId;
 	private String pr_mg_name;
 	private String pr_tg_name;
+
 }
