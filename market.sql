@@ -109,7 +109,11 @@ DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
 	`co_num`	int	NOT NULL primary key auto_increment,
+<<<<<<< Updated upstream
 	`co_sb_num`	int	NOT NULL,
+=======
+	`co_su_num`	int	NOT NULL,
+>>>>>>> Stashed changes
 	`co_content` text not NULL
 );
 
@@ -300,10 +304,17 @@ REFERENCES `member` (
 );
 
 ALTER TABLE `comment` ADD CONSTRAINT `FK_surport_board_TO_comment_1` FOREIGN KEY (
+<<<<<<< Updated upstream
 	`co_sb_num`
 )
 REFERENCES `surport_board` (
 	`sb_num`
+=======
+	`co_su_num`
+)
+REFERENCES `surport` (
+	`su_num`
+>>>>>>> Stashed changes
 );
 
 ALTER TABLE `chat_state` ADD CONSTRAINT `FK_chat_room_TO_chat_state_1` FOREIGN KEY (
