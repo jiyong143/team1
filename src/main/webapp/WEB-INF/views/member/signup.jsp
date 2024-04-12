@@ -8,77 +8,82 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <meta charset="UTF-8">
+<style>
+
+</style>
 </head>
 <body>
 <div class="container">
-	<h1>회원가입</h1>
-	<form action="<c:url value="/member/signup"/>" method="post">
-		<div class="form-group">
-			<label for="id">아이디:</label>
-			<input type="text" class="form-control" id="id" name="me_id" required>
-			<label id="id-error" class="error text-danger" for="id"></label>
-			<label id="id-error2" class="error text-danger"></label>
-		</div>
-		<div class="form-group">
-			<label for="pw">비번:</label>
-			<input type="password" class="form-control" id="pw" name="me_pw" required>
-			<label id="pw-error" class="error text-danger" for="pw"></label>
-		</div>
-		<div class="form-group">
-			<label for="pw2">비번확인:</label>
-			<input type="password" class="form-control" id="pw2" name="me_pw2" required>
-			<label id="pw2-error" class="error text-danger" for="pw2"></label>
-		</div>
-		<div class="form-group">
-			<label for="email">이메일:</label>
-			<input type="email" class="form-control" id="email" name="me_email" required>
-			<label id="email-error" class="error text-danger" for="email"></label>
-			<label id="email-error2" class="error text-danger"></label>
-		</div>
-		
-		<div class="from-group">
-			<label for="gender">성별:</label>
-			<div class="form-check-inline">
-			  <label class="form-check-label">
-			    <input type="radio" class="form-check-input" name="me_gender" value="male" required checked>남성
-			  </label>
+	<h1 class="mt-1">회원가입</h1>
+	<div class="member-container user-info">
+		<form action="<c:url value="/member/signup"/>" method="post">
+			<div class="form-group">
+				<label for="id">아이디:</label>
+				<input type="text" class="form-control" id="id" name="me_id" required>
+				<label id="id-error" class="error text-danger" for="id"></label>
+				<label id="id-error2" class="error text-danger"></label>
 			</div>
-			<div class="form-check-inline">
-			  <label class="form-check-label">
-			    <input type="radio" class="form-check-input" name="me_gender" value="female" required>여성
-			  </label>
+			<div class="form-group">
+				<label for="pw">비번:</label>
+				<input type="password" class="form-control" id="pw" name="me_pw" required>
+				<label id="pw-error" class="error text-danger" for="pw"></label>
 			</div>
-			<div class="form-check-inline disabled">
-			  <label class="form-check-label">
-			    <input type="radio" class="form-check-input" name="me_gender" value="other" required>선택안함
-			  </label>
+			<div class="form-group">
+				<label for="pw2">비번확인:</label>
+				<input type="password" class="form-control" id="pw2" name="me_pw2" required>
+				<label id="pw2-error" class="error text-danger" for="pw2"></label>
 			</div>
-		</div>
-		
-		<div class="form-group">
-			<label for="name">이름:</label>
-			<input type="text" class="form-control" id="name" name="me_name" required>
-			<label id="name-error" class="error text-danger" for="name"></label>
-		</div>
-		<div class="form-group">
-			<label for="birth">생년월일:</label>
-			<input type="date" class="form-control" id="birth" name="me_birth" required>
-			<label id="birth-error" class="error text-danger" for="birth"></label>
-			<label id="birth-error2" class="error text-danger"></label>
-		</div>
-		<div class="form-group">
-			<label for="phone">핸드폰 번호(OOO-OOOO-OOOO):</label>
-			<input type="tel" class="form-control" id="phone" name="me_phone" required>
-			<label id="phone-error" class="error text-danger" for="phone"></label>
-			<label id="phone-error2" class="error text-danger"></label>
-		</div>
-		<div class="form-group">
-			<label for="addr">주소:</label>
-			<input type="text" class="form-control" id="addr" name="me_addr" required>
-			<label id="addr-error" class="error text-danger" for="addr"></label>
-		</div>
-		<button type="submit" class="btn btn-outline-success col-12">회원가입</button>
-	</form>
+			<div class="form-group">
+				<label for="email">이메일:</label>
+				<input type="email" class="form-control" id="email" name="me_email" required>
+				<label id="email-error" class="error text-danger" for="email"></label>
+				<label id="email-error2" class="error text-danger"></label>
+			</div>
+			
+			<div class="from-group">
+				<label for="gender">성별:</label>
+				<div class="form-check-inline">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="male" required checked>남성
+				  </label>
+				</div>
+				<div class="form-check-inline">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="female" required>여성
+				  </label>
+				</div>
+				<div class="form-check-inline disabled">
+				  <label class="form-check-label">
+				    <input type="radio" class="form-check-input" name="me_gender" value="other" required>선택안함
+				  </label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="name">이름:</label>
+				<input type="text" class="form-control" id="name" name="me_name" required>
+				<label id="name-error" class="error text-danger" for="name"></label>
+			</div>
+			<div class="form-group">
+				<label for="birth">생년월일:</label>
+				<input type="date" class="form-control" id="birth" name="me_birth" required>
+				<label id="birth-error" class="error text-danger" for="birth"></label>
+				<label id="birth-error2" class="error text-danger"></label>
+			</div>
+			<div class="form-group">
+				<label for="phone">핸드폰 번호(OOO-OOOO-OOOO):</label>
+				<input type="tel" class="form-control" id="phone" name="me_phone" required>
+				<label id="phone-error" class="error text-danger" for="phone"></label>
+				<label id="phone-error2" class="error text-danger"></label>
+			</div>
+			<div class="form-group">
+				<label for="addr">주소:</label>
+				<input type="text" class="form-control" id="addr" name="me_addr" required>
+				<label id="addr-error" class="error text-danger" for="addr"></label>
+			</div>
+			<button type="submit" class="btn btn-outline-success col-12 mb-5">회원가입</button>
+		</form>
+	</div>
 </div>
 
 <!-- 유효성 검사 -->
