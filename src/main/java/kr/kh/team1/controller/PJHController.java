@@ -91,6 +91,15 @@ public class PJHController {
 		return map;
 	}
 	
+	@ResponseBody
+	@GetMapping("/birth/check/dup")
+	public Map<String, Object> birthCheckDup(@RequestParam("birth") String birth){
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.birthCheck(birth);
+		map.put("result", res);
+		return map;
+	}
+	
 //	@GetMapping("/logout")
 //	public String logout(Model model, HttpSession session) {
 //		session.removeAttribute("user");
