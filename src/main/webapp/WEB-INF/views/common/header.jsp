@@ -162,10 +162,11 @@
 				          	<a class="nav-link btn btn-light" href="<c:url value="/logout"/>">로그아웃</a>
 				        </li>
 			        </c:if>
-			        <li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/login"/>">판매자와의 대화</a></li>
 				    <li class="nav-item"><a class="nav-link btn btn-light"
 							href="<c:url value="/login"/>">마이</a></li>		
+          <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
+          </li>
 				</ul>
 				<!-- Left links -->
 			</div>
@@ -201,3 +202,28 @@ function getGroup(){
 </script>
 </body>
 </html>
+
+<script type="text/javascript">
+	//이벤트 생성
+	const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
+	
+	sse.addEventListener('connect', (e) => {
+		const { data: receivedConnectData } = e;
+		console.log('connect event data: ',receivedConnectData);  // "connected!"
+	});
+	
+	sse.addEventListener('receive', e => {  
+	    const { data: receivedData } = e;  
+	    obj = JSON.parse(receivedData);
+	    console.log(obj)
+	    console.log("보낸 사람 : " + obj.from);
+	    console.log("메세지 : " + obj.msg)
+	});
+	
+	//페이지 이동 시 sse 연결 끊기.
+	window.addEventListener('beforeunload', function (e) {
+		if (sse) {
+	  	sse.close(); // SSE 연결 닫기
+	  }
+	});
+	</script>

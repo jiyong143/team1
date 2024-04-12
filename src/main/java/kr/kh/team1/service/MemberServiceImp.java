@@ -1,5 +1,9 @@
 package kr.kh.team1.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,6 +87,49 @@ public class MemberServiceImp implements MemberService {
 	public boolean phoneCheck(String phone) {
 		MemberVO member = memberDao.selectMemberPhone(phone);
 		return member == null;
+	}
+
+	@Override
+	public boolean birthCheck(String birth) { //0번지 년, 1번지 월, 2번지 일
+		if(!checkString(birth)) {
+			return false;
+		}
+		
+		LocalDate nowDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = nowDate.format(formatter);
+		String[] nowTmp = formatedNow.split("-"); //현재 시간
+		String[] birthTmp = birth.split("-"); //입력된 시간
+		
+		int [] birthTmpInt = {0, 0, 0};
+		int [] nowTmpInt = {0, 0, 0};
+		
+		for(int i=0; i<birthTmp.length; i++) {
+			birthTmpInt[i] = Integer.parseInt(birthTmp[i]);
+		}
+		
+		for(int i=0; i<nowTmp.length; i++) {
+			nowTmpInt[i] = Integer.parseInt(nowTmp[i]);
+		}
+		
+		if(nowTmpInt[0]<birthTmpInt[0]) {
+			return false;
+		} 
+		if(nowTmpInt[0] == birthTmpInt[0]) {
+			if(nowTmpInt[1] < birthTmpInt[1]) {
+				return false;
+			}
+			if(nowTmpInt[2] < birthTmpInt[2]) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	@Override
+	public MemberVO getMemberDate() {
+		return memberDao.selectMember1("test12");
 	}
 	
 }

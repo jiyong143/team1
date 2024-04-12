@@ -24,6 +24,14 @@ public class PJHController {
 	@Autowired
 	MemberService memberService;
 	
+	@GetMapping("/main/home")
+	public String home(Model model) {
+		MemberVO dateTest = memberService.getMemberDate();
+		System.out.println("test" + dateTest.getMe_birth());
+		model.addAttribute("test1", dateTest);
+		return "/main/home";
+	}
+	
 	@GetMapping("/member/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "회원가입");
@@ -91,12 +99,27 @@ public class PJHController {
 		return map;
 	}
 	
-//	@GetMapping("/logout")
-//	public String logout(Model model, HttpSession session) {
-//		session.removeAttribute("user");
-//		model.addAttribute("msg", "로그아웃 했습니다.");
-//		model.addAttribute("url", "/");
-//		return "message";
-//	}
+	@ResponseBody
+	@GetMapping("/birth/check/dup")
+	public Map<String, Object> birthCheckDup(@RequestParam("birth") String birth){
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.birthCheck(birth);
+		map.put("result", res);
+		return map;
+	}
+	
+	@GetMapping("/member/logout")
+	public String logout(Model model, HttpSession session) {
+		session.removeAttribute("user");
+		model.addAttribute("msg", "로그아웃 했습니다.");
+		model.addAttribute("url", "/");
+		return "message";
+	}
+	
+	@GetMapping("/member/mypage")
+	public String mypage(Model model, HttpSession session) {
+		
+		return "/member/mypage";
+	}
 	
 }

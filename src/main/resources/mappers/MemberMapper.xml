@@ -17,4 +17,7 @@
 	<select id="selectMemberPhone" resultType="kr.kh.team1.model.vo.MemberVO">
 		select * from member where me_phone = #{phone}
 	</select>
+	<select id="selectMember1" resultType="kr.kh.team1.model.vo.MemberVO">
+		select * from member where me_id = #{string}
+	</select>
 </mapper>
