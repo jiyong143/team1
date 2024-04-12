@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +48,7 @@ public class IBHController {
 		sseEmitters.add(user.getMe_id(), emitter);
 		
 		try {  
-			emitter.send(SseEmitter.event()  
+			emitter.send(SseEmitter.event()
 	              .name("connect")  
 	              .data("connected!"));  
 		} catch (IOException e) {  
@@ -94,12 +93,14 @@ public class IBHController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/sse/list")
-	public Map<String, Object> list(@RequestBody ChatMessageVO ChatMessageVo){
-		Map<String, Object> map = new HashMap<String, Object>();
-		int cr_num = 2;
-		ArrayList<ChatMessageVO> chatMsg  = chatService.getChatMessageList(cr_num);
-		map.put("list", chatMsg);
+	@PostMapping("/sse/list")
+	//리턴타입 꼭 Object일 필요는 없음. List로 보내고 싶으면 List로 수정해도 상관없음 
+	public Map<String, Object> list(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ChatMessageVO> msg = chatService.getChatMessageList(cm_cr_num);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		map.put("msgs", msg);
+		map.put("user", user);
 		return map;
 	}
 }
