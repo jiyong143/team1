@@ -15,7 +15,7 @@ public class Criteria {
 	private int minPrice=0; // 최소 가격 
 	private int maxPrice= 100000; // 최대 가격(무한대)
 	private String place= ""; // 검색 장소
-	private String state =""; // 상품 거래 상태
+	private String state ="all"; // 상품 거래 상태(기본은 전체 상태 조회)
 	
 	public Criteria(int page, int perPageNum) {
 		this.page = page;

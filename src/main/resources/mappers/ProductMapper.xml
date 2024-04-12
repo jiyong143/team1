@@ -18,6 +18,9 @@
   			and  pr_place like concat('%', #{cri.place}, '%')
   			and  pr_mg_num = #{num}
   		</if>
+  		<if test='cri.state =="except"'>
+  		    and pr_ps_state != "판매완료"
+  		</if>
   		
   		<if test='cri.order == "desc"'>
   		    order by pr_price desc
@@ -53,6 +56,9 @@
   			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
   			and  pr_place like concat('%', #{cri.place}, '%')
   			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.state =="except"'>
+  		    and pr_ps_state != "판매완료"
   		</if>
 </select>
    

@@ -783,9 +783,14 @@ html {
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
-<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack"><svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="text-base ps-1">판매완료 상품 포함</span></label>
-<input id="saleYn" class="hidden" type="checkbox" value="SALE_N">
+<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
+<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
+<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base ps-1">판매완료 상품 제거</span>
+</label>
+<input id="saleYn" name="state" class="hidden" type="checkbox" value="except" <c:if test="${pm.cri.state == 'except' }">checked</c:if>>
 </li>
 </ul>
 </td>
@@ -905,6 +910,42 @@ html {
 $("[name=order]").change(function(){
 	$("#searchForm").submit();
 });
+</script>
+
+<script type="text/javascript">
+$("[name=state]").change(function(){
+	
+	let state = $(this).data('state');
+	let mNum = '${num}';
+	let mName = '${MName}';
+	let tName = '${TName}';
+	let search = '${pm.cri.search}';
+	let place = '${pm.cri.place}';
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let order = '${pm.cri.order}';
+	
+	$.ajax({
+		url : '<c:url value="/product/list"/>',
+		method : 'get',
+		async : true,
+		data : {
+			"state" : state,
+			"mNum" : mNum,
+			"mName" : mName,
+			"tName" : tName,
+			"search" : search,
+			"place" : place,
+			"minprice" : minPrice,
+			"maxPrice" : maxPrice,
+			"order" : order
+		},
+		success : function(data){
+			
+		}
+	});
+});
+
 </script>
 </body>
 </html>
