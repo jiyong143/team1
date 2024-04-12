@@ -6,17 +6,67 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	/* 상대방 */
+       .y-container{ 
+           display: grid;
+            padding : 5px;
+            float: left;
+            width: 100%;
+            grid-template-columns: repeat(3, 130px);
+            grid-template-rows: repeat(3, 30px);
+       }
+       .y-container .box{ border: 1px solid black; padding : 5px;}
+       .y-container .box:first-of-type{
+           grid-column-start: 1;
+           grid-column-end: 4;
+           grid-row-start: 1;
+           background-color: yellow;
+       }
+       .y-container .box:nth-of-type(2){
+           grid-row: 2/4;
+           grid-column-start: 3;
+           background-color: gray;
+       }
+       .y-container .box:nth-of-type(3){
+           grid-row: 2/4;
+           grid-column: 1/3;
+           background-color: skyblue;
+       }
+
+	/* 본인 */
+	.mine-container{ 
+		display: grid;
+        padding : 5px;
+        float: right;
+        text-align : right;
+        grid-template-columns: repeat(3, 130px);
+        grid-template-rows: repeat(3, 30px);
+	}
+	.mine-container .box{ border: 1px solid black; padding : 5px;}
+	.mine-container .box:first-of-type{
+	    grid-column-start: 1;
+	    grid-column-end: 4;
+	    grid-row-start: 1;
+	    background-color: yellow;
+	}	
+	.mine-container .box:nth-of-type(2){
+	    grid-row: 2/4;
+	    grid-column-start: 1;
+	    background-color: gray;
+	}
+	.mine-container .box:nth-of-type(3){
+	    grid-row: 2/4;
+	    grid-column: 2/4;
+	    background-color: skyblue;
+	}
+   </style>
 </head>
+
 <body>
-	<table class="table table-hover msg-list">
-		<c:forEach items="${chatMsgList}" var="msglist">
-			<tr>
-				<td>${msglist.cm_me_id}</td>
-				<td>${msglist.cm_content}</td>
-				<td>${msglist.cm_time}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<div class="msg-list">
+		
+	</div>
 	<form>
 		<div class="input-group mb-3 input-box">
 			<input type="text" class="form-control" id="msg" name="msg" placeholder="입력창">
@@ -27,18 +77,21 @@
 	</form>
 	
 <script type="text/javascript">
+	getMsgList();
+	
 	$("form").submit(function(e){
 		e.preventDefault();	// 태그의 효과를 막아줌
-		let obj = $(this).serialize()	// form태그에 있는 input태그들을 객체로 변환
-		console.log(obj)
+		let obj = $(this).serialize();	// form태그에 있는 input태그들을 객체로 변환
+		console.log(obj);
 		$.ajax({
 			async : false,
 			url : '<c:url value="/sse/send"/>',
 			type : "post", 
-			data : obj, 
+			data : obj,
 			success : function (data){
 				console.log(data);
 				$("#msg").val('');
+				getMsgList();
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 			}
@@ -46,37 +99,52 @@
 		return false;
 	})
 	
-	$.ajax({
-		async : false,
-		url : '<c:url value="/sse/list"/>',
-		type : "get",
-		data : obj,
-		success : function (data){
-			console.log(data);
-			displayMsgList(data.list);
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-		}
-	});
+	function getMsgList(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/sse/list"/>', 
+			type : 'post', 
+			data : {cm_cr_num : 2}, 
+			dataType : "json",
+			success : function (data){
+				console.log(1);
+				console.log(data.msgs);
+				displayMsgList(data.msgs);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	}
 	
 	function displayMsgList(list){
-		console.log(list);
-		
 		let str = '';
 		if(list == null || list.length == 0){
 			str = '<h3>등록된 댓글이 없습니다.</h3>';
 			$('.msg-list').html(str);
 			return;
 		}
+		
 		for(item of list){
-			str +=
-				`
-				<tr>
-					<td>${item.cm_me_id}</td>
-					<td>${item.cm_content}</td>
-					<td>${item.cm_time}</td>
-				</tr>
-				`;
+			if('${user.me_id}' == item.cm_me_id){
+				str +=
+					`
+					<div class="mine-container">
+						<div class="box">\${item.cm_me_id}</div>
+						<div class="box">\${item.date_str}</div>
+						<div class="box">\${item.cm_content}</div>
+					</div>
+					`
+			}else{
+				str +=
+					`
+					<div class="y-container">
+						<div class="box">\${item.cm_me_id}</div>
+						<div class="box">\${item.date_str}</div>
+						<div class="box">\${item.cm_content}</div>
+					</div>
+					`;
+			}
 			$('.msg-list').html(str);
 		}
 	}

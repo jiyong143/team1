@@ -58,11 +58,7 @@ public class HomeController {
 	
 	@GetMapping("/sse")
 	public String sse(Model model) {
-		int cr_num = 2;
-		ArrayList<ChatMessageVO> chatMsgList  = chatService.getChatMessageList(cr_num);
-
-		model.addAttribute("chatMsgList",chatMsgList);
-
+		
 		return "/chat/sse";
 	}
 }
