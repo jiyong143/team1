@@ -53,6 +53,5 @@ atlassian-ide-plugin.xml
 .vscode/
 
 cached-antora-playbook.yml
-
 target/
 test/resources
