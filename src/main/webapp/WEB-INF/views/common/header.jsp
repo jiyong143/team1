@@ -153,17 +153,17 @@
 					style="padding-right: 0.15rem">
 					<c:if test="${user == null}">
 						<li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/login"/>">로그인</a></li>
+							href="<c:url value="/member/login"/>">로그인</a></li>
 						<li class="nav-item"><a class="nav-link btn btn-light" style="margin-left: 7px"
-							href="<c:url value="/signup"/>">회원가입</a></li>
+							href="<c:url value="/member/signup"/>">회원가입</a></li>
 					</c:if>
 					<c:if test="${user != null}">
 			        	<li class="nav-item">
-				          	<a class="nav-link btn btn-light" href="<c:url value="/logout"/>">로그아웃</a>
+				          	<a class="nav-link btn btn-light" href="<c:url value="/member/logout"/>">로그아웃</a>
 				        </li>
 			        </c:if>
 				    <li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/login"/>">마이</a></li>		
+							href="<c:url value="/member/mypage"/>">마이</a></li>		
           <li class="nav-item">
             <a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
           </li>
