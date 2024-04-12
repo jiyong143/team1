@@ -148,14 +148,14 @@ CREATE TABLE `trade_outcome` (
 DROP TABLE IF EXISTS `surport`;
 
 CREATE TABLE `surport` (
-	`su_num`	int	NOT NULL,
+	`su_num`	int	NOT NULL primary key auto_increment,
 	`su_sm_num`	int	NOT NULL,
 	`su_uh_num`	int	NOT NULL,
 	`su_me_id`	varchar(15)	NOT NULL,
-	`su_title`	varchar(30)	NULL,
-	`su_content`	text	NULL,
-	`su_date`	dateTime	NULL,
-	`su_view`	int	NULL
+	`su_title`	varchar(30)	NOT NULL,
+	`su_content`	text	NOT NULL,
+	`su_date`	dateTime	NOT NULL,
+	`su_view`	int	NOT NULL default 0
 );
 
 DROP TABLE IF EXISTS `suport_manage`;
@@ -207,22 +207,6 @@ ALTER TABLE `suport_manage` ADD CONSTRAINT `FK_surport_category_TO_suport_manage
 REFERENCES `surport_category` (
 	`sc_num`
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
 	`mg_tg_num`
@@ -313,13 +297,6 @@ ALTER TABLE `chat_room` ADD CONSTRAINT `FK_member_TO_chat_room_1` FOREIGN KEY (
 )
 REFERENCES `member` (
 	`me_id`
-);
-
-ALTER TABLE `comment` ADD CONSTRAINT `FK_surport_board_TO_comment_1` FOREIGN KEY (
-	`co_sb_num`
-)
-REFERENCES `surport_board` (
-	`sb_num`
 );
 
 ALTER TABLE `chat_state` ADD CONSTRAINT `FK_chat_room_TO_chat_state_1` FOREIGN KEY (

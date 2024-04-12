@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.service.MemberService;
-import kr.kh.team1.model.vo.MemberVO;
-import kr.kh.team1.model.vo.TopGroupVO;
-import kr.kh.team1.model.vo.ChatMessageVO;
-import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.service.ChatService;
-import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.MidGroupService;
 import kr.kh.team1.service.TopGroupService;
 
@@ -40,9 +34,8 @@ public class HomeController {
     @Autowired
 	MidGroupService midGroupService;
 
-   @Autowired
+    @Autowired
 	ChatService chatService;
-
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	

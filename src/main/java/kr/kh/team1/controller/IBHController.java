@@ -78,7 +78,10 @@ public class IBHController {
 		}else {
 			emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
 		}
-	
+		
+		if(emitter == null)
+			return "상대방이 로그인을 하지 않았습니다.";
+		
 		try { 
 			MessageDTO message = new MessageDTO(crv.getCr_num() ,user.getMe_id(), msg);
 			

@@ -19,44 +19,34 @@ public class SurportServiceImp implements SurportService{
 	
 	@Override
 	public ArrayList<SurportVO> getSurportList(Criteria cri) {
-		// TODO Auto-generated method stub
 		return surportDao.selectSurportList(cri);
 	}
 
 	@Override
 	public int getSurportTotalCount(Criteria cri) {
-		// TODO Auto-generated method stub
 		return surportDao.selectSurportTotalCount(cri);
 	}
 
 	@Override
 	public ArrayList<SurportManageVO> getSurportManageList() {
-		// TODO Auto-generated method stub
 		return surportDao.selectSurportManageList();
 	}
 
 	@Override
 	public boolean insertSurport(SurportVO surport, MemberVO user) {
-		// TODO Auto-generated method stub
 		if( surport == null || 
-				surport.getSu_title() == null || 
-						surport.getSu_content() == null) {
+			surport.getSu_title() == null || 
+			surport.getSu_content() == null) 
 				return false;
-			}
-			if(user == null)
-				return false;
-			surport.setSu_me_id(user.getMe_id());
-			return surportDao.insertSurport(surport);
+			
+		if(user == null)
+			return false;
+		surport.setSu_me_id(user.getMe_id());
+		return surportDao.insertSurport(surport);
 	}
 
 	@Override
 	public void updateView(int num) {
-		// TODO Auto-generated method stub
-		return surportDao.updateView(num);
-		
+		surportDao.updateView(num);
 	}
-	
-
-
-
 }
