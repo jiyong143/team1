@@ -208,22 +208,6 @@ REFERENCES `surport` (
 	`su_num`
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
 	`mg_tg_num`
 )

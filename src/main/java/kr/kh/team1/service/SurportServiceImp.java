@@ -52,7 +52,7 @@ public class SurportServiceImp implements SurportService{
 	@Override
 	public void updateView(int num) {
 		// TODO Auto-generated method stub
-		return surportDao.updateView(num);
+		surportDao.updateView(num);
 		
 	}
 	
