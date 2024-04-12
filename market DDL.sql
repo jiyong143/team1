@@ -148,13 +148,14 @@ CREATE TABLE `trade_outcome` (
 DROP TABLE IF EXISTS `surport`;
 
 CREATE TABLE `surport` (
-	`su_num`	int	NOT NULL primary key auto_increment,
+	`su_num`	int	NOT NULL,
 	`su_sm_num`	int	NOT NULL,
+	`su_uh_num`	int	NOT NULL,
 	`su_me_id`	varchar(15)	NOT NULL,
-	`su_title`	varchar(30)	NOT NULL,
-	`su_content`	text	NOT NULL,
-	`su_date`	dateTime	NOT NULL,
-	`su_view`	int	NOT NULL default 0
+	`su_title`	varchar(30)	NULL,
+	`su_content`	text	NULL,
+	`su_date`	dateTime	NULL,
+	`su_view`	int	NULL
 );
 
 DROP TABLE IF EXISTS `suport_manage`;
@@ -169,15 +170,14 @@ DROP TABLE IF EXISTS `up_head`;
 
 CREATE TABLE `up_head` (
 	`uh_num`	int	NOT NULL primary key auto_increment,
-	`uh_name`	varchar(5)	NOT NULL,
-	`uh_su_num`	int	NOT NULL
+	`uh_name`	varchar(5)	NOT NULL
 );
 
-DROP TABLE IF EXISTS `site_service`;
+DROP TABLE IF EXISTS `surport_category`;
 
-CREATE TABLE `site_service` (
-	`ss_num`	int	NOT NULL primary key auto_increment,
-	`ss_name`	varchar(30)	NOT NULL
+CREATE TABLE `surport_category` (
+	`sc_num`	int	NOT NULL primary key auto_increment,
+	`sc_name`	varchar(30)	NOT NULL
 );
 
 ALTER TABLE `surport` ADD CONSTRAINT `FK_suport_manage_TO_surport_1` FOREIGN KEY (
@@ -187,6 +187,13 @@ REFERENCES `suport_manage` (
 	`sm_num`
 );
 
+ALTER TABLE `surport` ADD CONSTRAINT `FK_up_head_TO_surport_1` FOREIGN KEY (
+	`su_uh_num`
+)
+REFERENCES `up_head` (
+	`uh_num`
+);
+
 ALTER TABLE `surport` ADD CONSTRAINT `FK_member_TO_surport_1` FOREIGN KEY (
 	`su_me_id`
 )
@@ -194,18 +201,11 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `suport_manage` ADD CONSTRAINT `FK_site_service_TO_suport_manage_1` FOREIGN KEY (
+ALTER TABLE `suport_manage` ADD CONSTRAINT `FK_surport_category_TO_suport_manage_1` FOREIGN KEY (
 	`sm_ss_num`
 )
-REFERENCES `site_service` (
-	`ss_num`
-);
-
-ALTER TABLE `up_head` ADD CONSTRAINT `FK_surport_TO_up_head_1` FOREIGN KEY (
-	`uh_su_num`
-)
-REFERENCES `surport` (
-	`su_num`
+REFERENCES `surport_category` (
+	`sc_num`
 );
 
 
