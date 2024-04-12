@@ -1,4 +1,3 @@
-
 .classpath
 .project
 
@@ -57,4 +56,3 @@ cached-antora-playbook.yml
 
 target/
 test/resources
-
