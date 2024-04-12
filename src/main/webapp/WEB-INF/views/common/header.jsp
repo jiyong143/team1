@@ -153,21 +153,23 @@
 					style="padding-right: 0.15rem">
 					<c:if test="${user == null}">
 						<li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/login"/>">로그인</a></li>
+							href="<c:url value="/member/login"/>">로그인</a></li>
 						<li class="nav-item"><a class="nav-link btn btn-light" style="margin-left: 7px"
-							href="<c:url value="/signup"/>">회원가입</a></li>
+							href="<c:url value="/member/signup"/>">회원가입</a></li>
 					</c:if>
 					<c:if test="${user != null}">
-						<li class="nav-item">
-								<a class="nav-link btn btn-light" href="<c:url value="/logout"/>">로그아웃</a>
-						</li>
-					</c:if>
-					<li class="nav-item"><a class="nav-link btn btn-light"
-						href="<c:url value="/login"/>">마이</a>
-					</li>		
-					<li class="nav-item">
-						<a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
-					</li>
+			        	<li class="nav-item">
+				          	<a class="nav-link btn btn-light" href="<c:url value="/member/logout"/>">로그아웃</a>
+				        </li>
+			        </c:if>
+				    <li class="nav-item"><a class="nav-link btn btn-light"
+							href="<c:url value="/member/mypage"/>">마이</a></li>		
+          <li class="nav-item">
+		<li class="nav-item">
+		<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
+	</li>
+            <a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
+          </li>
 				</ul>
 				<!-- Left links -->
 			</div>
@@ -183,14 +185,13 @@ function getGroup(){
 		type: 'get',
 		success : function(data){
 			let str = '';
-			var url = '<c:url value="/prouduct/list"/>';
 			for (topGroup of data.tList){
 				str += '<div class="col-md-6 col-lg-2 mb-3 mb-lg-0" style="border-right: solid 2px #E6E6E6;">';
 				str += '<div class="list-group list-group-flush">';
 				str += '<div class="ca-name" style="margin-bottom: 15px">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
-					str += '<a href="' + url + '?mNum=' + midGroup.mg_num + '" class="list-group-item list-group-item-action">' + midGroup.mg_title + '</a>'; // 해당 topGroup에 속하는 midGroup 출력
+					str += `<div class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
 				}
 			}
 			str += '</div>';
@@ -200,10 +201,21 @@ function getGroup(){
 		}
 	})
 }
-</script>
-</body>
-</html>
 
+function showProduct(mNum, mName, tName){
+	
+	let urlParams = new URLSearchParams("?");
+	if(mNum)
+		urlParams.append("mNum", mNum);
+	if(mName)
+		urlParams.append("mName", mName);
+	if(tName)
+		urlParams.append("tName", tName);
+	location.href = '<c:url value="/product/list?"/>' + urlParams;
+	
+}
+
+</script>
 <script type="text/javascript">
 	//이벤트 생성
 	const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
@@ -228,3 +240,5 @@ function getGroup(){
 	  }
 	});
 	</script>
+</body>
+</html>
