@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageDTO {
 	
-	private int  cm_cr_num;
+	private int cm_cr_num;
 	private String cm_me_id;	// 보낸 사람
 	private String cm_content;	// 내용
 
