@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<a class="navbar-brand" href="<c:url value='/'/>">
-		<img src="<c:url value="/resources/img/bird.jpg"/>" alt="logo" style="width:40px;">
+		<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">
 	</a>
 
 	<!-- Links -->
@@ -46,6 +46,8 @@
 					<c:forEach items="${top.midGroupList}" var="mid">
 						<c:url var="url" value="/product/list">
 							<c:param name="mNum" value="${mid.mg_num}" />
+							<c:param name="tName" value="${top.tg_title}" />
+							<c:param name="mName" value="${mid.mg_title}" />
 						</c:url>
 						<h5>
 							<li><a href="${url}">${mid.mg_title}</a></li>

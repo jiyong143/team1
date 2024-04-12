@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SurportVO {
-	private int sb_num; 
-	private String sb_me_id; 
-	private String sb_type;
-	private String sb_content; 
-	private Date sb_date;
+	private int su_num; 
+	private String su_me_id; 
+	private String su_title;
+	private String su_content; 
+	private Date su_date;
+	private int su_view; 
 }
