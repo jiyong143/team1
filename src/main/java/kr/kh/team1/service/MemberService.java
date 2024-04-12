@@ -1,5 +1,7 @@
 package kr.kh.team1.service;
 
+import java.util.ArrayList;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 
@@ -16,4 +18,6 @@ public interface MemberService {
 	boolean phoneCheck(String phone);
 
 	boolean birthCheck(String birth);
+
+	MemberVO getMemberDate();
 }
