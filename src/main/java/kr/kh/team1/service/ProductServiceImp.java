@@ -17,7 +17,6 @@ public class ProductServiceImp implements ProductService{
 	ProductDAO productDao;
 
 	@Override
-
 	public ArrayList<ProductVO> getProductList(int mNum, Criteria cri) { 
 		return productDao.selectProductList(mNum, cri);  
 	}

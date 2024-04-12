@@ -1,7 +1,6 @@
 package kr.kh.team1.dao;
 
 import org.apache.ibatis.annotations.Param;
-
 import kr.kh.team1.model.vo.MemberVO;
 
 public interface MemberDAO {
@@ -13,6 +12,8 @@ public interface MemberDAO {
 	MemberVO selectMemberEmail(@Param("email")String email);
 
 	MemberVO selectMemberPhone(@Param("phone")String phone);
+
+	MemberVO selectMember1(@Param("string")String string);
 	
 }
 
