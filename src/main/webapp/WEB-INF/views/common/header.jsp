@@ -203,9 +203,6 @@ function getGroup(){
 	})
 }
 </script>
-</body>
-</html>
-
 <script type="text/javascript">
 	//이벤트 생성
 	const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
@@ -229,4 +226,7 @@ function getGroup(){
 	  	sse.close(); // SSE 연결 닫기
 	  }
 	});
-	</script>
+</script>
+</body>
+</html>
+
