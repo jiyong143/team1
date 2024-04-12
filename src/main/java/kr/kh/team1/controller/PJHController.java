@@ -24,6 +24,14 @@ public class PJHController {
 	@Autowired
 	MemberService memberService;
 	
+	@GetMapping("/main/home")
+	public String home(Model model) {
+		MemberVO dateTest = memberService.getMemberDate();
+		System.out.println("test" + dateTest.getMe_birth());
+		model.addAttribute("test1", dateTest);
+		return "/main/home";
+	}
+	
 	@GetMapping("/member/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "회원가입");

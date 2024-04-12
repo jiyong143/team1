@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -124,6 +125,11 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public MemberVO getMemberDate() {
+		return memberDao.selectMember1("test12");
 	}
 	
 }
