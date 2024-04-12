@@ -165,6 +165,9 @@
 				    <li class="nav-item"><a class="nav-link btn btn-light"
 							href="<c:url value="/member/mypage"/>">마이</a></li>		
           <li class="nav-item">
+		<li class="nav-item">
+		<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
+	</li>
             <a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
           </li>
 				</ul>

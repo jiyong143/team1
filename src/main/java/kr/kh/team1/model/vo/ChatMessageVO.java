@@ -2,7 +2,6 @@ package kr.kh.team1.model.vo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
