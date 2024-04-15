@@ -209,6 +209,7 @@ function getGroup(){
 	})
 }
 
+
 function showProduct(mNum, mName, tName){
 	
 	let urlParams = new URLSearchParams("?");
