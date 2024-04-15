@@ -13,7 +13,7 @@
 <div class="container">
 	<h1 class="mt-1">회원가입</h1>
 	<div class="member-container user-info">
-		<form action="<c:url value="/member/signup"/>" method="post">
+		<form action="<c:url value="/member/signup"/>" method="post" id="signupform">
 			<div class="form-group">
 				<label for="id">아이디:</label>
 				<input type="text" class="form-control" id="id" name="me_id" required>
@@ -85,7 +85,7 @@
 
 <!-- 유효성 검사 -->
 <script type="text/javascript">
-$("form").validate({
+$("#signupform").validate({
 	rules : {
 		me_id : {
 			required : true,
