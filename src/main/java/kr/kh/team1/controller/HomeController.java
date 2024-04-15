@@ -62,9 +62,17 @@ public class HomeController {
 	public Map<String, Object> topGroup(Locale locale, Model model) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
+		map.put("tList", topGroupList);
+		return map;
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value = "/mid/group", method = RequestMethod.GET)
+	public Map<String, Object> midGroup(Locale locale, Model model) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ArrayList <MidGroupVO> midGroupList = midGroupService.getMidGroupList();
 		map.put("mList", midGroupList);
-		map.put("tList", topGroupList);
+		System.out.println(midGroupList);
 		return map;
 	}
 	

@@ -4,13 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- jquery validtaion -->	
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	<!-- jquery validtaion -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <meta charset="UTF-8">
-<style>
-
-</style>
 </head>
 <body>
 <div class="container">
@@ -44,17 +41,17 @@
 				<label for="gender">성별:</label>
 				<div class="form-check-inline">
 				  <label class="form-check-label">
-				    <input type="radio" class="form-check-input" name="me_gender" value="male" required checked>남성
+				    <input type="radio" class="form-check-input" name="me_gender" value="male" checked>남성
 				  </label>
 				</div>
 				<div class="form-check-inline">
 				  <label class="form-check-label">
-				    <input type="radio" class="form-check-input" name="me_gender" value="female" required>여성
+				    <input type="radio" class="form-check-input" name="me_gender" value="female">여성
 				  </label>
 				</div>
 				<div class="form-check-inline disabled">
 				  <label class="form-check-label">
-				    <input type="radio" class="form-check-input" name="me_gender" value="other" required>선택안함
+				    <input type="radio" class="form-check-input" name="me_gender" value="other">선택안함
 				  </label>
 				</div>
 			</div>
@@ -149,7 +146,6 @@ $("form").validate({
 		}
 	},
 	submitHandler : function(form){
-		
 		if(idCheckDup() && emailCheckDup() && phoneCheckDup() && birthCheckDup()) {
 			return true;
 		}
@@ -165,8 +161,8 @@ $.validator.addMethod(
 	},
 	"정규표현식에 맞지 않습니다."
 )
-
 </script>
+
 <!-- 아이디 중복 검사 -->
 <script type="text/javascript">
 function idCheckDup(){
