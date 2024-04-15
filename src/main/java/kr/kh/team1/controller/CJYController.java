@@ -14,11 +14,6 @@ import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.service.ProductService;
 
-import kr.kh.team1.model.vo.ProductVO;
-import kr.kh.team1.pagination.Criteria;
-import kr.kh.team1.pagination.PageMaker;
-import kr.kh.team1.service.ProductService;
-
 @Controller
 public class CJYController {
 	

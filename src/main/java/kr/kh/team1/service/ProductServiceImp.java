@@ -26,5 +26,4 @@ public class ProductServiceImp implements ProductService{
 		return productDao.selectProductTotalCount(mNum, cri);  
   }
   
-
 }

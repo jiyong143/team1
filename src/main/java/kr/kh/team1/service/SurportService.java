@@ -18,7 +18,4 @@ public interface SurportService {
 	boolean insertSurport(SurportVO surport, MemberVO user);
 
 	void updateView(int num);
-
-
-
 }
