@@ -641,6 +641,62 @@ html {
     display: none;
 }
 
+    .container {
+        max-width: 1024px;
+        margin: auto;
+        padding: 0 20px;
+    }
+    .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    h5 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+     .product-container {
+        display: inline-block;
+        margin-right: 40px; /* 상품 오른쪽 여백을 늘림 */
+        margin-left: 40px; /* 상품 왼쪽 여백을 늘림 */
+        vertical-align: top; /* 상품들이 상단 정렬되도록 설정 */
+    }
+    .product-box {
+        border: 2px solid #ccc; /* 테두리 두께 설정 */
+        padding: 20px;
+        width: 300px; /* 상품 박스 너비 설정 */
+        margin-bottom: 20px; /* 상품 박스 아래 간격 조절 */
+    }
+    .product-name {
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+    .price {
+        font-size: 18px;
+        font-weight: bold;
+        color: black; /* 가격 텍스트 색상 설정 */
+    }
+    .separator {
+        border-right: 1px solid #ccc; /* 수직 구분선 설정 */
+        height: 20px;
+        margin: 0 10px; /* 구분선 좌우 여백 설정 */
+        display: inline-block;
+    }
+    
 </style>
 </head>
 <body>
@@ -722,18 +778,12 @@ html {
 <table class="hidden lg:table filterTable">
 <tbody>
 <tr>
-<td class="flex items-center justify-between">
-<p>카테고리</p>
-</td>
+<td>카테고리</td>
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
-<ol class="flex flex-wrap items-center w-full mt-0 lg:mt-0">
-	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${TName }
-	</li>
-	<li class="pl-0 mx-2 mt-0 text-sm leading-5 text-jnGray-500 lg:mt-0">&gt;</li>
-	<li class="flex-shrink-0 px-0 mt-0 text-sm break-all transition duration-200 ease-in text-body first:ps-0 last:pe-0 hover:text-heading">${MName }
-	</li>
-</ol>
+	${TName }
+	&gt;
+	${MName }
 </div>
 </td>
 </tr>
@@ -799,7 +849,7 @@ html {
 </tbody>
 </table>
 
-		 <table class="static" >
+		 <table>
 		    <h5>현재 페이지의 상품가격을 비교해봤어요</h5>
 		    <thead>
 		        <tr>
@@ -862,6 +912,25 @@ html {
 			</c:forEach>
 		</tbody>
 	</table>
+	
+ <h1>상품 목록</h1>
+    <c:forEach var="pro" items="${pList}" varStatus="loop">
+        <div class="product-container">
+            <div class="product-box">
+                <h2 class="product-name">${pro.pr_name}</h2>
+                <p class="price">${pro.pr_price}</p>
+                <span class="separator"></span>
+                <p class="place">${pro.pr_place}</p>
+                <span class="separator"></span>
+                <p class="date">${pro.pr_date}</p>
+                <!-- 기타 상품 정보 출력 -->
+            </div>
+        </div>
+        <c:if test="${loop.index % 4 == 3}"> <!-- 한 줄에 4개의 상품이 들어가면 줄 바꿈 -->
+            <br>
+        </c:if>
+    </c:forEach>
+	
 	
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">

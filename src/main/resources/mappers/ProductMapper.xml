@@ -63,7 +63,7 @@
 </select>
 
 <select id="selectMaxPrice" resultType="int">
-  select max(pr_price) from product
+  select ifnull(max(pr_price),0) from product
         <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
   			or pr_content like concat('%', #{cri.search}, '%'))
@@ -82,7 +82,7 @@
 </select>
 
 <select id="selectMinPrice" resultType="int">
-   select min(pr_price) from product
+   select ifnull(min(pr_price),0) from product
         <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
   			or pr_content like concat('%', #{cri.search}, '%'))
@@ -101,7 +101,7 @@
 </select>
 
 <select id="selectAvgPrice" resultType="int">
-   select avg(pr_price) from product
+   select ifnull(avg(pr_price),0) from product
         <if test='cri.search != ""'>
   			where (pr_name like concat('%', #{cri.search}, '%')
   			or pr_content like concat('%', #{cri.search}, '%'))
