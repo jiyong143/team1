@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.TopGroupVO;
 
 public interface ChatService {
 

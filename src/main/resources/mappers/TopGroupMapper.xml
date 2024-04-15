@@ -9,10 +9,16 @@
 			<collection property="midGroupList" ofType="kr.kh.team1.model.vo.MidGroupVO"
 				column="tg_num" select="selectMidGroup"/>
 	</resultMap> 
+	
 	<select id="selectTopGroupList" resultMap ="TopGroupMap">
 	    select * from topgroup
 	</select>
+	
 	<select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
 		select * from midgroup where mg_tg_num = #{tg_num}
+	</select>
+	
+	<select id="selectMidGroupListByTopGroup" resultMap ="TopGroupMap">
+		select * from topgroup where tg_title = #{title}
 	</select>
 </mapper>

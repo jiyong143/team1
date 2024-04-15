@@ -3,63 +3,77 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.ProductDAO">
-<select id="selectProductList" resultType="ProductVO">
-    select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
-                          join topgroup on mg_tg_num = tg_num 
-        <if test='cri.search != ""'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_place like concat('%', #{cri.place}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}	
-  		</if>
-  		<if test='cri.search == ""'>
-  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_place like concat('%', #{cri.place}, '%')
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.state =="except"'>
-  		    and pr_ps_state != "판매완료"
-  		</if>
-  		
-  		<if test='cri.order == "desc"'>
-  		    order by pr_price desc
-  		</if>
-  		
-  		<if test='cri.order == "asc"'>
-  		    order by pr_price asc
-  		</if>
-  		
-  		<if test='cri.order == "pr_num"'>
-  		    order by pr_num desc
-  		</if>
-  		<if test='cri.order == "pr_view"'>
-  		    order by pr_view desc
-  		</if>
-  		<if test='cri.order == "pr_basket"'>
-  		    order by pr_basket desc
-  		</if>
-    limit #{cri.pageStart} , #{cri.perPageNum}
-</select>
+	<select id="selectProductList" resultType="ProductVO">
+	    select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
+	                          join topgroup on mg_tg_num = tg_num 
+	        <if test='cri.search != ""'>
+	  			where (pr_name like concat('%', #{cri.search}, '%')
+	  			or pr_content like concat('%', #{cri.search}, '%'))
+	  			and pr_place like concat('%', #{cri.place}, '%')
+	  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+	  			and  pr_mg_num = #{num}	
+	  		</if>
+	  		<if test='cri.search == ""'>
+	  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+	  			and  pr_place like concat('%', #{cri.place}, '%')
+	  			and  pr_mg_num = #{num}
+	  		</if>
+	  		<if test='cri.state =="except"'>
+	  		    and pr_ps_state != "판매완료"
+	  		</if>
+	  		
+	  		<if test='cri.order == "desc"'>
+	  		    order by pr_price desc
+	  		</if>
+	  		
+	  		<if test='cri.order == "asc"'>
+	  		    order by pr_price asc
+	  		</if>
+	  		
+	  		<if test='cri.order == "pr_num"'>
+	  		    order by pr_num desc
+	  		</if>
+	  		<if test='cri.order == "pr_view"'>
+	  		    order by pr_view desc
+	  		</if>
+	  		<if test='cri.order == "pr_basket"'>
+	  		    order by pr_basket desc
+	  		</if>
+	    limit #{cri.pageStart} , #{cri.perPageNum}
+	</select>
 
-<select id="selectProductTotalCount" resultType="int">
-     select count(*) from product join midgroup on pr_mg_num = mg_num 
-                          join topgroup on mg_tg_num = tg_num 
-        <if test='cri.search != ""'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_place like concat('%', #{cri.place}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}	
-  		</if>
-  		<if test='cri.search == ""'>
-  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_place like concat('%', #{cri.place}, '%')
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.state =="except"'>
-  		    and pr_ps_state != "판매완료"
-  		</if>
-</select>
+	<select id="selectProductTotalCount" resultType="int">
+	     select count(*) from product join midgroup on pr_mg_num = mg_num 
+	                          join topgroup on mg_tg_num = tg_num 
+	        <if test='cri.search != ""'>
+	  			where (pr_name like concat('%', #{cri.search}, '%')
+	  			or pr_content like concat('%', #{cri.search}, '%'))
+	  			and pr_place like concat('%', #{cri.place}, '%')
+	  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+	  			and  pr_mg_num = #{num}	
+	  		</if>
+	  		<if test='cri.search == ""'>
+	  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+	  			and  pr_place like concat('%', #{cri.place}, '%')
+	  			and  pr_mg_num = #{num}
+	  		</if>
+	  		<if test='cri.state =="except"'>
+	  		    and pr_ps_state != "판매완료"
+	  		</if>
+	</select>
    
+    <insert id="insertFile">
+   		insert into file(fi_ori_name, fi_name, fi_pr_num)
+   		values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num},)
+    </insert>
+    
+    <insert id="insertProduct">
+   		insert into product(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_price)
+   		values( #{product.pr_mg_num},#{product.pr_me_id},#{product.pr_name},
+   				#{product.pr_place},#{product.pr_content},#{product.pr_price})
+    </insert>
+    
+    <select id="getMidGroup" resultType="int">
+    	select mg_num from midgroup where mg_num = #{mg}
+    </select>
 </mapper>
