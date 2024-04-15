@@ -129,15 +129,17 @@
 					</li>
 					<!-- 검색창 -->
                    <form class="d-flex">
-											<input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
-											<button class="btn btn-outline-success" type="submit">검색</button>
+						<input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">검색</button>
                    </form>
 					<!-- Navbar dropdown -->
 					<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 45px">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-mdb-toggle="dropdown" aria-expanded="false">
 							카테고리 </a> <!-- Dropdown menu -->
-						<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+						<div class="dropdown-menu col-10 mt-0 card-1"
+							aria-labelledby="navbarDropdown"
+							style="border-top-left-radius: 0; border-top-right-radius: 0;">
 							<div class="container">
 								<div class="row my-4 here"></div>
 							</div>
@@ -187,7 +189,6 @@
 	</nav>
 <script type="text/javascript">
 getGroup();
-
 function getGroup(){
 	$.ajax({
 		url : '<c:url value="/top/group"/>',
@@ -195,15 +196,9 @@ function getGroup(){
 		success : function(data){
 			let str = '';
 			for (topGroup of data.tList){
-				let str2 = "";
-				str2 = getMidGroup(topGroup.tg_num);
-				console.log(str2);
 				str += '<div class="col-md-6 col-lg-2 mb-3 mb-lg-0" style="border-right: solid 2px #E6E6E6;">';
 				str += '<div class="list-group list-group-flush">';
 				str += '<div class="ca-name" style="margin-bottom: 15px">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
-				str += str2;
-				str += '</div>';
-				str += '</div>';
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
 					str += `<div class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
@@ -213,23 +208,6 @@ function getGroup(){
 			str += '</div>';
 			}	
 			$(".here").html(str);
-		}
-	})
-}
-
-function getMidGroup(tg_num) {
-	$.ajax({
-		url : '<c:url value="/mid/group"/>',
-		type: 'get',
-		success : function(data){
-			let str='';
-			var url = '<c:url value="/prouduct/list"/>';
-			for (midGroup of data.mList){
-				if (midGroup.mg_tg_num == tg_num){
-					str += '<a href="' + url + '?mNum=' + midGroup.mg_num + '" class="list-group-item list-group-item-action">' + midGroup.mg_title + '</a>'; // 해당 topGroup에 속하는 midGroup 출력
-				}
-			}
-			return str;
 		}
 	})
 }
