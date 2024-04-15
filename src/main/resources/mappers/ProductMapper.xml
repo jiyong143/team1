@@ -64,16 +64,16 @@
    
     <insert id="insertFile">
    		insert into file(fi_ori_name, fi_name, fi_pr_num)
-   		values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num},)
+   		values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num})
     </insert>
     
-    <insert id="insertProduct">
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="product.pr_num">
    		insert into product(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_price)
    		values( #{product.pr_mg_num},#{product.pr_me_id},#{product.pr_name},
    				#{product.pr_place},#{product.pr_content},#{product.pr_price})
     </insert>
     
-    <select id="getMidGroup" resultType="int">
-    	select mg_num from midgroup where mg_num = #{mg}
+    <select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
+    	select * from midgroup where mg_title = #{mg}
     </select>
 </mapper>

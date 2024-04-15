@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.team1.dao.ProductDAO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.utils.UploadFileUtils;
@@ -42,7 +43,8 @@ public class ProductServiceImp implements ProductService{
 			String fileName = UploadFileUtils.uploadFile
 					(uploadPath, originalFileName,file.getBytes());
 			// FileVO 객체를 생성
-			FileVO fileVo = new FileVO(pr_num, fileName, originalFileName);
+			FileVO fileVo = new FileVO(pr_num, originalFileName, fileName);
+			System.out.println(fileVo);
 			// DB에 추가
 			productDao.insertFile(fileVo);
 		} catch (Exception e) {
@@ -73,18 +75,15 @@ public class ProductServiceImp implements ProductService{
 			return false;	
 		}
 		
+		MidGroupVO mid = productDao.selectMidGroup(mg_title);
 		product.setPr_me_id(user.getMe_id());
-		
-		int num = productDao.getMidGroup(mg_title);
-		product.setPr_mg_num(num);
-		
+		product.setPr_mg_num(mid.getMg_num());
 		boolean res = productDao.insertProduct(product);
 		
 		// 게시글 등록 실패
 		if(!res) {
 			return false;
 		}
-		System.out.println("3");
 		// 첨부파일 업로드 작업
 		// 첨부파일이 없는 경우
 		if(files == null || files.length == 0) {
