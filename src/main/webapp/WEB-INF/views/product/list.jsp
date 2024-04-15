@@ -640,6 +640,7 @@ html {
 :not(.scrollbar-show)::-webkit-scrollbar {
     display: none;
 }
+
 </style>
 </head>
 <body>
@@ -798,7 +799,24 @@ html {
 </tbody>
 </table>
 
-  
+		 <table class="static" >
+		    <h5>현재 페이지의 상품가격을 비교해봤어요</h5>
+		    <thead>
+		        <tr>
+		            <th>평균 가격</th>
+		            <th>가장 높은 가격</th>
+		            <th>가장 낮은 가격</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr>
+		            <td>${avgPrice }</td>
+		            <td>${maxPrice }</td>
+		            <td>${minPrice }</td>
+		        </tr>
+		    </tbody>
+		  </table>
+		  
 		<select class="form-control col-4 offset-8 mb-4" name="order">
 			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
 			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>

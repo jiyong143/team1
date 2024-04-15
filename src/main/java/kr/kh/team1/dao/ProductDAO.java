@@ -11,7 +11,13 @@ public interface ProductDAO {
 	ArrayList<ProductVO> selectProductList(@Param("num")int mNum, @Param("cri")Criteria cri); 
 
 	int selectProductTotalCount(@Param("num")int mNum, @Param("cri")Criteria cri);
-	
-	
 
+	ArrayList<ProductVO> selectProductAllList(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectMaxPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectMinPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectAvgPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+	
 }

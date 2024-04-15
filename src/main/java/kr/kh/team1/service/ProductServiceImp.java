@@ -25,5 +25,22 @@ public class ProductServiceImp implements ProductService{
 	public int getProductTotalCount(int mNum, Criteria cri) {
 		return productDao.selectProductTotalCount(mNum, cri);  
   }
+
+	@Override
+	public int getMaxPrice(int mNum, Criteria cri) {
+		return productDao.selectMaxPrice(mNum,cri); 
+	}
+
+	@Override
+	public int getMinPrice(int mNum, Criteria cri) {
+		return productDao.selectMinPrice(mNum,cri);
+	}
+
+	@Override
+	public int getAvgPrice(int mNum, Criteria cri) {
+		return productDao.selectAvgPrice(mNum,cri); 
+	}
+
+	
   
 }

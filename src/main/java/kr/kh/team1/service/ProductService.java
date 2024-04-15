@@ -9,4 +9,10 @@ public interface ProductService {
 
 	int getProductTotalCount(int mNum, Criteria cri);
 
+	int getMaxPrice(int mNum, Criteria cri);
+
+	int getMinPrice(int mNum, Criteria cri);
+
+	int getAvgPrice(int mNum, Criteria cri);
+
 }
