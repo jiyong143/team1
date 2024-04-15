@@ -48,5 +48,6 @@ public class SurportServiceImp implements SurportService{
 	@Override
 	public void updateView(int num) {
 		surportDao.updateView(num);
+		
 	}
 }

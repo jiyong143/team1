@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	NOT NULL primary key auto_increment,
 	`co_sb_num`	int	NOT NULL,
-	`co_content` text not NULL
+	`co_content` text NOT NULL
 );
 
 DROP TABLE IF EXISTS `chat_state`;
@@ -148,21 +148,21 @@ CREATE TABLE `trade_outcome` (
 DROP TABLE IF EXISTS `surport`;
 
 CREATE TABLE `surport` (
-	`su_num`	int	NOT NULL primary key auto_increment,
+	`su_num`	int	NOT NULL,
 	`su_sm_num`	int	NOT NULL,
 	`su_uh_num`	int	NOT NULL,
 	`su_me_id`	varchar(15)	NOT NULL,
 	`su_title`	varchar(30)	NOT NULL,
 	`su_content`	text	NOT NULL,
-	`su_date`	dateTime	NOT NULL,
-	`su_view`	int	NOT NULL default 0
+	`su_date`	dateTime	NOT NULL default NOW(),
+	`su_view`	int	NOT NULL default 0 
 );
 
 DROP TABLE IF EXISTS `suport_manage`;
 
 CREATE TABLE `suport_manage` (
 	`sm_num`	int	NOT NULL primary key auto_increment,
-	`sm_ss_num`	int	NOT NULL,
+	`sm_sc_num`	int	NOT NULL,
 	`sm_name`	varchar(20)	NOT NULL
 );
 
@@ -202,7 +202,7 @@ REFERENCES `member` (
 );
 
 ALTER TABLE `suport_manage` ADD CONSTRAINT `FK_surport_category_TO_suport_manage_1` FOREIGN KEY (
-	`sm_ss_num`
+	`sm_sc_num`
 )
 REFERENCES `surport_category` (
 	`sc_num`
@@ -341,7 +341,7 @@ REFERENCES `trade_review` (
 	`tr_num`
 );
 
-ALTER TABLE member ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
+ALTER TABLE `member` ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
 	`me_fi_num`
 )
 REFERENCES file (
