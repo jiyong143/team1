@@ -11,5 +11,7 @@ public interface ProductDAO {
 	ArrayList<ProductVO> selectProductList(@Param("num")int mNum, @Param("cri")Criteria cri); 
 
 	int selectProductTotalCount(@Param("num")int mNum, @Param("cri")Criteria cri);
+	
+	
 
 }
