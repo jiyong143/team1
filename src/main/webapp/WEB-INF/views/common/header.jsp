@@ -171,7 +171,6 @@
 	   <li class="nav-item">
 		  <a class="nav-link" href="<c:url value="/product/insert"/>">판매하기</a>
 	   </li>
-	
 				</ul>
 				<!-- Left links -->
 			</div>
@@ -241,6 +240,8 @@ function showProduct(mNum, mName, tName){
 	  	sse.close(); // SSE 연결 닫기
 	  }
 	});
-	</script>
+
+</script>
 </body>
 </html>
+
