@@ -33,8 +33,8 @@ public class HomeController {
     
     @Autowired
 	MidGroupService midGroupService;
-
-    @Autowired
+	
+	@Autowired
 	ChatService chatService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -63,7 +63,11 @@ public class HomeController {
 	
 	@GetMapping("/sse")
 	public String sse(Model model) {
-		return "/chat/sse";
+		int cr_num = 2;
+		ArrayList<ChatMessageVO> chatMsgList  = chatService.getChatMessageList(cr_num);
 
+		model.addAttribute("chatMsgList",chatMsgList);
+
+		return "/chat/sse";
 	}
 }
