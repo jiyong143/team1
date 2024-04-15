@@ -651,7 +651,7 @@ html {
       <label for="search" class="flex items-center justify-between">
         <span class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] text-heading"><path d="M10.0278 19.0556C14.3233 19.0556 17.8056 15.5733 17.8056 11.2778C17.8056 6.98223 14.3233 3.5 10.0278 3.5C5.73223 3.5 2.25 6.98223 2.25 11.2778C2.25 15.5733 5.73223 19.0556 10.0278 19.0556Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M21 21.8999L15.5 16.8999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </span>
-        <form action="<c:url value="/product/list"/>" method="get">
+        <form action="<c:url value="/product/list"/>" method="get"> 
          <input type="hidden" value="${num }" name="mNum">
          <input type="hidden" value="${TName }" name="tName">
          <input type="hidden" value="${MName}" name="mName">
@@ -783,9 +783,22 @@ html {
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
-<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack"><svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="text-base ps-1">판매완료 상품 포함</span></label>
-<input id="saleYn" class="hidden" type="checkbox" value="SALE_N">
+<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
+<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
+<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base ps-1">모든 상품 보기</span>
+</label>
+<label for="saleZn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
+<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
+<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base ps-1">판매완료 상품 제거</span>
+</label>
+<input id="saleYn" name="state" class="hidden" type="radio" value="all" <c:if test="${pm.cri.state == 'all' }">checked</c:if>>
+<input id="saleZn" name="state" class="hidden" type="radio" value="except" <c:if test="${pm.cri.state == 'except' }">checked</c:if>>
 </li>
 </ul>
 </td>
@@ -905,6 +918,41 @@ html {
 $("[name=order]").change(function(){
 	$("#searchForm").submit();
 });
+</script>
+
+<script type="text/javascript">
+$("[name=state]").change(function(){
+	let state = '${pm.cri.state}';
+	let mNum = '${num}';
+	let mName = '${MName}';
+	let tName = '${TName}';
+	let search = '${pm.cri.search}';
+	let place = '${pm.cri.place}';
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let order = '${pm.cri.order}';
+	
+	$.ajax({
+		url : '<c:url value="/product/list"/>',
+		method : 'get',
+		async : true,
+		data : {
+			"state" : state,
+			"mNum" : mNum,
+			"mName" : mName,
+			"tName" : tName,
+			"search" : search,
+			"place" : place,
+			"minprice" : minPrice,
+			"maxPrice" : maxPrice,
+			"order" : order
+		},
+		success : function(data){
+			
+		}
+	});
+});
+
 </script>
 </body>
 </html>

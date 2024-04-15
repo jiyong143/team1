@@ -120,7 +120,7 @@
 	function displayMsgList(list){
 		let str = '';
 		if(list == null || list.length == 0){
-			str = '<h3>등록된 댓글이 없습니다.</h3>';
+			str = '<h3>대화가 없습니다.</h3>';
 			$('.msg-list').html(str);
 			return;
 		}
