@@ -897,10 +897,6 @@ html {
 		</c:if>
 	</ul>
 	
-	
-	<a href="<c:url value="/product/insert"/>" class="btn btn-outline-success">글쓰기</a>
-
-
 <script type="text/javascript">
 $("[name=order]").change(function(){
 	console.log(123);
