@@ -669,7 +669,7 @@ html {
         margin-bottom: 20px;
     }
     
-     .product-container {
+    .product-container {
         display: inline-block;
         margin-right: 40px; /* 상품 오른쪽 여백을 늘림 */
         margin-left: 40px; /* 상품 왼쪽 여백을 늘림 */
@@ -913,7 +913,7 @@ html {
 		</tbody>
 	</table>
 	
- <h1>상품 목록</h1>
+   <h1>상품 목록</h1>
     <c:forEach var="pro" items="${pList}" varStatus="loop">
         <div class="product-container">
             <div class="product-box">
@@ -926,7 +926,7 @@ html {
                 <!-- 기타 상품 정보 출력 -->
             </div>
         </div>
-        <c:if test="${loop.index % 4 == 3}"> <!-- 한 줄에 4개의 상품이 들어가면 줄 바꿈 -->
+        <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
             <br>
         </c:if>
     </c:forEach>
