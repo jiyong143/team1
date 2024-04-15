@@ -166,12 +166,12 @@
 							href="<c:url value="/member/mypage"/>">마이</a></li>		
           <li class="nav-item">
 		<li class="nav-item">
+
 		  <a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
 	   </li>
 	   <li class="nav-item">
 		  <a class="nav-link" href="<c:url value="/product/insert"/>">판매하기</a>
 	   </li>
-	
 				</ul>
 				<!-- Left links -->
 			</div>
@@ -203,6 +203,7 @@ function getGroup(){
 		}
 	})
 }
+
 
 function showProduct(mNum, mName, tName){
 	
@@ -241,6 +242,8 @@ function showProduct(mNum, mName, tName){
 	  	sse.close(); // SSE 연결 닫기
 	  }
 	});
-	</script>
+
+</script>
 </body>
 </html>
+

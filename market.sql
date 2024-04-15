@@ -105,21 +105,15 @@ CREATE TABLE `chat_room` (
 	`cr_me_id`	varchar(15)	NOT NULL
 );
 
-DROP TABLE IF EXISTS `surport_board`;
-
-CREATE TABLE `surport_board` (
-	`sb_num`	int	NOT NULL primary key auto_increment,
-	`sb_me_id`	varchar(15)	NOT NULL,
-	`sb_type`	varchar(10)	not	NULL,
-	`sb_content` text not NULL,
-	`sb_date`	dateTime not NULL default now()
-);
-
 DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
 	`co_num`	int	NOT NULL primary key auto_increment,
+<<<<<<< Updated upstream
 	`co_sb_num`	int	NOT NULL,
+=======
+	`co_su_num`	int	NOT NULL,
+>>>>>>> Stashed changes
 	`co_content` text not NULL
 );
 
@@ -155,6 +149,68 @@ CREATE TABLE `trade_outcome` (
 	`to_tr_num`	int	NOT NULL
 );
 
+DROP TABLE IF EXISTS `surport`;
+
+CREATE TABLE `surport` (
+	`su_num`	int	NOT NULL primary key auto_increment,
+	`su_sm_num`	int	NOT NULL,
+	`su_uh_num`	int	NOT NULL,
+	`su_me_id`	varchar(15)	NOT NULL,
+	`su_title`	varchar(30)	NOT NULL,
+	`su_content`	text	NOT NULL,
+	`su_date`	dateTime	NOT NULL,
+	`su_view`	int	NOT NULL default 0
+);
+
+DROP TABLE IF EXISTS `suport_manage`;
+
+CREATE TABLE `suport_manage` (
+	`sm_num`	int	NOT NULL primary key auto_increment,
+	`sm_ss_num`	int	NOT NULL,
+	`sm_name`	varchar(20)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `up_head`;
+
+CREATE TABLE `up_head` (
+	`uh_num`	int	NOT NULL primary key auto_increment,
+	`uh_name`	varchar(5)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `surport_category`;
+
+CREATE TABLE `surport_category` (
+	`sc_num`	int	NOT NULL primary key auto_increment,
+	`sc_name`	varchar(30)	NOT NULL
+);
+
+ALTER TABLE `surport` ADD CONSTRAINT `FK_suport_manage_TO_surport_1` FOREIGN KEY (
+	`su_sm_num`
+)
+REFERENCES `suport_manage` (
+	`sm_num`
+);
+
+ALTER TABLE `surport` ADD CONSTRAINT `FK_up_head_TO_surport_1` FOREIGN KEY (
+	`su_uh_num`
+)
+REFERENCES `up_head` (
+	`uh_num`
+);
+
+ALTER TABLE `surport` ADD CONSTRAINT `FK_member_TO_surport_1` FOREIGN KEY (
+	`su_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `suport_manage` ADD CONSTRAINT `FK_surport_category_TO_suport_manage_1` FOREIGN KEY (
+	`sm_ss_num`
+)
+REFERENCES `surport_category` (
+	`sc_num`
+);
 
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
 	`mg_tg_num`
@@ -247,18 +303,18 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `surport_board` ADD CONSTRAINT `FK_member_TO_surport_board_1` FOREIGN KEY (
-	`sb_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
 ALTER TABLE `comment` ADD CONSTRAINT `FK_surport_board_TO_comment_1` FOREIGN KEY (
+<<<<<<< Updated upstream
 	`co_sb_num`
 )
 REFERENCES `surport_board` (
 	`sb_num`
+=======
+	`co_su_num`
+)
+REFERENCES `surport` (
+	`su_num`
+>>>>>>> Stashed changes
 );
 
 ALTER TABLE `chat_state` ADD CONSTRAINT `FK_chat_room_TO_chat_state_1` FOREIGN KEY (
@@ -303,9 +359,9 @@ REFERENCES `trade_review` (
 	`tr_num`
 );
 
-ALTER TABLE member ADD CONSTRAINT FK_file_TO_member_1 FOREIGN KEY (
-	me_fi_num
+ALTER TABLE member ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
+	`me_fi_num`
 )
 REFERENCES file (
-	fi_num
+	`fi_num`
 );
