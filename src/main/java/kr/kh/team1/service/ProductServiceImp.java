@@ -51,6 +51,10 @@ public class ProductServiceImp implements ProductService{
 			e.printStackTrace();
 		}
 	}
+	
+	public MidGroupVO getMidGroup(String mg_title) {
+		return productDao.selectMidGroup(mg_title);
+	}
 
 	@Override
 	public ArrayList<ProductVO> getProductList(int mNum, Criteria cri) { 
@@ -75,7 +79,7 @@ public class ProductServiceImp implements ProductService{
 			return false;	
 		}
 		
-		MidGroupVO mid = productDao.selectMidGroup(mg_title);
+		MidGroupVO mid = getMidGroup(mg_title);
 		product.setPr_me_id(user.getMe_id());
 		product.setPr_mg_num(mid.getMg_num());
 		boolean res = productDao.insertProduct(product);
