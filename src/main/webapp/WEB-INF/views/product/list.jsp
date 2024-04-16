@@ -922,7 +922,7 @@ html {
                 <span class="separator"></span>
                 <p class="place">${pro.pr_place}</p>
                 <span class="separator"></span>
-                <p class="date">${pro.pr_date}</p>
+                <p class="date">${pro.time}</p>
                 <!-- 기타 상품 정보 출력 -->
             </div>
         </div>
