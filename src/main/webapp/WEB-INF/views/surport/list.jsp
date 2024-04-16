@@ -70,7 +70,7 @@
 		</c:if>
 	</ul>
 		<a href="<c:url value="/surport/insert"/>" class="btn btn-dark mb-4">문의하기</a>
-		<a href="<c:url value="/surportMm/list"/>" class="btn btn-dark mb-4">고정문의</a>	
+		<a href="<c:url value="/surportManage/list"/>" class="btn btn-dark mb-4">고정문의</a>	
 </div>
 
 </body>

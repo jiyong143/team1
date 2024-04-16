@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SurportVO {
 	private int su_num; 
+	private int su_sm_num;
+	private int su_uh_num;
 	private String su_me_id; 
 	private String su_title;
 	private String su_content; 
