@@ -37,14 +37,14 @@ public class SurportServiceImp implements SurportService{
 	@Override
 	public boolean insertSurport(SurportVO surport, MemberVO user) {
 		if( surport == null || 
-				surport.getSu_title() == null || 
-						surport.getSu_content() == null) {
+			surport.getSu_title() == null || 
+			surport.getSu_content() == null) 
 				return false;
-			}
-			if(user == null)
-				return false;
-			surport.setSu_me_id(user.getMe_id());
-			return surportDao.insertSurport(surport);
+			
+		if(user == null)
+			return false;
+		surport.setSu_me_id(user.getMe_id());
+		return surportDao.insertSurport(surport);
 	}
 
 	@Override

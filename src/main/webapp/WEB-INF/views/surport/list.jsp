@@ -24,7 +24,9 @@
 		<tbody>
 			<tr>
 				<td>${surport.su_num}</td>
-				<td>${surport.su_title}</td>
+				<td>
+					<a href="/surport/detail">테스트 입니다. ${surport.su_title}</a>
+				</td>
 				<td>${surport.su_content}</td>
 				<td>${surport.su_me_id}</td>
 				<td>${surport.su_date}</td>
@@ -67,10 +69,8 @@
 			</li>
 		</c:if>
 	</ul>
-		<a href="<c:url value="/surport/insert"/>" class="btn btn-dark">문의하기</a>
-		<a href="<c:url value="/surport/detail"/>" class="btn btn-dark">문의상세</a>
-		<a href="<c:url value="/surportMm/list"/>" class="btn btn-dark">고정문의</a>
-	
+		<a href="<c:url value="/surport/insert"/>" class="btn btn-dark mb-4">문의하기</a>
+		<a href="<c:url value="/surportMm/list"/>" class="btn btn-dark mb-4">고정문의</a>	
 </div>
 
 </body>

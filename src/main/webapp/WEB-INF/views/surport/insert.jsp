@@ -14,10 +14,10 @@
 	<h1>문의글 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 		<div class="form-group mt-4">
-			<label for="surportManage">문의글 선택</label>
-			<select class="form-control" id="surportManage" name="su_sm_num">
-				<c:forEach items="${list}" var="co">
-					<option value="${sm.sm_num}">${sm.sm_name }</option>
+			<label for="suport_manage">문의글 선택</label>
+			<select class="form-control" id="suport_manage" name="su_sm_num">
+				<c:forEach items="${suport_manage}" var="sm">
+					<option value="${sm.sm_num}">${sm.sm_name}</option>
 				</c:forEach>
 			</select>
 		</div>

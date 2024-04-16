@@ -2,7 +2,6 @@ package kr.kh.team1.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -119,10 +118,13 @@ public class MemberServiceImp implements MemberService {
 			if(nowTmpInt[1] < birthTmpInt[1]) {
 				return false;
 			}
-			if(nowTmpInt[2] < birthTmpInt[2]) {
-				return false;
+			if(nowTmpInt[1] == birthTmpInt[1]) {
+				if(nowTmpInt[2] < birthTmpInt[2]) {
+					return false;
+				}				
 			}
 		}
+		
 		
 		return true;
 	}

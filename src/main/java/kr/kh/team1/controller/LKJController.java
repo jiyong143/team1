@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.mysql.cj.Session;
-
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;

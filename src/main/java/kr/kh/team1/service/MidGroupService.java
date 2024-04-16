@@ -8,6 +8,4 @@ public interface MidGroupService {
 
 	ArrayList<MidGroupVO> getMidGroupList();
 
-	
-
 }

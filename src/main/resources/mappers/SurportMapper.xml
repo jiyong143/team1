@@ -8,41 +8,42 @@
 <select id="selectSurportList" resultType="kr.kh.team1.model.vo.SurportVO">
 	select * 
 		from surport
-		<!-- 
-		<if test='cris.type == "all"'>
-			where su_title like concat('%', #{cris.search}, '%')
-			or su_content like concat('%', #{cris.search}, '%')
-			or su_me_id like concat('%', #{cris.search}, '%')
-		</if>
-		<if test='cris.type == "title"'>
-  			where su_title like concat('%', #{cris.search}, '%')
-  			or su_content like concat('%', #{cris.search}, '%')
-  		</if>
-  		<if test='cris.type == "writer"'>
-  			where su_me_id like concat('%', #{cris.search}, '%')
-  		</if>
-  		order by ${cris.order} desc
-  		limit #{cris.pageStart}, #{cris.perPageNum}
-  		 -->
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cris.type == "all"'>
+				su_title like concat('%', #{cris.search}, %) or
+				su_me_id = #{cris.search}
+			</when>
+			<!-- 제목 검색 -->
+			<when test='cris.type == "title"'>
+				su_title like concat('%', #{cris.search}, '%')
+			</when>
+			<when test='cris.type == "writer"'>
+				su_me_id like concat('%', #{cris.search}, '%')
+			</when>
+		</choose>
+		<!-- 내림차 순으로 정렬 -->
+		order by ${cris.order} desc
+		limit #{cri.pageStart}, #{cris.perPageNum}  		
 </select>
 
 <select id="selectSurportTotalCount" resultType="int">
 	select count(*) 
 		from surport
-		<!-- 
-		<if test='cris.type == "all"'>
-  			where su_title like concat('%', #{cris.search}, '%')
-  			or su_content like concat('%', #{cris.search}, '%')
-  			or su_me_id like concat('%', #{cris.search}, '%')
-  		</if>
-  		<if test='cris.type == "title"'>
-  			where su_title like concat('%', #{cris.search}, '%')
-  			or su_content like concat('%', #{cris.search}, '%')
-  		</if>
-  		<if test='cris.type == "writer"'>
-  			where su_me_id like concat('%', #{cris.search}, '%')
-  		</if>
-  		 -->
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cris.type == "all"'>
+				su_title like concat('%', #{cris.search}, %) or
+				su_me_id = #{cris.search}
+			</when>
+			<!-- 제목 검색 -->
+			<when test='cris.type == "title"'>
+				su_title like concat('%', #{cris.search}, '%')
+			</when>
+			<when test='cris.type == "writer"'>
+				su_me_id like concat('%', #{cris.search}, '%')
+			</when>
+		</choose>
 </select>
 <!-- 게시글 리스트 mapper 끝 페이지네이션 작업-->
 
@@ -66,6 +67,10 @@
 <select id="selectSurport" resultType="kr.kh.team1.model.vo.SurportVO">
 	select * from surport where su_num = #{su_num}
 </select>
+
+<update id="updateSurport">
+	update surport set su_num
+</update>
 
 
    

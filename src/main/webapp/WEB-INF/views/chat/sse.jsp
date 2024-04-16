@@ -67,7 +67,7 @@
 	<div class="msg-list">
 		
 	</div>
-	<form>
+	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
 			<input type="text" class="form-control" id="msg" name="msg" placeholder="입력창">
 			<div class="input-group-append">
@@ -79,7 +79,7 @@
 <script type="text/javascript">
 	getMsgList();
 	
-	$("form").submit(function(e){
+	$("#sseForm").submit(function(e){
 		e.preventDefault();	// 태그의 효과를 막아줌
 		let obj = $(this).serialize();	// form태그에 있는 input태그들을 객체로 변환
 		console.log(obj);
@@ -120,7 +120,7 @@
 	function displayMsgList(list){
 		let str = '';
 		if(list == null || list.length == 0){
-			str = '<h3>등록된 댓글이 없습니다.</h3>';
+			str = '<h3>대화가 없습니다.</h3>';
 			$('.msg-list').html(str);
 			return;
 		}

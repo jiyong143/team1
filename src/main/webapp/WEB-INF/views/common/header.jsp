@@ -21,7 +21,6 @@
 	.dropdown-hover>.dropdown-toggle:active {
 		pointer-events: none;
 	}
-	
 
 	.card-1 {
 	  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -53,7 +52,6 @@
 	
 	table tr th,table tr td {
 		text-align: center;
-	
 	}
 	
 	.aTag {
@@ -72,39 +70,38 @@
        height: 100%; /* 부모 요소의 높이를 100%로 설정하여 수직 가운데 정렬 */
     }
     
-		    /* 카테고리 메뉴 스타일 */
-		.dropdown-menu {
-		    border: none; /* 테두리 없음 */
-		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-		    border-radius: 8px; /* 모서리 둥글게 */
-		    padding: 10px; /* 내부 간격 */
-		}
-		
-		.dropdown-menu a {
-		    color: #333; /* 링크 색상 */
-		    text-decoration: none; /* 밑줄 없음 */
-		    transition: color 0.3s ease; /* 색상 전환 효과 */
-		    display: block; /* 링크를 블록 레벨 요소로 표시하여 전체 너비 차지 */
-		    padding: 8px 15px; /* 내부 간격 */
-		}
-		
-		.dropdown-menu a:hover {
-		    background-color: #f8f9fa; /* 호버시 배경색 변경 */
-		    color: #007bff; /* 호버시 텍스트 색상 변경 */
-		}
-		
-		.dropdown-menu .divider {
-		    margin: 5px 0; /* 구분선 간격 */
-		    border-top: 1px solid #dee2e6; /* 구분선 스타일 */
-		}
-		
-		.dropdown-menu .dropdown-header {
-		    font-size: 0.85rem; /* 헤더 폰트 크기 */
-		    color: #6c757d; /* 헤더 색상 */
-		    padding: 3px 15px; /* 내부 간격 */
-		    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-		}
-			
+	/* 카테고리 메뉴 스타일 */
+	.dropdown-menu {
+	    border: none; /* 테두리 없음 */
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+	    border-radius: 8px; /* 모서리 둥글게 */
+	    padding: 10px; /* 내부 간격 */
+	}
+	
+	.dropdown-menu a {
+	    color: #333; /* 링크 색상 */
+	    text-decoration: none; /* 밑줄 없음 */
+	    transition: color 0.3s ease; /* 색상 전환 효과 */
+	    display: block; /* 링크를 블록 레벨 요소로 표시하여 전체 너비 차지 */
+	    padding: 8px 15px; /* 내부 간격 */
+	}
+	
+	.dropdown-menu a:hover {
+	    background-color: #f8f9fa; /* 호버시 배경색 변경 */
+	    color: #007bff; /* 호버시 텍스트 색상 변경 */
+	}
+	
+	.dropdown-menu .divider {
+	    margin: 5px 0; /* 구분선 간격 */
+	    border-top: 1px solid #dee2e6; /* 구분선 스타일 */
+	}
+	
+	.dropdown-menu .dropdown-header {
+	    font-size: 0.85rem; /* 헤더 폰트 크기 */
+	    color: #6c757d; /* 헤더 색상 */
+	    padding: 3px 15px; /* 내부 간격 */
+	    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+	}
 </style>
 </head>
 <body>
@@ -132,8 +129,8 @@
 					</li>
 					<!-- 검색창 -->
                    <form class="d-flex">
-                     <input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
-                     <button class="btn btn-outline-success" type="submit">검색</button>
+						<input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
+						<button class="btn btn-outline-success" type="submit">검색</button>
                    </form>
 					<!-- Navbar dropdown -->
 					<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 45px">
@@ -152,24 +149,34 @@
 				<ul class="navbar-nav ms-auto ps-lg-0"
 					style="padding-right: 0.15rem">
 					<c:if test="${user == null}">
-						<li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/member/login"/>">로그인</a></li>
-						<li class="nav-item"><a class="nav-link btn btn-light" style="margin-left: 7px"
-							href="<c:url value="/member/signup"/>">회원가입</a></li>
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/member/login"/>">로그인</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" style="margin-left: 7px" href="<c:url value="/member/signup"/>">회원가입</a>
+						</li>
 					</c:if>
 					<c:if test="${user != null}">
 			        	<li class="nav-item">
 				          	<a class="nav-link btn btn-light" href="<c:url value="/member/logout"/>">로그아웃</a>
 				        </li>
 			        </c:if>
-				    <li class="nav-item"><a class="nav-link btn btn-light"
-							href="<c:url value="/member/mypage"/>">마이</a></li>		
-          <li class="nav-item">
-		<li class="nav-item">
-		<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
-	</li>
-            <a class="nav-link" href="<c:url value="/sse"/>">sse 예제</a>
-          </li>
+			        <c:if test="${user.me_authority == 'user'}">
+					    <li class="nav-item">
+					    	<a class="nav-link btn btn-light" href="<c:url value="/member/mypage"/>">마이</a>
+						</li>
+			        </c:if>
+			        <c:if test="${user.me_authority != 'user'}">
+						<li class="nav-item">
+					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminpage"/>">관리자</a>
+						</li>		
+			        </c:if>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<c:url value="/product/insert"/>">판매하기</a>
+					</li>
 				</ul>
 				<!-- Left links -->
 			</div>
@@ -185,14 +192,13 @@ function getGroup(){
 		type: 'get',
 		success : function(data){
 			let str = '';
-			var url = '<c:url value="/prouduct/list"/>';
 			for (topGroup of data.tList){
 				str += '<div class="col-md-6 col-lg-2 mb-3 mb-lg-0" style="border-right: solid 2px #E6E6E6;">';
 				str += '<div class="list-group list-group-flush">';
 				str += '<div class="ca-name" style="margin-bottom: 15px">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
-					str += '<a href="' + url + '?mNum=' + midGroup.mg_num + '" class="list-group-item list-group-item-action">' + midGroup.mg_title + '</a>'; // 해당 topGroup에 속하는 midGroup 출력
+					str += `<div class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
 				}
 			}
 			str += '</div>';
@@ -202,9 +208,21 @@ function getGroup(){
 		}
 	})
 }
+
+
+function showProduct(mNum, mName, tName){
+	
+	let urlParams = new URLSearchParams("?");
+	if(mNum)
+		urlParams.append("mNum", mNum);
+	if(mName)
+		urlParams.append("mName", mName);
+	if(tName)
+		urlParams.append("tName", tName);
+	location.href = '<c:url value="/product/list?"/>' + urlParams;
+	
+}
 </script>
-</body>
-</html>
 
 <script type="text/javascript">
 	//이벤트 생성
@@ -229,4 +247,7 @@ function getGroup(){
 	  	sse.close(); // SSE 연결 닫기
 	  }
 	});
-	</script>
+
+</script>
+</body>
+</html>

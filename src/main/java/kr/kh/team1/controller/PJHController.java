@@ -119,6 +119,8 @@ public class PJHController {
 	@GetMapping("/member/mypage")
 	public String mypage(Model model, HttpSession session) {
 		
+		
+		
 		return "/member/mypage";
 	}
 	

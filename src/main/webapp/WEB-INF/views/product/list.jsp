@@ -647,21 +647,19 @@ html {
 </aside>
 <div class="relative hidden ms-7 me-7 xl:ms-9 lg:block flex-1">
   <div class="relative flex items-center justify-between w-full rounded-md bg-borderBottom">
-    <form class="w-full" novalidate="" role="search">
       <label for="search" class="flex items-center justify-between">
         <span class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] text-heading"><path d="M10.0278 19.0556C14.3233 19.0556 17.8056 15.5733 17.8056 11.2778C17.8056 6.98223 14.3233 3.5 10.0278 3.5C5.73223 3.5 2.25 6.98223 2.25 11.2778C2.25 15.5733 5.73223 19.0556 10.0278 19.0556Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M21 21.8999L15.5 16.8999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </span>
-        <form action="<c:url value="/product/list"/>" method="get">
+        <form action="<c:url value="/product/list"/>" method="get"> 
          <input type="hidden" value="${num }" name="mNum">
          <input type="hidden" value="${TName }" name="tName">
          <input type="hidden" value="${MName}" name="mName">
          <input type="hidden" value="${pm.cri.place}" name="place">
          <input type="hidden" value="${pm.cri.minPrice}" name="minPrice">
          <input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
-         <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요? 카페상품, 앱상품 모두 검색" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
+         <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요?" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
          </form>
       </label>
-    </form>
    </div>
 
 <div class="bg-white flex flex-col h-full max-h-64vh lg:max-h-[550px] w-full z-10 absolute h-auto shadow-header hidden mt-4">
@@ -716,15 +714,9 @@ html {
     <path fill="#141313" stroke="#141313" stroke-width="0.15" d="M8.864 12.2a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Z"></path></svg>
    </div>
      <p id="채팅하기" class="ml-1">채팅하기</p>
-      </button></li><li class="after:contents-[&quot;&quot;] after:absolute after:w-[1px] after:h-4 after:bg-jnGray-300 after:right-0 before:contents-[&quot;&quot;] before:absolute before:w-[1px] before:h-4 before:bg-jnGray-300 before:left-0 ga4_main_top_menu relative flex items-center justify-center px-3"><a class="flex items-center justify-center [&amp;>p]:ml-1" href="/product/form?type=regist"><svg id="판매하기" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.6859 20.6926H4.92323C3.88605 20.6926 3.08773 19.8241 3.20716 18.8409L4.49579 8.32142C4.5775 7.63983 5.18096 7.12109 5.89756 7.12109H15.8168C16.5334 7.12109 17.1369 7.6338 17.2186 8.32142L17.91 14.0701" stroke="currentColor" stroke-width="1.5"></path><path d="M8.35938 9.35156V9.5868C8.35938 10.7751 9.47828 11.7462 10.8486 11.7462C12.219 11.7462 13.3379 10.7751 13.3379 9.5868V9.35156" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.35938 7.72983V6.25112C7.35938 4.34555 8.90414 2.80078 10.8097 2.80078V2.80078C12.7153 2.80078 14.26 4.34555 14.26 6.25112V7.72983" stroke="currentColor" stroke-width="1.5"></path><path d="M17.1179 22.4245C19.3694 22.4245 21.1968 20.5969 21.1968 18.347C21.1968 16.0972 19.3694 14.2695 17.1179 14.2695C14.8665 14.2695 13.0391 16.0972 13.0391 18.347C13.0391 20.5969 14.8665 22.4245 17.1179 22.4245Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.1406 19.9298V16.7461" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5312 18.3439H18.7149" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg><p id="판매하기">판매하기</p></a></li><li class="relative flex flex-1 pl-3"><button class="flex items-center justify-center [&amp;>p]:ml-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" size="24"><path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.775 7.716a3.619 3.619 0 1 1-7.238.005 3.619 3.619 0 0 1 7.238-.005M13.15 13.371c-4.026 0-7.298 3.184-7.4 7.145h14.8c-.102-3.961-3.374-7.145-7.4-7.145"></path></svg><p>마이</p></button></li></ul></div></div>
-  <div class="relative">
-<line x1="0.7" y1="2.85664" x2="19.3" y2="2.85664" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
-<line x1="0.7" y1="9.99922" x2="19.3" y2="9.99922" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
-<line x1="0.7" y1="17.1438" x2="19.3" y2="17.1437" stroke="#141313" stroke-width="1.4" stroke-linecap="round"></line>
-<circle cx="13.2552" cy="2.83333" r="1.83333" fill="white" stroke="#141313" stroke-width="1.4"></circle>
-<circle cx="13.2552" cy="17.2335" r="1.83333" fill="white" stroke="#141313" stroke-width="1.4"></circle>
-<circle cx="6.11458" cy="10.0326" r="1.83333" fill="white" stroke="#141313" stroke-width="1.4"></circle></svg>
-</button>
+      </button></li><li class="after:contents-[&quot;&quot;] after:absolute after:w-[1px] after:h-4 after:bg-jnGray-300 after:right-0 before:contents-[&quot;&quot;] before:absolute before:w-[1px] before:h-4 before:bg-jnGray-300 before:left-0 ga4_main_top_menu relative flex items-center justify-center px-3"><a class="flex items-center justify-center [&amp;>p]:ml-1" href="/product/form?type=regist"><svg id="판매하기" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.6859 20.6926H4.92323C3.88605 20.6926 3.08773 19.8241 3.20716 18.8409L4.49579 8.32142C4.5775 7.63983 5.18096 7.12109 5.89756 7.12109H15.8168C16.5334 7.12109 17.1369 7.6338 17.2186 8.32142L17.91 14.0701" stroke="currentColor" stroke-width="1.5"></path><path d="M8.35938 9.35156V9.5868C8.35938 10.7751 9.47828 11.7462 10.8486 11.7462C12.219 11.7462 13.3379 10.7751 13.3379 9.5868V9.35156" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.35938 7.72983V6.25112C7.35938 4.34555 8.90414 2.80078 10.8097 2.80078V2.80078C12.7153 2.80078 14.26 4.34555 14.26 6.25112V7.72983" stroke="currentColor" stroke-width="1.5"></path><path d="M17.1179 22.4245C19.3694 22.4245 21.1968 20.5969 21.1968 18.347C21.1968 16.0972 19.3694 14.2695 17.1179 14.2695C14.8665 14.2695 13.0391 16.0972 13.0391 18.347C13.0391 20.5969 14.8665 22.4245 17.1179 22.4245Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.1406 19.9298V16.7461" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M15.5312 18.3439H18.7149" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+     <p id="판매하기">판매하기</p></a></li><li class="relative flex flex-1 pl-3"><button class="flex items-center justify-center [&amp;>p]:ml-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" size="24"><path stroke="#141313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.775 7.716a3.619 3.619 0 1 1-7.238.005 3.619 3.619 0 0 1 7.238-.005M13.15 13.371c-4.026 0-7.298 3.184-7.4 7.145h14.8c-.102-3.961-3.374-7.145-7.4-7.145"></path></svg>
+     <p>마이</p></button></li></ul></div></div>
 
 <table class="hidden lg:table filterTable">
 <tbody>
@@ -783,37 +775,30 @@ html {
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
-<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack"><svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span class="text-base ps-1">판매완료 상품 포함</span></label>
-<input id="saleYn" class="hidden" type="checkbox" value="SALE_N">
+<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
+<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
+<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base ps-1">모든 상품 보기</span>
+</label>
+<label for="saleZn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
+<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
+<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-base ps-1">판매완료 상품 제거</span>
+</label>
+<input id="saleYn" name="state" class="hidden" type="radio" value="all" <c:if test="${pm.cri.state == 'all' }">checked</c:if>>
+<input id="saleZn" name="state" class="hidden" type="radio" value="except" <c:if test="${pm.cri.state == 'except' }">checked</c:if>>
 </li>
 </ul>
 </td>
 </tr>
-</div>
-<div class="container">
-  <div class="container">          
-  <table class="table table-bordered mb-3">
-    <tbody>
-      <tr>
-        <td>카테고리</td>
-        <td>중분류</td>
-      </tr>
-      <tr>
-        <td>평균가격</td>
-        <td>중분류 평균가</td>
-      </tr>
-      <tr>
-        <td>가장 높은 가격</td>
-        <td>중분류 최고가</td>
-      </tr>
-        <tr>
-        <td>가장 낮은 가격</td>
-        <td>중분류 최저가</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+</tbody>
+</table>
+
+  
 		<select class="form-control col-4 offset-8 mb-4" name="order">
 			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
 			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>
@@ -865,10 +850,14 @@ html {
 			<li class="page-item">
 				<c:url var="url" value="/product/list">
 					<c:param name="page" value="${pm.startPage - 1}"/>
+					<c:param name="mNum" value="${num}"/>
+					<c:param name="mName" value="${MName}"/>
+					<c:param name="tName" value="${TName}"/>
 					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="minPrice" value="${pm.cri.minPrice}"/>
+					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
-					<c:param name="mNum"  value="${num }" />
+					<c:param name="place"  value="${pm.cri.place }" />
 				</c:url>
 				<a class="page-link" href="${url}">이전</a>
 			</li>
@@ -878,10 +867,14 @@ html {
 			<li class="page-item ${active}">
 				<c:url var="url" value="/product/list">
 					<c:param name="page" value="${i}"/>
+					<c:param name="mNum" value="${num}"/>
+					<c:param name="mName" value="${MName}"/>
+					<c:param name="tName" value="${TName}"/>
 					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="minPrice" value="${pm.cri.minPrice}"/>
+					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
-					<c:param name="mNum"  value="${num }" />
+					<c:param name="place"  value="${pm.cri.place }" />
 				</c:url>
 				<a class="page-link" href="${url}">${i}</a>
 			</li>
@@ -890,21 +883,89 @@ html {
 			<li class="page-item">
 				<c:url var="url" value="/product/list">
 					<c:param name="page" value="${pm.endPage + 1}"/>
+					<c:param name="mNum" value="${num}"/>
+					<c:param name="mName" value="${MName}"/>
+					<c:param name="tName" value="${TName}"/>
 					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
+					<c:param name="minPrice" value="${pm.cri.minPrice}"/>
+					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
-					<c:param name="mNum"  value="${num }" />
+					<c:param name="place"  value="${pm.cri.place }" />
 				</c:url>
 				<a class="page-link" href="${url}">다음</a>
 			</li>
 		</c:if>
 	</ul>
-	<a href="<c:url value="/product/insert"/>" class="btn btn-outline-success">글쓰기</a>
-</div>
+	
 <script type="text/javascript">
 $("[name=order]").change(function(){
-	$("#searchForm").submit();
+	console.log(123);
+	let state = '${pm.cri.state}';
+	let mNum = '${num}';
+	let mName = '${MName}';
+	let tName = '${TName}';
+	let search = '${pm.cri.search}';
+	let place = '${pm.cri.place}';
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let order = '${order}';
+	
+	$.ajax({
+		url : '<c:url value="/product/list"/>',
+		method : 'get',
+		async : true,
+		data : {
+			"state" : state,
+			"mNum" : mNum,
+			"mName" : mName,
+			"tName" : tName,
+			"search" : search,
+			"place" : place,
+			"minprice" : minPrice,
+			"maxPrice" : maxPrice,
+			"order" : order
+		},
+		success : function(data){
+			console.log(data);
+		}
+	});
+	
 });
+</script>
+
+<script type="text/javascript">
+$("[name=state]").change(function(){
+	let state = '${state}';
+	let mNum = '${num}';
+	let mName = '${MName}';
+	let tName = '${TName}';
+	let search = '${pm.cri.search}';
+	let place = '${pm.cri.place}';
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let order = '${pm.cri.order}';
+	
+	$.ajax({
+		url : '<c:url value="/product/list"/>',
+		method : 'get',
+		async : true,
+		data : {
+			"state" : state,
+			"mNum" : mNum,
+			"mName" : mName,
+			"tName" : tName,
+			"search" : search,
+			"place" : place,
+			"minprice" : minPrice,
+			"maxPrice" : maxPrice,
+			"order" : order
+		},
+		success : function(data){
+			
+		}
+	});
+});
+
 </script>
 </body>
 </html>
