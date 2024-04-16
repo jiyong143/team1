@@ -69,14 +69,18 @@ public class CJYController {
 
    @PostMapping("/product/insert")  
    public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title) {
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title) {
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		
+		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
+		MidGroupVO mGroup = productService.getMidGroup(mg_title);
+		int mNum = mGroup.getMg_num();
+		String mName = mg_title;
+		String tName = tg_title;
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
-			model.addAttribute("url", "/product/list");
+			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);
 		}else {
 			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
 			model.addAttribute("url", "/product/insert");
