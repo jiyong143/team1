@@ -22,5 +22,5 @@ public interface ProductService {
 	int getAvgPrice(int mNum, Criteria cri);
 
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData);
-
+	
 }
