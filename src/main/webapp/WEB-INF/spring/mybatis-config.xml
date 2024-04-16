@@ -9,5 +9,9 @@
         <typeAlias type="kr.kh.team1.model.vo.TopGroupVO" alias="TopGroupVO"/>
         <typeAlias type="kr.kh.team1.model.vo.MidGroupVO" alias="MidGroupVO"/>
         <typeAlias type="kr.kh.team1.model.vo.ProductVO" alias="ProductVO"/>
+        
+		<typeAlias type="kr.kh.team1.model.vo.SurportVO" alias="SurportVO"/>
+		<typeAlias type="kr.kh.team1.model.vo.SurportManageVO" alias="SurportManageVO"/>
+		
    </typeAliases>
 </configuration>
