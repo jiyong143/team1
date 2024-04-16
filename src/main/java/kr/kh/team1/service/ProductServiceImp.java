@@ -19,7 +19,6 @@ import kr.kh.team1.utils.UploadFileUtils;
 @Service
 public class ProductServiceImp implements ProductService{
 
-	
 	@Autowired
 	ProductDAO productDao;
 	
@@ -64,7 +63,7 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public int getProductTotalCount(int mNum, Criteria cri) {
 		return productDao.selectProductTotalCount(mNum, cri);  
-  }
+   }
 
 	@Override
 	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {

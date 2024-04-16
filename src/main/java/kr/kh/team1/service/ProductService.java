@@ -23,4 +23,8 @@ public interface ProductService {
 
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData);
 
+	MidGroupVO getMidGroup(String mg_title);
+
+	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
+
 }

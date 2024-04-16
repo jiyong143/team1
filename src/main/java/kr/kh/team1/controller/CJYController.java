@@ -39,8 +39,8 @@ public class CJYController {
 	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   model.addAttribute("topGroupList", topGroupList);
 
-		 return "/product/insert";
-	 }
+	   return "/product/insert";
+   }
 
    @GetMapping("/product/list")  
    public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
