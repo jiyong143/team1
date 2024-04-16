@@ -62,7 +62,6 @@
   		</if>
 </select>
 
-
 <select id="selectMaxPrice" resultType="int">
   select ifnull(max(pr_price),0) from product
         <if test='cri.search != ""'>
@@ -132,38 +131,21 @@
 		and pr_ps_state = "판매완료"
 	</if>
 </select>
-	<select id="selectProductTotalCount" resultType="int">
-	     select count(*) from product join midgroup on pr_mg_num = mg_num 
-	                          join topgroup on mg_tg_num = tg_num 
-	        <if test='cri.search != ""'>
-	  			where (pr_name like concat('%', #{cri.search}, '%')
-	  			or pr_content like concat('%', #{cri.search}, '%'))
-	  			and pr_place like concat('%', #{cri.place}, '%')
-	  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-	  			and  pr_mg_num = #{num}	
-	  		</if>
-	  		<if test='cri.search == ""'>
-	  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-	  			and  pr_place like concat('%', #{cri.place}, '%')
-	  			and  pr_mg_num = #{num}
-	  		</if>
-	  		<if test='cri.state =="except"'>
-	  		    and pr_ps_state != "판매완료"
-	  		</if>
-	</select>
+
    
-    <insert id="insertFile">
-   		insert into file(fi_ori_name, fi_name, fi_pr_num)
-   		values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num})
-    </insert>
-    
-    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="product.pr_num">
-   		insert into product(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_price)
-   		values( #{product.pr_mg_num},#{product.pr_me_id},#{product.pr_name},
-   				#{product.pr_place},#{product.pr_content},#{product.pr_price})
-    </insert>
-    
-    <select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
-    	select * from midgroup where mg_title = #{mg}
-    </select>
+<insert id="insertFile">
+	insert into file(fi_ori_name, fi_name, fi_pr_num)
+	values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num})
+</insert>
+
+<insert id="insertProduct" useGeneratedKeys="true" keyProperty="product.pr_num">
+	insert into product(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_price)
+	values( #{product.pr_mg_num},#{product.pr_me_id},#{product.pr_name},
+			#{product.pr_place},#{product.pr_content},#{product.pr_price})
+</insert>
+
+<select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
+	select * from midgroup where mg_title = #{mg}
+</select>
+
 </mapper>
