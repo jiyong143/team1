@@ -133,5 +133,21 @@ public class MemberServiceImp implements MemberService {
 	public MemberVO getMemberDate() {
 		return memberDao.selectMember1("test12");
 	}
+
+	@Override
+	public int getTradeNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectUserTradeNum(me_id);
+	}
+	
+	@Override
+	public int getReviewNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectReviewNum(me_id);
+	}
 	
 }
