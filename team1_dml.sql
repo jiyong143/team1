@@ -1,3 +1,5 @@
+use market;
+
 insert into `topgroup` values
 (1,"옷"),
 (2,"가전제품"); 
@@ -34,6 +36,38 @@ select * from topgroup;
 select * from midgroup;
 select * from product;
 
-select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
-                          join topgroup on mg_tg_num = tg_num;
-   
+select product.*, mg_title 
+as pr_mg_name, tg_title as pr_tg_name 
+	from product 
+join midgroup 
+	on pr_mg_num = mg_num 
+join topgroup on mg_tg_num = tg_num;
+
+insert into `surport_category`(sc_name) value ("사기조회"), ("이용정책");
+select * from surport_category;
+
+insert into `suport_manage`(sm_sc_num, sm_name) value (1,"문의사항");
+insert into `suport_manage`(sm_sc_num, sm_name) value (2,"사기조항");
+insert into `suport_manage`(sm_sc_num, sm_name) value (2,"신고조항");
+insert into `suport_manage`(sm_sc_num, sm_name) value (2,"거래조항");
+select * from suport_manage;
+
+insert into `up_head`(uh_name) value ("필독");
+insert into `up_head`(uh_name) value ("공지");
+insert into `up_head`(uh_name) value ("문의");
+insert into `up_head`(uh_name) value ("알리기");
+select * from up_head;
+
+select * from member;
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 4, "qwe123", "문의사항 테스트", "테스트 입니다");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 4, "qwe123", "문의글 테스트 입니다", "테스트 중");
+
+insert into `surport` (su_sm_num, su_me_id, su_title, su_content)
+values (1, 3, "qwe123", "테스트 입니다", "테스트 중");
+
+select * from surport;
+
