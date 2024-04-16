@@ -132,26 +132,7 @@
 		and pr_ps_state = "판매완료"
 	</if>
 </select>
-	<select id="selectProductTotalCount" resultType="int">
-	     select count(*) from product join midgroup on pr_mg_num = mg_num 
-	                          join topgroup on mg_tg_num = tg_num 
-	        <if test='cri.search != ""'>
-	  			where (pr_name like concat('%', #{cri.search}, '%')
-	  			or pr_content like concat('%', #{cri.search}, '%'))
-	  			and pr_place like concat('%', #{cri.place}, '%')
-	  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-	  			and  pr_mg_num = #{num}	
-	  		</if>
-	  		<if test='cri.search == ""'>
-	  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-	  			and  pr_place like concat('%', #{cri.place}, '%')
-	  			and  pr_mg_num = #{num}
-	  		</if>
-	  		<if test='cri.state =="except"'>
-	  		    and pr_ps_state != "판매완료"
-	  		</if>
-	</select>
-   
+
     <insert id="insertFile">
    		insert into file(fi_ori_name, fi_name, fi_pr_num)
    		values(#{file.fi_ori_name},#{file.fi_name},#{file.fi_pr_num})

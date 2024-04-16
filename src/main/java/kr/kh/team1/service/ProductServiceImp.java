@@ -71,15 +71,7 @@ public class ProductServiceImp implements ProductService{
 		return productDao.selectMaxPrice(mNum,cri); 
 	}
 
-	@Override
-	public int getMinPrice(int mNum, Criteria cri) {
-		return productDao.selectMinPrice(mNum,cri);
-	}
 
-	@Override
-	public int getAvgPrice(int mNum, Criteria cri) {
-		return productDao.selectAvgPrice(mNum,cri); 
-	}
 
 	@Override
 	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {
@@ -91,7 +83,7 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public int getMinPrice(int mNum, Criteria cri) {
-		return productDao.selectMinPrice(mNum,cri);
+		return productDao.selectMinPrice(mNum,cri); 
 	}
 
 	@Override
