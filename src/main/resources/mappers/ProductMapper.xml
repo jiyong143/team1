@@ -61,7 +61,7 @@
             and pr_ps_state != "판매완료"
         </if>
   </select>
-
+  
   <select id="selectMaxPrice" resultType="int">
     select ifnull(max(pr_price),0) from product
           <if test='cri.search != ""'>
@@ -120,7 +120,10 @@
     </select>
 
   <select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
-    select * from product where pr_me_id = #{me_id}
+    select * from product
+    join midgroup on mg_num = pr_mg_num
+	join topgroup on tg_num = mg_tg_num
+	where pr_me_id = #{me_id}
     <if test='clickData == "sale"'>
       and pr_ps_state = "판매중"
     </if>

@@ -120,8 +120,8 @@ li {
 						<tbody class="addPro">
 							<tr>
 								<td>${pro.pr_num }</td>
-								<td>${pro.pr_tg_name }</td>
-								<td>${pro.pr_mg_name }</td>
+								<td>${pro.tg_title }</td>
+								<td>${pro.mg_title }</td>
 								<td>
 									<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 								</td>
