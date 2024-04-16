@@ -9,6 +9,7 @@ import kr.kh.team1.dao.ChatDAO;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.TopGroupVO;
 
 @Service
 public class ChatServiceImp implements ChatService {
@@ -56,5 +57,4 @@ public class ChatServiceImp implements ChatService {
 	public ArrayList<ChatMessageVO> getChatMessageList(int cr_num) {
 		return chatDao.selectChatMessgeList(cr_num);
 	}
-
 }

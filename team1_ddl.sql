@@ -56,8 +56,8 @@ DROP TABLE IF EXISTS `file`;
 
 CREATE TABLE `file` (
 	`fi_num`	int	NOT NULL primary key auto_increment,
-	`fi_ori_name`	varchar(50)	not	NULL,
-	`fi_name`	varchar(150) not NULL,
+	`fi_ori_name`	varchar(40)	not	NULL,
+	`fi_name`	varchar(40)	not	NULL,
 	`fi_pr_num`	int	NOT NULL
 );
 
@@ -341,7 +341,7 @@ REFERENCES `trade_review` (
 	`tr_num`
 );
 
-ALTER TABLE `member` ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
+ALTER TABLE member ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
 	`me_fi_num`
 )
 REFERENCES file (
