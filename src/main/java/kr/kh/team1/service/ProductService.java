@@ -26,5 +26,5 @@ public interface ProductService {
 	MidGroupVO getMidGroup(String mg_title);
 
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData);
-
+	
 }

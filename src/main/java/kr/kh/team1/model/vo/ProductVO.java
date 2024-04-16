@@ -19,12 +19,15 @@ public class ProductVO {
 	private String pr_ps_state;  
 	private int pr_basket; 
 	private int pr_view; 
-	private Date pr_date;  
+	private Date pr_date;
 	private String pr_buyId;
 	private String pr_mg_name;
 	private String pr_tg_name;
+	private String pr_date2;
+	private String tg_title;
+	private String mg_title;
+	private int listSize;
 	
-
 	// 현재 시간을 가져와서 상품 객체의 pr_date와 차이를 계산하고 경우에 따라서 얼마전인지(년,월,일,시,분,초)를 출력하는 메서드
 	public String getTime() {
 		
@@ -45,12 +48,5 @@ public class ProductVO {
 		
 	}
 		
-		
-				
-		
-		
-		
-		
-		
-	}
+}
 
