@@ -15,7 +15,6 @@ public interface ProductDAO {
 
 	int selectProductTotalCount(@Param("num")int mNum, @Param("cri")Criteria cri);
 
-
 	ArrayList<ProductVO> selectProductAllList(@Param("num")int mNum, @Param("cri")Criteria cri);
 
 	int selectMaxPrice(@Param("num")int mNum, @Param("cri")Criteria cri);

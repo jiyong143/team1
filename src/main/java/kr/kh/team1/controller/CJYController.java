@@ -32,25 +32,15 @@ public class CJYController {
 
 	@Autowired
 	TopGroupService topGroupService;
-
-	@GetMapping("/product/list")  
-	public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
-		ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
-		int totalCount = productService.getProductTotalCount(mNum, cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
-		model.addAttribute("pm", pm);
-		model.addAttribute("pList",productList); 
-		model.addAttribute("num" , mNum); 
-		session.setAttribute("MName",mName); 
-		session.setAttribute("TName",tName);
-		return "/product/list";  
-   }
    
    @GetMapping("/product/insert")
-   public String productList(Model model, HttpSession session) {
+   public String productListGet(Model model, HttpSession session) {
    	
 	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   model.addAttribute("topGroupList", topGroupList);
+
+		 return "/product/insert";
+	 }
 
 
    @GetMapping("/product/list")  
@@ -69,7 +59,16 @@ public class CJYController {
 	   model.addAttribute("num" , mNum); 
 	   session.setAttribute("MName",mName); 
 	   session.setAttribute("TName",tName);
-	   return "/product/list";    
+	   return "/product/list";  
+	 }
+
+
+   
+   @GetMapping("/product/insert")
+   public String productTopGroupList(Model model, HttpSession session) {
+	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+	   model.addAttribute("topGroupList", topGroupList);
+	   return "/product/insert";  
    }
    
    @ResponseBody
