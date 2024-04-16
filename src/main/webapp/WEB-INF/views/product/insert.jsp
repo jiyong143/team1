@@ -41,7 +41,22 @@
 			</div>
 			<div class="form-group">
 				<label for="pr_price">가격</label>
-				<input type="number" class="form-control" id="pr_price" name="pr_price">
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" value="0" checked name="optradio">무료 나눔
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input" value="-10" name="optradio">가격 제안
+					</label>
+				</div>
+				<div class="form-check">
+					<label class="form-check-label">
+						<input type="radio" class="form-check-input priceTag" value="" name="optradio">가격 등록
+						<input type="number" class="form-control" id="pr_price" name="pr_price" disabled>
+					</label>
+				</div>
 			</div>
 			<div class="form-group">
 				<label>첨부파일(최대 5개)</label>
@@ -52,6 +67,9 @@
 			<button class="btn btn-outline-success">게시글 등록</button>
 		</form>
 	</div>
+	
+	
+<!-- 대분류 변경시 ajax로 중분류 실시간 변경 -->
 <script type="text/javascript">
 	$("[name=tg_title]").change(function(){
 		let title = $("[name=tg_title]").val();
@@ -86,6 +104,26 @@
 	}
 </script>	
 
+<!-- 가격 관련 -->
+<script type="text/javascript">
+	$(".form-check-input").change(function(){
+		let a = $(".priceTag").is(":checked");
+		if(a == true){
+			$("[name=pr_price]").prop('disabled',false);
+		}else{
+			$("[name=pr_price]").prop('disabled',true);
+		}
+	});
+	
+	$("[name=pr_price]").change(function(){
+		let a = $(this).val();
+		$(".priceTag").val(a);
+		let b = $(".priceTag").val();
+		console.log(b);
+	});
+</script>
+
+<!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
 // 서버에 전송하기 전에 제목, 내용 글자수 확인
 $("#productForm").submit(function(){
@@ -102,6 +140,8 @@ $("#productForm").submit(function(){
 		$("[name = pr_content]").focus();
 		return false;
 	}
+	
+	$(".priceTag").value = $("#pr_price").val();
 });
 
 $('[name = pr_content]').summernote({
