@@ -1,6 +1,7 @@
 package kr.kh.team1.dao;
 
 import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team1.model.vo.FileVO;
@@ -22,9 +23,12 @@ public interface ProductDAO {
 
 	int selectAvgPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
 	
+	ArrayList<ProductVO> selectMypagePro(@Param("me_id")String me_id, @Param("clickData")String clickData);
+
 	void insertFile(@Param("file")FileVO fileVo);
 
 	boolean insertProduct(@Param("product")ProductVO product);
 
 	MidGroupVO selectMidGroup(@Param("mg")String mg_title);
 }
+

@@ -32,6 +32,15 @@ public class CJYController {
 
 	@Autowired
 	TopGroupService topGroupService;
+   
+   @GetMapping("/product/insert")
+   public String productListGet(Model model, HttpSession session) {
+   	
+	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+	   model.addAttribute("topGroupList", topGroupList);
+
+		 return "/product/insert";
+	 }
 
 
    @GetMapping("/product/list")  
@@ -51,17 +60,14 @@ public class CJYController {
 	   session.setAttribute("MName",mName); 
 	   session.setAttribute("TName",tName);
 	   return "/product/list";  
-
 	 }
 
 
    
    @GetMapping("/product/insert")
-   public String productList(Model model, HttpSession session) {
-   	
+   public String productTopGroupList(Model model, HttpSession session) {
 	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   model.addAttribute("topGroupList", topGroupList);
-
 	   return "/product/insert";  
    }
    

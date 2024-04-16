@@ -18,4 +18,8 @@ public interface MemberService {
 	boolean birthCheck(String birth);
 
 	MemberVO getMemberDate();
+
+	int getTradeNum(String me_id);
+
+	int getReviewNum(String me_id);
 }
