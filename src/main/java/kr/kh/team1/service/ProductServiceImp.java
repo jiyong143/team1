@@ -122,5 +122,10 @@ public class ProductServiceImp implements ProductService{
 		}
 		return res;
 	}
+
+	@Override
+	public ArrayList<FileVO> getFileBypNum(int pNum) {
+		return productDao.selectFileBypNum(pNum);
+	}
   
 }

@@ -899,7 +899,7 @@ html {
 					<td>${pro.pr_tg_name }</td>
 					<td>${pro.pr_mg_name }</td>
 					<td>
-						<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
+						<a href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 					</td>
 					<td>${pro.pr_me_id }</td>
 					<td>${pro.pr_basket }</td>

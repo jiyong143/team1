@@ -148,4 +148,7 @@
 	select * from midgroup where mg_title = #{mg}
 </select>
 
+<select id="selectFileBypNum" resultType="kr.kh.team1.model.vo.FileVO">
+	select * from file where fi_pr_num = #{pNum}
+</select>
 </mapper>

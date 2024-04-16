@@ -1,5 +1,6 @@
 package kr.kh.team1.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import kr.kh.team1.model.dto.MessageDTO;
+import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.ProductVO;
@@ -40,8 +45,7 @@ public class CJYController {
 	   model.addAttribute("topGroupList", topGroupList);
 
 		 return "/product/insert";
-	 }
-
+   }
 
    @GetMapping("/product/list")  
    public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
@@ -98,4 +102,25 @@ public class CJYController {
 		}
 		return "message";
    }
+   
+   @GetMapping("/product/detail")
+   public String productDetail(Model model, HttpSession session, int pNum) {
+	   
+	   
+	   ArrayList<FileVO> files = productService.getFileBypNum(pNum);
+	   System.out.println(files);
+	   model.addAttribute("pNum", pNum);
+	   model.addAttribute("files", files);
+	   return "/product/detail";
+   }
+   
+    @ResponseBody
+	@PostMapping(value = "/product/detail")  
+	public Map<String, Object> productDetailImg(HttpSession session, int pr_num) {
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	ArrayList<FileVO> files = productService.getFileBypNum(pr_num);
+    	map.put("fileList", files);
+		return map; 
+	}
 }
