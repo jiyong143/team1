@@ -10,7 +10,6 @@ public class PageMaker {
 	private boolean prev;//이전버튼 활성화
 	private boolean next;//다음버튼 활성화
 	private int displayPageNum;//한 페이지네이션에서 보여준 페이지의 최대 숫자 개수
-	private Criteria_supot cris;
 	private Criteria cri;
 	
 	//totalCount, diplayPageNum, perPageNum(cri)를 이용하여 
@@ -20,11 +19,11 @@ public class PageMaker {
 		//현재 페이지에 대한 최대 페이지번호
 		//현재 페이지 : 4, 한페이지에 컨텐츠 개수가 10, 한 페이지네이션의 페이지 개수 : 10
 		//endPage = (int)(Math.ceilt(0.4) * 10);
-		endPage = (int)(Math.ceil(cris.getPage()/(double)displayPageNum)*displayPageNum);
+		endPage = (int)(Math.ceil(cri.getPage()/(double)displayPageNum)*displayPageNum);
 		
 		startPage = endPage - displayPageNum + 1;
 		//컨텐츠 개수를 이용하여 계산한 최대 페이지 번호 : 14
-		int tmpEndPage = (int)(Math.ceil(totalCount/(double)cris.getPerPageNum()));
+		int tmpEndPage = (int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		//endPage와 tmpEndPage 중 작은 값을 endPage로 설정
 		if(endPage > tmpEndPage) {
 			endPage = tmpEndPage;
