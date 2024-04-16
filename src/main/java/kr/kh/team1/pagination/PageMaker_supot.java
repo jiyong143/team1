@@ -3,7 +3,7 @@ package kr.kh.team1.pagination;
 import lombok.Data;
 
 @Data
-public class PageMaker {
+public class PageMaker_supot {
 	private int totalCount; //전체 컨텐츠 개수 => 마지막 페이지네이션의 마지막 페이지를 계산하기 위해
 	private int startPage;//페이지네이션 시작 페이지번호
 	private int endPage;//페이지네이션 마지막 페이지번호
@@ -11,7 +11,6 @@ public class PageMaker {
 	private boolean next;//다음버튼 활성화
 	private int displayPageNum;//한 페이지네이션에서 보여준 페이지의 최대 숫자 개수
 	private Criteria_supot cris;
-	private Criteria cri;
 	
 	//totalCount, diplayPageNum, perPageNum(cri)를 이용하여 
 	//endPage, startPage, prev, next를 계산하는 메서드
@@ -34,9 +33,9 @@ public class PageMaker {
 		//마지막 페이지네이션이면 false 아니면 true
 		next = endPage == tmpEndPage ? false : true;
 	}
-	public PageMaker(int displayPageNum, Criteria cri, int totalCount) {
+	public PageMaker_supot(int displayPageNum, Criteria_supot cris, int totalCount) {
 		this.displayPageNum = displayPageNum;
-		this.cri = cri;
+		this.cris = cris;
 		this.totalCount = totalCount;
 		calculate();
 	}

@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객지원 작성</title>
-<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
-<script src="/js/summernote/summernote-lite.js"></script>
-<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+<title>고객지원 수정</title>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 </head>
 <body>
@@ -15,7 +14,7 @@
 	<h1>문의글 수정</h1>
 	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">
 		<div class="form-group mt-4">
-			<label for="surportManage">말머리</label>
+			<label for="surportManage">문의글 선택</label>
 			<select class="form-control" id="surportManage" name="su_sm_num">
 				<c:forEach items="${list}" var="co">
 					<option value="${sm.sm_num}">${sm.sm_name }</option>
@@ -23,55 +22,43 @@
 			</select>
 		</div>
 		
-		<!--  
 		<div class="form-group">
-			<label for="title">제목</label>
-			<input type="text" class="form-control" id="title" name="su_title" required>
-		</div>
-		-->
-		
-		
-		<div class="form_group">
-			<textarea type="text" placeholder="제목을 입력해주세요." class="form-control mb-4" required
-			style="overflow: hidden; overflow-wrap: break-word; height: 47.6px;"></textarea>
+			<label for="su_title">제목</label>
+			<input type="text" class="form-control" id="su_title" name="su_title" required placeholder="제목을 입력해주세요.">
 		</div>
 		
-		
-		<form method="post">
-			<div class="form-group mb-4">
-			
-				  <textarea class="form-control" id="summernote" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
-			</div>
-		</form>
-		
-		<button type="submit" class="btn btn-dark col-12 mb-2">취소</button>
-		<button type="submit" class="btn btn-dark col-12 mb-4">등록</button>
+		<div class="form-group mb-4">
+			<label for="su_content">내용</label>
+		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
+		</div>		
+		<button class="btn btn-dark col-12 mb-4">등록</button>
 	</form>
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#summernote').summernote({
-			  height: 300,                
-			  minHeight: null,            
-			  maxHeight: null,            
-			  focus: true,                 
-			  lang: "ko-KR",				
-			  placeholder: '최대 2048자까지 쓸 수 있습니다'       
-		});
+	
+	$("form").submit(function() {
+		lst title = $("[name=su_title]").val();
+		if(title.length == 0){
+			alert("제목은 공백으로 남길 수 없습니다.");
+			$("[name=su_title]").focus();
+			return false;
+		}
+		let content = $("[name=su_content]").val();
+		if(content.length = 0){
+			alert("내용은 공백으로 남길 수 없습니다.")
+			$("[name-su_content]").focus();
+			return false;
+		}
+		
 	});
-	//서머노트에 text 쓰기
-	$('#summernote').summernote('insertText', 써머노트에 쓸 텍스트);
-	// 서머노트 쓰기 비활성화
-	$('#summernote').summernote('disable');
-	// 서머노트 쓰기 활성화
-	$('#summernote').summernote('enable');
-	// 서머노트 리셋
-	$('#summernote').summernote('reset');
-	// 마지막으로 한 행동 취소 ( 뒤로가기 )
-	$('#summernote').summernote('undo');
-	// 앞으로가기
-	$('#summernote').summernote('redo');
+	
+	$('[name = su_content]').summernote({
+		   placeholder: '내용을 입력하세요',
+		   tabsize: 2,
+		   height: 400
+		});
+
 </script>
 
 </body>
