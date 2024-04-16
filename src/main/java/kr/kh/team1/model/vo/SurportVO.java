@@ -13,5 +13,18 @@ public class SurportVO {
 	private String su_title;
 	private String su_content; 
 	private Date su_date;
-	private int su_view; 
+	private int su_view;
+	
+	public SurportVO(int suNum, String id, String title, String content, Date date, int view) {
+		this.su_num = suNum;
+		this.su_me_id = id;
+		this.su_title = title;
+		this.su_content = content;
+		this.su_date = date;
+		this.su_view = view;
+	}
+
+	
+	
+	
 }

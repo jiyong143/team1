@@ -10,7 +10,6 @@
 
 <div class="container">
 <h1>고객지원</h1>
-  
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -25,7 +24,9 @@
 		<tbody>
 			<tr>
 				<td>${surport.su_num}</td>
-				<td>${surport.su_title}</td>
+				<td>
+					<a href="/surport/detail">테스트 입니다. ${surport.su_title}</a>
+				</td>
 				<td>${surport.su_content}</td>
 				<td>${surport.su_me_id}</td>
 				<td>${surport.su_date}</td>
@@ -35,43 +36,41 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<li class="page-item">
-				<c:url var="url" value="/post/list">
+				<c:url var="url" value="/surport/list">
 					<c:param name="page" value="${pm.startPage - 1}"/>
-					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
-					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="search" value="${pm.cris.search}"/>
+					<c:param name="type" value="${pm.cris.type}"/>
+					<c:param name="order" value="${pm.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">이전</a>
 			</li>
 		</c:if>
 		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-			<c:set var="active" value="${pm.cri.page == i ?'active':'' }"/>
+			<c:set var="active" value="${pm.cris.page == i ?'active':'' }"/>
 			<li class="page-item ${active}">
 				<c:url var="url" value="/post/list">
 					<c:param name="page" value="${i}"/>
-					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
-					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="search" value="${pm.cris.search}"/>
+					<c:param name="type" value="${pm.cris.type}"/>
+					<c:param name="order" value="${pm.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">${i}</a>
 			</li>
 		</c:forEach>
 		<c:if test="${pm.next}">
 			<li class="page-item">
-				<c:url var="url" value="/post/list">
+				<c:url var="url" value="/surport/list">
 					<c:param name="page" value="${pm.endPage + 1}"/>
-					<c:param name="search" value="${pm.cri.search}"/>
-					<c:param name="type" value="${pm.cri.type}"/>
-					<c:param name="order" value="${pm.cri.order}"/>
+					<c:param name="search" value="${pm.cris.search}"/>
+					<c:param name="type" value="${pm.cris.type}"/>
+					<c:param name="order" value="${pm.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">다음</a>
 			</li>
 		</c:if>
 	</ul>
-	<a href="<c:url value="/surport/insert"/>" class="btn btn-dark">문의하기</a>
-		<a href="<c:url value="/surport/detail"/>" class="btn btn-dark">문의상세</a>
-		<a href="<c:url value="/surportMm/list"/>" class="btn btn-dark">고정문의</a>
-	
+		<a href="<c:url value="/surport/insert"/>" class="btn btn-dark mb-4">문의하기</a>
+		<a href="<c:url value="/surportMm/list"/>" class="btn btn-dark mb-4">고정문의</a>	
 </div>
 
 </body>
