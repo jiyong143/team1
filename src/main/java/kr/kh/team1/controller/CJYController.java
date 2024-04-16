@@ -32,7 +32,7 @@ public class CJYController {
 
 	@Autowired
 	TopGroupService topGroupService;
-   
+
    @GetMapping("/product/insert")
    public String productTopGroupList(Model model, HttpSession session) {
    	
@@ -41,7 +41,6 @@ public class CJYController {
 
 		 return "/product/insert";
 	 }
-
 
    @GetMapping("/product/list")  
    public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
