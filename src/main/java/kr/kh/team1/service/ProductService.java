@@ -12,9 +12,17 @@ public interface ProductService {
 
 	int getProductTotalCount(int mNum, Criteria cri);
 
+
+	int getMaxPrice(int mNum, Criteria cri);
+
+	int getMinPrice(int mNum, Criteria cri);
+
+	int getAvgPrice(int mNum, Criteria cri);
+
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData);
   
 	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
 
 	MidGroupVO getMidGroup(String mg_title);
+
 }

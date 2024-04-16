@@ -62,6 +62,63 @@
   		</if>
 </select>
 
+
+<select id="selectMaxPrice" resultType="int">
+  select ifnull(max(pr_price),0) from product
+        <if test='cri.search != ""'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_place like concat('%', #{cri.place}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}	
+  		</if>
+  		<if test='cri.search == ""'>
+  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_place like concat('%', #{cri.place}, '%')
+  			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.state =="except"'>
+  		    and pr_ps_state != "판매완료"
+  		</if>
+</select>
+
+<select id="selectMinPrice" resultType="int">
+   select ifnull(min(pr_price),0) from product
+        <if test='cri.search != ""'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_place like concat('%', #{cri.place}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}	
+  		</if>
+  		<if test='cri.search == ""'>
+  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_place like concat('%', #{cri.place}, '%')
+  			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.state =="except"'>
+  		    and pr_ps_state != "판매완료"
+  		</if>
+</select>
+
+<select id="selectAvgPrice" resultType="int">
+   select ifnull(avg(pr_price),0) from product
+        <if test='cri.search != ""'>
+  			where (pr_name like concat('%', #{cri.search}, '%')
+  			or pr_content like concat('%', #{cri.search}, '%'))
+  			and pr_place like concat('%', #{cri.place}, '%')
+  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_mg_num = #{num}	
+  		</if>
+  		<if test='cri.search == ""'>
+  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+  			and  pr_place like concat('%', #{cri.place}, '%')
+  			and  pr_mg_num = #{num}
+  		</if>
+  		<if test='cri.state =="except"'>
+  		    and pr_ps_state != "판매완료"
+  		</if>
+
 <select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
 	select * from product where pr_me_id = #{me_id}
 	<if test='clickData == "sale"'>

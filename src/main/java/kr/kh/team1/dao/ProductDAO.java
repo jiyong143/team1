@@ -15,6 +15,15 @@ public interface ProductDAO {
 
 	int selectProductTotalCount(@Param("num")int mNum, @Param("cri")Criteria cri);
 
+
+	ArrayList<ProductVO> selectProductAllList(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectMaxPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectMinPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+
+	int selectAvgPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
+	
 	ArrayList<ProductVO> selectMypagePro(@Param("me_id")String me_id, @Param("clickData")String clickData);
 
 	void insertFile(@Param("file")FileVO fileVo);
@@ -23,3 +32,4 @@ public interface ProductDAO {
 
 	MidGroupVO selectMidGroup(@Param("mg")String mg_title);
 }
+

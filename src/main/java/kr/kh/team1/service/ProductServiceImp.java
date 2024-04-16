@@ -67,6 +67,22 @@ public class ProductServiceImp implements ProductService{
   }
 
 	@Override
+
+	public int getMaxPrice(int mNum, Criteria cri) {
+		return productDao.selectMaxPrice(mNum,cri); 
+	}
+
+	@Override
+	public int getMinPrice(int mNum, Criteria cri) {
+		return productDao.selectMinPrice(mNum,cri);
+	}
+
+	@Override
+	public int getAvgPrice(int mNum, Criteria cri) {
+		return productDao.selectAvgPrice(mNum,cri); 
+	}
+
+	@Override
 	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {
 		if(clickData == null || clickData.length()==0) {
 			return null;
