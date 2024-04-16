@@ -3,9 +3,6 @@ package kr.kh.team1.model.vo;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import kr.kh.team1.service.MidGroupService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,5 +14,4 @@ public class TopGroupVO {
 	private String tg_title;
 	private ArrayList<MidGroupVO> midGroupList;
 	
-
 }

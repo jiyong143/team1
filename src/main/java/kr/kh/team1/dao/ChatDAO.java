@@ -8,7 +8,6 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 
-
 public interface ChatDAO {
 
 	ChatRoomVO selectChatRoom(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
@@ -20,5 +19,4 @@ public interface ChatDAO {
 	boolean insertChat(@Param("msg")MessageDTO message);
 
 	ArrayList<ChatMessageVO> selectChatMessgeList(@Param("cr_num")int cr_num);
-
 }

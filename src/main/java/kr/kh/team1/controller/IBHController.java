@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
@@ -21,8 +24,7 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.utils.SseEmitters;
 
-
-@RestController
+@Controller
 public class IBHController {
 
 	@Autowired
@@ -35,7 +37,7 @@ public class IBHController {
 		this.sseEmitters = sseEmitters;  
 	}  
 
-	
+    @ResponseBody
 	@GetMapping(value = "/sse/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)  
 	public ResponseEntity<SseEmitter> connect(HttpSession session) { 
 		
@@ -57,6 +59,7 @@ public class IBHController {
 	}
 	
 	
+    @ResponseBody
 	@PostMapping(value = "/sse/send", produces = "application/text; charset=UTF-8")  
 	public String send(HttpSession session, @RequestParam("msg") String msg) {  
 		
@@ -87,7 +90,7 @@ public class IBHController {
 	              .name("receive")
 	              .data(message));
 			
-			boolean res = chatService.insertChat(message);
+			chatService.insertChat(message);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
