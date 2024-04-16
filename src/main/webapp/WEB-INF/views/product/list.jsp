@@ -848,7 +848,6 @@ html {
 </tr>
 </tbody>
 </table>
-
 		 <table>
 		    <h5>현재 페이지의 상품가격을 비교해봤어요</h5>
 		    <thead>
@@ -916,6 +915,8 @@ html {
    <h1>상품 목록</h1>
     <c:forEach var="pro" items="${pList}" varStatus="loop">
         <div class="product-container">
+          <!-- 이미지 추가 -->
+          ${pro.fileList }
             <div class="product-box">
                 <h2 class="product-name">${pro.pr_name}</h2>
                 <p class="price">${pro.pr_price}</p>
@@ -923,7 +924,6 @@ html {
                 <p class="place">${pro.pr_place}</p>
                 <span class="separator"></span>
                 <p class="date">${pro.time}</p>
-                <!-- 기타 상품 정보 출력 -->
             </div>
         </div>
         <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->

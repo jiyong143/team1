@@ -26,7 +26,7 @@ public class ProductServiceImp implements ProductService{
 	private String uploadPath;
 	
 	private boolean checkString(String str) {
-		return str != null && str.length() != 0;
+		return str != null && str.length() != 0; 
 	}
 	
 	private void uploadFile(int pr_num, MultipartFile file) {
@@ -107,7 +107,7 @@ public class ProductServiceImp implements ProductService{
 		
 		// 게시글 등록 실패
 		if(!res) {
-			return false;
+			return false; 
 		}
 		// 첨부파일 업로드 작업
 		// 첨부파일이 없는 경우

@@ -207,7 +207,7 @@ function getGroup(){
 			$(".here").html(str);
 		}
 	})
-}
+} 
 
 
 function showProduct(mNum, mName, tName){
