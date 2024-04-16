@@ -10,7 +10,7 @@ public class PageMaker_supot {
 	private boolean prev;//이전버튼 활성화
 	private boolean next;//다음버튼 활성화
 	private int displayPageNum;//한 페이지네이션에서 보여준 페이지의 최대 숫자 개수
-	private Criteria_supot cris;
+	private Criteria_supot cris; 
 	
 	//totalCount, diplayPageNum, perPageNum(cri)를 이용하여 
 	//endPage, startPage, prev, next를 계산하는 메서드

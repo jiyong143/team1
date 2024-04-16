@@ -67,21 +67,6 @@ public class ProductServiceImp implements ProductService{
   }
 
 	@Override
-	public int getMaxPrice(int mNum, Criteria cri) {
-		return productDao.selectMaxPrice(mNum,cri); 
-	}
-
-	@Override
-	public int getMinPrice(int mNum, Criteria cri) {
-		return productDao.selectMinPrice(mNum,cri);
-	}
-
-	@Override
-	public int getAvgPrice(int mNum, Criteria cri) {
-		return productDao.selectAvgPrice(mNum,cri); 
-	}
-
-	@Override
 	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {
 		if(clickData == null || clickData.length()==0) {
 			return null;
@@ -90,6 +75,20 @@ public class ProductServiceImp implements ProductService{
 	}
 
 	@Override
+	public int getMinPrice(int mNum, Criteria cri) {
+		return productDao.selectMinPrice(mNum,cri); 
+	}
+
+	@Override
+	public int getMaxPrice(int mNum, Criteria cri) {
+		return productDao.selectMaxPrice(mNum,cri); 
+	}
+
+	@Override
+	public int getAvgPrice(int mNum, Criteria cri) {
+		return productDao.selectAvgPrice(mNum,cri); 
+	}
+
 	public boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] files, String mg_title) {
 		// 작업 순서 : 게시글을 올리고 올려진 게시글에 첨부파일을 추가
 		if(user == null || product == null) {
