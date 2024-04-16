@@ -25,5 +25,14 @@ public class ProductServiceImp implements ProductService{
 	public int getProductTotalCount(int mNum, Criteria cri) {
 		return productDao.selectProductTotalCount(mNum, cri);  
   }
+
+	@Override
+	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {
+		if(clickData == null || clickData.length()==0) {
+			return null;
+		}
+		return productDao.selectMypagePro(me_id, clickData);
+	}
+
   
 }

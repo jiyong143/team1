@@ -61,5 +61,18 @@
   		    and pr_ps_state != "판매완료"
   		</if>
 </select>
+
+<select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
+	select * from product where pr_me_id = #{me_id}
+	<if test='clickData == "sale"'>
+		and pr_ps_state = "판매중"
+	</if>
+	<if test='clickData == "reservation"'>
+		and pr_ps_state = "예약중"
+	</if>
+	<if test='clickData == "saleCompleted"'>
+		and pr_ps_state = "판매완료"
+	</if>
+</select>
    
 </mapper>
