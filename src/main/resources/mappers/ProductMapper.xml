@@ -61,6 +61,7 @@
             and pr_ps_state != "판매완료"
         </if>
   </select>
+  
   <select id="selectMaxPrice" resultType="int">
     select ifnull(max(pr_price),0) from product
           <if test='cri.search != ""'>
