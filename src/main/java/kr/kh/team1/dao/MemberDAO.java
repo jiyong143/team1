@@ -14,6 +14,10 @@ public interface MemberDAO {
 	MemberVO selectMemberPhone(@Param("phone")String phone);
 
 	MemberVO selectMember1(@Param("string")String string);
+
+	int selectUserTradeNum(@Param("me_id")String me_id);
+
+	int selectReviewNum(@Param("me_id")String me_id);
 	
 }
 

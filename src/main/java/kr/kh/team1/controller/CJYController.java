@@ -69,10 +69,14 @@ public class CJYController {
 
    @PostMapping("/product/insert")  
    public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title) {
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
+		System.out.println(optradio);
+		if(optradio == 0 || optradio == -10)
+			product.setPr_price(optradio);
+			
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();

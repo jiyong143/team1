@@ -1,10 +1,10 @@
 package kr.kh.team1.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,17 +12,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.ProductService;
+import lombok.extern.log4j.Log4j;
 
-
+@Log4j
 @Controller
 public class PJHController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ProductService productService;
 	
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -117,11 +122,32 @@ public class PJHController {
 	}
 	
 	@GetMapping("/member/mypage")
-	public String mypage(Model model, HttpSession session) {
+	public String mypage(Model model, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		
+		int tradeNum = -1;
+		tradeNum = memberService.getTradeNum(user.getMe_id());
 		
+		int reviewNum = -1;
+		reviewNum = memberService.getReviewNum(user.getMe_id());
+		
+		model.addAttribute("user", user);
+		model.addAttribute("tradeNum", tradeNum);
+		model.addAttribute("reviewNum",reviewNum);
 		
 		return "/member/mypage";
+	}
+	
+	@ResponseBody
+	@GetMapping("/member/mypage/all")
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		ArrayList<ProductVO> list;
+		list = productService.getMypagePro(user.getMe_id(), clickData);
+		map.put("list", list);
+		
+		return map;
 	}
 	
 }

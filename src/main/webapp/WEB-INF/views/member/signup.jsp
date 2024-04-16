@@ -182,9 +182,9 @@ function idCheckDup(){
 	$.ajax({
 		async : false,
 		url : '<c:url value="/id/check/dup"/>', 
-		type : 'get', 
-		data : obj, 
-		dataType : "json", 
+		type : 'get',
+		data : obj,
+		dataType : "json",
 		success : function (data){
 			result = data.result;
 			if(!result){
