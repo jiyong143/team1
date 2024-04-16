@@ -142,7 +142,7 @@ public class PJHController {
 	
 	@ResponseBody
 	@GetMapping("/member/mypage/all")
-	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData) {
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<ProductVO> list;

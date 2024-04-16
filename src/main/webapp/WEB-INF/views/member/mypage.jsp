@@ -95,9 +95,9 @@ li {
 				<div class="mt-3">
 					<p class="list-size"></p>
 					<ul class="float-right" style="width:30%">
-						<li><button class="float-left">최신순</button></li>
-						<li><button class="float-left">낮은가격순</button></li>
-						<li><button class="float-left">높은가격순</button></li>
+						<li><button id="latest" class="float-left price-list-item bg-info">최신순</button></li>
+						<li><button id="lowPrice" class="float-left price-list-item">낮은가격순</button></li>
+						<li><button id="highPrice" class="float-left price-list-item">높은가격순</button></li>
 					</ul>
 				</div>
 				<div class="mt-3"> <!-- 내 판매글 출력 -->
@@ -172,8 +172,19 @@ li {
 	})
 
 	function clickAll(str1) {
+		let type;
+		if($("#latest").hasClass("bg-info") === true) {
+			type = "latest";
+		} else if($("#lowPrice").hasClass("bg-info") === true) {
+			type = "lowPrice";
+		} else {
+			type = "highPrice";
+		}
 		let clickData;
-		let obj = { clickData : str1 };
+		let obj = { 
+			clickData : str1
+			type : type
+		};
 		$.ajax({
 			async : false,
 			url : '<c:url value="/member/mypage/all"/>', 
@@ -223,6 +234,27 @@ function addListSize(list) {
 	$(".list-size").html(str);
 }
 	
+	
+$(".price-list-item").click(function(){
+	$(".price-list-item").removeClass("bg-info");
+})
+
+
+$("#latest").click(function(){
+	$("#latest").addClass("bg-info");
+	
+})
+$("#lowPrice").click(function(){
+	$("#lowPrice").addClass("bg-info");
+	
+})
+$("#highPrice").click(function(){
+	$("#highPrice").addClass("bg-info");
+	
+})
+	
+
+
 	
 </script>
 </html>
