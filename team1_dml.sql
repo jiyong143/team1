@@ -32,9 +32,12 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 (3,"cjy0896","세탁기 싸게 팔아요","강남구 강남동","유행하는 세탁기에요",400000),
 (4,"cjy0896","냄장고 싸게 팔아요","군포시 산본동","냉장고 엄청 차가워요",350000);
 
+
+
 select * from topgroup;
 select * from midgroup;
 select * from product;
+select * from member;
 
 select product.*, mg_title 
 as pr_mg_name, tg_title as pr_tg_name 
