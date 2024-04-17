@@ -42,16 +42,16 @@ public class ProductServiceImp implements ProductService{
 			String fileName = UploadFileUtils.uploadFile
 					(uploadPath, originalFileName,file.getBytes());
 			// FileVO 객체를 생성
-			FileVO fileVo = new FileVO(pr_num, originalFileName, fileName);
-			System.out.println(fileVo);
+			FileVO fileVo = new FileVO(pr_num, originalFileName, fileName); 
+			System.out.println(fileVo); 
 			// DB에 추가
-			productDao.insertFile(fileVo);
+			productDao.insertFile(fileVo); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public MidGroupVO getMidGroup(String mg_title) {
+	public MidGroupVO getMidGroup(String mg_title) { 
 		return productDao.selectMidGroup(mg_title);
 	}
 
@@ -98,9 +98,9 @@ public class ProductServiceImp implements ProductService{
 			!checkString(product.getPr_place()) ||
 			!checkString(mg_title)) {
 			return false;	
-		}
+		} 
 		
-		MidGroupVO mid = getMidGroup(mg_title);
+		MidGroupVO mid = getMidGroup(mg_title); 
 		product.setPr_me_id(user.getMe_id());
 		product.setPr_mg_num(mid.getMg_num());
 		boolean res = productDao.insertProduct(product);

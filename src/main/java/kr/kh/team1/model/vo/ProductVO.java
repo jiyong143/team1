@@ -24,7 +24,7 @@ public class ProductVO {
 	private String pr_buyId;
 	private String pr_mg_name;
 	private String pr_tg_name;
-	private ArrayList <FileVO> fileList; 
+	private ArrayList <FileVO> fileList;  
 	private String pr_date2;
 	private String tg_title;
 	private String mg_title;

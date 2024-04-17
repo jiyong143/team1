@@ -32,7 +32,7 @@
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
