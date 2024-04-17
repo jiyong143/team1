@@ -32,5 +32,7 @@ public interface ProductDAO {
 	MidGroupVO selectMidGroup(@Param("mg")String mg_title);
 
 	ArrayList<FileVO> selectFileBypNum(@Param("pNum")int pNum);
+
+	ProductVO selectProductInfoByNum(@Param("pNum")int pNum);
 }
 

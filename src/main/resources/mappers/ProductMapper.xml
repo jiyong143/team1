@@ -151,4 +151,11 @@
 <select id="selectFileBypNum" resultType="kr.kh.team1.model.vo.FileVO">
 	select * from file where fi_pr_num = #{pNum}
 </select>
+
+<select id="selectProductInfoByNum" resultType="kr.kh.team1.model.vo.ProductVO">
+	select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product 
+		join midgroup on pr_mg_num = mg_num
+		join topgroup on mg_tg_num = tg_num
+	where pr_num = #{pNum}
+</select>
 </mapper>

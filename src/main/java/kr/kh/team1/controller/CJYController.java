@@ -1,6 +1,5 @@
 package kr.kh.team1.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import kr.kh.team1.model.dto.MessageDTO;
-import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
@@ -107,9 +103,12 @@ public class CJYController {
    public String productDetail(Model model, HttpSession session, int pNum) {
 	   
 	   ArrayList<FileVO> files = productService.getFileBypNum(pNum);
-	   System.out.println(files);
+	   // 제품 번호를 주고 대,중분류 + 제목 + 가격 + 희망 지역 가져옴
+	   ProductVO productInfo = productService.getProductInfo(pNum);
+	   System.out.println(productInfo);
 	   model.addAttribute("pNum", pNum);
 	   model.addAttribute("files", files);
+	   model.addAttribute("info", productInfo);
 	   return "/product/detail";
    }
    

@@ -18,7 +18,6 @@ import kr.kh.team1.utils.UploadFileUtils;
 
 @Service
 public class ProductServiceImp implements ProductService{
-
 	
 	@Autowired
 	ProductDAO productDao;
@@ -126,6 +125,12 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public ArrayList<FileVO> getFileBypNum(int pNum) {
 		return productDao.selectFileBypNum(pNum);
+	}
+
+	@Override
+	public ProductVO getProductInfo(int pNum) {
+		
+		return productDao.selectProductInfoByNum(pNum);
 	}
   
 }

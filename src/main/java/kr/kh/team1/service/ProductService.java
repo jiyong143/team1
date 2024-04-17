@@ -30,4 +30,6 @@ public interface ProductService {
 
 	ArrayList<FileVO> getFileBypNum(int pNum);
 
+	ProductVO getProductInfo(int pNum);
+
 }
