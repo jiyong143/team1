@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
 .px-0 {
@@ -51,7 +51,7 @@ li {
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
 						<h2>${user.me_id}</h2>
-						<!-- ÇÁ·ÎÇÊ ÀÌ¹ÌÁö -->
+						<!-- í”„ë¡œí•„ ì´ë¯¸ì§€ -->
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">
 						</div>
@@ -59,8 +59,8 @@ li {
 					</div>
 						
 				</div>
-				<!-- ½Å·ÚÁö¼ö(¿Âµµ) -->
-				<span class="font-medium text-base">½Å·ÚÁö¼ö</span>
+				<!-- ì‹ ë¢°ì§€ìˆ˜(ì˜¨ë„) -->
+				<span class="font-medium text-base">ì‹ ë¢°ì§€ìˆ˜</span>
 				<div class="progress mt-3">
 				  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
 				</div>		
@@ -68,14 +68,14 @@ li {
 					<table class="w-100">
 						<thead>
 							<tr style="width:auto">
-								<td style="text-align: center;">¾ÈÀü°Å·¡</td>
-								<td style="text-align: center;">°Å·¡ÈÄ±â</td>
+								<td style="text-align: center;">ì•ˆì „ê±°ë˜</td>
+								<td style="text-align: center;">ê±°ë˜í›„ê¸°</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- °Å·¡È½¼ö -->
-								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- °Å·¡ÈÄ±â°¹¼ö -->
+								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- ê±°ë˜íšŸìˆ˜ -->
+								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- ê±°ë˜í›„ê¸°ê°¯ìˆ˜ -->
 							</tr>
 						</tbody>
 					</table>
@@ -85,36 +85,36 @@ li {
 		<!--$-->
 		<div class="px-0 mt-8 lg:mt-[60px]">
 			<div class="flex-col mb-4 lg:mb-5">
-				<h3 class="text-lg font-bold md:text-[22px] text-jnBlack">³» »óÇ°</h3>
+				<h3 class="text-lg font-bold md:text-[22px] text-jnBlack">ë‚´ ìƒí’ˆ</h3>
 				<ul style="cursor:pointer;" class="list-group list-group-horizontal">
-					<li id="all" class="list-group-item w-25 all" value="all">ÀüÃ¼</li>
-					<li id="sale" class="list-group-item w-25" value="sale">ÆÇ¸ÅÁß</li>
-					<li id="reservation" class="list-group-item w-25" value="reservation">¿¹¾àÁß</li>
-					<li id="saleCompleted" class="list-group-item w-25" value="saleCompleted">ÆÇ¸Å¿Ï·á</li>
+					<li id="all" class="list-group-item w-25 all" value="all">ì „ì²´</li>
+					<li id="sale" class="list-group-item w-25" value="sale">íŒë§¤ì¤‘</li>
+					<li id="reservation" class="list-group-item w-25" value="reservation">ì˜ˆì•½ì¤‘</li>
+					<li id="saleCompleted" class="list-group-item w-25" value="saleCompleted">íŒë§¤ì™„ë£Œ</li>
 				</ul>
 				<div class="mt-3">
 					<p class="list-size"></p>
 					<ul class="float-right" style="width:30%">
-						<li><button id="latest" class="float-left price-list-item">ÃÖ½Å¼ø</button></li>
-						<li><button id="lowPrice" class="float-left price-list-item">³·Àº°¡°İ¼ø</button></li>
-						<li><button id="highPrice" class="float-left price-list-item">³ôÀº°¡°İ¼ø</button></li>
+						<li><button id="latest" class="float-left price-list-item">ìµœì‹ ìˆœ</button></li>
+						<li><button id="lowPrice" class="float-left price-list-item">ë‚®ì€ê°€ê²©ìˆœ</button></li>
+						<li><button id="highPrice" class="float-left price-list-item">ë†’ì€ê°€ê²©ìˆœ</button></li>
 					</ul>
 				</div>
-				<div class="mt-3"> <!-- ³» ÆÇ¸Å±Û Ãâ·Â -->
+				<div class="mt-3"> <!-- ë‚´ íŒë§¤ê¸€ ì¶œë ¥ -->
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>¹øÈ£</th>
-								<th>´ëºĞ·ù</th>
-								<th>ÁßºĞ·ù</th>
-								<th>Á¦¸ñ</th>
-								<th>ÀÛ¼ºÀÚ</th>
-								<th>Âò¼ö</th>
-								<th>°¡°İ</th>
-								<th>°Å·¡ Èñ¸Á Àå¼Ò</th>
-								<th>ÀÛ¼ºÀÏ</th>
-								<th>Á¶È¸¼ö</th>
-								<th>ÆÇ¸Å»óÅÂ</th>
+								<th>ë²ˆí˜¸</th>
+								<th>ëŒ€ë¶„ë¥˜</th>
+								<th>ì¤‘ë¶„ë¥˜</th>
+								<th>ì œëª©</th>
+								<th>ì‘ì„±ì</th>
+								<th>ì°œìˆ˜</th>
+								<th>ê°€ê²©</th>
+								<th>ê±°ë˜ í¬ë§ ì¥ì†Œ</th>
+								<th>ì‘ì„±ì¼</th>
+								<th>ì¡°íšŒìˆ˜</th>
+								<th>íŒë§¤ìƒíƒœ</th>
 							</tr>
 						</thead>
 						<tbody class="addPro">
@@ -137,7 +137,7 @@ li {
 					</table>
 				</div>
 			</div>
-			<p class="py-12 text-center d-none">¼±ÅÃµÈ Á¶°Ç¿¡ ÇØ´çÇÏ´Â »óÇ°ÀÌ ¾ø½À´Ï´Ù.</p>
+			<p class="py-12 text-center d-none">ì„ íƒëœ ì¡°ê±´ì— í•´ë‹¹í•˜ëŠ” ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</p>
 		</div>
 	</div>
 </body>
@@ -294,7 +294,7 @@ function addMethod(list) {
 function addListSize(list) {
 	$(".list-size").empty();
 	let str = "";
-	str += `ÃÑ \${list[0].listSize}°³`;
+	str += `ì´ \${list[0].listSize}ê°œ`;
 	$(".list-size").html(str);
 }
 
