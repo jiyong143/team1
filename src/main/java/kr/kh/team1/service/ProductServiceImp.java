@@ -67,11 +67,11 @@ public class ProductServiceImp implements ProductService{
   }
 
 	@Override
-	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData) {
+	public ArrayList<ProductVO> getMypagePro(String me_id, String clickData, String type) {
 		if(clickData == null || clickData.length()==0) {
 			return null;
 		}
-		return productDao.selectMypagePro(me_id, clickData);
+		return productDao.selectMypagePro(me_id, clickData, type);
 	}
 
 	@Override

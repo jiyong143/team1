@@ -142,11 +142,11 @@ public class PJHController {
 	
 	@ResponseBody
 	@GetMapping("/member/mypage/all")
-	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData) {
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<ProductVO> list;
-		list = productService.getMypagePro(user.getMe_id(), clickData);
+		list = productService.getMypagePro(user.getMe_id(), clickData, type);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 		for(int i=0; i<list.size(); i++) {
 			String tmpDate = simpleDateFormat.format(list.get(i).getPr_date());
