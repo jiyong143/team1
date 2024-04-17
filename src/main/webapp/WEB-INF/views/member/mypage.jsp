@@ -93,7 +93,7 @@ li {
 					<li id="saleCompleted" class="list-group-item w-25" value="saleCompleted">판매완료</li>
 				</ul>
 				<div class="mt-3">
-					총0개(개시글 수)
+					<p class="list-size"></p>
 					<ul class="float-right" style="width:30%">
 						<li><button class="float-left">최신순</button></li>
 						<li><button class="float-left">낮은가격순</button></li>
@@ -120,8 +120,8 @@ li {
 						<tbody class="addPro">
 							<tr>
 								<td>${pro.pr_num }</td>
-								<td>${pro.pr_tg_name }</td>
-								<td>${pro.pr_mg_name }</td>
+								<td>${pro.tg_title }</td>
+								<td>${pro.mg_title }</td>
 								<td>
 									<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 								</td>
@@ -142,10 +142,13 @@ li {
 	</div>
 </body>
 <script type="text/javascript">
+	$(function(){
+		$("#all").click();
+	});
 
 	$(".list-group-item").click(function() {
 		$(".list-group-item").removeClass("bg-info");
-
+		
 	})
 	
 	$("#all").click(function() {
@@ -188,14 +191,15 @@ li {
 	}
 
 function addMethod(list) {
+	addListSize(list);
 	let str='';
 	for(item of list) {
 		str += 
 			`
 			<tr>
 				<td>\${item.pr_num }</td>
-				<td>\${item.pr_tg_name }</td>
-				<td>\${item.pr_mg_name }</td>
+				<td>\${item.tg_title }</td>
+				<td>\${item.mg_title }</td>
 				<td>
 					<a href="<c:url value="/post/detail?pNum= \${item.pr_num } "/>"> \${item.pr_name} </a>
 				</td>
@@ -203,13 +207,20 @@ function addMethod(list) {
 				<td>\${item.pr_basket }</td>
 				<td>\${item.pr_price }</td>
 				<td>\${item.pr_place }</td>
-				<td>\${item.pr_date }</td>
+				<td>\${item.pr_date2 }</td>
 				<td>\${item.pr_view }</td>
 				<td>\${item.pr_ps_state }</td>	
 			</tr>
 			`
 	}
 	$(".addPro").html(str);
+}
+
+function addListSize(list) {
+	$(".list-size").empty();
+	let str = "";
+	str += `총 \${list[0].listSize}개`;
+	$(".list-size").html(str);
 }
 	
 	

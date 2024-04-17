@@ -172,10 +172,10 @@
 						</li>		
 			        </c:if>
 					<li class="nav-item">
-						<a class="nav-link" href="<c:url value="/surport/list"/>">고객센터</a>
+						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="<c:url value="/product/insert"/>">판매하기</a>
+						<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 					</li>
 				</ul>
 				<!-- Left links -->
