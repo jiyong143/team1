@@ -95,7 +95,7 @@ li {
 				<div class="mt-3">
 					<p class="list-size"></p>
 					<ul class="float-right" style="width:30%">
-						<li><button id="latest" class="float-left price-list-item bg-info">최신순</button></li>
+						<li><button id="latest" class="float-left price-list-item">최신순</button></li>
 						<li><button id="lowPrice" class="float-left price-list-item">낮은가격순</button></li>
 						<li><button id="highPrice" class="float-left price-list-item">높은가격순</button></li>
 					</ul>
@@ -144,6 +144,7 @@ li {
 <script type="text/javascript">
 	$(function(){
 		$("#all").click();
+		$("#latest").click();
 	});
 
 	$(".list-group-item").click(function() {
@@ -170,21 +171,84 @@ li {
 		$("#saleCompleted").addClass("bg-info");
 		clickAll("saleCompleted");
 	})
+	
+	/*----------------------------------------------*/
+	
+	$(".price-list-item").click(function(){
+		$(".price-list-item").removeClass("bg-info");
+	})
+	
+	$("#latest").click(function(){
+		$("#latest").addClass("bg-info");
+		clickType("latest");
+		
+	})
+	
+	$("#lowPrice").click(function(){
+		$("#lowPrice").addClass("bg-info");
+		clickType("lowPrice");
+		
+	})
+	
+	$("#highPrice").click(function(){
+		$("#highPrice").addClass("bg-info");
+		clickType("highPrice");
+	})
 
 	function clickAll(str1) {
-		let type;
+		let str2;
+		
 		if($("#latest").hasClass("bg-info") === true) {
-			type = "latest";
-		} else if($("#lowPrice").hasClass("bg-info") === true) {
-			type = "lowPrice";
+			str2 = "latest";
+		} else if ($("#lowPrice").hasClass("bg-info") === true) {
+			str2 = "lowPrice";
 		} else {
-			type = "highPrice";
+			str2 = "highPrice";
 		}
+		
 		let clickData;
+		let type;
 		let obj = { 
-			clickData : str1
-			type : type
+			clickData : str1,
+			type : str2
 		};
+		$.ajax({
+			async : false,
+			url : '<c:url value="/member/mypage/all"/>', 
+			type : 'get',
+			data : obj,
+			dataType : "json",
+			success : function (data){
+				addMethod(data.list);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+		return clickData;
+	}
+	
+	function clickType(str2) {
+		let str1;
+		
+		if($("#all").hasClass("bg-info") === true) {
+			str1 = "all";
+		} else if ($("#sale").hasClass("bg-info") === true) {
+			str1 = "sale";
+		} else if ($("#reservation").hasClass("bg-info") === true) {
+			str1 = "reservation";
+		} else {
+			str1 = "saleCompleted";
+		}
+		
+		let clickData;
+		let type;
+		
+		let obj = { 
+			clickData : str1,
+			type : str2
+		};
+		
 		$.ajax({
 			async : false,
 			url : '<c:url value="/member/mypage/all"/>', 
@@ -233,28 +297,6 @@ function addListSize(list) {
 	str += `총 \${list[0].listSize}개`;
 	$(".list-size").html(str);
 }
-	
-	
-$(".price-list-item").click(function(){
-	$(".price-list-item").removeClass("bg-info");
-})
 
-
-$("#latest").click(function(){
-	$("#latest").addClass("bg-info");
-	
-})
-$("#lowPrice").click(function(){
-	$("#lowPrice").addClass("bg-info");
-	
-})
-$("#highPrice").click(function(){
-	$("#highPrice").addClass("bg-info");
-	
-})
-	
-
-
-	
 </script>
 </html>

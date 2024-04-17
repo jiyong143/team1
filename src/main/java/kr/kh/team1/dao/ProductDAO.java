@@ -23,7 +23,7 @@ public interface ProductDAO {
 
 	int selectAvgPrice(@Param("num")int mNum, @Param("cri")Criteria cri);
 	
-	ArrayList<ProductVO> selectMypagePro(@Param("me_id")String me_id, @Param("clickData")String clickData);
+	ArrayList<ProductVO> selectMypagePro(@Param("me_id")String me_id, @Param("clickData")String clickData, @Param("type")String type);
 
 	void insertFile(@Param("file")FileVO fileVo);
 
