@@ -22,18 +22,26 @@
 		<div id="demo" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
 			<ul class="carousel-indicators">
-				<li data-target="#demo" data-slide-to="0" class="active"></li>
-				<li data-target="#demo" data-slide-to="1"></li>
-				<li data-target="#demo" data-slide-to="2"></li>
-				<li data-target="#demo" data-slide-to="3"></li>
-				<li data-target="#demo" data-slide-to="4"></li>
+				 <c:forEach items="${files}" var="list" varStatus="loop">
+		            <c:if test="${loop.index == 0}">
+		                <li data-target="#demo" data-slide-to="${loop.index}" class="active"></li>
+		            </c:if>
+		            <c:if test="${loop.index != 0}">
+		                <li data-target="#demo" data-slide-to="${loop.index}"></li>
+		            </c:if>
+		        </c:forEach>
 			</ul>
 		
 			<!-- 그림 -->
 			<div class="carousel-inner">
-				<c:forEach items="${files}" var="list">
-					<c:if test="${list.img}">
+				<c:forEach items="${files}" var="list" varStatus="loop">
+					<c:if test="${loop.index == 0}">
 						<div class="carousel-item active">
+							<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지">
+						</div>
+					</c:if>
+					<c:if test="${loop.index != 0}">
+						<div class="carousel-item">
 							<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지">
 						</div>
 					</c:if>

@@ -106,7 +106,6 @@ public class CJYController {
    @GetMapping("/product/detail")
    public String productDetail(Model model, HttpSession session, int pNum) {
 	   
-	   
 	   ArrayList<FileVO> files = productService.getFileBypNum(pNum);
 	   System.out.println(files);
 	   model.addAttribute("pNum", pNum);
@@ -119,8 +118,7 @@ public class CJYController {
 	public Map<String, Object> productDetailImg(HttpSession session, int pr_num) {
     	
     	HashMap<String, Object> map = new HashMap<String, Object>();
-    	ArrayList<FileVO> files = productService.getFileBypNum(pr_num);
-    	map.put("fileList", files);
+    	
 		return map; 
 	}
 }
