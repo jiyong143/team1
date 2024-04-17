@@ -87,19 +87,7 @@ public class ProductServiceImp implements ProductService{
 			return null;
 		}
 		return productDao.selectMypagePro(me_id, clickData);
-	}
-
-	@Override
-	public int getMinPrice(int mNum, Criteria cri) {
-		return productDao.selectMinPrice(mNum,cri);
-	}
-
-	@Override
-	public int getAvgPrice(int mNum, Criteria cri) {
-		return productDao.selectAvgPrice(mNum,cri); 
-	}
-
-	
+	}	
 
 	@Override
 	public boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] files, String mg_title) {

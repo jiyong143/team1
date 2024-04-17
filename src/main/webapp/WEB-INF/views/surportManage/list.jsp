@@ -10,56 +10,76 @@
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<style>
+	.tbody{
+		display: table-header-group;
+	}
+	.h2{
+		display: mt-4;
+	}
+</style>
 <body>
-
   <div class="container">
   <h2>고객관리</h2>
-  <p>자유롭게 문의해주세요.</p>            
+  <hr>           
+  <h3>자주 묻는 질문</h3>
+  <hr>
   <table class="table">
-    <thead>
       <tr>
-        <th>자주 묻는 질문</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>동일한 게시글을 올려서 내 게시글이 미노출 됐어요</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA">동일한 게시글을 올려서 내 게시글이 미노출 됐어요</a>
+    	</p>
       </tr>
       <tr>
-        <td>부적절한 회원 신고 안내</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA2">부적절한 회원 신고 안내</a>
+        </p>
       </tr>
       <tr>
-        <td>중고거래 매너 안내</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">이용자에게 불쾌감을 유발하는 콘텐츠</a>
+        </p>
       </tr>
       <tr>
-        <td>직거래 시 유의사항</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">부적절한 회원 신고 안내</a>
+        </p>
       </tr>
-    </tbody>
   </table>
   
-   <table class="table">
-    <thead>
+  <hr>
+  <h3>운영정책</h3>
+  <hr>
+  <table class="table">
       <tr>
-        <th>카테고리에서 찾기</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>로그인</td>
-      </tr>
-      <tr>
-        <td>중고거래</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA">로그인</a>
+    	</p>
       </tr>
       <tr>
-        <td>상품판매</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA2">중고거래 안내</a>
+        </p>
       </tr>
       <tr>
-        <td>기타</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">상품판매 안내</a>
+        </p>
       </tr>
-    </tbody>
+      <tr>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">서비스 이용제한</a>
+        </p>
+      </tr>
   </table>
-</div>
-
 
 </body>
 </html>

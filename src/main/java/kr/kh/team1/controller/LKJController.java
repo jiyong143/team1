@@ -61,16 +61,23 @@ public class LKJController {
 	}
 	
 	@GetMapping("/surport/detail")
-	public String surportDetail(Model model, int suNum, Criteria_supot cris) {
+	public String surportDetail(Model model, Integer suNum, Criteria_supot cris) {
+		if(suNum == null) {
+			
+		}else {
 		surportService.updateView(suNum);
 		SurportVO surport = surportService.getSurport(suNum);
 		model.addAttribute("surport", surport);
 		model.addAttribute("ctis", cris);
+		}
 		return "/surport/detail";
 	}
 	
 	@GetMapping("/surport/update")
-	public String surportUpdate(Model model, int suNum) {
+	public String surportUpdate(Model model, Integer suNum) {
+		if(suNum == null) {
+			
+		}else {
 		//이미 insert문에서 사용 -> 고객관리 카테고리에서 리스트를 가져와 화면에 전송
 		ArrayList<SurportManageVO> list = surportService.getSurportManageList();
 		//detail에서 사용
@@ -78,6 +85,7 @@ public class LKJController {
 		
 		model.addAttribute("surport", surport);
 		model.addAttribute("list", list);
+		}
 		return "/surport/update";
 	}
 	
@@ -99,6 +107,16 @@ public class LKJController {
 	//고정 문의글 리스트 
 	public String surportManageList(Model model) {
 		return "/surportManage/list";
+	}
+	
+	@GetMapping("/surportManage/userQnA")
+	public String userQnA(Model model) {
+		return "/surportManage/userQnA";
+	}
+	
+	@GetMapping("/surportManage/userQnA2")
+	public String userQnA2(Model model) {
+		return "/surportManage/userQnA2";
 	}
 	
 

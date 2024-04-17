@@ -40,9 +40,9 @@
 			<label for="su_content">내용</label>
 		  	<textarea class="form-control" id="su_content" name="su_content" readonly value="${surport.su_content}"></textarea>
 		</div>		
-			<button type="button" class="btn btn-warning mb-4">수정</button>
+			<a href="<c:url value="/surport/update"/>" class="btn btn-warning mb-4">수정</a>
 			<button type="button" class="btn btn-danger mb-4">삭제</button> 
-			<button class="btn btn-dark col-12 mb-4">이전으로</button>
+			<a href="<c:url value="/surport/list"/>" class="btn btn-dark col-12 mb-4">이전으로</a>
 	</form>
 </div>
 
