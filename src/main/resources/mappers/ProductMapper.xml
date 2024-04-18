@@ -22,25 +22,6 @@
 				column="pr_num" select="selectFile"/>
 	</resultMap>
 
-<select id="selectMaxPrice" resultType="int">
-  select ifnull(max(pr_price),0) from product
-        <if test='cri.search != ""'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_place like concat('%', #{cri.place}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}	
-  		</if>
-  		<if test='cri.search == ""'>
-  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_place like concat('%', #{cri.place}, '%')
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.state =="except"'>
-  		    and pr_ps_state != "판매완료"
-  		</if>
-</select>
-
     <select id="selectProductList" resultMap="ProductMap">
         select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                               join topgroup on mg_tg_num = tg_num
@@ -214,9 +195,9 @@
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
 			COUNT(*) AS pr_pickCount from product
-			JOIN pick ON pr_num = pi_pr_num
-			join midgroup on pr_mg_num = mg_num
-			join topgroup on mg_tg_num = tg_num
+			left JOIN pick ON pr_num = pi_pr_num
+			left join midgroup on pr_mg_num = mg_num
+			left join topgroup on mg_tg_num = tg_num
 		where pr_num = #{pNum}
 		GROUP BY pr_num
 	</select>
@@ -233,4 +214,8 @@
 	<update id="updateView">
 		update product set pr_view = pr_view + 1 where pr_num = #{pNum}
 	</update>
+	
+	<select id="selectPickByUserAndNum" resultType="kr.kh.team1.model.vo.PickVO">
+		select * from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
+	</select>
 </mapper>
