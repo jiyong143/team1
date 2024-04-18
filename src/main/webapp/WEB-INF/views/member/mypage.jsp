@@ -137,7 +137,6 @@ li {
 					</table>
 				</div>
 			</div>
-			<p class="py-12 text-center d-none">선택된 조건에 해당하는 상품이 없습니다.</p>
 		</div>
 	</div>
 </body>

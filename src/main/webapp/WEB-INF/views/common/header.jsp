@@ -174,7 +174,7 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
-					<c:if test="${user.me_authority != 'user'}">
+					<c:if test="${user.me_authority == 'user'}">
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 					</li>
@@ -195,9 +195,9 @@ function getGroup(){
 		success : function(data){
 			let str = '';
 			for (topGroup of data.tList){
-				str += '<div class="col-md-6 col-lg-2 mb-3 mb-lg-0" style="border-right: solid 2px #E6E6E6;">';
-				str += '<div class="list-group list-group-flush">';
-				str += '<div class="ca-name" style="margin-bottom: 15px">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
+				str += '<div class="" style="">';
+				str += '<div class="list-group">';
+				str += '<div class="ca-name">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
 					str += `<div class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력

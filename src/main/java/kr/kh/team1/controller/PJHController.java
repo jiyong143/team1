@@ -123,8 +123,13 @@ public class PJHController {
 	}
 	
 	@GetMapping("/member/mypage")
-	public String mypage(Model model, HttpServletRequest request) {
-		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+	public String mypage(Model model, HttpServletRequest request, MemberVO membervo) {
+		MemberVO user = null;
+		if(membervo.getMe_id()==null) {
+			user = (MemberVO)request.getSession().getAttribute("user");
+		} else {
+			user = membervo;
+		}
 		
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(user.getMe_id());
