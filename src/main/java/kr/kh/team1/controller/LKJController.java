@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
+import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.SurportService;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Controller
 public class LKJController {
 	
@@ -37,18 +40,27 @@ public class LKJController {
 	
 	@GetMapping("/surport/insert")
 	public String surportInsert(Model model) {
-		//고객관리 리스트를 화면에 전송
+		//고객지원타입 리스트를 화면에 전송 -> 1.공지사항 , 2.문의사항
 		ArrayList<SurportManageVO> list = surportService.getSurportManageList();
 		model.addAttribute("list", list);
 		model.addAttribute("title", "고객문의 등록");
 		return "/surport/insert";
 	}
-	
+	/*
+	@GetMapping("/surport/list")
+	public String upHeadInsert(Model model) {
+		//말머리 리스트를 화면에 전송 -> 1.공지 , 2.필독 , 3.문의
+		ArrayList<UpHeadVO> list = surportService.getUpHeadList();
+		model.addAttribute("list", list);
+		return "/surport/list";
+	}
+	*/
 	@PostMapping("/surport/insert")
 	public String surportInsertPost(Model model, SurportVO surport, HttpSession session) {
 		//작성자 아이디를 가지고 문의글 작성
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = surportService.insertSurport(surport, user);
+		log.info(surport);
 		if(res) {
 			model.addAttribute("msg", "고객문의를 주셔서 감사합니다.");
 			model.addAttribute("url", "/surport/list");
@@ -56,7 +68,6 @@ public class LKJController {
 			model.addAttribute("msg", "고객문의 작성이 실패하였습니다.");
 			model.addAttribute("url", "/surport/insert");
 		}
-		System.out.println(surport);
 		return "message";
 	}
 	
@@ -109,14 +120,15 @@ public class LKJController {
 		return "/surportManage/list";
 	}
 	
-	@GetMapping("/surportManage/userQnA")
+	//고정문의 페이지 모음 -> 시작
+	@GetMapping("/surportManage/QnA/QnApage1")
 	public String userQnA(Model model) {
-		return "/surportManage/userQnA";
+		return "/surportManage/QnA/QnApage1";
 	}
 	
-	@GetMapping("/surportManage/userQnA2")
+	@GetMapping("/surportManage/QnA/QnApage2")
 	public String userQnA2(Model model) {
-		return "/surportManage/userQnA2";
+		return "/surportManage/QnA/QnApage2";
 	}
 	
 

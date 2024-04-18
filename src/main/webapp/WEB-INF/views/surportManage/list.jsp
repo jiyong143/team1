@@ -28,25 +28,25 @@
       <tr>
         <p>
         <li data=""/>
-        	<a href="/team1/surportManage/userQnA">동일한 게시글을 올려서 내 게시글이 미노출 됐어요</a>
+        	<a href="/team1/surportManage/QnA/QnApage1">거래금지 물품</a>
     	</p>
       </tr>
       <tr>
         <p>
         <li data=""/>
-        	<a href="/team1/surportManage/userQnA2">부적절한 회원 신고 안내</a>
+        	<a href="/team1/surportManage/QnA/QnApage2">거래 매너</a>
         </p>
       </tr>
       <tr>
          <p>
          	<li data=""/>
-        	<a href="/surportManage/userQnA">이용자에게 불쾌감을 유발하는 콘텐츠</a>
+        	<a href="/surportManage/userQnA">회원탈퇴</a>
         </p>
       </tr>
       <tr>
          <p>
          	<li data=""/>
-        	<a href="/surportManage/userQnA">부적절한 회원 신고 안내</a>
+        	<a href="/surportManage/userQnA">매너평가</a>
         </p>
       </tr>
   </table>
@@ -58,25 +58,31 @@
       <tr>
         <p>
         <li data=""/>
-        	<a href="/team1/surportManage/userQnA">로그인</a>
+        	<a href="/team1/surportManage/userQnA">부적절한 의도와 목적의 서비스 이용</a>
     	</p>
       </tr>
       <tr>
         <p>
         <li data=""/>
-        	<a href="/team1/surportManage/userQnA2">중고거래 안내</a>
+        	<a href="/team1/surportManage/userQnA2">불법 ・ 유해 콘텐츠와 거래금지물품</a>
         </p>
       </tr>
       <tr>
          <p>
          	<li data=""/>
-        	<a href="/surportManage/userQnA">상품판매 안내</a>
+        	<a href="/surportManage/userQnA">폭력적이고 혐오감을 유발하는 정보</a>
         </p>
       </tr>
       <tr>
          <p>
          	<li data=""/>
-        	<a href="/surportManage/userQnA">서비스 이용제한</a>
+        	<a href="/surportManage/userQnA">개인정보 및 사생활 침해 행위</a>
+        </p>
+      </tr>
+      <tr>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">서비스 이용 제한 정책</a>
         </p>
       </tr>
   </table>

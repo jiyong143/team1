@@ -5,11 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>고객지원</title>
+<style type="text/css">
+.page-title{
+	font-size: 28px; 
+	font-weight:800;
+	margin-top:10px; 
+}
+.list-title{
+	color: red;
+}
+</style>
 </head>
 <body>
-
 <div class="container">
-<h1>고객지원</h1>
+<h1 class="page-title">고객지원</h1>
 
 	<form action="<c:url value="/surport/list"/>" method="get">
 		<div class="input-group mb-3">
@@ -37,7 +46,7 @@
 			<c:forEach items="${list}" var="surport">
 			<tr>
 				<td>${surport.su_num}</td>
-				<td>
+				<td class="list-title">
 					<c:url value="/surport/detail" var="url">
 						<c:param name="page" value="${pms.cris.page}"/>
 						<c:param name="type" value="${pms.cris.type}"/>

@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SurportVO {
+public class SurportVO {	
 	private int su_num; 
+	private int su_sm_num; 
+	private int su_uh_num;
 	private String su_me_id; 
 	private String su_title;
 	private String su_content; 
@@ -23,6 +25,17 @@ public class SurportVO {
 		this.su_date = date;
 		this.su_view = view;
 	}
+
+	public SurportVO(int su_num, int su_sm_num, int su_uh_num, String su_me_id, String su_title, String su_content) {
+		this.su_num = su_num;
+		this.su_sm_num = su_sm_num;
+		this.su_uh_num = su_uh_num;
+		this.su_me_id = su_me_id;
+		this.su_title = su_title;
+		this.su_content = su_content;
+	}
+	
+	
 
 	
 	

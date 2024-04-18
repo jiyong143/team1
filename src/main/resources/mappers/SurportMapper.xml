@@ -52,18 +52,19 @@
      -->
 </select>
 
-
-<!-- 고객관리 리스트 문의사항,이용조항,사기조항,거래조항 -->
 <select id="selectSurportManageList" resultType="kr.kh.team1.model.vo.SurportManageVO">
 	select * from suport_manage
 </select>
 
+<select id="selectUpHeadList" resultType="kr.kh.team1.model.vo.UpHeadVO">
+	select * from up_head
+</select>
 
-<!-- 고객문의 입력 -->
-<insert id="insertSurport" useGeneratedKeys="true" keyProperty="surport.su_num">
-	insert into surport(su_me_id, su_title, su_content)
-	values(#{surport.su_me_id},#{surport.su_title},#{surport.su_content})
+<insert id="insertSurport">
+	INSERT INTO surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+	VALUES (#{surport.su_sm_num}, #{surport.su_uh_num}, #{surport.su_me_id}, #{surport.su_title}, #{surport.su_content})
 </insert>
+
 
 <update id="updateView">
 	update surport set su_view = su_view + 1 where su_num = #{su_num}
@@ -74,7 +75,13 @@
 </select>
 
 <update id="updateSurport">
-	update surport set su_num
+	update surport set 
+		su_sm_num = #{su.sm_num},
+		su_uh_num = #{su.su_uh_num},
+		su_title = #{su.su_title},
+		su_content = #{su.su_content}
+	where
+		su_num = #{su.su_num}
 </update>
 
 
