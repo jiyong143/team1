@@ -101,6 +101,7 @@
         <if test='cri.state =="except"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_price > 0
   </select>
 
   <select id="selectMinPrice" resultType="int">
@@ -120,6 +121,7 @@
         <if test='cri.state =="except"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_price > 0
   </select>
 
   <select id="selectAvgPrice" resultType="int">
@@ -139,6 +141,7 @@
         <if test='cri.state =="except"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_price > 0
     </select>
 
   <select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
