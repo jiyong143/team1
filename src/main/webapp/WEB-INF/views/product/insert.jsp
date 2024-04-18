@@ -62,8 +62,10 @@
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
+				<input type="file" class="form-control" name="file">
+				<input type="file" class="form-control" name="file">
 			</div>
-			<button class="btn btn-outline-success">게시글 등록</button>
+			<button class="btn btn-outline-success">상품 등록</button>
 		</form>
 	</div>
 	

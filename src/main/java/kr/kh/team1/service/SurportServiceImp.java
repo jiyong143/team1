@@ -9,6 +9,7 @@ import kr.kh.team1.dao.SurportDAO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
+import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 
 @Service
@@ -33,7 +34,12 @@ public class SurportServiceImp implements SurportService{
 	public ArrayList<SurportManageVO> getSurportManageList() {
 		return surportDao.selectSurportManageList();
 	}
-
+	/*
+	@Override
+	public ArrayList<UpHeadVO> getUpHeadList() {
+		return surportDao.selectUpHeadList();
+	}
+	*/
 	@Override
 	public boolean insertSurport(SurportVO surport, MemberVO user) {
 		if( surport == null || 
@@ -70,7 +76,7 @@ public class SurportServiceImp implements SurportService{
 			return false;
 		}
 		//작성자 확인
-		SurportVO dbSurport = surportDao.selectSurport(surport.getSu_me_id());
+		SurportVO dbSurport = surportDao.selectSurport(surport.getSu_num());
 		if( dbSurport == null ||
 			!dbSurport.getSu_me_id().equals(user.getMe_id())) {
 			return false;
@@ -87,6 +93,8 @@ public class SurportServiceImp implements SurportService{
 		}
 		return true;
 	}
+
+
 	
 
 
