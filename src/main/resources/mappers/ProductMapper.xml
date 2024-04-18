@@ -155,6 +155,15 @@
     <if test='clickData == "saleCompleted"'>
       and pr_ps_state = "판매완료"
     </if>
+    <if test='type == "latest"'>
+    	order by pr_date desc
+    </if>
+    <if test='type == "lowPrice"'>
+    	order by pr_price
+    </if>
+    <if test='type == "highPrice"'>
+    	order by pr_price desc
+    </if>
   </select>
 
     <insert id="insertFile">

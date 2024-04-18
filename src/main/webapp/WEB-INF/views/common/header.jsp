@@ -174,9 +174,11 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
+					<c:if test="${user.me_authority != 'user'}">
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 					</li>
+					</c:if>
 				</ul>
 				<!-- Left links -->
 			</div>
