@@ -5,50 +5,120 @@
 <head>
 <meta charset="UTF-8">
 <title>고객지원 상세</title>
-<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.container-box{
+	width: 100%; height: 430px;	
+    box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
+    margin-bottom : 10px
+}
+.form-group{ width: 100%;}
+
+.textarea-comment{
+	width: 100%; height: 260px;
+    box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
+    margin-bottom : 10px
+
+}
+.comment_title {
+    float: left;
+    margin-top: 3px;
+    margin-right: 12px;
+    font-size: 17px;
+}
+.button_comment {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 13px;
+}
+.page-title{
+	font-size: 28px; 
+	font-weight:800;
+	margin-top:10px; 
+}
+</style>
 </head>
 <body>
 <div class="container">
-	<h1>문의글 상세</h1>
-	<form action="<c:url value="/surport/detail"/>" method="post">
-		<div class="form-group mt-4">
-			<label for="surportManage">문의글</label>
-			<input type="text" class="form-control" readonly value="${surport.su_sm_num}">
+	<h1 class="page-title">문의글 상세</h1>
+	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
+	<div class="container-box">
+		<div class="select-box col-12 mt-3">
+			<label for="suport_manage">지원타입 선택</label>
+			<select class="form-control" id="suport_manage" name="su_sm_num" readonly value="${su_sm_num}">
+				<c:forEach items="${suport_manage}" var="sm">
+					<option value="${sm.sm_num}">${sm.sm_name}</option>
+				</c:forEach>
+			</select>
 		</div>
-		
-		<div class="form-group">
+		<div class="select-box col-12 mt-3">
+			<label for="up_head">말머리 선택</label>
+			<select class="form-control" id="up_head" name="su_uh_num" readonly value="${su_uh_num}">
+				<c:forEach items="${up_head}" var="uh">
+					<option value="${sm.uh_num}">${sm.uh_name}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
-			<input type="text" class="form-control"readonly value="${surport.su_title}">
+			<input type="text" class="form-control" id="su_title" name="su_title" readonly value="${su_title}">
 		</div>
-		
-		<div class="form-group">
-			<label>조회수:</label>
-			<input type="text" class="form-control" readonly value="${surport.su_view }">
+		<div class="form-group col-12 mt-3">
+			<label for="id">작성자</label>
+			<input type="text" class="form-control" id="id" name="id" readonly value="${su_me_id}">
+		</div>	
+			<div class="form-group col-12 mt-3">
+			<label for="su_view">조회수</label>
+			<input type="number" class="form-control" id="su_view" name="su_view" readonly value="${su_view}">
 		</div>
-		<div class="form-group">
-			<label>작성자:</label>
-			<input type="text" class="form-control" readonly value="${surport.su_me_id }">
-		</div>
-		
-		<div class="form-group mb-4">
+	</div>
+		<div class="content-box mb-4">
 			<label for="su_content">내용</label>
-		  	<textarea class="form-control" id="su_content" name="su_content" readonly value="${surport.su_content}"></textarea>
-		</div>		
-			<button type="button" class="btn btn-warning mb-4">수정</button>
-			<button type="button" class="btn btn-danger mb-4">삭제</button> 
-			<button class="btn btn-dark col-12 mb-4">이전으로</button>
+		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10"readonly value="${su_content}"></textarea>
+		</div>
+		<a href="/team1/surport/list" class="btn btn-outline-dark mb-4">목록으로</a>
+		<c:if test="${user.me_id == surport.su_me_id}">
+			<a href="<c:url value="/surport/delete?suNum=${surport.su_num}"/>" class="btn btn-outline-success mb-4">삭제</a>
+			<a href="<c:url value="/surport/update?suNum=${surport.su_num}"/>" class="btn btn-outline-warning mb-4">수정</a>
+		</c:if>
 	</form>
+	
+	
+	<div class="container-comment">	
+	<h3 class="comment_title"> 댓글(<span class="comment-total">-</span>) </h3>
+	
+	
+		
+		<div class="box-comment-list">
+			<div class="box-comment row">
+			
+			
+				<div class="col-3">아이디</div>
+				<div class="col-9">내용</div>
+			</div>
+		</div>
+		<div class="box-pagination">
+			<ul class="pagination justify-content-center"></ul>
+		</div>
+		<div class="box-comment-insert">
+			<em data="" class="comment_inbox_name">${surport.su_me_id}id</em>
+			<div class="input-group mb-3">
+				<textarea class="form-control textarea-comment">
+				
+				
+				</textarea>
+			</div>
+				<button class="btn btn-outline-success btn-comment-insert mb-4">댓글 등록</button>
+		</div>
+	
+	</div>
 </div>
 
-<script type="text/javascript">
-	
-</script>
+<script type="text/javascript">	
 
+</script>
 </body>
 </html>

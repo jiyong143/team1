@@ -104,7 +104,7 @@
 			async : true, //비동기 : true(비동기), false(동기)
 			url : '<c:url value="/sse/list"/>', 
 			type : 'post', 
-			data : {cm_cr_num : 2}, 
+			data : {cm_cr_num : 2},
 			dataType : "json",
 			success : function (data){
 				console.log(1);

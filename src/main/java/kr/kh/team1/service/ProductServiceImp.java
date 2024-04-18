@@ -70,6 +70,10 @@ public class ProductServiceImp implements ProductService{
 		if(clickData == null || clickData.length()==0) {
 			return null;
 		}
+		return productDao.selectMypagePro(me_id, clickData);
+	}	
+
+	@Override
 		return productDao.selectMypagePro(me_id, clickData, type);
 	}
 
@@ -120,5 +124,35 @@ public class ProductServiceImp implements ProductService{
 		}
 		return res;
 	}
-  
+
+	@Override
+	public ArrayList<FileVO> getFileBypNum(int pNum) {
+		return productDao.selectFileBypNum(pNum);
+	}
+
+	@Override
+	public ProductVO getProductInfo(int pNum) {
+		return productDao.selectProductInfoByNum(pNum);
+	}
+
+	@Override
+	public MemberVO getMemberByPnum(String pr_me_id) {
+		if(!checkString(pr_me_id))
+			return null;
+		return productDao.selectMemberByPnum(pr_me_id);
+	}
+
+	@Override
+	public void insertPick(String me_id, int pr_num) {
+		if(!checkString(me_id))
+			return;
+		productDao.insertPick(me_id, pr_num);
+		return;
+	}
+
+	@Override
+	public void upView(int pNum) {
+		productDao.updateView(pNum);
+		return;
+	}
 }

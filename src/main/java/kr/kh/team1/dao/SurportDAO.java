@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
+import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 
 public interface SurportDAO {
@@ -16,15 +17,16 @@ public interface SurportDAO {
 
 	ArrayList<SurportManageVO> selectSurportManageList();
 
+	//ArrayList<UpHeadVO> selectUpHeadList();
+	
 	boolean insertSurport(@Param("surport") SurportVO surport);
 
 	void updateView(@Param("su_num") int suNum);
 
 	SurportVO selectSurport(@Param("su_num") int suNum);
 
-	SurportVO selectSurport(@Param("member") String su_me_id);
-
 	void updateSurport(@Param("surport") SurportVO surport);
+
 	
 
 }
