@@ -25,7 +25,13 @@
    <!-- 채팅방 생성 -->
    <insert id="insertChatRoom">
    		insert into chat_room(cr_pr_num, cr_me_id)
-		value(#{pr_num},#{cr_me_id})
+		value(#{pr_num},#{me_id})
+   </insert>
+   
+   <!-- 채팅방 상태 생성 -->
+   <insert id="insertChatRoomState">
+   		insert into chat_state(cs_cr_num,cs_me_id)
+   		values(#{pr_num},#{me_id})
    </insert>
    
    <!-- 마이페이지에서 사용 할 채팅방 리스트 조회 -->

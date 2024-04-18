@@ -6,6 +6,7 @@
 
 <!-- 게시글 리스트 mapper 시작-->
 <select id="selectSurportList" resultType="kr.kh.team1.model.vo.SurportVO">
+<<<<<<< HEAD
     SELECT *
     FROM surport
     <!-- 
@@ -26,10 +27,32 @@
     ORDER BY ${cris.order} DESC
     LIMIT #{cris.pageStart}, #{cris.perPageNum}
      -->
+=======
+	select * 
+		from surport where
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cris.type == "all"'>
+				su_title like concat('%', #{cris.search}, '%') or
+				su_me_id = #{cris.search}
+			</when>
+			<!-- 제목 검색 -->
+			<when test='cris.type == "title"'>
+				su_title like concat('%', #{cris.search}, '%')
+			</when>
+			<when test='cris.type == "writer"'>
+				su_me_id like concat('%', #{cris.search}, '%')
+			</when>
+		</choose>
+		<!-- 내림차 순으로 정렬 -->
+		order by #{cris.order} desc
+		limit #{cris.pageStart}, #{cris.perPageNum}  		
+>>>>>>> main
 </select>
 
 
 <select id="selectSurportTotalCount" resultType="int">
+<<<<<<< HEAD
     SELECT COUNT(*)
     FROM surport
     <!-- 
@@ -50,6 +73,24 @@
         </if>
     </where>
      -->
+=======
+	select count(*) 
+		from surport where
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cris.type == "all"'>
+				su_title like concat('%', #{cris.search}, '%') or
+				su_me_id = #{cris.search}
+			</when>
+			<!-- 제목 검색 -->
+			<when test='cris.type == "title"'>
+				su_title like concat('%', #{cris.search}, '%')
+			</when>
+			<when test='cris.type == "writer"'>
+				su_me_id like concat('%', #{cris.search}, '%')
+			</when>
+		</choose>
+>>>>>>> main
 </select>
 
 <select id="selectSurportManageList" resultType="kr.kh.team1.model.vo.SurportManageVO">
@@ -84,6 +125,4 @@
 		su_num = #{su.su_num}
 </update>
 
-
-   
 </mapper>
