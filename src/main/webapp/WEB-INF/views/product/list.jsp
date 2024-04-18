@@ -5,6 +5,7 @@
 <html>
 <head>
 <style>
+.container{overflow: auto;}
 .xl\:h-24 {
     height: 6rem;
 }
@@ -669,50 +670,86 @@ html {
         margin-bottom: 20px;
     }
     
-    .product-container {
-        display: inline-block;
-        margin-right: 40px; /* 상품 오른쪽 여백을 늘림 */
-        margin-left: 40px; /* 상품 왼쪽 여백을 늘림 */
-        vertical-align: top; /* 상품들이 상단 정렬되도록 설정 */
-    }
-    .product-box {
-        border: 2px solid #ccc; /* 테두리 두께 설정 */
+		    .product-container {
+		    width: 20%; /* 5개의 상품을 한 줄에 배치하기 위해 20%로 설정 */
+		    float: left; /* 왼쪽 정렬 */
+		    box-sizing: border-box; /* padding과 border가 요소의 크기에 포함되도록 설정 */
+		    padding: 10px; /* 각 상품 컨테이너의 안쪽 여백 설정 */
+		}
+		
+		.product-box {
+		    width: 100%; /* 부모 요소의 너비에 맞게 설정 */
+		    border: 1px solid #ccc; /* 테두리 설정 */
+		    border-radius: 5px; /* 모서리를 둥글게 설정 */
+		}
+		
+		.product-image img {
+		    width: 100%; /* 이미지를 부모 요소의 너비에 맞게 설정 */
+		    height: auto; /* 가로 비율을 유지하면서 세로 크기 자동 조정 */
+		}
+		
+		.static{
+		  text-align:left;
+		  font-size : 20px;
+		  font-weight : bold;
+		}
+		
+	/* 제품 가격 정보 컨테이너 스타일 */
+    .product-price-container {
+        background: linear-gradient(to bottom, #FFFFFF, #F5F5F5);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
         padding: 20px;
-        width: 300px; /* 상품 박스 너비 설정 */
-        margin-bottom: 20px; /* 상품 박스 아래 간격 조절 */
-    }
-    .product-name {
-        font-size: 20px;
-        font-family: sans-serif;
-    }
-    .price {
-        font-size: 18px;
-        font-weight: bold;
-        color: black; /* 가격 텍스트 색상 설정 */
-    }
-    .separator {
-        border-right: 1px solid #ccc; /* 수직 구분선 설정 */
-        height: 20px;
-        margin: 0 10px; /* 구분선 좌우 여백 설정 */
-        display: inline-block;
-    }
-    
-    .product-image {
-        /* 이미지를 감싸는 div의 스타일링을 여기에 추가합니다 */
-        width: 100%; /* 원하는 너비로 조정할 수 있습니다 */
-        height: auto; /* 이미지 비율 유지를 위해 높이를 자동으로 조정합니다 */
     }
 
-    .product-image img {
-        /* 이미지 스타일링을 여기에 추가합니다 */
-        display: block; /* 이미지를 블록 요소로 설정하여 텍스트 흐름에 영향을 받지 않도록 합니다 */
-        max-width: 100%; /* 부모 요소인 product-image에 맞추기 위해 이미지의 최대 너비를 100%로 설정합니다 */
-        height: auto; /* 이미지의 높이를 자동으로 조정하여 이미지 비율을 유지합니다 */
+    /* 제품 가격 제목 스타일 */
+    .product-price-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+
+    /* 제품 가격 스타일 */
+    .product-price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    /* 가격 정보 항목 간격 조정 */
+    .product-price-item {
+        margin-bottom: 15px;
     }
     
+    /* 각 span 태그 사이의 간격을 조정 */
+    .product-price-item span {
+        margin-right: 20px; /* 우측 여백 추가 */
+    }
+    
+    /* 각 div 태그 사이에 구분선을 추가 */
+    .product-price-item + .product-price-item {
+        border-left: 3px solid #E5E7EB; /* 왼쪽에 1px 두께의 실선 구분선 추가 */
+    }
+    
+    .product-list {
+    margin: 0 auto; /* 가로 여백을 화면 왼쪽과 오른쪽 모두 동일하게 설정 */
+    max-width: 1200px; /* 최대 너비를 지정하여 내용이 너무 퍼지지 않도록 설정 */
+    }
+    
+	.search-input {
+	  width: 400px;
+	  padding: 10px;
+	  border: 2px solid #ddd;
+	  border-radius: 20px;
+	  font-size: 16px;
+	  outline: none;
+	}
+
 </style>
 </head>
 <body>
+<div class="container">
 <div class="h-full lg:h-20 xl:h-24 px-0 lg:px-8 2xl:px-16 max-w-[1024px] min-[1600px]:max-w-[1280px] flex items-center mx-auto box-content justify-between relative before:absolute before:w-screen before:bg-[#F1F1F1] before:bottom-0"><aside class="max-[1279px]:hidden absolute w-[98px] space-y-2 z-30 flex flex-col min-h-[306px] px-2 py-2 rounded bg-white border border-gray-300 top-44 -right-20">
 </aside>
 <div class="relative hidden ms-7 me-7 xl:ms-9 lg:block flex-1">
@@ -727,7 +764,7 @@ html {
          <input type="hidden" value="${pm.cri.place}" name="place">
          <input type="hidden" value="${pm.cri.minPrice}" name="minPrice">
          <input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
-         <input type="search" id="search-header" class="w-full h-10 text-sm placeholder-gray-400 bg-transparent rounded-md outline-none ga4_main_top_search pe-4 ps-14 text-heading lg:text-base placeholder:text-sm" placeholder="어떤 상품을 찾으시나요?" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
+         <input type="search" id="search-header" class="search-input" placeholder="어떤 상품을 찾으시나요?" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
          </form>
       </label>
    </div>
@@ -791,18 +828,18 @@ html {
 <table class="hidden lg:table filterTable">
 <tbody>
 <tr>
-<td>카테고리</td>
+<td style="font-size: 20px; font-weight: bold;">카테고리</td>
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
-	${TName }
-	&gt;
-	${MName }
+    <span style="font-size: 20px; font-weight: bold;">${TName}</span>
+    &gt;
+    <span style="font-size: 20px; font-weight: bold;">${MName}</span>
 </div>
 </td>
 </tr>
 <tr>
-<td>가격</td>
-<td class="price-filter">
+<td style="font-size: 20px; font-weight: bold;">가격</td>
+<td class="price-filter"  style="text-align: left">
 <form action="<c:url value="/product/list"/>" method="get">
 <input type="hidden" value="${TName }" name="tName">
 <input type="hidden" value="${MName}" name="mName">
@@ -814,13 +851,13 @@ html {
 <path fill="#5A616B" d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
 </svg></span>
 <input type="number" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최대 가격" data-idx="1" name="maxPrice" value="${pm.cri.maxPrice }">
-<button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white">적용</button>
+<button class="w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color: black;">적용</button>
 </form>
 </td>
 </tr>
 <tr>
-<td>거래 희망 주소</td>
-<td class="price-filter">
+<td style="font-size: 20px; font-weight: bold;">거래 희망 주소</td>
+<td class="price-filter" style="text-align: left">
 <form action="<c:url value="/product/list"/>" method="get">
 <input type="hidden" value="${TName }" name="tName">
 <input type="hidden" value="${MName}" name="mName">
@@ -830,12 +867,12 @@ html {
 <input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
 <input type="hidden" value="${pm.cri.search }" name="search">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
-<button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white">적용</button>
+<button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color : black">적용</button>
 </form>
 </td>
 </tr>
 <tr>
-<td>옵션</td>
+<td style="font-size: 20px; font-weight: bold;">옵션</td>
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
@@ -861,23 +898,26 @@ html {
 </tr>
 </tbody>
 </table>
-		 <table>
-		    <h5>현재 페이지의 상품가격을 비교해봤어요</h5>
-		    <thead>
-		        <tr>
-		            <th>평균 가격</th>
-		            <th>가장 높은 가격</th>
-		            <th>가장 낮은 가격</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <tr>
-		            <td>${avgPrice }</td>
-		            <td>${maxPrice }</td>
-		            <td>${minPrice }</td>
-		        </tr>
-		    </tbody>
-		  </table>
+<br>
+<br>
+		  
+		  <div class="product-price-container">
+    <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
+    <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+            <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+        </div>
+        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+            <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+        </div>
+        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+            <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+        </div>
+      </div>
+   </div>
 		  
 		<select class="form-control col-4 offset-8 mb-4" name="order">
 			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
@@ -887,45 +927,9 @@ html {
 			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
 		</select>
 
-
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>대분류</th>
-				<th>중분류</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>찜수</th>
-				<th>가격</th>
-				<th>거래 희망 장소</th>
-				<th>작성일</th>
-				<th>조회수</th>
-				<th>판매상태</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${pList}" var="pro">
-				<tr>
-					<td>${pro.pr_num }</td>
-					<td>${pro.pr_tg_name }</td>
-					<td>${pro.pr_mg_name }</td>
-					<td>
-						<a href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
-					</td>
-					<td>${pro.pr_me_id }</td>
-					<td>${pro.pr_basket }</td>
-					<td>${pro.pr_price }</td>
-					<td>${pro.pr_place }</td>
-					<td>${pro.pr_date }</td>
-					<td>${pro.pr_view }</td>
-					<td>${pro.pr_ps_state }</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
 	
    <h1>상품 목록</h1>
+   <div class="product-list">
     <c:forEach var="pro" items="${pList}" varStatus="loop">
         <div class="product-container">
          <!-- 이미지 추가 -->
@@ -938,16 +942,32 @@ html {
               <h2 class="product-name">${pro.pr_name}</h2>
               <p class="price">
               <c:choose>
-			    <c:when test="${pro.pr_price == 0}">
-	               무료 나눔
+                <c:when test="${pro.pr_price == 0}">
+                  <span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>
+                </c:when>  
+                <c:when test="${pro.pr_price < 0}">
+                  <span style="font-size : 15px; color : #808080; font-weight : bold ">가격 제안</span>
+                </c:when>
+                <c:otherwise>
+                  <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
+                </c:otherwise>
+             </c:choose>    
+             </p>
+              <p class="state">
+              <c:choose>
+			    <c:when test="${pro.pr_ps_state eq '판매완료'}">
+	               <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+                  </svg>
 			    </c:when>  
-			    <c:when test="${pro.pr_price < 0}">
-			       가격 제안
+			    <c:when test="${pro.pr_ps_state eq '예약중'}">
+			      <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+                  </svg>
 			    </c:when>
-			    <c:otherwise>
-			       ${pro.pr_price }
-			    </c:otherwise>
-			 </c:choose>    
+			 </c:choose>
               </p>
               <span class="separator"></span>
               <p class="place">${pro.pr_place}</p>
@@ -959,6 +979,7 @@ html {
             <br>
         </c:if>
     </c:forEach>
+    </div>
 	
 	
 	<ul class="pagination justify-content-center">
@@ -1012,7 +1033,7 @@ html {
 			</li>
 		</c:if>
 	</ul>
-	
+	</div>
 <script type="text/javascript">
 $("[name=order]").change(function(){
 	console.log(123);
