@@ -745,6 +745,22 @@ html {
 	  font-size: 16px;
 	  outline: none;
 	}
+	
+	.price-container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
+
+.minPrice-box,
+.maxPrice-box {
+    flex: 1;
+    margin-right: 6px;
+}
+
+button {
+    flex-shrink: 0; /* 버튼이 너무 커지지 않도록 설정 */
+}
 
 </style>
 </head>
@@ -757,7 +773,7 @@ html {
       <label for="search" class="flex items-center justify-between">
         <span class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] text-heading"><path d="M10.0278 19.0556C14.3233 19.0556 17.8056 15.5733 17.8056 11.2778C17.8056 6.98223 14.3233 3.5 10.0278 3.5C5.73223 3.5 2.25 6.98223 2.25 11.2778C2.25 15.5733 5.73223 19.0556 10.0278 19.0556Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M21 21.8999L15.5 16.8999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </span>
-        <form action="<c:url value="/product/list"/>" method="get"> 
+        <form action="<c:url value="/product/list"/>" method="get">  
          <input type="hidden" value="${num }" name="mNum">
          <input type="hidden" value="${TName }" name="tName">
          <input type="hidden" value="${MName}" name="mName">
@@ -831,27 +847,35 @@ html {
 <td style="font-size: 20px; font-weight: bold;">카테고리</td>
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
-    <span style="font-size: 20px; font-weight: bold;">${TName}</span>
+    <span style="font-size: 20px; font-weight: bold;">${TName} </span>
     &gt;
-    <span style="font-size: 20px; font-weight: bold;">${MName}</span>
+    <span style="font-size: 20px; font-weight: bold;"> ${MName}</span>
 </div>
 </td>
 </tr>
 <tr>
 <td style="font-size: 20px; font-weight: bold;">가격</td>
 <td class="price-filter"  style="text-align: left">
-<form action="<c:url value="/product/list"/>" method="get">
+<form id="price" action="<c:url value="/product/list"/>" method="get">
 <input type="hidden" value="${TName }" name="tName">
 <input type="hidden" value="${MName}" name="mName">
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="${pm.cri.place }" name="place">
 <input type="hidden" value="${pm.cri.search }" name="search">
-<input type="number" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 가격" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
+<div class="price-container">
+<div class="minPrice-box">
+<input type="number" id="minPrice" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 금액" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
+<div id="minMessage" style="color : red; font-size : 12px"></div>
+</div>
 <span class="mx-[6px]"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="4" fill="none" class="inline">
 <path fill="#5A616B" d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
 </svg></span>
-<input type="number" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최대 가격" data-idx="1" name="maxPrice" value="${pm.cri.maxPrice }">
-<button class="w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color: black;">적용</button>
+<div class="maxPrice-box">
+<input type="number" id="maxPrice" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최대 금액" data-idx="1" name="maxPrice" value="${pm.cri.maxPrice }">
+<div id="maxMessage" style="color : red; font-size : 12px"></div>
+</div>
+<button type="submit" class="w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color: black;">적용</button>
+</div>
 </form>
 </td>
 </tr>
@@ -931,7 +955,7 @@ html {
    <h1>상품 목록</h1>
    <div class="product-list">
     <c:forEach var="pro" items="${pList}" varStatus="loop">
-        <div class="product-container">
+        <div class="product-container"> <a href="#">
          <!-- 이미지 추가 -->
           <div class="product-image">
           <c:if test="${pro.fileList.size() >=1 }">
@@ -939,7 +963,7 @@ html {
           </c:if>
           </div>
           <div class="product-box">
-              <h2 class="product-name">${pro.pr_name}</h2>
+              <h5 class="product-name">${pro.pr_name}</h5>
               <p class="price">
               <c:choose>
                 <c:when test="${pro.pr_price == 0}">
@@ -974,6 +998,7 @@ html {
               <span class="separator"></span>
               <p class="date">${pro.time}</p>
           </div>
+          </a>
         </div>
         <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
             <br>
@@ -1103,6 +1128,24 @@ $("[name=state]").change(function(){
 	});
 });
 
+</script>
+
+<script type="text/javascript">
+document.getElementById("price").addEventListener("submit", function(event) {
+    var minPrice = document.getElementById("minPrice");
+    var maxPrice = document.getElementById("maxPrice");
+    // 최소 금액을 입력하지 않은 경우
+    if (!minPrice.value.trim()) {
+        event.preventDefault(); // 폼 제출을 중단합니다.
+        document.getElementById("minMessage").innerText = "최소 금액을 입력하세요";
+    }
+    // 최대 금액을 입력하지 않은 경우
+    if (!maxPrice.value.trim()) {
+        event.preventDefault(); // 폼 제출을 중단합니다.
+        document.getElementById("maxMessage").innerText = "최대 금액을 입력하세요";
+    }
+    
+});
 </script>
 </body>
 </html>
