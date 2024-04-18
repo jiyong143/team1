@@ -3,9 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.ProductDAO">
-    <select id="selectProductList" resultType="ProductVO">
+    <resultMap type="kr.kh.team1.model.vo.ProductVO" id="ProductMap">
+			<id property="pr_num" column="pr_num"/>
+			<result property="pr_mg_num" column="pr_mg_num"/>
+			<result property="pr_me_id" column="pr_me_id"/>
+			<result property="pr_name" column="pr_name"/>
+			<result property="pr_place" column="pr_place"/>
+			<result property="pr_content" column="pr_content"/>
+			<result property="pr_price" column="pr_price"/>
+			<result property="pr_ps_state" column="pr_ps_state"/>
+			<result property="pr_basket" column="pr_basket"/>
+			<result property="pr_view" column="pr_view"/>
+			<result property="pr_mg_num" column="pr_mg_num"/>
+			<result property="pr_date" column="pr_date"/>
+			<result property="pr_buyId" column="pr_buyId"/>
+			<collection property="fileList" ofType="kr.kh.team1.model.vo.FileVO"
+				column="pr_num" select="selectFile"/>
+	</resultMap>
+	
+    <select id="selectProductList" resultMap="ProductMap">
         select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
-                              join topgroup on mg_tg_num = tg_num 
+                              join topgroup on mg_tg_num = tg_num
             <if test='cri.search != ""'>
             where (pr_name like concat('%', #{cri.search}, '%')
             or pr_content like concat('%', #{cri.search}, '%'))
@@ -14,7 +32,7 @@
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
@@ -40,6 +58,10 @@
               order by pr_basket desc
           </if>
         limit #{cri.pageStart} , #{cri.perPageNum}
+    </select>
+    
+    <select id="selectFile" resultType="FileVO">
+       select * from file where fi_pr_num = #{pr_num}
     </select>
 
   <select id="selectProductTotalCount" resultType="int">

@@ -39,8 +39,8 @@ public class CJYController {
 	   ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   model.addAttribute("topGroupList", topGroupList);
 
-		 return "/product/insert";
-	 }
+	   return "/product/insert";
+   }
 
    @GetMapping("/product/list")  
    public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
@@ -78,7 +78,7 @@ public class CJYController {
 		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
 	   
 	    // 회원 정보 가져옴
-		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = (MemberVO)session.getAttribute("user"); 
 		System.out.println(optradio);
 		if(optradio == 0 || optradio == -10)
 			product.setPr_price(optradio);
@@ -95,6 +95,6 @@ public class CJYController {
 			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
 			model.addAttribute("url", "/product/insert");
 		}
-		return "message";
+		return "message"; 
    }
 }

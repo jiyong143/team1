@@ -26,5 +26,5 @@ public interface ProductService {
 	MidGroupVO getMidGroup(String mg_title);
 
 	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
-	
+
 }
