@@ -12,11 +12,13 @@ public interface ChatDAO {
 
 	ChatRoomVO selectChatRoom(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
 
-	boolean insertChatRoom(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
+	void insertChatRoom(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
 
 	ArrayList<ChatRoomVO> selectChatRoomList(@Param("me_id")String me_id);
 
 	boolean insertChat(@Param("msg")MessageDTO message);
 
 	ArrayList<ChatMessageVO> selectChatMessgeList(@Param("cr_num")int cr_num);
+
+	void insertChatRoomState(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
 }

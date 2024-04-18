@@ -27,6 +27,7 @@ public class ProductVO {
 	private String tg_title;
 	private String mg_title;
 	private int listSize;
+	private int pr_pickCount;
 	
 	// 현재 시간을 가져와서 상품 객체의 pr_date와 차이를 계산하고 경우에 따라서 얼마전인지(년,월,일,시,분,초)를 출력하는 메서드
 	public String getTime() {

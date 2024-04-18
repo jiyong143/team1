@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 <style>
 	.container{
-		margin-top : 100px;
+		margin-top : 60px;
+		margin-bottom : 50px;
+		overflow: auto;
 	}
 	.carousel {
 		width: 650px;
@@ -17,7 +19,7 @@
 		width: 650px;
 		height: 600px;
 	}
-	.ImgContainer{
+	.imgContainer{
 		width:65%;
 		display: inline-block;
 		float:left;
@@ -41,15 +43,21 @@
 		width: calc(100% - 50px);
 		float: right;
 	}
-	.box{
+	.infoBox{
 		float: left; display: inline-block;
-		margin-top: 30px;
+		width:65%; margin-top: 50px;
+		padding-right: 70px;
 	}
+	.sellerContainer{
+		float: right; display: inline-block;
+		width:35%; margin-top: 50px;
+	}
+	hr{ background : gray; margin-top: 30px; }
 </style>
 </head>
 <body>
 	<div class="container">
-		<div class="ImgContainer">
+		<div class="imgContainer">
 			<div id="demo" class="carousel slide" data-ride="carousel">
 			    <!-- Indicators -->
 				<ul class="carousel-indicators">
@@ -113,14 +121,14 @@
 					</c:choose>
 				</div>
 			</div>
-			<div class="TextContainer">
+			<div class="textContainer">
 				<!-- 시간 조회 찜수 -->
 				<ul class="textUl">
 					<li>${info.time}</li>
 					<li>&#183;</li>
 					<li>조회 ${info.pr_view}</li>
 					<li>&#183;</li>
-					<li>찜 ${info.pr_basket}</li>
+					<li>찜 ${info.pr_pickCount}</li>
 				</ul>
 				<ul class="placeUl">
 					<li>&#186;</li>
@@ -129,8 +137,7 @@
 				</ul>
 			</div>
 			<div class="btnContainer">
-				<!-- 찜하기 버튼 => 기본 x 클릭 => 선택돼있으면 클래스에 btnActive추가 else 클래스 삭제 -->
-				<label for=":r1d:" class="relative">
+				<label for=":r1d:" class="relative btn-pick">
 					<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none w-8 h-8">
 						<path d="M5.94197 17.9925L15.2564 26.334C15.3282 26.3983 15.3641 26.4305 15.3975 26.4557C15.7541 26.7249 16.2459 26.7249 16.6025 26.4557C16.6359 26.4305 16.6718 26.3983 16.7436 26.3341L26.058 17.9925C28.8244 15.5151 29.1565 11.3015 26.8124 8.42125L26.5675 8.12029C23.8495 4.78056 18.5906 5.35863 16.663 9.20902C16.3896 9.75505 15.6104 9.75505 15.337 9.20902C13.4094 5.35863 8.1505 4.78056 5.43249 8.12028L5.18755 8.42125C2.84352 11.3015 3.17564 15.5151 5.94197 17.9925Z" stroke-width="1.5" stroke="#9CA3AF"></path>
 					</svg>
@@ -138,22 +145,46 @@
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 			</div>
 		</div>
-		<div class="box">
+		<div class="infoBox">
 			<h3>상품 정보</h3>
 			<hr>
 			${info.pr_content}
 		</div>
-		<div class="SellerContainer">
-		<!-- 판매자 신상 -->
-		</div>
-	</div>
-<script type="text/javascript">
-	print();
-	
-	function print(){
+		<div class="sellerContainer">
+			<!-- 판매자 신상 -->
+			<h3>판매자</h3>
+			<hr>
+			<a href="<c:url value=""/>"><h2>${user.me_id}</h2></a>
+			<div>
+				<!-- 신뢰지수(온도) -->
+				<span class="font-medium text-base">신뢰지수</span>
+				<div class="progress mt-3">
+				  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
+				</div>		
+				<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
+					<table class="w-100">
+						<thead>
+							<tr style="width:auto">
+								<td style="text-align: center;">안전거래</td>
+								<td style="text-align: center;">거래후기</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
+								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div><!-- end seller -->
+	</div><!-- end container -->
+<script type="text/javascript">	
+	$(".btn-sse").click(function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
-			url : '<c:url value="/product/detail"/>', 
+			url : '<c:url value="/product/chat"/>', 
 			type : 'post', 
 			data : {pr_num : ${pNum}},
 			dataType : "json",
@@ -164,7 +195,23 @@
 
 			}
 		});
-	}
+	});
+	
+	$(".btn-pick").click(function(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/product/pick"/>',
+			type : 'post', 
+			data : {pr_num : ${pNum}},
+			dataType : "json",
+			success : function (data){
+				alert(data.msg);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	});
 </script>
 </body>
 </html>

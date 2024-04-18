@@ -128,8 +128,27 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public ProductVO getProductInfo(int pNum) {
-		
 		return productDao.selectProductInfoByNum(pNum);
 	}
-  
+
+	@Override
+	public MemberVO getMemberByPnum(String pr_me_id) {
+		if(!checkString(pr_me_id))
+			return null;
+		return productDao.selectMemberByPnum(pr_me_id);
+	}
+
+	@Override
+	public void insertPick(String me_id, int pr_num) {
+		if(!checkString(me_id))
+			return;
+		productDao.insertPick(me_id, pr_num);
+		return;
+	}
+
+	@Override
+	public void upView(int pNum) {
+		productDao.updateView(pNum);
+		return;
+	}
 }

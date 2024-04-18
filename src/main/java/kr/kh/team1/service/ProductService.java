@@ -26,12 +26,16 @@ public interface ProductService {
 
 	MidGroupVO getMidGroup(String mg_title);
 
-	ArrayList<ProductVO> getMypagePro(String me_id, String clickData);
-
 	ArrayList<FileVO> getFileBypNum(int pNum);
 
 	ProductVO getProductInfo(int pNum);
 
 	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
+
+	MemberVO getMemberByPnum(String pr_me_id);
+
+	void insertPick(String me_id, int pr_num);
+
+	void upView(int pNum);
 	
 }
