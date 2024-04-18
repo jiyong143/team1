@@ -48,6 +48,9 @@
 		width:65%; margin-top: 50px;
 		padding-right: 70px;
 	}
+	.pick{
+		background-color: blue;
+	}
 	.sellerContainer{
 		float: right; display: inline-block;
 		width:35%; margin-top: 50px;
@@ -180,6 +183,8 @@
 			</div>
 		</div><!-- end seller -->
 	</div><!-- end container -->
+	
+<!-- sse관련 ajax -->
 <script type="text/javascript">	
 	$(".btn-sse").click(function(){
 		$.ajax({
@@ -196,7 +201,10 @@
 			}
 		});
 	});
-	
+</script>
+
+<!-- 찜하기 관련 ajax -->
+<script type="text/javascript">
 	$(".btn-pick").click(function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
@@ -205,13 +213,21 @@
 			data : {pr_num : ${pNum}},
 			dataType : "json",
 			success : function (data){
-				alert(data.msg);
+				if(data.msg != null){
+					alert(data.msg);
+				}else{
+					
+				}
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 
 			}
 		});
 	});
+	
+	function dataPick(){
+		
+	}
 </script>
 </body>
 </html>

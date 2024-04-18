@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 
@@ -37,4 +38,6 @@ public interface ProductService {
 	void insertPick(String me_id, int pr_num);
 
 	void upView(int pNum);
+
+	PickVO getPickByUserAndNum(String me_id, int pNum);
 }

@@ -12,6 +12,7 @@ import kr.kh.team1.dao.ProductDAO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.utils.UploadFileUtils;
@@ -150,5 +151,12 @@ public class ProductServiceImp implements ProductService{
 	public void upView(int pNum) {
 		productDao.updateView(pNum);
 		return;
+	}
+
+	@Override
+	public PickVO getPickByUserAndNum(String me_id, int pNum) {
+		if(!checkString(me_id))
+			return null;
+		return productDao.selectPickByUserAndNum(me_id, pNum);
 	}
 }
