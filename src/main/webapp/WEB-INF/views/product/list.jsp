@@ -697,6 +697,19 @@ html {
         display: inline-block;
     }
     
+    .product-image {
+        /* 이미지를 감싸는 div의 스타일링을 여기에 추가합니다 */
+        width: 100%; /* 원하는 너비로 조정할 수 있습니다 */
+        height: auto; /* 이미지 비율 유지를 위해 높이를 자동으로 조정합니다 */
+    }
+
+    .product-image img {
+        /* 이미지 스타일링을 여기에 추가합니다 */
+        display: block; /* 이미지를 블록 요소로 설정하여 텍스트 흐름에 영향을 받지 않도록 합니다 */
+        max-width: 100%; /* 부모 요소인 product-image에 맞추기 위해 이미지의 최대 너비를 100%로 설정합니다 */
+        height: auto; /* 이미지의 높이를 자동으로 조정하여 이미지 비율을 유지합니다 */
+    }
+    
 </style>
 </head>
 <body>
@@ -848,7 +861,6 @@ html {
 </tr>
 </tbody>
 </table>
-
 		 <table>
 		    <h5>현재 페이지의 상품가격을 비교해봤어요</h5>
 		    <thead>
@@ -899,7 +911,7 @@ html {
 					<td>${pro.pr_tg_name }</td>
 					<td>${pro.pr_mg_name }</td>
 					<td>
-						<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
+						<a href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 					</td>
 					<td>${pro.pr_me_id }</td>
 					<td>${pro.pr_basket }</td>
@@ -916,15 +928,32 @@ html {
    <h1>상품 목록</h1>
     <c:forEach var="pro" items="${pList}" varStatus="loop">
         <div class="product-container">
-            <div class="product-box">
-                <h2 class="product-name">${pro.pr_name}</h2>
-                <p class="price">${pro.pr_price}</p>
-                <span class="separator"></span>
-                <p class="place">${pro.pr_place}</p>
-                <span class="separator"></span>
-                <p class="date">${pro.time}</p>
-                <!-- 기타 상품 정보 출력 -->
-            </div>
+         <!-- 이미지 추가 -->
+          <div class="product-image">
+          <c:if test="${pro.fileList.size() >=1 }">
+          	<img src="<c:url value="/download${pro.fileList.get(0).fi_name}"/>" alt="${pro.pr_name}">
+          </c:if>
+          </div>
+          <div class="product-box">
+              <h2 class="product-name">${pro.pr_name}</h2>
+              <p class="price">
+              <c:choose>
+			    <c:when test="${pro.pr_price == 0}">
+	               무료 나눔
+			    </c:when>  
+			    <c:when test="${pro.pr_price < 0}">
+			       가격 제안
+			    </c:when>
+			    <c:otherwise>
+			       ${pro.pr_price }
+			    </c:otherwise>
+			 </c:choose>    
+              </p>
+              <span class="separator"></span>
+              <p class="place">${pro.pr_place}</p>
+              <span class="separator"></span>
+              <p class="date">${pro.time}</p>
+          </div>
         </div>
         <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
             <br>
