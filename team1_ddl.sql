@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (
 	`fi_num`	int	NOT NULL primary key auto_increment,
 	`fi_ori_name`	varchar(40)	not	NULL,
-	`fi_name`	varchar(150)	not	NULL,
+	`fi_name`	varchar(40)	not	NULL,
 	`fi_pr_num`	int	NOT NULL
 );
 

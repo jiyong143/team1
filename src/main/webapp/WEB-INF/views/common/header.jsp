@@ -166,7 +166,7 @@
 					    	<a class="nav-link btn btn-light" href="<c:url value="/member/mypage"/>">마이</a>
 						</li>
 			        </c:if>
-			        <c:if test="${user.me_authority != 'user'}">
+			        <c:if test="${user.me_authority == 'admin'}">
 						<li class="nav-item">
 					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminpage"/>">관리자</a>
 						</li>		
