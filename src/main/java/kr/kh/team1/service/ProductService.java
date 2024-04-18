@@ -22,7 +22,7 @@ public interface ProductService {
 
 	int getAvgPrice(int mNum, Criteria cri);
 
-	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
+	ArrayList<ProductVO> getMypagePro(String me_id, String clickData, String type);
 
 	MidGroupVO getMidGroup(String mg_title);
 
@@ -32,4 +32,6 @@ public interface ProductService {
 
 	ProductVO getProductInfo(int pNum);
 
+	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
+	
 }

@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
 .px-0 {
@@ -51,7 +51,7 @@ li {
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
 						<h2>${user.me_id}</h2>
-						<!-- ÇÁ·ÎÇÊ ÀÌ¹ÌÁö -->
+						<!-- í”„ë¡œí•„ ì´ë¯¸ì§€ -->
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">
 						</div>
@@ -59,8 +59,8 @@ li {
 					</div>
 						
 				</div>
-				<!-- ½Å·ÚÁö¼ö(¿Âµµ) -->
-				<span class="font-medium text-base">½Å·ÚÁö¼ö</span>
+				<!-- ì‹ ë¢°ì§€ìˆ˜(ì˜¨ë„) -->
+				<span class="font-medium text-base">ì‹ ë¢°ì§€ìˆ˜</span>
 				<div class="progress mt-3">
 				  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
 				</div>		
@@ -68,14 +68,14 @@ li {
 					<table class="w-100">
 						<thead>
 							<tr style="width:auto">
-								<td style="text-align: center;">¾ÈÀü°Å·¡</td>
-								<td style="text-align: center;">°Å·¡ÈÄ±â</td>
+								<td style="text-align: center;">ì•ˆì „ê±°ë˜</td>
+								<td style="text-align: center;">ê±°ë˜í›„ê¸°</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- °Å·¡È½¼ö -->
-								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- °Å·¡ÈÄ±â°¹¼ö -->
+								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- ê±°ë˜íšŸìˆ˜ -->
+								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- ê±°ë˜í›„ê¸°ê°¯ìˆ˜ -->
 							</tr>
 						</tbody>
 					</table>
@@ -85,43 +85,43 @@ li {
 		<!--$-->
 		<div class="px-0 mt-8 lg:mt-[60px]">
 			<div class="flex-col mb-4 lg:mb-5">
-				<h3 class="text-lg font-bold md:text-[22px] text-jnBlack">³» »óÇ°</h3>
+				<h3 class="text-lg font-bold md:text-[22px] text-jnBlack">ë‚´ ìƒí’ˆ</h3>
 				<ul style="cursor:pointer;" class="list-group list-group-horizontal">
-					<li id="all" class="list-group-item w-25 all" value="all">ÀüÃ¼</li>
-					<li id="sale" class="list-group-item w-25" value="sale">ÆÇ¸ÅÁß</li>
-					<li id="reservation" class="list-group-item w-25" value="reservation">¿¹¾àÁß</li>
-					<li id="saleCompleted" class="list-group-item w-25" value="saleCompleted">ÆÇ¸Å¿Ï·á</li>
+					<li id="all" class="list-group-item w-25 all" value="all">ì „ì²´</li>
+					<li id="sale" class="list-group-item w-25" value="sale">íŒë§¤ì¤‘</li>
+					<li id="reservation" class="list-group-item w-25" value="reservation">ì˜ˆì•½ì¤‘</li>
+					<li id="saleCompleted" class="list-group-item w-25" value="saleCompleted">íŒë§¤ì™„ë£Œ</li>
 				</ul>
 				<div class="mt-3">
-					ÃÑ0°³(°³½Ã±Û ¼ö)
+					<p class="list-size"></p>
 					<ul class="float-right" style="width:30%">
-						<li><button class="float-left">ÃÖ½Å¼ø</button></li>
-						<li><button class="float-left">³·Àº°¡°İ¼ø</button></li>
-						<li><button class="float-left">³ôÀº°¡°İ¼ø</button></li>
+						<li><button id="latest" class="float-left price-list-item">ìµœì‹ ìˆœ</button></li>
+						<li><button id="lowPrice" class="float-left price-list-item">ë‚®ì€ê°€ê²©ìˆœ</button></li>
+						<li><button id="highPrice" class="float-left price-list-item">ë†’ì€ê°€ê²©ìˆœ</button></li>
 					</ul>
 				</div>
-				<div class="mt-3"> <!-- ³» ÆÇ¸Å±Û Ãâ·Â -->
+				<div class="mt-3"> <!-- ë‚´ íŒë§¤ê¸€ ì¶œë ¥ -->
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>¹øÈ£</th>
-								<th>´ëºĞ·ù</th>
-								<th>ÁßºĞ·ù</th>
-								<th>Á¦¸ñ</th>
-								<th>ÀÛ¼ºÀÚ</th>
-								<th>Âò¼ö</th>
-								<th>°¡°İ</th>
-								<th>°Å·¡ Èñ¸Á Àå¼Ò</th>
-								<th>ÀÛ¼ºÀÏ</th>
-								<th>Á¶È¸¼ö</th>
-								<th>ÆÇ¸Å»óÅÂ</th>
+								<th>ë²ˆí˜¸</th>
+								<th>ëŒ€ë¶„ë¥˜</th>
+								<th>ì¤‘ë¶„ë¥˜</th>
+								<th>ì œëª©</th>
+								<th>ì‘ì„±ì</th>
+								<th>ì°œìˆ˜</th>
+								<th>ê°€ê²©</th>
+								<th>ê±°ë˜ í¬ë§ ì¥ì†Œ</th>
+								<th>ì‘ì„±ì¼</th>
+								<th>ì¡°íšŒìˆ˜</th>
+								<th>íŒë§¤ìƒíƒœ</th>
 							</tr>
 						</thead>
 						<tbody class="addPro">
 							<tr>
 								<td>${pro.pr_num }</td>
-								<td>${pro.pr_tg_name }</td>
-								<td>${pro.pr_mg_name }</td>
+								<td>${pro.tg_title }</td>
+								<td>${pro.mg_title }</td>
 								<td>
 									<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 								</td>
@@ -137,15 +137,19 @@ li {
 					</table>
 				</div>
 			</div>
-			<p class="py-12 text-center d-none">¼±ÅÃµÈ Á¶°Ç¿¡ ÇØ´çÇÏ´Â »óÇ°ÀÌ ¾ø½À´Ï´Ù.</p>
+			<p class="py-12 text-center d-none">ì„ íƒëœ ì¡°ê±´ì— í•´ë‹¹í•˜ëŠ” ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</p>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
+	$(function(){
+		$("#all").click();
+		$("#latest").click();
+	});
 
 	$(".list-group-item").click(function() {
 		$(".list-group-item").removeClass("bg-info");
-
+		
 	})
 	
 	$("#all").click(function() {
@@ -167,10 +171,84 @@ li {
 		$("#saleCompleted").addClass("bg-info");
 		clickAll("saleCompleted");
 	})
+	
+	/*----------------------------------------------*/
+	
+	$(".price-list-item").click(function(){
+		$(".price-list-item").removeClass("bg-info");
+	})
+	
+	$("#latest").click(function(){
+		$("#latest").addClass("bg-info");
+		clickType("latest");
+		
+	})
+	
+	$("#lowPrice").click(function(){
+		$("#lowPrice").addClass("bg-info");
+		clickType("lowPrice");
+		
+	})
+	
+	$("#highPrice").click(function(){
+		$("#highPrice").addClass("bg-info");
+		clickType("highPrice");
+	})
 
 	function clickAll(str1) {
+		let str2;
+		
+		if($("#latest").hasClass("bg-info") === true) {
+			str2 = "latest";
+		} else if ($("#lowPrice").hasClass("bg-info") === true) {
+			str2 = "lowPrice";
+		} else {
+			str2 = "highPrice";
+		}
+		
 		let clickData;
-		let obj = { clickData : str1 };
+		let type;
+		let obj = { 
+			clickData : str1,
+			type : str2
+		};
+		$.ajax({
+			async : false,
+			url : '<c:url value="/member/mypage/all"/>', 
+			type : 'get',
+			data : obj,
+			dataType : "json",
+			success : function (data){
+				addMethod(data.list);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+		return clickData;
+	}
+	
+	function clickType(str2) {
+		let str1;
+		
+		if($("#all").hasClass("bg-info") === true) {
+			str1 = "all";
+		} else if ($("#sale").hasClass("bg-info") === true) {
+			str1 = "sale";
+		} else if ($("#reservation").hasClass("bg-info") === true) {
+			str1 = "reservation";
+		} else {
+			str1 = "saleCompleted";
+		}
+		
+		let clickData;
+		let type;
+		
+		let obj = { 
+			clickData : str1,
+			type : str2
+		};
+		
 		$.ajax({
 			async : false,
 			url : '<c:url value="/member/mypage/all"/>', 
@@ -188,14 +266,15 @@ li {
 	}
 
 function addMethod(list) {
+	addListSize(list);
 	let str='';
 	for(item of list) {
 		str += 
 			`
 			<tr>
 				<td>\${item.pr_num }</td>
-				<td>\${item.pr_tg_name }</td>
-				<td>\${item.pr_mg_name }</td>
+				<td>\${item.tg_title }</td>
+				<td>\${item.mg_title }</td>
 				<td>
 					<a href="<c:url value="/post/detail?pNum= \${item.pr_num } "/>"> \${item.pr_name} </a>
 				</td>
@@ -203,7 +282,7 @@ function addMethod(list) {
 				<td>\${item.pr_basket }</td>
 				<td>\${item.pr_price }</td>
 				<td>\${item.pr_place }</td>
-				<td>\${item.pr_date }</td>
+				<td>\${item.pr_date2 }</td>
 				<td>\${item.pr_view }</td>
 				<td>\${item.pr_ps_state }</td>	
 			</tr>
@@ -211,7 +290,13 @@ function addMethod(list) {
 	}
 	$(".addPro").html(str);
 }
-	
-	
+
+function addListSize(list) {
+	$(".list-size").empty();
+	let str = "";
+	str += `ì´ \${list[0].listSize}ê°œ`;
+	$(".list-size").html(str);
+}
+
 </script>
 </html>

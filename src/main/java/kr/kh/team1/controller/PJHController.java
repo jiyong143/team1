@@ -1,5 +1,6 @@
 package kr.kh.team1.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,17 +135,27 @@ public class PJHController {
 		model.addAttribute("user", user);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum",reviewNum);
+		model.addAttribute("listSize", 0);
 		
 		return "/member/mypage";
 	}
 	
 	@ResponseBody
 	@GetMapping("/member/mypage/all")
-	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData) {
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		ArrayList<ProductVO> list;
-		list = productService.getMypagePro(user.getMe_id(), clickData);
+		list = productService.getMypagePro(user.getMe_id(), clickData, type);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+		for(int i=0; i<list.size(); i++) {
+			String tmpDate = simpleDateFormat.format(list.get(i).getPr_date());
+			list.get(i).setPr_date2(tmpDate);
+		}
+		list.get(0).setListSize(list.size());
+		
+		model.addAttribute("listSize", list.size());
+		
 		map.put("list", list);
 		
 		return map;
