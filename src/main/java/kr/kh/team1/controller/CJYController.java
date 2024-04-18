@@ -46,11 +46,11 @@ public class CJYController {
 	@GetMapping("/product/insert")
 	public String productTopGroupList(Model model, HttpSession session) {
    	
-		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+		  ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   	model.addAttribute("topGroupList", topGroupList);
-
 	   	return "/product/insert";
 	}
+
 
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
@@ -88,10 +88,10 @@ public class CJYController {
 		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
 	   
 	    // 회원 정보 가져옴
-		MemberVO user = (MemberVO)session.getAttribute("user");
+		  MemberVO user = (MemberVO)session.getAttribute("user");
 
-		if(optradio == 0 || optradio == -10)
-			product.setPr_price(optradio);
+		  if(optradio == 0 || optradio == -10)
+			    product.setPr_price(optradio);
 			
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
@@ -148,8 +148,8 @@ public class CJYController {
    		return map; 
    	}
    	
-   	@ResponseBody
-   	@PostMapping(value = "/product/pick")  
+  @ResponseBody
+  @PostMapping(value = "/product/pick")  
 	public Map<String, Object> productPick(HttpSession session, int pr_num) {
       	
    		HashMap<String, Object> map = new HashMap<String, Object>();

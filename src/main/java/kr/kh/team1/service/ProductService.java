@@ -37,5 +37,4 @@ public interface ProductService {
 	void insertPick(String me_id, int pr_num);
 
 	void upView(int pNum);
-	
 }
