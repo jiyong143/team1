@@ -10,56 +10,82 @@
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<style>
+	.tbody{
+		display: table-header-group;
+	}
+	.h2{
+		display: mt-4;
+	}
+</style>
 <body>
-
   <div class="container">
   <h2>고객관리</h2>
-  <p>자유롭게 문의해주세요.</p>            
+  <hr>           
+  <h3>자주 묻는 질문</h3>
+  <hr>
   <table class="table">
-    <thead>
       <tr>
-        <th>자주 묻는 질문</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>동일한 게시글을 올려서 내 게시글이 미노출 됐어요</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/QnA/QnApage1">거래금지 물품</a>
+    	</p>
       </tr>
       <tr>
-        <td>부적절한 회원 신고 안내</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/QnA/QnApage2">거래 매너</a>
+        </p>
       </tr>
       <tr>
-        <td>중고거래 매너 안내</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">회원탈퇴</a>
+        </p>
       </tr>
       <tr>
-        <td>직거래 시 유의사항</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">매너평가</a>
+        </p>
       </tr>
-    </tbody>
   </table>
   
-   <table class="table">
-    <thead>
+  <hr>
+  <h3>운영정책</h3>
+  <hr>
+  <table class="table">
       <tr>
-        <th>카테고리에서 찾기</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>로그인</td>
-      </tr>
-      <tr>
-        <td>중고거래</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA">부적절한 의도와 목적의 서비스 이용</a>
+    	</p>
       </tr>
       <tr>
-        <td>상품판매</td>
+        <p>
+        <li data=""/>
+        	<a href="/team1/surportManage/userQnA2">불법 ・ 유해 콘텐츠와 거래금지물품</a>
+        </p>
       </tr>
       <tr>
-        <td>기타</td>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">폭력적이고 혐오감을 유발하는 정보</a>
+        </p>
       </tr>
-    </tbody>
+      <tr>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">개인정보 및 사생활 침해 행위</a>
+        </p>
+      </tr>
+      <tr>
+         <p>
+         	<li data=""/>
+        	<a href="/surportManage/userQnA">서비스 이용 제한 정책</a>
+        </p>
+      </tr>
   </table>
-</div>
-
 
 </body>
 </html>
