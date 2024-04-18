@@ -104,7 +104,6 @@
 		</if>
 	</select>
   
-
   <select id="selectMaxPrice" resultType="int">
     select ifnull(max(pr_price),0) from product
           <if test='cri.search != ""'>

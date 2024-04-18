@@ -926,6 +926,7 @@ html {
 			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
 			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
 		</select>
+
 	
    <h1>상품 목록</h1>
    <div class="product-list">
