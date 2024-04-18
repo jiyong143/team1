@@ -70,6 +70,10 @@ public class ProductServiceImp implements ProductService{
 		if(clickData == null || clickData.length()==0) {
 			return null;
 		}
+		return productDao.selectMypagePro(me_id, clickData);
+	}	
+
+	@Override
 		return productDao.selectMypagePro(me_id, clickData, type);
 	}
 
