@@ -140,6 +140,7 @@ public class MemberServiceImp implements MemberService {
 			return -1;
 		}
 		return memberDao.selectUserTradeNum(me_id); 
+
 	}
 	
 	@Override
@@ -148,6 +149,14 @@ public class MemberServiceImp implements MemberService {
 			return -1;
 		}
 		return memberDao.selectReviewNum(me_id);
+	}
+
+	@Override
+	public MemberVO getMember(String me_id) {
+		if(!checkString(me_id)) {
+			return null;
+		}
+		return memberDao.selectMember(me_id);
 	}
 	
 }

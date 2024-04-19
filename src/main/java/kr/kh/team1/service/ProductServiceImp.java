@@ -12,6 +12,7 @@ import kr.kh.team1.dao.ProductDAO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.utils.UploadFileUtils;
@@ -139,10 +140,10 @@ public class ProductServiceImp implements ProductService{
 	}
 
 	@Override
-	public void insertPick(String me_id, int pr_num) {
+	public void insertPickByUserAndNum(String me_id, int pr_num) {
 		if(!checkString(me_id))
 			return;
-		productDao.insertPick(me_id, pr_num);
+		productDao.insertPickByUserAndNum(me_id, pr_num);
 		return;
 	}
 
@@ -150,5 +151,44 @@ public class ProductServiceImp implements ProductService{
 	public void upView(int pNum) {
 		productDao.updateView(pNum);
 		return;
+	}
+
+	@Override
+	public PickVO getPickByUserAndNum(String me_id, int pNum) {
+		if(!checkString(me_id))
+			return null;
+		return productDao.selectPickByUserAndNum(me_id, pNum);
+	}
+
+	@Override
+	public boolean deletePickByUserAndNum(String me_id, int pr_num) {
+		if(!checkString(me_id))
+			return false;
+		return productDao.deletePickByUserAndNum(me_id, pr_num);
+	}
+
+	@Override
+	public String getMsg(String pr_me_id, String me_id) {
+		if(!checkString(pr_me_id) || !checkString(me_id))
+			return null;
+		
+		if(!pr_me_id.equals(me_id))
+			return null;
+   		
+		return "본인은 찜할 수 없습니다.";
+	}
+
+	@Override
+	public String booleanPick(String me_id, int pr_num, PickVO isPick) {
+		if(!checkString(me_id))
+			return null;
+		
+		if(isPick == null) {
+			productDao.insertPickByUserAndNum(me_id, pr_num);
+			return "insert";
+		}else {
+			productDao.deletePickByUserAndNum(me_id, pr_num);
+			return "delete";
+		}
 	}
 }
