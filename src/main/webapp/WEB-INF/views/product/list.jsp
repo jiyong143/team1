@@ -955,56 +955,57 @@ button {
    <h1>상품 목록</h1>
    <div class="product-list">
     <c:forEach var="pro" items="${pList}" varStatus="loop">
-        <div class="product-container"> <a href="#">
-         <!-- 이미지 추가 -->
-          <div class="product-image">
-          <c:if test="${pro.fileList.size() >=1 }">
-          	<img src="<c:url value="/download${pro.fileList.get(0).fi_name}"/>" alt="${pro.pr_name}">
-          </c:if>
-          </div>
-          <div class="product-box">
-              <h5 class="product-name">${pro.pr_name}</h5>
-              <p class="price">
-              <c:choose>
-                <c:when test="${pro.pr_price == 0}">
-                  <span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>
-                </c:when>  
-                <c:when test="${pro.pr_price < 0}">
-                  <span style="font-size : 15px; color : #808080; font-weight : bold ">가격 제안</span>
-                </c:when>
-                <c:otherwise>
-                  <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
-                </c:otherwise>
-             </c:choose>    
-             </p>
-              <p class="state">
-              <c:choose>
-			    <c:when test="${pro.pr_ps_state eq '판매완료'}">
-	               <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
-                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
-                  </svg>
-			    </c:when>  
-			    <c:when test="${pro.pr_ps_state eq '예약중'}">
-			      <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
-                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
-                  </svg>
-			    </c:when>
-			 </c:choose>
-              </p>
-              <span class="separator"></span>
-              <p class="place">${pro.pr_place}</p>
-              <span class="separator"></span>
-              <p class="date">${pro.time}</p>
-          </div>
-          </a>
-        </div>
+        <a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>">
+            <div class="product-container"> 
+                <!-- 이미지 추가 -->
+                <div class="product-image">
+                    <c:if test="${pro.fileList.size() >=1 }">
+                        <img src="<c:url value='/download${pro.fileList.get(0).fi_name}'/>" alt="${pro.pr_name}">
+                    </c:if>
+                </div>
+                <div class="product-box">
+                    <h5 class="product-name">${pro.pr_name}</h5>
+                    <p class="price">
+                        <c:choose>
+                            <c:when test="${pro.pr_price == 0}">
+                                <span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>
+                            </c:when>  
+                            <c:when test="${pro.pr_price < 0}">
+                                <span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span> 
+                            </c:when>
+                            <c:otherwise>
+                                <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
+                            </c:otherwise>
+                        </c:choose>    
+                    </p>
+                    <p class="state">
+                        <c:choose>
+                            <c:when test="${pro.pr_ps_state eq '판매완료'}">
+                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+                                </svg>
+                            </c:when>  
+                            <c:when test="${pro.pr_ps_state eq '예약중'}">
+                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+                                </svg>
+                            </c:when>
+                        </c:choose>
+                    </p>
+                    <span class="separator"></span>
+                    <p class="place">${pro.pr_place}</p>
+                    <span class="separator"></span>
+                    <p class="date">${pro.time}</p>
+                </div>
+            </div>
+        </a>
         <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
             <br>
         </c:if>
     </c:forEach>
-    </div>
+</div>
 	
 	
 	<ul class="pagination justify-content-center">

@@ -118,8 +118,8 @@ public class CJYController {
 	   	ProductVO productInfo = productService.getProductInfo(pNum);
    
 	   	int tradeNum, reviewNum = -1;
-	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());
-	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());
+	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id()); 
+	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());   
 	   
 	    MemberVO user = productService.getMemberByPnum(productInfo.getPr_me_id());
 	    
@@ -129,7 +129,7 @@ public class CJYController {
 	    model.addAttribute("pNum", pNum);
 	    model.addAttribute("files", files);
 	    model.addAttribute("info", productInfo);
-	    return "/product/detail";
+	    return "/product/detail";  
 	}
    
    	@ResponseBody

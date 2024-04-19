@@ -191,14 +191,15 @@
 	
 	<select id="selectProductInfoByNum" resultType="kr.kh.team1.model.vo.ProductVO">
 		select product.*, 
-			mg_title as pr_mg_name, 
-			tg_title as pr_tg_name,
-			COUNT(*) AS pr_pickCount from product
-			JOIN pick ON pr_num = pi_pr_num
-			join midgroup on pr_mg_num = mg_num
-			join topgroup on mg_tg_num = tg_num
-		where pr_num = #{pNum}
-		GROUP BY pr_num
+         mg_title as pr_mg_name, 
+         tg_title as pr_tg_name,
+            (select count(*) from product join pick on pr_num = pi_pr_num where pr_num = #{pNum}) as pr_pickCount
+            from product
+            left JOIN pick ON pr_num = pi_pr_num
+            left join midgroup on pr_mg_num = mg_num
+            left join topgroup on mg_tg_num = tg_num
+            where pr_num = #{pNum}
+            GROUP BY pr_num;
 	</select>
 	
 	<select id="selectMemberByPnum" resultType="kr.kh.team1.model.vo.MemberVO">
