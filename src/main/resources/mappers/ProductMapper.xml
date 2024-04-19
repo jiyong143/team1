@@ -21,9 +21,7 @@
 			<collection property="fileList" ofType="kr.kh.team1.model.vo.FileVO"
 				column="pr_num" select="selectFile"/>
 	</resultMap>
-
-
-
+  
     <select id="selectProductList" resultMap="ProductMap">
         select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                               join topgroup on mg_tg_num = tg_num
@@ -217,4 +215,8 @@
 	<update id="updateView">
 		update product set pr_view = pr_view + 1 where pr_num = #{pNum}
 	</update>
+	
+	<select id="selectPickByUserAndNum" resultType="kr.kh.team1.model.vo.PickVO">
+		select * from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
+	</select>
 </mapper>

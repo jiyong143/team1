@@ -19,6 +19,7 @@ import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.pagination.Criteria;
@@ -119,14 +120,20 @@ public class CJYController {
    
 	   	// 제품 번호를 주고 대,중분류 + 제목 + 가격 + 희망 지역 가져옴
 	   	ProductVO productInfo = productService.getProductInfo(pNum);
-	   	
-	   	int tradeNum= -1, reviewNum = -1;
-	   	
+    
+	   	System.out.println(productInfo);
+	   	int tradeNum = -1;
+	   	int reviewNum = -1;
 	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());
 	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());
 	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());
-	    
+	
+    
 	    model.addAttribute("prUser", prUser);
+	    // 상품 번호 + 유저로 찜했는지 
+	    PickVO pick = productService.getPickByUserAndNum(user.getMe_id(), pNum);
+	    
+	    model.addAttribute("pick", pick);
 	    model.addAttribute("tradeNum", tradeNum);
 	    model.addAttribute("reviewNum",reviewNum);
 	    model.addAttribute("pNum", pNum);
@@ -151,8 +158,8 @@ public class CJYController {
    		return map; 
    	}
    	
-  @ResponseBody
-  @PostMapping(value = "/product/pick")  
+   	@ResponseBody
+  	@PostMapping(value = "/product/pick")  
 	public Map<String, Object> productPick(HttpSession session, int pr_num) {
       	
    		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -167,6 +174,16 @@ public class CJYController {
    		}
    		
    		productService.insertPick(user.getMe_id(), pr_num);
+   		return map; 
+   	}
+   	
+   	@ResponseBody
+  	@PostMapping(value = "/product/idPick")  
+	public Map<String, Object> productisPick(HttpSession session, int pr_num) {
+   		HashMap<String, Object> map = new HashMap<String, Object>();
+   		
+   		// 필요한 데이터 : 상품 번호, 회원 정보
+   		
    		return map; 
    	}
 }

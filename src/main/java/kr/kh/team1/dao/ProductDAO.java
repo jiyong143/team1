@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.pagination.Criteria;
 
@@ -41,5 +42,7 @@ public interface ProductDAO {
 	void insertPick(@Param("id")String me_id, @Param("pr_num")int pr_num);
 
 	void updateView(@Param("pNum")int pNum);
+
+	PickVO selectPickByUserAndNum(@Param("id")String me_id, @Param("pr_num")int pNum);
 }
 
