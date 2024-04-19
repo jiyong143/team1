@@ -26,10 +26,11 @@
 	<h1 class="page-title">문의글 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
+	 
 		<div class="select-box col-12 mt-4">
 			<label for="suport_manage">지원타입 선택</label>
 			<select class="form-control" id="suport_manage" name="su_sm_num">
-				<c:forEach items="${suport_manage}" var="sm">
+				<c:forEach items="${surportManageList}" var="sm">
 					<option value="${sm.sm_num}">${sm.sm_name}</option>
 				</c:forEach>
 			</select>
@@ -37,11 +38,13 @@
 		<div class="select-box col-12 mt-3">
 			<label for="up_head">말머리 선택</label>
 			<select class="form-control" id="up_head" name="su_uh_num">
-				<c:forEach items="${up_head}" var="uh">
-					<option value="${sm.uh_num}">${sm.uh_name}</option>
+				<c:forEach items="${upHeadList}" var="uh">
+					<option value="${uh.uh_num}">${uh.uh_name}</option>
 				</c:forEach>
 			</select>
 		</div>
+	 
+	 
 		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
 			<input type="text" class="form-control" id="su_title" name="su_title" required placeholder="제목을 입력해주세요.">

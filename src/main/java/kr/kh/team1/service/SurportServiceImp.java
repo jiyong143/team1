@@ -22,6 +22,7 @@ public class SurportServiceImp implements SurportService{
 	public ArrayList<SurportVO> getSurportList(Criteria_supot cris) {
 		if(cris == null)
 			cris = new Criteria_supot();
+		System.out.println("surportList");
 		return surportDao.selectSurportList(cris);
 	}
 
@@ -32,14 +33,16 @@ public class SurportServiceImp implements SurportService{
 
 	@Override
 	public ArrayList<SurportManageVO> getSurportManageList() {
+		System.out.println("surportManageList");
 		return surportDao.selectSurportManageList();
 	}
-	/*
+	
 	@Override
 	public ArrayList<UpHeadVO> getUpHeadList() {
+		System.out.println("UpHeadList");
 		return surportDao.selectUpHeadList();
 	}
-	*/
+	
 	@Override
 	public boolean insertSurport(SurportVO surport, MemberVO user) {
 		if( surport == null || 
@@ -50,6 +53,7 @@ public class SurportServiceImp implements SurportService{
 		if(user == null)
 			return false;
 		surport.setSu_me_id(user.getMe_id());
+		System.out.println(surport);
 		return surportDao.insertSurport(surport);
 	}
 
@@ -61,6 +65,7 @@ public class SurportServiceImp implements SurportService{
 	
 	@Override
 	public SurportVO getSurport(int suNum) {
+		System.out.println("suNum");
 		return surportDao.selectSurport(suNum);
 	}
 
@@ -83,6 +88,7 @@ public class SurportServiceImp implements SurportService{
 		}
 		//글 수정
 		surportDao.updateSurport(surport);
+		System.out.println(surport);
 		return true;
 	}
 
@@ -93,6 +99,8 @@ public class SurportServiceImp implements SurportService{
 		}
 		return true;
 	}
+
+	
 
 
 	

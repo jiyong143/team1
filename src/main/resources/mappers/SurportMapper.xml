@@ -51,11 +51,11 @@
      -->
 </select>
 
-<select id="selectSurportManageList" resultType="kr.kh.team1.model.vo.SurportManageVO">
+<select id="selectSurportManageList" resultType="SurportManageVO">
 	select * from suport_manage
 </select>
 
-<select id="selectUpHeadList" resultType="kr.kh.team1.model.vo.UpHeadVO">
+<select id="selectUpHeadList" resultType="UpHeadVO">
 	select * from up_head
 </select>
 

@@ -195,9 +195,9 @@
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
 			COUNT(*) AS pr_pickCount from product
-			JOIN pick ON pr_num = pi_pr_num
-			join midgroup on pr_mg_num = mg_num
-			join topgroup on mg_tg_num = tg_num
+			left JOIN pick ON pr_num = pi_pr_num
+			left join midgroup on pr_mg_num = mg_num
+			left join topgroup on mg_tg_num = tg_num
 		where pr_num = #{pNum}
 		GROUP BY pr_num
 	</select>
