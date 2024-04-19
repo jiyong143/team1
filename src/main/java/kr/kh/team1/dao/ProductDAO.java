@@ -35,7 +35,7 @@ public interface ProductDAO {
 
 	ArrayList<FileVO> selectFileBypNum(@Param("pNum")int pNum);
 
-	ProductVO selectProductInfoByNum(@Param("pNum")int pNum);
+	ProductVO selectProductInfoByNum(@Param("pr_num")int pNum);
 
 	MemberVO selectMemberByPnum(@Param("id")String pr_me_id);
 
