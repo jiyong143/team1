@@ -70,12 +70,8 @@ public class ProductServiceImp implements ProductService{
 		if(clickData == null || clickData.length()==0) {
 			return null;
 		}
-		return productDao.selectMypagePro(me_id, clickData);
-	}	
-
-	@Override
 		return productDao.selectMypagePro(me_id, clickData, type);
-	}
+	}	
 
 	@Override
 	public int getMinPrice(int mNum, Criteria cri) {
@@ -155,4 +151,5 @@ public class ProductServiceImp implements ProductService{
 		productDao.updateView(pNum);
 		return;
 	}
+
 }

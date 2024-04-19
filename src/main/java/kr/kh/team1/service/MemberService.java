@@ -22,4 +22,6 @@ public interface MemberService {
 	int getTradeNum(String me_id);
 
 	int getReviewNum(String me_id);
+
+	MemberVO getMember(String me_id);
 }

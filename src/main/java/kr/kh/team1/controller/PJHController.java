@@ -123,21 +123,22 @@ public class PJHController {
 	}
 	
 	@GetMapping("/member/mypage")
-	public String mypage(Model model, HttpServletRequest request, MemberVO membervo) {
-		MemberVO user = null;
-		if(membervo.getMe_id()==null) {
-			user = (MemberVO)request.getSession().getAttribute("user");
+	public String mypage(Model model, HttpServletRequest request, String me_id) {
+		
+		MemberVO myUser;
+		if(me_id==null) {
+			myUser = (MemberVO)request.getSession().getAttribute("user");
 		} else {
-			user = membervo;
+			myUser = memberService.getMember(me_id);
 		}
 		
 		int tradeNum = -1;
-		tradeNum = memberService.getTradeNum(user.getMe_id());
+		tradeNum = memberService.getTradeNum(myUser.getMe_id());
 		
 		int reviewNum = -1;
-		reviewNum = memberService.getReviewNum(user.getMe_id());
+		reviewNum = memberService.getReviewNum(myUser.getMe_id());
 		
-		model.addAttribute("user", user);
+		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum",reviewNum);
 		model.addAttribute("listSize", 0);
@@ -147,11 +148,25 @@ public class PJHController {
 	
 	@ResponseBody
 	@GetMapping("/member/mypage/all")
-	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type) {
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type, @RequestParam("userId")String userId) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
+		MemberVO myUser;
+		if(userId==null) {
+			myUser = (MemberVO)request.getSession().getAttribute("user");
+		} else {
+			myUser = memberService.getMember(userId);
+		}
 		ArrayList<ProductVO> list;
-		list = productService.getMypagePro(user.getMe_id(), clickData, type);
+		list = productService.getMypagePro(myUser.getMe_id(), clickData, type);
+		
+		if(list.size() == 0 ) {
+			model.addAttribute("listSize", list.size());
+			map.put("list", list);
+			
+			return map;
+		}
+		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 		for(int i=0; i<list.size(); i++) {
 			String tmpDate = simpleDateFormat.format(list.get(i).getPr_date());

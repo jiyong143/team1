@@ -22,24 +22,7 @@
 				column="pr_num" select="selectFile"/>
 	</resultMap>
 
-<select id="selectMaxPrice" resultType="int">
-  select ifnull(max(pr_price),0) from product
-        <if test='cri.search != ""'>
-  			where (pr_name like concat('%', #{cri.search}, '%')
-  			or pr_content like concat('%', #{cri.search}, '%'))
-  			and pr_place like concat('%', #{cri.place}, '%')
-  			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_mg_num = #{num}	
-  		</if>
-  		<if test='cri.search == ""'>
-  			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-  			and  pr_place like concat('%', #{cri.place}, '%')
-  			and  pr_mg_num = #{num}
-  		</if>
-  		<if test='cri.state =="except"'>
-  		    and pr_ps_state != "판매완료"
-  		</if>
-</select>
+
 
     <select id="selectProductList" resultMap="ProductMap">
         select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
@@ -213,12 +196,13 @@
 		select product.*, 
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
-			COUNT(*) AS pr_pickCount from product
-			JOIN pick ON pr_num = pi_pr_num
-			join midgroup on pr_mg_num = mg_num
-			join topgroup on mg_tg_num = tg_num
-		where pr_num = #{pNum}
-		GROUP BY pr_num
+            (select count(*) from product join pick on pr_num = pi_pr_num where pr_num = #{pNum}) as pr_pickCount
+            from product
+				left JOIN pick ON pr_num = pi_pr_num
+				left join midgroup on pr_mg_num = mg_num
+				left join topgroup on mg_tg_num = tg_num
+				where pr_num = #{pNum}
+				GROUP BY pr_num;
 	</select>
 	
 	<select id="selectMemberByPnum" resultType="kr.kh.team1.model.vo.MemberVO">

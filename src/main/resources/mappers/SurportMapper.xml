@@ -8,6 +8,7 @@
 <select id="selectSurportList" resultType="kr.kh.team1.model.vo.SurportVO">
     SELECT *
     FROM surport
+</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>
@@ -30,6 +31,7 @@
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
     FROM surport
+</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>

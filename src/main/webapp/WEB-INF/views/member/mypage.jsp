@@ -50,7 +50,7 @@ li {
 				class="relative w-full h-full col-span-2 text-black grid grid-cols-1 gap-y-4 gap-x-0 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-6 lg:min-w-[800px]">
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
-						<h2>${user.me_id}</h2>
+						<h2>${myUser.me_id}</h2>
 						<!-- 프로필 이미지 -->
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">
@@ -62,7 +62,7 @@ li {
 				<!-- 신뢰지수(온도) -->
 				<span class="font-medium text-base">신뢰지수</span>
 				<div class="progress mt-3">
-				  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
+				  <div class="progress-bar" style="width:${myUser.me_manner}%">${myUser.me_manner}</div>
 				</div>		
 				<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
 					<table class="w-100">
@@ -196,7 +196,7 @@ li {
 
 	function clickAll(str1) {
 		let str2;
-		
+		let userId;
 		if($("#latest").hasClass("bg-info") === true) {
 			str2 = "latest";
 		} else if ($("#lowPrice").hasClass("bg-info") === true) {
@@ -209,7 +209,8 @@ li {
 		let type;
 		let obj = { 
 			clickData : str1,
-			type : str2
+			type : str2,
+			userId : '${myUser.me_id}'
 		};
 		$.ajax({
 			async : false,
@@ -229,7 +230,7 @@ li {
 	
 	function clickType(str2) {
 		let str1;
-		
+		let userId;
 		if($("#all").hasClass("bg-info") === true) {
 			str1 = "all";
 		} else if ($("#sale").hasClass("bg-info") === true) {
@@ -245,7 +246,8 @@ li {
 		
 		let obj = { 
 			clickData : str1,
-			type : str2
+			type : str2,
+			userId : '${myUser.me_id}'
 		};
 		
 		$.ajax({
@@ -293,7 +295,11 @@ function addMethod(list) {
 function addListSize(list) {
 	$(".list-size").empty();
 	let str = "";
-	str += `총 \${list[0].listSize}개`;
+	if(list.length<=0) {
+		str += "총 0개";
+	} else {
+		str += `총 \${list[0].listSize}개`;	
+	}
 	$(".list-size").html(str);
 }
 
