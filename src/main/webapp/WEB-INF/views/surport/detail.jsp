@@ -44,11 +44,10 @@
 <body>
 <div class="container">
 	<h1 class="page-title">문의글 상세</h1>
-	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
 		<div class="select-box col-12 mt-3">
 			<label for="suport_manage">지원타입 선택</label>
-			<select class="form-control" id="suport_manage" name="su_sm_num" readonly value="${su_sm_num}">
+			<select class="form-control" id="suport_manage" name="su_sm_num" readonly value="${surport.su_sm_num}">
 				<c:forEach items="${suport_manage}" var="sm">
 					<option value="${sm.sm_num}">${sm.sm_name}</option>
 				</c:forEach>
@@ -56,7 +55,7 @@
 		</div>
 		<div class="select-box col-12 mt-3">
 			<label for="up_head">말머리 선택</label>
-			<select class="form-control" id="up_head" name="su_uh_num" readonly value="${su_uh_num}">
+			<select class="form-control" id="up_head" name="su_uh_num" readonly value="${surport.su_uh_num}">
 				<c:forEach items="${up_head}" var="uh">
 					<option value="${sm.uh_num}">${sm.uh_name}</option>
 				</c:forEach>
@@ -64,28 +63,26 @@
 		</div>
 		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
-			<input type="text" class="form-control" id="su_title" name="su_title" readonly value="${su_title}">
+			<input type="text" class="form-control" id="su_title" name="su_title" readonly value="${surport.su_title}">
 		</div>
 		<div class="form-group col-12 mt-3">
 			<label for="id">작성자</label>
-			<input type="text" class="form-control" id="id" name="id" readonly value="${su_me_id}">
+			<input type="text" class="form-control" id="id" name="id" readonly value="${surport.su_me_id}">
 		</div>	
 			<div class="form-group col-12 mt-3">
 			<label for="su_view">조회수</label>
-			<input type="number" class="form-control" id="su_view" name="su_view" readonly value="${su_view}">
+			<input type="number" class="form-control" id="su_view" name="su_view" readonly value="${surport.su_view}">
 		</div>
 	</div>
 		<div class="content-box mb-4">
 			<label for="su_content">내용</label>
-		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10"readonly value="${su_content}"></textarea>
+		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10"readonly value="${surport.su_content}"></textarea>
 		</div>
 		<a href="/team1/surport/list" class="btn btn-outline-dark mb-4">목록으로</a>
 		<c:if test="${user.me_id == surport.su_me_id}">
 			<a href="<c:url value="/surport/delete?suNum=${surport.su_num}"/>" class="btn btn-outline-success mb-4">삭제</a>
 			<a href="<c:url value="/surport/update?suNum=${surport.su_num}"/>" class="btn btn-outline-warning mb-4">수정</a>
 		</c:if>
-	</form>
-	
 	
 	<div class="container-comment">	
 	<h3 class="comment_title"> 댓글(<span class="comment-total">-</span>) </h3>

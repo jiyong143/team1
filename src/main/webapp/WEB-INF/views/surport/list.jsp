@@ -48,19 +48,16 @@
 				<td>${surport.su_num}</td>
 				<td class="list-title">
 					<c:url value="/surport/detail" var="url">
-						<c:param name="page" value="${pms.cris.page}"/>
-						<c:param name="type" value="${pms.cris.type}"/>
-						<c:param name="search" value="${pms.cris.search}"/>
 						<c:param name="suNum" value="${surport.su_num}"/>
 					</c:url>
 					<a href="${url}">${surport.su_title}</a>
 				</td>
 				<td>
-					<c:url value="/surpotr/list" var="url">
+					<c:url value="/surpotr/list" var="aurl">
 						<c:param name="type" value="writer"/>
 						<c:param name="search" value="${surport.su_num}"/>
 					</c:url>
-					<a href="${url}">${surport.su_me_id}</a>
+					<a href="${aurl}">${surport.su_me_id}</a>
 				</td>
 				<td>${surport.su_date}</td>
 				<td>${surport.su_view}</td>
@@ -69,36 +66,36 @@
 		</tbody>
 	</table>
 	<ul class="pagination justify-content-center">
-		<c:if test="${pm.prev}">
+		<c:if test="${pms.prev}">
 			<li class="page-item">
 				<c:url var="url" value="/surport/list">
-					<c:param name="page" value="${pm.startPage - 1}"/>
-					<c:param name="search" value="${pm.cris.search}"/>
-					<c:param name="type" value="${pm.cris.type}"/>
-					<c:param name="order" value="${pm.cris.order}"/>
+					<c:param name="page" value="${pms.startPage - 1}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">이전</a>
 			</li>
 		</c:if>
-		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+		<c:forEach begin="${pms.startPage}" end="${pms.endPage}" var="i">
 			<c:set var="active" value="${pm.cris.page == i ?'active':'' }"/>
 			<li class="page-item ${active}">
 				<c:url var="url" value="/post/list">
 					<c:param name="page" value="${i}"/>
-					<c:param name="search" value="${pm.cris.search}"/>
-					<c:param name="type" value="${pm.cris.type}"/>
-					<c:param name="order" value="${pm.cris.order}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">${i}</a>
 			</li>
 		</c:forEach>
-		<c:if test="${pm.next}">
+		<c:if test="${pms.next}">
 			<li class="page-item">
 				<c:url var="url" value="/surport/list">
-					<c:param name="page" value="${pm.endPage + 1}"/>
-					<c:param name="search" value="${pm.cris.search}"/>
-					<c:param name="type" value="${pm.cris.type}"/>
-					<c:param name="order" value="${pm.cris.order}"/>
+					<c:param name="page" value="${pms.endPage + 1}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
 				</c:url>
 				<a class="page-link" href="${url}">다음</a>
 			</li>
