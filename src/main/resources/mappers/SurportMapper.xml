@@ -26,8 +26,9 @@
     </where>
     ORDER BY ${cris.order} DESC
     LIMIT #{cris.pageStart}, #{cris.perPageNum}
-     
-</select> -->
+-->
+</select>
+
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
     FROM surport
@@ -51,7 +52,7 @@
     </where>
     </select>
      -->
-
+</select>
 
 <select id="selectSurportManageList" resultType="kr.kh.team1.model.vo.SurportManageVO">
 	select * from suport_manage

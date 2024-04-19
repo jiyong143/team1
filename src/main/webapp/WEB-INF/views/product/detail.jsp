@@ -123,15 +123,29 @@
 					<h1>${info.pr_name}</h1>
 					<c:choose>
 						<c:when test="${info.pr_price == 0}">
-							<h2>무료 나눔</h2>
+							<h2 style="font-weight: bold; font-size: 20px;">무료 나눔🧡</h2>
 						</c:when>
 						<c:when test="${info.pr_price == -10}">
-							<h2>가격 제안</h2>	
+							<h2 style="font-size: 20px; color: #808080; font-weight: bold;">가격 제안</h2>	
 						</c:when>
 						<c:otherwise>
 							<h2>${info.pr_price}원</h2>
 						</c:otherwise>
 					</c:choose>
+					<c:choose>
+                            <c:when test="${info.pr_ps_state eq '판매완료'}">
+                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+                                </svg>
+                            </c:when>  
+                            <c:when test="${info.pr_ps_state eq '예약중'}">
+                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+                                </svg>
+                            </c:when>
+                        </c:choose>
 				</div>
 			</div>
 			<div class="textContainer">

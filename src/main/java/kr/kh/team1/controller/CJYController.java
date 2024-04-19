@@ -142,7 +142,7 @@ public class CJYController {
 	    model.addAttribute("pNum", pNum);
 	    model.addAttribute("files", files);
 	    model.addAttribute("info", productInfo);
-	    return "/product/detail";
+	    return "/product/detail";  
 	}
    
    	@ResponseBody

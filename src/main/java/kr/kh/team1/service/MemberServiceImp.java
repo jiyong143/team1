@@ -139,8 +139,8 @@ public class MemberServiceImp implements MemberService {
 		if(!checkString(me_id)) {
 			return -1;
 		}
+		return memberDao.selectUserTradeNum(me_id); 
 
-		return memberDao.selectUserTradeNum(me_id);
 	}
 	
 	@Override

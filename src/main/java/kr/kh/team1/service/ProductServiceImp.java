@@ -129,7 +129,7 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public ProductVO getProductInfo(int pNum) {
-		return productDao.selectProductInfoByNum(pNum);
+		return productDao.selectProductInfoByNum(pNum); 
 	}
 
 	@Override
