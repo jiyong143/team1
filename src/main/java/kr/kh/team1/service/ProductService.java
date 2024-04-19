@@ -46,4 +46,6 @@ public interface ProductService {
 	String getMsg(String pr_me_id, String me_id);
 
 	String booleanPick(String me_id, int pr_num, PickVO isPick);
+
+	void addPick(int pr_num);
 }

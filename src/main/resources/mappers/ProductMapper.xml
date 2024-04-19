@@ -221,4 +221,8 @@
 	<delete id="deletePickByUserAndNum">
 		delete from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
 	</delete>
+	
+	<update id="updatePick">
+	  update product set pr_basket = pr_basket+1 where pr_num=#{pr_num}
+	</update>
 </mapper>

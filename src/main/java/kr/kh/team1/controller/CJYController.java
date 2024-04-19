@@ -53,6 +53,7 @@ public class CJYController {
 	}
 
 
+
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
 	   	int maxPrice = productService.getMaxPrice(mNum,cri);
@@ -174,6 +175,9 @@ public class CJYController {
    		
    		PickVO isPick = productService.getPickByUserAndNum(user.getMe_id(), pr_num);
    		String res = productService.booleanPick(user.getMe_id(),pr_num, isPick);
+   		
+   		// 제품 찜 개수 1증가 시키기
+   		productService.addPick(pr_num);
 
    		map.put("msg", msg);
    		map.put("res", res);

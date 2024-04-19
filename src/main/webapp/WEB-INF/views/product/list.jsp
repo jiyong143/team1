@@ -762,6 +762,10 @@ button {
     flex-shrink: 0; /* 버튼이 너무 커지지 않도록 설정 */
 }
 
+li {
+	list-style:none;
+}
+
 </style>
 </head>
 <body>
@@ -943,13 +947,17 @@ button {
       </div>
    </div>
 		  
-		<select class="form-control col-4 offset-8 mb-4" name="order">
-			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
-			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>
-			<option value="pr_basket" <c:if test="${pm.cri.order == 'pr_basket' }">selected</c:if>>찜순</option>
-			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
-			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
-		</select>
+		
+		<div class="mt-3">
+				<p class="list-size"></p>
+				<ul class="float-right" style="width:50%">
+					<li><button id="pr_num" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_num' }">bg-info</c:if>">최신순</button></li>
+					<li><button id="pr_view" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_view' }">bg-info</c:if>">조회수순</button></li>
+					<li><button id="pr_basket" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_basket' }">bg-info</c:if>">찜순</button></li>
+					<li><button id="asc" class="float-left order-list-item <c:if test="${pm.cri.order == 'desc' }">bg-info</c:if>">낮은가격순</button></li>
+					<li><button id="desc" class="float-left order-list-item <c:if test="${pm.cri.order == 'asc' }">bg-info</c:if>">높은가격순</button></li>
+				</ul>
+	   </div>
 
 	
    <h1>상품 목록</h1>
@@ -1061,39 +1069,146 @@ button {
 	</ul>
 	</div>
 <script type="text/javascript">
-$("[name=order]").change(function(){
-	console.log(123);
-	let state = '${pm.cri.state}';
-	let mNum = '${num}';
-	let mName = '${MName}';
-	let tName = '${TName}';
-	let search = '${pm.cri.search}';
-	let place = '${pm.cri.place}';
-	let minPrice = '${pm.cri.minPrice}';
-	let maxPrice = '${pm.cri.maxPrice}';
-	let order = '${order}';
 	
-	$.ajax({
-		url : '<c:url value="/product/list"/>',
-		method : 'get',
-		async : true,
-		data : {
+	$(".order-list-item").click(function(){
+		$(".order-list-item").removeClass("bg-info");
+	})
+	
+	$("#pr_num").click(function(){
+		$("#pr_num").addClass("bg-info");
+		clickOrder("pr_num");
+		
+	})
+	
+	$("#pr_view").click(function(){
+		$("#pr_view").addClass("bg-info");
+		clickOrder("pr_view");
+		
+	})
+	
+	$("#pr_basket").click(function(){
+		$("#pr_basket").addClass("bg-info");
+		clickOrder("pr_basket");
+		
+	})
+	
+	$("#asc").click(function(){
+		$("#asc").addClass("bg-info");
+		clickOrder("asc");
+		
+	})
+	
+	$("#desc").click(function(){
+		$("#desc").addClass("bg-info");
+		clickOrder("desc");
+		
+	})
+	
+	function clickOrder(str1) {
+		let state = '${pm.cri.state}';
+		let mNum = '${num}';
+		let mName = '${MName}';
+		let tName = '${TName}';
+		let search = '${pm.cri.search}';
+		let place = '${pm.cri.place}';
+		let minPrice = '${pm.cri.minPrice}';
+		let maxPrice = '${pm.cri.maxPrice}';
+
+		let obj = { 
+			"order" : str1,
 			"state" : state,
 			"mNum" : mNum,
 			"mName" : mName,
 			"tName" : tName,
 			"search" : search,
 			"place" : place,
-			"minprice" : minPrice,
-			"maxPrice" : maxPrice,
-			"order" : order
-		},
-		success : function(data){
-			console.log(data);
-		}
-	});
+			"minPrice" : minPrice,
+			"maxPrice" : maxPrice
+		};
+		
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/list"/>', 
+			type : 'get',
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				addMethod(data.pList);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
 	
-});
+			}
+		});
+	}
+	
+	
+	function addMethod(list) {
+		let str='';
+		for(pro of list) {
+			str += 
+				`
+				<a href="<c:url value="/product/detail?pNum=\${pro.pr_num}"/>">
+	            <div class="product-container"> 
+	                <!-- 이미지 추가 -->
+	                <div class="product-image">
+	            `
+	            if(pro.fileList.length >= 1)
+	            	str += `<img src="<c:url value='/download'/>\${pro.fileList.get(0).fi_name}" alt="${pro.pr_name}">`;
+	                   /*  <c:if test="${pro.fileList.size() >=1 }">
+	                        <img src="<c:url value='/download${pro.fileList.get(0).fi_name}'/>" alt="${pro.pr_name}">
+	                    </c:if> */
+	            str += `
+	                </div>
+	                <div class="product-box">
+	                    <h5 class="product-name">\${pro.pr_name}</h5>
+	                    <p class="price">
+	              	`
+	                        /* <c:choose>
+	                            <c:when test="${pro.pr_price == 0}">
+	                                <span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>
+	                            </c:when>  
+	                            <c:when test="${pro.pr_price < 0}">
+	                                <span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span> 
+	                            </c:when>
+	                            <c:otherwise>
+	                                <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
+	                            </c:otherwise>
+	                        </c:choose>     */
+	                str += `
+	                    </p>
+	                    <p class="state">
+	                    `
+	                        /* <c:choose>
+	                            <c:when test="${pro.pr_ps_state eq '판매완료'}">
+	                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+	                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+	                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+	                                </svg>
+	                            </c:when>  
+	                            <c:when test="${pro.pr_ps_state eq '예약중'}">
+	                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+	                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+	                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+	                                </svg>
+	                            </c:when>
+	                        </c:choose> */
+	               str += `
+	                    </p>
+	                    <span class="separator"></span>
+	                    <p class="place">\${pro.pr_place}</p>
+	                    <span class="separator"></span>
+	                    <p class="date">\${pro.time}</p>
+	                </div>
+	            </div>
+	        </a>
+	        `
+	       /*  <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
+	            <br>
+	        </c:if> */
+				
+		}
+		$(".product-list").html(str);
+	}
 </script>
 
 <script type="text/javascript">

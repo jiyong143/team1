@@ -191,4 +191,10 @@ public class ProductServiceImp implements ProductService{
 			return "delete";
 		}
 	}
+
+	@Override
+	public void addPick(int pr_num) {
+		productDao.updatePick(pr_num);
+		
+	}
 }

@@ -46,5 +46,7 @@ public interface ProductDAO {
 	PickVO selectPickByUserAndNum(@Param("id")String me_id, @Param("pr_num")int pNum);
 
 	boolean deletePickByUserAndNum(@Param("id")String me_id, @Param("pr_num")int pr_num);
+
+	void updatePick(@Param("pr_num")int pr_num);
 }
 
