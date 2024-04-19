@@ -158,8 +158,8 @@
 			${info.pr_content}
 		</div>
 		<div class="sellerContainer">
-		<a href="<c:url value="#"/>">
-			<!-- 판매자 신상 -->
+			<a href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
+				<!-- 판매자 신상 -->
 				<h3>판매자</h3>
 				<hr>
 				<h2>${user.me_id}</h2>
@@ -167,7 +167,7 @@
 					<!-- 신뢰지수(온도) -->
 					<span class="font-medium text-base">신뢰지수</span>
 					<div class="progress mt-3">
-					  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
+					  <div class="progress-bar" style="width:${prUser.me_manner}%">${prUser.me_manner}</div>
 					</div>		
 					<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
 						<table class="w-100">
