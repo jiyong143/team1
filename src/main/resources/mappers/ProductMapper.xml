@@ -21,7 +21,7 @@
 			<collection property="fileList" ofType="kr.kh.team1.model.vo.FileVO"
 				column="pr_num" select="selectFile"/>
 	</resultMap>
-
+  
     <select id="selectProductList" resultMap="ProductMap">
         select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                               join topgroup on mg_tg_num = tg_num
@@ -194,12 +194,13 @@
 		select product.*, 
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
-			COUNT(*) AS pr_pickCount from product
-			left JOIN pick ON pr_num = pi_pr_num
-			left join midgroup on pr_mg_num = mg_num
-			left join topgroup on mg_tg_num = tg_num
-		where pr_num = #{pNum}
-		GROUP BY pr_num
+            (select count(*) from product join pick on pr_num = pi_pr_num where pr_num = #{pNum}) as pr_pickCount
+            from product
+				left JOIN pick ON pr_num = pi_pr_num
+				left join midgroup on pr_mg_num = mg_num
+				left join topgroup on mg_tg_num = tg_num
+				where pr_num = #{pNum}
+				GROUP BY pr_num;
 	</select>
 	
 	<select id="selectMemberByPnum" resultType="kr.kh.team1.model.vo.MemberVO">

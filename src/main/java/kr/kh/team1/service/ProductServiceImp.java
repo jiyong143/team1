@@ -159,4 +159,5 @@ public class ProductServiceImp implements ProductService{
 			return null;
 		return productDao.selectPickByUserAndNum(me_id, pNum);
 	}
+
 }

@@ -58,6 +58,11 @@ public class CJYController {
 	   	int maxPrice = productService.getMaxPrice(mNum,cri);
 	   	int minPrice = productService.getMinPrice(mNum,cri);
 	   	int avgPrice = productService.getAvgPrice(mNum,cri);
+	   	System.out.println("***********************************"+maxPrice);
+	   	System.out.println("***********************************"+minPrice);
+//	   	if(minPrice<=0 || minPrice==null) {
+//	   		
+//	   	}
 	   	model.addAttribute("maxPrice",maxPrice);
 	   	model.addAttribute("minPrice",minPrice);
 	   	model.addAttribute("avgPrice",avgPrice);
@@ -111,25 +116,24 @@ public class CJYController {
    
 	@GetMapping("/product/detail")
 	public String productDetail(Model model, HttpSession session, int pNum) {
-	   
-		productService.upView(pNum);
 	   	ArrayList<FileVO> files = productService.getFileBypNum(pNum);
    
 	   	// 제품 번호를 주고 대,중분류 + 제목 + 가격 + 희망 지역 가져옴
 	   	ProductVO productInfo = productService.getProductInfo(pNum);
+    
 	   	System.out.println(productInfo);
 	   	int tradeNum = -1;
 	   	int reviewNum = -1;
 	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());
 	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());
-	   
-	    MemberVO user = productService.getMemberByPnum(productInfo.getPr_me_id());
-	    
+	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());
+	
+    
+	    model.addAttribute("prUser", prUser);
 	    // 상품 번호 + 유저로 찜했는지 
 	    PickVO pick = productService.getPickByUserAndNum(user.getMe_id(), pNum);
 	    
 	    model.addAttribute("pick", pick);
-	    model.addAttribute("user", user);
 	    model.addAttribute("tradeNum", tradeNum);
 	    model.addAttribute("reviewNum",reviewNum);
 	    model.addAttribute("pNum", pNum);
