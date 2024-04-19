@@ -8,6 +8,7 @@
 <select id="selectSurportList" resultType="SurportVO">
     SELECT *
     FROM surport
+</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>
@@ -25,12 +26,13 @@
     </where>
     ORDER BY ${cris.order} DESC
     LIMIT #{cris.pageStart}, #{cris.perPageNum}
-     -->
+-->
 </select>
 
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
     FROM surport
+</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>
@@ -48,6 +50,7 @@
             AND su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
     </where>
+    </select>
      -->
 </select>
 

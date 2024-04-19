@@ -19,6 +19,7 @@ import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.pagination.Criteria;
@@ -46,7 +47,7 @@ public class CJYController {
 	@GetMapping("/product/insert")
 	public String productTopGroupList(Model model, HttpSession session) {
    	
-		  ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
 	   	model.addAttribute("topGroupList", topGroupList);
 	   	return "/product/insert";
 	}
@@ -57,6 +58,11 @@ public class CJYController {
 	   	int maxPrice = productService.getMaxPrice(mNum,cri);
 	   	int minPrice = productService.getMinPrice(mNum,cri);
 	   	int avgPrice = productService.getAvgPrice(mNum,cri);
+	   	System.out.println("***********************************"+maxPrice);
+	   	System.out.println("***********************************"+minPrice);
+//	   	if(minPrice<=0 || minPrice==null) {
+//	   		
+//	   	}
 	   	model.addAttribute("maxPrice",maxPrice);
 	   	model.addAttribute("minPrice",minPrice);
 	   	model.addAttribute("avgPrice",avgPrice);
@@ -88,10 +94,10 @@ public class CJYController {
 		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
 	   
 	    // 회원 정보 가져옴
-		  MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = (MemberVO)session.getAttribute("user");
 
-		  if(optradio == 0 || optradio == -10)
-			    product.setPr_price(optradio);
+		if(optradio == 0 || optradio == -10)
+			product.setPr_price(optradio);
 			
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
@@ -110,26 +116,33 @@ public class CJYController {
    
 	@GetMapping("/product/detail")
 	public String productDetail(Model model, HttpSession session, int pNum) {
-	   
+
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		
 		productService.upView(pNum);
+
 	   	ArrayList<FileVO> files = productService.getFileBypNum(pNum);
    
 	   	// 제품 번호를 주고 대,중분류 + 제목 + 가격 + 희망 지역 가져옴
 	   	ProductVO productInfo = productService.getProductInfo(pNum);
-   
-	   	int tradeNum, reviewNum = -1;
+		
+	   	int tradeNum = -1;
+	   	int reviewNum = -1;
 	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());
 	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());
-	   
-	    MemberVO user = productService.getMemberByPnum(productInfo.getPr_me_id());
+	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());
+	
+	    // 상품 번호 + 유저로 찜했는지 
+	    PickVO pick = productService.getPickByUserAndNum(prUser.getMe_id(), pNum);
 	    
-	    model.addAttribute("user", user);
+	    model.addAttribute("prUser", prUser);
+	    model.addAttribute("pick", pick);
 	    model.addAttribute("tradeNum", tradeNum);
 	    model.addAttribute("reviewNum",reviewNum);
 	    model.addAttribute("pNum", pNum);
 	    model.addAttribute("files", files);
 	    model.addAttribute("info", productInfo);
-	    return "/product/detail";
+	    return "/product/detail";  
 	}
    
    	@ResponseBody
@@ -148,22 +161,22 @@ public class CJYController {
    		return map; 
    	}
    	
-  @ResponseBody
-  @PostMapping(value = "/product/pick")  
+   	@ResponseBody
+  	@PostMapping(value = "/product/pick")  
 	public Map<String, Object> productPick(HttpSession session, int pr_num) {
       	
    		HashMap<String, Object> map = new HashMap<String, Object>();
+   		
    		MemberVO user = (MemberVO)session.getAttribute("user");
-   		
-   		// 조건문 추가 : 본인이 누를 때, 이미 눌렀을때 = 삭제
+   		// 게시글 정보 가져와서 로그인한 회원과 일치 여부
    		ProductVO pro = productService.getProductInfo(pr_num);
-   		if(pro.getPr_me_id().equals(user.getMe_id())) {
-   			System.out.println("asdasd");
-   			map.put("msg", "본인은 찜할 수 없습니다.");
-   			return map;
-   		}
+   		String msg = productService.getMsg(pro.getPr_me_id(), user.getMe_id()); // 찜 가능 여부(본인인지 아닌지)
    		
-   		productService.insertPick(user.getMe_id(), pr_num);
+   		PickVO isPick = productService.getPickByUserAndNum(user.getMe_id(), pr_num);
+   		String res = productService.booleanPick(user.getMe_id(),pr_num, isPick);
+
+   		map.put("msg", msg);
+   		map.put("res", res);
    		return map; 
    	}
 }
