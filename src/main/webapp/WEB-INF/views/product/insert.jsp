@@ -59,7 +59,7 @@
 			</div>
 			<div class="form-group">
 				<label>첨부파일(최대 5개)</label>
-				<input type="file" class="form-control" name="file">
+				<input type="file" class="form-control" name="files">
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
@@ -120,14 +120,13 @@
 		let a = $(this).val();
 		$(".priceTag").val(a);
 		let b = $(".priceTag").val();
-		console.log(b);
 	});
 </script>
 
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
 // 서버에 전송하기 전에 제목, 내용 글자수 확인
-$("#productForm").submit(function(){
+$("#productForm").submit(function(e){
 	let title = $("[name = pr_title]").val();
 	if(title.length == 0){
 		alert("제목은 1글자 이상 입력해야 합니다.");

@@ -20,7 +20,8 @@
 		select * from member where me_id = #{string}
 	</select>
 	<select id="selectUserTradeNum" resultType="int">
-		select count(*) from product where pr_buyId = #{me_id}
+		select count(*) from product where 
+		pr_buyId = #{me_id} or (pr_me_id = #{me_id} and pr_ps_state="판매완료")
 	</select>
 	<select id="selectReviewNum" resultType="int">
 		select count(*) from trade_review where tr_me_id = #{me_id}

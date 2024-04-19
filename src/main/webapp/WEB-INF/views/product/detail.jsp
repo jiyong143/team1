@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
 	.container{
 		margin-top : 60px;
@@ -48,8 +49,17 @@
 		width:65%; margin-top: 50px;
 		padding-right: 70px;
 	}
-	.pick{
-		background-color: blue;
+	.bi-heart{
+		font-size: 32px;
+		height: 32px;
+	}
+	.bi-heart-fill{
+		font-size: 32px;
+		height: 32px;
+		color:purple;
+	}
+	.bi-heart-fill:after{
+		padding-top: 0px;
 	}
 	.sellerContainer{
 		float: right; display: inline-block;
@@ -139,14 +149,8 @@
 					<li>${info.pr_place}</li>
 				</ul>
 			</div>
-			<div class="btnContainer">
-				<label for=":r1d:" class="relative btn-pick">
-					<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="pointer-events-none w-8 h-8">
-						<path d="M5.94197 17.9925L15.2564 26.334C15.3282 26.3983 15.3641 26.4305 15.3975 26.4557C15.7541 26.7249 16.2459 26.7249 16.6025 26.4557C16.6359 26.4305 16.6718 26.3983 16.7436 26.3341L26.058 17.9925C28.8244 15.5151 29.1565 11.3015 26.8124 8.42125L26.5675 8.12029C23.8495 4.78056 18.5906 5.35863 16.663 9.20902C16.3896 9.75505 15.6104 9.75505 15.337 9.20902C13.4094 5.35863 8.1505 4.78056 5.43249 8.12028L5.18755 8.42125C2.84352 11.3015 3.17564 15.5151 5.94197 17.9925Z" stroke-width="1.5" stroke="#9CA3AF"></path>
-					</svg>
-				</label>
-				<button class="btn btn-outline-success btn-sse">채팅하기</button>
-			</div>
+			<div class="btnContainer btnBox"></div>
+			<input type="hidden" id="pickValue" value="${pick}">
 		</div>
 		<div class="infoBox">
 			<h3>상품 정보</h3>
@@ -154,33 +158,35 @@
 			${info.pr_content}
 		</div>
 		<div class="sellerContainer">
+		<a href="<c:url value="#"/>">
 			<!-- 판매자 신상 -->
-			<h3>판매자</h3>
-			<hr>
-			<a href="<c:url value=""/>"><h2>${user.me_id}</h2></a>
-			<div>
-				<!-- 신뢰지수(온도) -->
-				<span class="font-medium text-base">신뢰지수</span>
-				<div class="progress mt-3">
-				  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
-				</div>		
-				<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
-					<table class="w-100">
-						<thead>
-							<tr style="width:auto">
-								<td style="text-align: center;">안전거래</td>
-								<td style="text-align: center;">거래후기</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
-								<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
-							</tr>
-						</tbody>
-					</table>
+				<h3>판매자</h3>
+				<hr>
+				<h2>${user.me_id}</h2>
+				<div>
+					<!-- 신뢰지수(온도) -->
+					<span class="font-medium text-base">신뢰지수</span>
+					<div class="progress mt-3">
+					  <div class="progress-bar" style="width:${user.me_manner}%">${user.me_manner}</div>
+					</div>		
+					<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
+						<table class="w-100">
+							<thead>
+								<tr style="width:auto">
+									<td style="text-align: center;">안전거래</td>
+									<td style="text-align: center;">거래후기</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
+									<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
 	
@@ -205,7 +211,19 @@
 
 <!-- 찜하기 관련 ajax -->
 <script type="text/javascript">
-	$(".btn-pick").click(function(){
+	let a = $("#pickValue").val();
+	console.log(a);
+	let pickRes = "";
+	
+	if(a == 'insert'){
+		pickRes = "insert";
+	}else{
+		pickRes = "delete";
+	}
+	
+	dataPick(pickRes);
+
+	$(document).on('click', ".btn-pick",function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
 			url : '<c:url value="/product/pick"/>',
@@ -215,18 +233,32 @@
 			success : function (data){
 				if(data.msg != null){
 					alert(data.msg);
-				}else{
-					
 				}
-			}, 
+				console.log(data.res)
+				dataPick(data.res);
+			},
 			error : function(jqXHR, textStatus, errorThrown){
 
 			}
 		});
 	});
 	
-	function dataPick(){
-		
+	function dataPick(data){
+		let str='';
+		if(data == 'delete'){
+			str += 
+				`
+				<i class="bi bi-heart btn-pick"></i>
+				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+				`;
+		}else{
+			str += 
+				`
+				<i class="bi bi-heart-fill btn-pick"></i>
+				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+				`;
+		}
+		$(".btnBox").html(str);
 	}
 </script>
 </body>
