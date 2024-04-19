@@ -17,7 +17,7 @@ public interface SurportDAO {
 
 	ArrayList<SurportManageVO> selectSurportManageList();
 
-	//ArrayList<UpHeadVO> selectUpHeadList();
+	ArrayList<UpHeadVO> selectUpHeadList();
 	
 	boolean insertSurport(@Param("surport") SurportVO surport);
 
@@ -26,6 +26,7 @@ public interface SurportDAO {
 	SurportVO selectSurport(@Param("su_num") int suNum);
 
 	void updateSurport(@Param("surport") SurportVO surport);
+
 
 	
 

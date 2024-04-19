@@ -32,35 +32,30 @@ public class LKJController {
 		ArrayList<SurportVO> list = surportService.getSurportList(cris);
 		int totalCount = surportService.getSurportTotalCount(cris);
 		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
-		model.addAttribute("pm", pms);
+		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", list);
+		log.info("surportList");
 		return("/surport/list");
 	}
 	
 	@GetMapping("/surport/insert")
 	public String surportInsert(Model model) {
 		//고객지원타입 리스트를 화면에 전송 -> 1.공지사항 , 2.문의사항
-		ArrayList<SurportManageVO> list = surportService.getSurportManageList();
-		model.addAttribute("list", list);
+		//글머리 리스트를 화면에 전송 -> 1.필독 , 2.공지 , 3.문의
+		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
+		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
+		model.addAttribute("surportManageList", surportManageList);//지원타입 
+		model.addAttribute("upHeadList", upHeadList);//글머리 
 		model.addAttribute("title", "고객문의 등록");
 		return "/surport/insert";
 	}
-	/*
-	@GetMapping("/surport/list")
-	public String upHeadInsert(Model model) {
-		//말머리 리스트를 화면에 전송 -> 1.공지 , 2.필독 , 3.문의
-		ArrayList<UpHeadVO> list = surportService.getUpHeadList();
-		model.addAttribute("list", list);
-		return "/surport/list";
-	}
-	*/
+	
 	@PostMapping("/surport/insert")
 	public String surportInsertPost(Model model, SurportVO surport, HttpSession session) {
 		//작성자 아이디를 가지고 문의글 작성
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = surportService.insertSurport(surport, user);
-		log.info(surport);
 		if(res) {
 			model.addAttribute("msg", "고객문의를 주셔서 감사합니다.");
 			model.addAttribute("url", "/surport/list");
@@ -68,19 +63,26 @@ public class LKJController {
 			model.addAttribute("msg", "고객문의 작성이 실패하였습니다.");
 			model.addAttribute("url", "/surport/insert");
 		}
+		log.info(surport);
 		return "message";
 	}
+	/*
+	@GetMapping("/surport/detail")
+	public String surportDetailList(Model model) {
+		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
+		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
+		model.addAttribute("surportManageList", surportManageList);
+		model.addAttribute("upHeadList", upHeadList);
+		model.addAttribute("title", "고객문의 상세");
+		return "/surport/detail";
+	}
+	*/
 	
 	@GetMapping("/surport/detail")
-	public String surportDetail(Model model, Integer suNum, Criteria_supot cris) {
-		if(suNum == null) {
-			
-		}else {
+	public String surportDetail(Model model, int suNum) {
 		surportService.updateView(suNum);
 		SurportVO surport = surportService.getSurport(suNum);
-		model.addAttribute("surport", surport);
-		model.addAttribute("ctis", cris);
-		}
+		model.addAttribute("surport", surport);	
 		return "/surport/detail";
 	}
 	
@@ -118,6 +120,12 @@ public class LKJController {
 	//고정 문의글 리스트 
 	public String surportManageList(Model model) {
 		return "/surportManage/list";
+	}
+	
+	@GetMapping("/surportManage/adminList")
+	//관리자 고정문의 타입 관리
+	public String surportAdminLis(Model model) {
+		return "/surportManage/adminList";
 	}
 	
 	//고정문의 페이지 모음 -> 시작

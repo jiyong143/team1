@@ -5,10 +5,9 @@
 <mapper namespace="kr.kh.team1.dao.SurportDAO">
 
 <!-- 게시글 리스트 mapper 시작-->
-<select id="selectSurportList" resultType="kr.kh.team1.model.vo.SurportVO">
+<select id="selectSurportList" resultType="SurportVO">
     SELECT *
     FROM surport
-</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>
@@ -32,7 +31,6 @@
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
     FROM surport
-</select>
     <!-- 
     <where>
         <if test='cris.type == "all"'>
@@ -54,11 +52,11 @@
      -->
 </select>
 
-<select id="selectSurportManageList" resultType="kr.kh.team1.model.vo.SurportManageVO">
+<select id="selectSurportManageList" resultType="SurportManageVO">
 	select * from suport_manage
 </select>
 
-<select id="selectUpHeadList" resultType="kr.kh.team1.model.vo.UpHeadVO">
+<select id="selectUpHeadList" resultType="UpHeadVO">
 	select * from up_head
 </select>
 
@@ -72,7 +70,7 @@
 	update surport set su_view = su_view + 1 where su_num = #{su_num}
 </update>
 
-<select id="selectSurport" resultType="kr.kh.team1.model.vo.SurportVO">
+<select id="selectSurport" resultType="SurportVO">
 	select * from surport where su_num = #{su_num}
 </select>
 
