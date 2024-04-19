@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class PickVO {
 	
 	private int pi_num;
-	private String pr_me_id;
+	private String pi_me_id;
 	private int pi_pr_num;
 }

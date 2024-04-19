@@ -194,29 +194,32 @@
 		select product.*, 
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
-            (select count(*) from product join pick on pr_num = pi_pr_num where pr_num = #{pNum}) as pr_pickCount
-            from product
-				left JOIN pick ON pr_num = pi_pr_num
-				left join midgroup on pr_mg_num = mg_num
-				left join topgroup on mg_tg_num = tg_num
-				where pr_num = #{pNum}
-				GROUP BY pr_num;
+				(select count(*) from pick 
+				 JOIN product ON pr_num = pi_pr_num where pi_pr_num = #{pr_num}) AS pr_pickCount from product
+			right join midgroup on pr_mg_num = mg_num
+			right join topgroup on mg_tg_num = tg_num
+		where pr_num = #{pr_num}
+		GROUP BY pr_num;
 	</select>
 	
 	<select id="selectMemberByPnum" resultType="kr.kh.team1.model.vo.MemberVO">
 		select * from member where me_id = #{id}
 	</select>
 	
-	<insert id="insertPick">
-		insert into pick(pi_me_id, pi_pr_num)
-		values(#{id},#{pr_num})
-	</insert>
-	
 	<update id="updateView">
 		update product set pr_view = pr_view + 1 where pr_num = #{pNum}
 	</update>
 	
+	<insert id="insertPickByUserAndNum">
+		insert into pick(pi_me_id, pi_pr_num)
+		values(#{id},#{pr_num})
+	</insert>
+	
 	<select id="selectPickByUserAndNum" resultType="kr.kh.team1.model.vo.PickVO">
 		select * from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
 	</select>
+	
+	<delete id="deletePickByUserAndNum">
+		delete from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
+	</delete>
 </mapper>

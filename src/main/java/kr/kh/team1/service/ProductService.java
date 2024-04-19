@@ -35,9 +35,15 @@ public interface ProductService {
 
 	MemberVO getMemberByPnum(String pr_me_id);
 
-	void insertPick(String me_id, int pr_num);
+	void insertPickByUserAndNum(String me_id, int pr_num);
 
 	void upView(int pNum);
 
 	PickVO getPickByUserAndNum(String me_id, int pNum);
+
+	boolean deletePickByUserAndNum(String me_id, int pr_num);
+
+	String getMsg(String pr_me_id, String me_id);
+
+	String booleanPick(String me_id, int pr_num, PickVO isPick);
 }
