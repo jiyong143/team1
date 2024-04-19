@@ -131,7 +131,7 @@ public class CJYController {
     
 	    model.addAttribute("prUser", prUser);
 	    // 상품 번호 + 유저로 찜했는지 
-	    PickVO pick = productService.getPickByUserAndNum(user.getMe_id(), pNum);
+	    PickVO pick = productService.getPickByUserAndNum(prUser.getMe_id(), pNum);
 	    
 	    model.addAttribute("pick", pick);
 	    model.addAttribute("tradeNum", tradeNum);
