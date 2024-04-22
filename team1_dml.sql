@@ -11,7 +11,7 @@ insert into `midgroup` values
 (4,2,"냉장고");
 
 insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr) values
-("test11","test11","test11@kh.kr","남성","taster","1997-02-22","010-1234-4567","관악구 봉천동");
+("cjy0896","test11","test11@kh.kr","남성","taster","1997-02-22","010-1234-4567","관악구 봉천동");
 
 select * from member;
 

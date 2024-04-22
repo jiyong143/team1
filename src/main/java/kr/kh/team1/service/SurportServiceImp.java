@@ -18,11 +18,11 @@ public class SurportServiceImp implements SurportService{
 	@Autowired
 	SurportDAO surportDao;
 	
+	//고객센터 리스트 SRART
 	@Override
 	public ArrayList<SurportVO> getSurportList(Criteria_supot cris) {
 		if(cris == null)
 			cris = new Criteria_supot();
-		System.out.println("surportList");
 		return surportDao.selectSurportList(cris);
 	}
 
@@ -30,16 +30,15 @@ public class SurportServiceImp implements SurportService{
 	public int getSurportTotalCount(Criteria_supot cris) {
 		return surportDao.selectSurportTotalCount(cris);
 	}
-
+	//고객센터 리스트 END
+	//고객센터 작성 SRART
 	@Override
 	public ArrayList<SurportManageVO> getSurportManageList() {
-		System.out.println("surportManageList");
 		return surportDao.selectSurportManageList();
 	}
 	
 	@Override
 	public ArrayList<UpHeadVO> getUpHeadList() {
-		System.out.println("UpHeadList");
 		return surportDao.selectUpHeadList();
 	}
 	
@@ -53,10 +52,10 @@ public class SurportServiceImp implements SurportService{
 		if(user == null)
 			return false;
 		surport.setSu_me_id(user.getMe_id());
-		System.out.println(surport);
 		return surportDao.insertSurport(surport);
 	}
-
+	//고객센터 작성 END
+	//고객센터 상세 START
 	@Override
 	public void updateView(int suNum) {
 		surportDao.updateView(suNum);
@@ -65,10 +64,17 @@ public class SurportServiceImp implements SurportService{
 	
 	@Override
 	public SurportVO getSurport(int suNum) {
-		System.out.println("suNum");
 		return surportDao.selectSurport(suNum);
 	}
-
+	/*
+	@Override
+	public SurportManageVO getSurportManage(int suNum) {
+		return surportDao.selectSurportManage(suNum);
+	}
+	*/
+	//고객센터 상세 END
+	//고객센터 수정 START
+	/*
 	@Override
 	public boolean updateSurport(SurportVO surport, MemberVO user) {
 		//null체크
@@ -88,9 +94,40 @@ public class SurportServiceImp implements SurportService{
 		}
 		//글 수정
 		surportDao.updateSurport(surport);
-		System.out.println(surport);
+		System.out.println("updateSurport");
 		return true;
 	}
+	*/
+	@Override
+	public boolean updateSurport(SurportVO surport, MemberVO user) {
+	    // null 체크
+	    if (surport == null || 
+    		!checkString(surport.getSu_title()) || 
+    		!checkString(surport.getSu_content()) || 
+    		user == null) {
+	        return false;
+	    }
+	    
+	    // 작성자 확인
+	    SurportVO dbSurport = surportDao.selectSurport(surport.getSu_num());
+	    if (dbSurport == null || 
+    		!dbSurport.getSu_me_id().equals(user.getMe_id())) {
+	        return false;
+	    }	    
+	    // 글 수정 
+	    boolean success = surportDao.updateSurport(surport);
+	    if (success) {
+	        System.out.println("updateSurport");
+	    } else {
+	        System.out.println("Failed to update Surport");
+	    }
+	    return success;
+	}
+
+	
+	
+	
+	
 
 	private boolean checkString(String str) {
 		//문자열 null 체크
@@ -100,6 +137,7 @@ public class SurportServiceImp implements SurportService{
 		return true;
 	}
 
+	
 	
 
 

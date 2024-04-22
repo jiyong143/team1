@@ -76,12 +76,12 @@
 
 <update id="updateSurport">
 	update surport set 
-		su_sm_num = #{su.sm_num},
-		su_uh_num = #{su.su_uh_num},
-		su_title = #{su.su_title},
-		su_content = #{su.su_content}
+		su_sm_num = #{surport.su_sm_num},
+		su_uh_num = #{surport.su_uh_num},
+		su_title = #{surport.su_title},
+		su_content = #{surport.su_content}
 	where
-		su_num = #{su.su_num}
+		su_num = #{surport.su_num}
 </update>
 
 </mapper>

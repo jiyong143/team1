@@ -26,7 +26,6 @@
 	<h1 class="page-title">문의글 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
-	 
 		<div class="select-box col-12 mt-4">
 			<label for="suport_manage">지원타입 선택</label>
 			<select class="form-control" id="suport_manage" name="su_sm_num">
@@ -52,7 +51,7 @@
 	</div>	
 		<div class="form-group mb-4">
 			<label for="su_content">내용</label>
-		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
+		  	<textarea class="content-box" id="su_content" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
 		</div>		
 		<button class="btn btn-dark col-12 mb-4">등록</button>
 	</form>

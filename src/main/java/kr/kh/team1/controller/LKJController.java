@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud.Insert;
+
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
@@ -29,13 +31,13 @@ public class LKJController {
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
 		cris.setPerPageNum(5);
-		ArrayList<SurportVO> list = surportService.getSurportList(cris);
+		ArrayList<SurportVO> surportList = surportService.getSurportList(cris);
 		int totalCount = surportService.getSurportTotalCount(cris);
 		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
-		model.addAttribute("list", list);
-		log.info("surportList");
+		model.addAttribute("list", surportList);
+		log.info(surportList);
 		return("/surport/list");
 	}
 	
@@ -66,23 +68,15 @@ public class LKJController {
 		log.info(surport);
 		return "message";
 	}
-	/*
-	@GetMapping("/surport/detail")
-	public String surportDetailList(Model model) {
-		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
-		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
-		model.addAttribute("surportManageList", surportManageList);
-		model.addAttribute("upHeadList", upHeadList);
-		model.addAttribute("title", "고객문의 상세");
-		return "/surport/detail";
-	}
-	*/
 	
 	@GetMapping("/surport/detail")
 	public String surportDetail(Model model, int suNum) {
+		//게시글 번호에 따른 조회수 증가
 		surportService.updateView(suNum);
 		SurportVO surport = surportService.getSurport(suNum);
-		model.addAttribute("surport", surport);	
+		model.addAttribute("surport", surport);
+		model.addAttribute("title", "고객문의 상세");
+		log.info(surport);
 		return "/surport/detail";
 	}
 	
@@ -92,13 +86,17 @@ public class LKJController {
 			
 		}else {
 		//이미 insert문에서 사용 -> 고객관리 카테고리에서 리스트를 가져와 화면에 전송
-		ArrayList<SurportManageVO> list = surportService.getSurportManageList();
+		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
+		
+		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
 		//detail에서 사용
 		SurportVO surport = surportService.getSurport(suNum);
 		
 		model.addAttribute("surport", surport);
-		model.addAttribute("list", list);
+		model.addAttribute("surportManageList", surportManageList);
+		model.addAttribute("upHeadList", upHeadList);
 		}
+		model.addAttribute("title", "문의글 수정");
 		return "/surport/update";
 	}
 	
@@ -113,8 +111,11 @@ public class LKJController {
 			model.addAttribute("url", "/surport/detail?suNum="+surport.getSu_num());
 			model.addAttribute("msg", "문의글 수정에 실패하였습니디.");
 		}
+		log.info(surport);
 		return "message";
 	}
+	
+	
 	
 	@GetMapping("/surportManage/list")
 	//고정 문의글 리스트 
@@ -139,5 +140,9 @@ public class LKJController {
 		return "/surportManage/QnA/QnApage2";
 	}
 	
-
+	@GetMapping("/admin/adminPage")
+	//관리자 페이지
+	public String adminPage(Model model) {
+		return "/admin/adminPage";
+	}
 }
