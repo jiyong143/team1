@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,9 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.utils.SseEmitters;
 
@@ -95,6 +99,14 @@ public class IBHController {
 			throw new RuntimeException(e);
 		}
 		return "전송을 성공했습니다.";  
+	}
+    
+    @GetMapping("/chat/list")  
+   	public String productList(Model model, HttpSession session ) {
+	   
+    	
+    	
+	   	return "/chat/list";  
 	}
 	
 	@ResponseBody

@@ -64,9 +64,7 @@
 </head>
 
 <body>
-	<div class="msg-list">
-		
-	</div>
+	<div class="msg-list"></div>
 	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
 			<input type="text" class="form-control" id="msg" name="msg" placeholder="입력창">

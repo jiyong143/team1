@@ -165,7 +165,7 @@
 			</div>
 			<div class="btnContainer btnBox">
 				<c:choose>
-					<c:when test="${pick.pi_me_id eq loginUser.me_id}">
+					<c:when test="${!empty user && pick.pi_num != 0}">
 						<i class="bi bi-heart-fill btn-pick"></i>
 					</c:when>
 					<c:otherwise>
@@ -251,7 +251,7 @@
 					alert(data.msg);
 					return;
 				}
-				console.log(data.res)
+				console.log(data)
 				dataPick(data.res);
 				pickAndViewCount();
 			},
@@ -261,9 +261,9 @@
 		});
 	});
 	
-	function dataPick(data){
+	function dataPick(res){
 		let str='';
-		if(data == 'delete'){
+		if(res == 'delete'){
 			str += 
 				`
 				<i class="bi bi-heart btn-pick"></i>
