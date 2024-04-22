@@ -851,7 +851,7 @@ li {
 <td style="font-size: 20px; font-weight: bold;">카테고리</td>
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
-    <span style="font-size: 20px; font-weight: bold;">${TName} </span>
+    <span style="font-size: 20px; font-weight: bold;">${TName}</span>
     &gt;
     <span style="font-size: 20px; font-weight: bold;"> ${MName}</span>
 </div>
@@ -866,6 +866,8 @@ li {
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="${pm.cri.place }" name="place">
 <input type="hidden" value="${pm.cri.search }" name="search">
+<input type="hidden" value="${pm.cri.apple }" name="apple">
+<input type="hidden" value="${pm.cri.banana }" name="banana">
 <div class="price-container">
 <div class="minPrice-box">
 <input type="number" id="minPrice" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 금액" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
@@ -894,6 +896,8 @@ li {
 <input type="hidden" value="${pm.cri.minPrice }" name="minPrice">
 <input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
 <input type="hidden" value="${pm.cri.search }" name="search">
+<input type="hidden" value="${pm.cri.apple }" name="apple">
+<input type="hidden" value="${pm.cri.banana }" name="banana">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color : black">적용</button>
 </form>
@@ -904,22 +908,21 @@ li {
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
-<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
-<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
-<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-<span class="text-base ps-1">모든 상품 보기</span>
-</label>
-<label for="saleZn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
-<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
-<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-<span class="text-base ps-1">판매완료 상품 제거</span>
-</label>
-<input id="saleYn" name="state" class="hidden" type="radio" value="all" <c:if test="${pm.cri.state == 'all' }">checked</c:if>>
-<input id="saleZn" name="state" class="hidden" type="radio" value="except" <c:if test="${pm.cri.state == 'except' }">checked</c:if>>
+<div class="state-option">
+<div class="checkbox-group">
+    <label for="saleYn" class="checkbox-label">
+        <span class="checkbox-text">예약 중 상품 포함</span>
+    </label>
+    <input id="saleYn" name="apple" type="checkbox" value="yes" ${pm.cri.apple == 'yes' ? 'checked' : ''}>
+</div>
+
+<div class="checkbox-group">
+    <label for="saleZn" class="checkbox-label">
+        <span class="checkbox-text">판매완료 상품 포함</span>
+    </label>
+    <input id="saleZn" name="banana" type="checkbox" value="yes" ${pm.cri.banana == 'yes' ? 'checked' : ''}>
+</div>
+</div>
 </li>
 </ul>
 </td>
@@ -927,8 +930,7 @@ li {
 </tbody>
 </table>
 <br>
-<br>
-		  
+<br>  
 		  <div class="product-price-container">
     <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
     <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
@@ -959,6 +961,7 @@ li {
 				</ul>
 	   </div>
 
+	
 	
    <h1>상품 목록</h1>
    <div class="product-list">
@@ -1105,7 +1108,8 @@ li {
 	})
 	
 	function clickOrder(str1) {
-		let state = '${pm.cri.state}';
+		let apple = '${pm.cri.apple}';
+		let banana = '${pm.cri.banana}';
 		let mNum = '${num}';
 		let search = '${pm.cri.search}';
 		let place = '${pm.cri.place}';
@@ -1114,7 +1118,8 @@ li {
 
 		let obj = { 
 			"order" : str1,
-			"state" : state,
+			"apple" : apple,
+			"banana" : banana,
 			"mNum" : mNum,
 			"search" : search,
 			"place" : place,
@@ -1202,40 +1207,53 @@ li {
 		}
 		$(".product-list").html(str);
 	}
-</script>
 
-<script type="text/javascript">
-$("[name=state]").change(function(){
-	let state = '${state}';
+
+$(".state-option").change(function(){
+	sendCheckboxData();
+}); 
+//체크박스가 변경될 때마다 실행되는 함수
+function sendCheckboxData() {
+    // 체크박스의 상태를 확인하여 데이터 객체에 저장
+    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 	let mNum = '${num}';
-	let mName = '${MName}';
-	let tName = '${TName}';
 	let search = '${pm.cri.search}';
 	let place = '${pm.cri.place}';
 	let minPrice = '${pm.cri.minPrice}';
 	let maxPrice = '${pm.cri.maxPrice}';
 	let order = '${pm.cri.order}';
-	
-	$.ajax({
-		url : '<c:url value="/product/list"/>',
-		method : 'get',
-		async : true,
-		data : {
-			"state" : state,
-			"mNum" : mNum,
-			"mName" : mName,
-			"tName" : tName,
-			"search" : search,
-			"place" : place,
-			"minprice" : minPrice,
-			"maxPrice" : maxPrice,
-			"order" : order
-		},
-		success : function(data){
-			
-		}
-	});
-});
+
+    var data = {
+        "apple" : apple,
+        "banana" : banana,
+        "mNum" : mNum,
+        "search" : search,
+        "place" : place,
+        "order" : order,
+        "minPrice" : minPrice,
+        "maxPrice" : maxPrice
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/list2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(response) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            console.log(response);
+            addMethod(response.pList);
+            
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
 
 </script>
 

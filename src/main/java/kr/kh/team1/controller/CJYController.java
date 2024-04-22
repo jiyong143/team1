@@ -22,15 +22,15 @@ import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.TopGroupVO;
-import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.PageMaker;
+import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.TopGroupService;
 
 @Controller
-public class CJYController {
+public class CJYController { 
 	
 	@Autowired
 	ProductService productService; 
@@ -55,7 +55,8 @@ public class CJYController {
 
 
 	@GetMapping("/product/list")  
-   	public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
+   	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
+		System.out.println(cri); 
 	   	int maxPrice = productService.getMaxPrice(mNum,cri);
 	   	int minPrice = productService.getMinPrice(mNum,cri);
 	   	int avgPrice = productService.getAvgPrice(mNum,cri); 
@@ -75,15 +76,17 @@ public class CJYController {
    
 	@ResponseBody
 	@GetMapping("/product/list2")  
-   	public Map<String ,Object> productList2(int mNum, Criteria cri) {
+   	public Map<String ,Object> productList2(int mNum, ProductCriteria cri) {
 	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
 	   	int totalCount = productService.getProductTotalCount(mNum, cri);
-	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	PageMaker pm = new PageMaker(3, cri, totalCount);  
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
 	   	map.put("pm", pm);
 	   	map.put("pList", productList); 
 	   	return map;  
 	}
+	
+	
    	@ResponseBody
    	@GetMapping("/product/midGroup")
    	public Map<String, Object> idCheckDup(@RequestParam("tg_title") String tg_title){
