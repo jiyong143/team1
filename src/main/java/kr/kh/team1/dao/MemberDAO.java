@@ -18,6 +18,10 @@ public interface MemberDAO {
 	int selectUserTradeNum(@Param("me_id")String me_id);
 
 	int selectReviewNum(@Param("me_id")String me_id);
+
+	void updatePoint(@Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
+
+	void insertPayment(@Param("orderUid")String orderUid, @Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
 	
 }
 

@@ -128,8 +128,11 @@ public class PJHController {
 		MemberVO myUser;
 		if(me_id==null) {
 			myUser = (MemberVO)request.getSession().getAttribute("user");
+			model.addAttribute("myUserCheck", myUser.getMe_id());
+			
 		} else {
 			myUser = memberService.getMember(me_id);
+			model.addAttribute("myUserCheck", me_id);
 		}
 		
 		int tradeNum = -1;
@@ -151,12 +154,17 @@ public class PJHController {
 	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type, @RequestParam("userId")String userId) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO sessionMember = (MemberVO)request.getSession().getAttribute("user");
 		MemberVO myUser;
-		if(userId==null) {
-			myUser = (MemberVO)request.getSession().getAttribute("user");
-		} else {
+		
+		if(userId==null) { //자신의 마이페이지를 확인하는 경우
+			myUser = sessionMember; //세션에 저장되어 있는(로그인 한 아이디) 아이디를 불러와서 출력
+			model.addAttribute("myUserCheck", myUser.getMe_id());
+		} else { // 다른 회원의 마이페이지를 확인하는 경우
 			myUser = memberService.getMember(userId);
+			model.addAttribute("myUserCheck", userId);
 		}
+		
 		ArrayList<ProductVO> list;
 		list = productService.getMypagePro(myUser.getMe_id(), clickData, type);
 		
@@ -180,5 +188,17 @@ public class PJHController {
 		
 		return map;
 	}
+
+	@ResponseBody
+	@PostMapping("/member/payment")
+	public String payment(Model model, @RequestParam("orderUid")String orderUid, @RequestParam("paymentPrice")int paymentPrice, @RequestParam("userId")String userId) {
+		
+		System.out.println(orderUid + "   " + paymentPrice + "   " + userId);
+		
+		memberService.addPoint(orderUid, paymentPrice, userId);
+		
+		return "";
+	}
+	
 	
 }

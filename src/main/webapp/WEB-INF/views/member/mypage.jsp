@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <style type="text/css">
 .px-0 {
     padding-left: 0;
@@ -55,9 +56,7 @@ li {
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">
 						</div>
-						
 					</div>
-						
 				</div>
 				<!-- 신뢰지수(온도) -->
 				<span class="font-medium text-base">신뢰지수</span>
@@ -79,6 +78,12 @@ li {
 							</tr>
 						</tbody>
 					</table>
+				</div>
+				<div>
+					<c:if test="${user.me_id == myUserCheck}"> <!-- 자신일 경우에만 보유 포인트를 조회할 수 있음 --> 
+						<p class="mt-3 w-25 float-left">보유중인 포인트 : ${user.me_point}</p> 
+						<a onclick="requestPay()" type="button" class="w-25 ml-3 mt-3" style="text-decoration:none;">포인트 충전</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -139,6 +144,69 @@ li {
 			</div>
 		</div>
 	</div>
+	
+	<!-- 결제 api 스크립트 -->
+	<script type="text/javascript">
+        var IMP = window.IMP;
+        IMP.init("imp45810541"); //포트원에서 발급받은 고유 값
+        
+        function requestPay() {
+            var orderUid = '${user.me_id}_0003'; //중복되지 않은 무작위 값 << 구매자 아이디 + 무작위 값으로 + db에 저장해두고 무작위 값 만들때마다 확인
+            var itemName = "포인트 충전"; // 결제 수단은 포인트 충전 외에 없음
+            var paymentPrice = 100; //가격 <-- 사용자가 입력하는 방식으로 바꿔야 함 (사고 방지를 위해 최대 1000으로)
+            var buyerName = '${user.me_name}'; //구매자 이름
+            var buyerEmail = '${user.me_email}'; //구매자 이메일
+            var buyerAddress = '${user.me_addr}'; //구매자 주소
+            var userId = '${user.me_id}';
+            let obj = {
+            	orderUid,
+            	userId,
+            	itemName,
+            	paymentPrice,
+            	buyerName,
+            	buyerEmail,
+            	buyerAddress
+            }
+            
+            IMP.request_pay({
+                    pg : 'html5_inicis.INIpayTest',
+                    pay_method : 'card',
+                    merchant_uid: orderUid, // 주문 번호
+                    name : itemName, // 상품 이름
+                    amount : paymentPrice, // 상품 가격
+                    buyer_email : buyerEmail, // 구매자 이메일
+                    buyer_name : buyerName, // 구매자 이름
+                    buyer_tel : '010-1234-5678', // 임의의 값
+                    buyer_addr : buyerAddress, // 구매자 주소
+                    buyer_postcode : '123-456', // 임의의 값
+                },
+                function(rsp) {
+                    if (rsp.success || !rsp.success) { //테스트를 위해 결제를 취소해도 db에 저장됨
+                        alert('결제 성공! : ' + JSON.stringify(rsp));
+                        // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+                        // jQuery로 HTTP 요청
+                        $.ajax({
+                			async : false,
+                			url : '<c:url value="/member/payment"/>', 
+                			type : 'POST',
+                			data : obj,
+                			dataType : "json",
+                			success : function (data){
+                				alert("결제 성공");
+                			}, 
+                			error : function(jqXHR, textStatus, errorThrown){
+                	
+                			}
+                		});
+                    } else {
+                        // alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
+                        alert('결제 실패!' + rsp);
+                    }
+                });
+        }
+    </script>
+	
+	
 </body>
 <script type="text/javascript">
 	$(function(){
@@ -277,7 +345,7 @@ function addMethod(list) {
 				<td>\${item.tg_title }</td>
 				<td>\${item.mg_title }</td>
 				<td>
-					<a href="<c:url value="/post/detail?pNum= \${item.pr_num } "/>"> \${item.pr_name} </a>
+					<a href="<c:url value="/product/detail?pNum= \${item.pr_num} "/>"> \${item.pr_name} </a>
 				</td>
 				<td>\${item.pr_me_id }</td>
 				<td>\${item.pr_basket }</td>

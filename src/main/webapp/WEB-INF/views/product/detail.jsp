@@ -176,7 +176,7 @@
 				<!-- 판매자 신상 -->
 				<h3>판매자</h3>
 				<hr>
-				<h2>${user.me_id}</h2>
+				<h2>${prUser.me_id}</h2>
 				<div>
 					<!-- 신뢰지수(온도) -->
 					<span class="font-medium text-base">신뢰지수</span>
@@ -203,7 +203,6 @@
 			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
-	
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 	$(".btn-sse").click(function(){

@@ -24,4 +24,6 @@ public interface MemberService {
 	int getReviewNum(String me_id);
 
 	MemberVO getMember(String me_id);
+
+	void addPoint(String orderUid, int paymentPrice, String userId);
 }
