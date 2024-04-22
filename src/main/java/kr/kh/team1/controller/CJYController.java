@@ -58,12 +58,7 @@ public class CJYController {
    	public String productList(Model model, int mNum, Criteria cri, String mName, String tName, HttpSession session) {
 	   	int maxPrice = productService.getMaxPrice(mNum,cri);
 	   	int minPrice = productService.getMinPrice(mNum,cri);
-	   	int avgPrice = productService.getAvgPrice(mNum,cri);
-	   	System.out.println("***********************************"+maxPrice);
-	   	System.out.println("***********************************"+minPrice);
-//	   	if(minPrice<=0 || minPrice==null) {
-//	   		
-//	   	}
+	   	int avgPrice = productService.getAvgPrice(mNum,cri); 
 	   	model.addAttribute("maxPrice",maxPrice);
 	   	model.addAttribute("minPrice",minPrice);
 	   	model.addAttribute("avgPrice",avgPrice);
@@ -78,6 +73,17 @@ public class CJYController {
 	   	return "/product/list";  
 	}
    
+	@ResponseBody
+	@GetMapping("/product/list2")  
+   	public Map<String ,Object> productList2(int mNum, Criteria cri) {
+	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
+	   	int totalCount = productService.getProductTotalCount(mNum, cri);
+	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("pm", pm);
+	   	map.put("pList", productList); 
+	   	return map;  
+	}
    	@ResponseBody
    	@GetMapping("/product/midGroup")
    	public Map<String, Object> idCheckDup(@RequestParam("tg_title") String tg_title){

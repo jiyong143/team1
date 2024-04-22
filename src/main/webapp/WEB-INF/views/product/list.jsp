@@ -1107,8 +1107,6 @@ li {
 	function clickOrder(str1) {
 		let state = '${pm.cri.state}';
 		let mNum = '${num}';
-		let mName = '${MName}';
-		let tName = '${TName}';
 		let search = '${pm.cri.search}';
 		let place = '${pm.cri.place}';
 		let minPrice = '${pm.cri.minPrice}';
@@ -1118,25 +1116,24 @@ li {
 			"order" : str1,
 			"state" : state,
 			"mNum" : mNum,
-			"mName" : mName,
-			"tName" : tName,
 			"search" : search,
 			"place" : place,
 			"minPrice" : minPrice,
 			"maxPrice" : maxPrice
 		};
-		
+		console.log(obj);
 		$.ajax({
 			async : false,
-			url : '<c:url value="/product/list"/>', 
+			url : '<c:url value="/product/list2"/>', 
 			type : 'get',
 			data : obj,
 			dataType : "json", 
 			success : function (data){
+				console.log(data);
 				addMethod(data.pList);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
-	
+				console.log(jqXHR.responseText)
 			}
 		});
 	}
@@ -1152,47 +1149,43 @@ li {
 	                <!-- 이미지 추가 -->
 	                <div class="product-image">
 	            `
-	            if(pro.fileList.length >= 1)
-	            	str += `<img src="<c:url value='/download'/>\${pro.fileList.get(0).fi_name}" alt="${pro.pr_name}">`;
-	                   /*  <c:if test="${pro.fileList.size() >=1 }">
-	                        <img src="<c:url value='/download${pro.fileList.get(0).fi_name}'/>" alt="${pro.pr_name}">
-	                    </c:if> */
+	            if(pro.fileList.length >= 1){
+	                  str += `<img src="<c:url value='/download\${pro.fileList[0].fi_name}'/>" alt="${pro.pr_name}">`
+	            }
 	            str += `
 	                </div>
 	                <div class="product-box">
 	                    <h5 class="product-name">\${pro.pr_name}</h5>
 	                    <p class="price">
-	              	`
-	                        /* <c:choose>
-	                            <c:when test="${pro.pr_price == 0}">
-	                                <span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>
-	                            </c:when>  
-	                            <c:when test="${pro.pr_price < 0}">
-	                                <span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span> 
-	                            </c:when>
-	                            <c:otherwise>
-	                                <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
-	                            </c:otherwise>
-	                        </c:choose>     */
+	              	`;
+	            if(pro.pr_price == 0){
+	            	str += `<span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>`
+	            }else if(pro.pr_price < 0){
+	            	str += `<span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span>`
+	            }else{
+	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.pr_price }</span>`
+	            }
+	            
 	                str += `
 	                    </p>
 	                    <p class="state">
-	                    `
-	                        /* <c:choose>
-	                            <c:when test="${pro.pr_ps_state eq '판매완료'}">
-	                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-	                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
-	                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
-	                                </svg>
-	                            </c:when>  
-	                            <c:when test="${pro.pr_ps_state eq '예약중'}">
-	                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-	                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
-	                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
-	                                </svg>
-	                            </c:when>
-	                        </c:choose> */
+	                    `;
+	                    
+	            if(pro.pr_ps_state === '판매완료'){
+	            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                             <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                             <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>`
+                            
+                           
+	            }else if(pro.pr_ps_state === '예약중'){
+	            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                             <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                             <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>`                                       
+	            }
+	            
+	            
 	               str += `
+	                    </svg>
 	                    </p>
 	                    <span class="separator"></span>
 	                    <p class="place">\${pro.pr_place}</p>
