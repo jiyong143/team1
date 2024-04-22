@@ -115,12 +115,9 @@ public class CJYController {
 	}
    
 	@GetMapping("/product/detail")
-	public String productDetail(Model model, HttpSession session, int pNum) {
+	public String productDetail(Model model, int pNum) {
 
-		MemberVO member = (MemberVO)session.getAttribute("user");
-		
 		productService.upView(pNum);
-
 	   	ArrayList<FileVO> files = productService.getFileBypNum(pNum);
    
 	   	// 제품 번호를 주고 대,중분류 + 제목 + 가격 + 희망 지역 가져옴
@@ -128,20 +125,31 @@ public class CJYController {
 		
 	   	int tradeNum = -1;
 	   	int reviewNum = -1;
-	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());
-	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());
-	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());
-	
-	    // 상품 번호 + 유저로 찜했는지 
-	    PickVO pick = productService.getPickByUserAndNum(prUser.getMe_id(), pNum);
+	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());	// 거래 수
+	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());	// 후기 수
+	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());	// 상품 회원
 	    
 	    model.addAttribute("prUser", prUser);
-	    model.addAttribute("pick", pick);
 	    model.addAttribute("tradeNum", tradeNum);
 	    model.addAttribute("reviewNum",reviewNum);
 	    model.addAttribute("pNum", pNum);
 	    model.addAttribute("files", files);
 	    model.addAttribute("info", productInfo);
+	    return "/product/detail";  
+	}
+	
+	@PostMapping("/product/detail")
+	public String productDetailPost(HttpSession session, Model model, int pNum) {
+
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");	// 로그인 회원
+	    
+	    // 상품 번호 + 유저로 찜했는지 
+	    PickVO pick = productService.getPickByUserAndNum(loginUser.getMe_id(), pNum);
+	    if(pick == null) 
+	    	pick = new PickVO();
+	    
+	    model.addAttribute("loginUser", loginUser);
+	    model.addAttribute("pick", pick);
 	    return "/product/detail";  
 	}
    
@@ -151,12 +159,20 @@ public class CJYController {
       	
    		HashMap<String, Object> map = new HashMap<String, Object>();
    		MemberVO user = (MemberVO)session.getAttribute("user");
+   		if(user == null) {
+   			map.put("msg", "비회원은 채팅할 수 없습니다.");
+   			return map;
+   		}
+   		
+   		ProductVO productInfo = productService.getProductInfo(pr_num);
+   		MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());	// 상품 회원
    		
    		// 채팅방이 없으면 생성
    		if(chatService.getChatRoom(user.getMe_id(),pr_num) == null) {
-   			chatService.insertChatRoom(user.getMe_id(),pr_num);
+   			chatService.insertChatRoom(user.getMe_id(),pr_num);	// 채팅방 생성
    			ChatRoomVO crv = chatService.getChatRoom(user.getMe_id(),pr_num);
-   			chatService.insertChatRoomState(user.getMe_id(), crv.getCr_num());
+   			chatService.insertChatRoomState(user.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가
+   			chatService.insertChatRoomState(prUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 판매자의 채팅 상태 추가 
    		}
    		return map; 
    	}
@@ -168,15 +184,34 @@ public class CJYController {
    		HashMap<String, Object> map = new HashMap<String, Object>();
    		
    		MemberVO user = (MemberVO)session.getAttribute("user");
+   		if(user == null) {
+   			map.put("msg", "비회원은 찜할 수 없습니다.");
+   			return map;
+   		}
+
    		// 게시글 정보 가져와서 로그인한 회원과 일치 여부
    		ProductVO pro = productService.getProductInfo(pr_num);
-   		String msg = productService.getMsg(pro.getPr_me_id(), user.getMe_id()); // 찜 가능 여부(본인인지 아닌지)
    		
-   		PickVO isPick = productService.getPickByUserAndNum(user.getMe_id(), pr_num);
-   		String res = productService.booleanPick(user.getMe_id(),pr_num, isPick);
-
+   		String msg = "";
+   		msg = productService.getMsg(pro.getPr_me_id(), user.getMe_id()); // 찜 가능 여부(본인인지 아닌지)
+   		
+   		if(msg == null) { // msg가 x => 본인이 아니다
+   			PickVO isPick = productService.getPickByUserAndNum(user.getMe_id(), pr_num);
+   			String res = productService.booleanPick(user.getMe_id(),pr_num, isPick);
+   			map.put("res", res);
+   		}
    		map.put("msg", msg);
-   		map.put("res", res);
+   		return map; 
+   	}
+   	
+   	@ResponseBody
+  	@PostMapping(value = "/product/pickAndView")  
+	public Map<String, Object> productPickAndView(int pr_num) {
+      	
+   		HashMap<String, Object> map = new HashMap<String, Object>();
+   		
+   		ProductVO productInfo = productService.getProductInfo(pr_num);
+   		map.put("pickInfo", productInfo);
    		return map; 
    	}
 }

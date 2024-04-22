@@ -61,14 +61,14 @@ public class IBHController {
 	
     @ResponseBody
 	@PostMapping(value = "/sse/send", produces = "application/text; charset=UTF-8")  
-	public String send(HttpSession session, @RequestParam("msg") String msg) {  
+	public String send(HttpSession session, @RequestParam("msg") String msg, @RequestParam("pr_num") int pr_num) {  
 		
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null)
 			return "로그인을 하지 않았습니다.";
 		
 		// 회원 + 상품 번호 채팅방 가져옴
-		int pr_num = 2;
+		pr_num = 2;
 		ChatRoomVO crv = chatService.getChatRoom(user.getMe_id(), pr_num);
 		System.out.println(crv);
 		SseEmitter emitter;
