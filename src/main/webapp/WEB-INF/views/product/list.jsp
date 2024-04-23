@@ -1289,15 +1289,15 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
         <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }</span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
         <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }</span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
         <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }</span>
     </div>
   </div>`
   
