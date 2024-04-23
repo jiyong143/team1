@@ -42,8 +42,13 @@ public class IBHController {
 	public String sse(Model model, int cr_num, HttpSession session) {
 		
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-		chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);
-		
+		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);
+		if(crv == null) {
+			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자
+		}
+		if(crv == null) {
+			return "/main/home";
+		}
 		model.addAttribute("cr_num", cr_num);
 		return "/chat/sse";
 	}
@@ -62,7 +67,7 @@ public class IBHController {
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);
-	   	return "/chat/list";  
+	   	return "/chat/list";
 	}
 
     @ResponseBody
