@@ -315,7 +315,7 @@
 	}
 
 	// 일정한 간격으로 서버에 변경된 정보를 확인
-	// setInterval(pickAndViewCount, 5000);
+	setInterval(pickAndViewCount, 5000);
 </script>
 </body>
 </html>

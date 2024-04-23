@@ -133,10 +133,10 @@ public class ProductServiceImp implements ProductService{
 	}
 
 	@Override
-	public MemberVO getMemberByPnum(String pr_me_id) {
+	public MemberVO getMemberInfoByUser(String pr_me_id) {
 		if(!checkString(pr_me_id))
 			return null;
-		return productDao.selectMemberByPnum(pr_me_id);
+		return productDao.selectMemberInfoByUser(pr_me_id);
 	}
 
 	@Override

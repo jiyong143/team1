@@ -98,7 +98,20 @@ public class CJYController {
 
 		if(optradio == 0 || optradio == -10)
 			product.setPr_price(optradio);
-			
+		
+		if(tg_title.isBlank() || mg_title.isBlank()) {
+			model.addAttribute("msg", "대분류를 선택해야합니다.");
+			model.addAttribute("url", "/product/insert");
+			return "message";
+		}
+		
+		if(file == null || file.length == 0) {
+			System.out.println("ASDASDA");
+			model.addAttribute("msg", "파일은 1개 이상 등록해야합니다.");
+			model.addAttribute("url", "/product/insert");
+			return "message";
+		}
+		
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();
@@ -127,7 +140,7 @@ public class CJYController {
 	   	int reviewNum = -1;
 	    tradeNum = memberService.getTradeNum(productInfo.getPr_me_id());	// 거래 수
 	    reviewNum = memberService.getReviewNum(productInfo.getPr_me_id());	// 후기 수
-	    MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());	// 상품 회원
+	    MemberVO prUser = productService.getMemberInfoByUser(productInfo.getPr_me_id());	// 상품 회원
 	    
 	    MemberVO loginUser = (MemberVO)session.getAttribute("user");
 	    if(loginUser != null) {
@@ -137,7 +150,6 @@ public class CJYController {
 		    	pick = new PickVO();
 		    model.addAttribute("pick", pick);
 		    model.addAttribute("loginUser", loginUser);
-		    System.out.println(pick);
 	    }
 	    
 	    model.addAttribute("prUser", prUser);
@@ -161,7 +173,11 @@ public class CJYController {
    		}
    		
    		ProductVO productInfo = productService.getProductInfo(pr_num);
-   		MemberVO prUser = productService.getMemberByPnum(productInfo.getPr_me_id());	// 상품 회원
+   		MemberVO prUser = productService.getMemberInfoByUser(productInfo.getPr_me_id());	// 상품 회원
+   		if(prUser.getMe_id().equals(loginUser.getMe_id())) {
+   			map.put("msg", "본인 상품에 채팅할 수 없습니다.");
+   			return map;
+   		}
    		
    		// 채팅방이 없으면 생성
    		if(chatService.getChatRoom(loginUser.getMe_id(),pr_num) == null) {

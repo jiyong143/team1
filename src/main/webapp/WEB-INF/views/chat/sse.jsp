@@ -7,33 +7,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.container{
+		margin-top: 80px;
+	}
 	/* 상대방 */
-       .y-container{ 
-           display: grid;
-            padding : 5px;
-            float: left;
-            width: 100%;
-            grid-template-columns: repeat(3, 130px);
-            grid-template-rows: repeat(3, 30px);
-       }
-       .y-container .box{ border: 1px solid black; padding : 5px;}
-       .y-container .box:first-of-type{
-           grid-column-start: 1;
-           grid-column-end: 4;
-           grid-row-start: 1;
-           background-color: yellow;
-       }
-       .y-container .box:nth-of-type(2){
-           grid-row: 2/4;
-           grid-column-start: 3;
-           background-color: gray;
-       }
-       .y-container .box:nth-of-type(3){
-           grid-row: 2/4;
-           grid-column: 1/3;
-           background-color: skyblue;
-       }
-
+	.y-container{ 
+	     display: grid;
+	     padding : 5px;
+	     float: left;
+	     width: 100%;
+	     grid-template-columns: repeat(3, 130px);
+	     grid-template-rows: repeat(3, 30px);
+	}
+	.y-container .box{ border: 1px solid black; padding : 5px;}
+	.y-container .box:first-of-type{
+	    grid-column-start: 1;
+	    grid-column-end: 4;
+	    grid-row-start: 1;
+	    background-color: yellow;
+	}
+	.y-container .box:nth-of-type(2){
+	    grid-row: 2/4;
+	    grid-column-start: 3;
+	    background-color: gray;
+	}
+	.y-container .box:nth-of-type(3){
+	    grid-row: 2/4;
+	    grid-column: 1/3;
+	    background-color: skyblue;
+	}
+	
+	
 	/* 본인 */
 	.mine-container{ 
 		display: grid;
@@ -64,6 +68,7 @@
 </head>
 
 <body>
+<div class="container">
 	<div class="msg-list"></div>
 	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
@@ -73,19 +78,22 @@
 			</div>
 		</div>
 	</form>
-	
+</div>
 <script type="text/javascript">
 	getMsgList();
 	
 	$("#sseForm").submit(function(e){
 		e.preventDefault();	// 태그의 효과를 막아줌
-		let obj = $(this).serialize();	// form태그에 있는 input태그들을 객체로 변환
-		console.log(obj);
+		let obk = {
+			msg : $("#msg").val(),
+			cr_num :${cr_num} 
+		}
+		console.log(obk);
 		$.ajax({
 			async : false,
 			url : '<c:url value="/sse/send"/>',
 			type : "post", 
-			data : obj,
+			data : obk,
 			success : function (data){
 				console.log(data);
 				$("#msg").val('');
@@ -100,14 +108,13 @@
 	function getMsgList(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
-			url : '<c:url value="/sse/list"/>', 
+			url : '<c:url value="/sse/list"/>',
 			type : 'post', 
-			data : {cm_cr_num : 2},
+			data : {cm_cr_num : ${cr_num}},	
 			dataType : "json",
 			success : function (data){
-				console.log(1);
 				console.log(data.msgs);
-				displayMsgList(data.msgs);
+				displayMsgList(data.msgs, data.loginUser);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 
@@ -115,7 +122,7 @@
 		});
 	}
 	
-	function displayMsgList(list){
+	function displayMsgList(list, loginUser){
 		let str = '';
 		if(list == null || list.length == 0){
 			str = '<h3>대화가 없습니다.</h3>';
@@ -124,7 +131,7 @@
 		}
 		
 		for(item of list){
-			if('${user.me_id}' == item.cm_me_id){
+			if(loginUser.me_id == item.cm_me_id){
 				str +=
 					`
 					<div class="mine-container">
@@ -146,6 +153,7 @@
 			$('.msg-list').html(str);
 		}
 	}
+	setInterval(getMsgList, 1000);
 </script>
 </body>
 </html>

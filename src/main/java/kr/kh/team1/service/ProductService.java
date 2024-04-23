@@ -33,7 +33,7 @@ public interface ProductService {
 
 	boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] file, String mg_title);
 
-	MemberVO getMemberByPnum(String pr_me_id);
+	MemberVO getMemberInfoByUser(String pr_me_id);
 
 	void insertPickByUserAndNum(String me_id, int pr_num);
 

@@ -37,7 +37,7 @@ public interface ProductDAO {
 
 	ProductVO selectProductInfoByNum(@Param("pr_num")int pNum);
 
-	MemberVO selectMemberByPnum(@Param("id")String pr_me_id);
+	MemberVO selectMemberInfoByUser(@Param("id")String pr_me_id);
 
 	void updateView(@Param("pNum")int pNum);
 	
@@ -47,4 +47,3 @@ public interface ProductDAO {
 
 	boolean deletePickByUserAndNum(@Param("id")String me_id, @Param("pr_num")int pr_num);
 }
-

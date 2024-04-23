@@ -12,12 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.service.ChatService;
@@ -36,9 +34,6 @@ public class HomeController {
     
     @Autowired
 	MidGroupService midGroupService;
-	
-	@Autowired
-	ChatService chatService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -62,15 +57,5 @@ public class HomeController {
 		map.put("mList", midGroupList);
 		map.put("tList", topGroupList);
 		return map;
-	}
-	
-	@GetMapping("/sse")
-	public String sse(Model model) {
-		int cr_num = 2;
-		ArrayList<ChatMessageVO> chatMsgList  = chatService.getChatMessageList(cr_num);
-
-		model.addAttribute("chatMsgList",chatMsgList);
-
-		return "/chat/sse";
 	}
 }
