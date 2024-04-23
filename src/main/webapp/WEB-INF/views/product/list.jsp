@@ -778,6 +778,9 @@ li {
     transition: transform 0.3s ease; /* 마우스를 뗐을 때 이미지 축소 트랜지션 */
 }
 
+.pagination {
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -796,6 +799,9 @@ li {
          <input type="hidden" value="${pm.cri.place}" name="place">
          <input type="hidden" value="${pm.cri.minPrice}" name="minPrice">
          <input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
+         <input type="hidden" value="${pm.cri.order }" name="order">
+         <input type="hidden" value="${pm.cri.apple }" name="apple">
+         <input type="hidden" value="${pm.cri.banana }" name="banana">
          <input type="search" id="search-header" class="search-input" placeholder="어떤 상품을 찾으시나요?" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
          </form>
       </label>
@@ -880,6 +886,7 @@ li {
 <input type="hidden" value="${pm.cri.search }" name="search">
 <input type="hidden" value="${pm.cri.apple }" name="apple">
 <input type="hidden" value="${pm.cri.banana }" name="banana">
+<input type="hidden" value="${pm.cri.order }" name="order">
 <div class="price-container">
 <div class="minPrice-box">
 <input type="number" id="minPrice" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 금액" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
@@ -910,6 +917,7 @@ li {
 <input type="hidden" value="${pm.cri.search }" name="search">
 <input type="hidden" value="${pm.cri.apple }" name="apple">
 <input type="hidden" value="${pm.cri.banana }" name="banana">
+<input type="hidden" value="${pm.cri.order }" name="order">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color : black">적용</button>
 </form>
@@ -962,7 +970,6 @@ li {
        </div>
     </div>
 		  
-		
 		<div class="mt-3">
 				<p class="list-size"></p>
 				<ul class="float-right" style="width:50%">
@@ -1029,9 +1036,10 @@ li {
             <br>
         </c:if>
     </c:forEach>
-</div>
+
 	
-	
+	<!-- 페이지네이션 -->
+
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<li class="page-item">
@@ -1045,6 +1053,8 @@ li {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">이전</a>
 			</li>
@@ -1062,6 +1072,8 @@ li {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">${i}</a>
 			</li>
@@ -1078,12 +1090,14 @@ li {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">다음</a>
 			</li>
 		</c:if>
 	</ul>
-	</div>
+</div>
 <script type="text/javascript">
 	
 	$(".order-list-item").click(function(){
@@ -1128,6 +1142,7 @@ li {
 		let place = '${pm.cri.place}';
 		let minPrice = '${pm.cri.minPrice}';
 		let maxPrice = '${pm.cri.maxPrice}';
+		let page = '${pm.cri.page}';
 
 		let obj = { 
 			"order" : str1,
@@ -1137,7 +1152,8 @@ li {
 			"search" : search,
 			"place" : place,
 			"minPrice" : minPrice,
-			"maxPrice" : maxPrice
+			"maxPrice" : maxPrice,
+			"page" : page
 		};
 		console.log(obj);
 		$.ajax({
@@ -1147,8 +1163,9 @@ li {
 			data : obj,
 			dataType : "json", 
 			success : function (data){
-				console.log(data);
+				console.log(data.pm);
 				addMethod(data.pList);
+				addPagination(data.pm);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
@@ -1222,6 +1239,29 @@ li {
 		$(".product-list").html(str);
 	}
 	
+	function addPagination(pm){
+		let str = '';
+		if(pm.prev == true){
+			str += `<li class="page-item">
+			<a class="page-link" href="<c:url value="/product/list?page=\${pm.startPage-1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">이전</a>
+		</li>`;
+		}
+		 for(let i=pm.startPage; i<=pm.endPage; i++){
+			 var active = pm.cri.page == i ? 'active' : '';
+			str +=`<li class="page-item \${active}">
+				<a class="page-link" href="<c:url value="/product/list?page=\${i}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">\${i}</a>
+		     </li>`;
+		 }
+		 
+		 if(pm.next == true){
+				str += `<li class="page-item">
+				<a class="page-link" href="<c:url value="/product/list?page=\${pm.endPage+1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">다음</a>
+			</li>`;
+			}
+		 
+		 $(".pagination justify-content-center").html(str);
+	}
+	
 
 $(".state-option").change(function(){
 	sendCheckboxData();
@@ -1236,6 +1276,7 @@ function sendCheckboxData() {
 	let place = '${pm.cri.place}';
 	let minPrice = '${pm.cri.minPrice}';
 	let maxPrice = '${pm.cri.maxPrice}';
+	let page = '${pm.cri.page}';
 	let order;
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
@@ -1258,7 +1299,8 @@ function sendCheckboxData() {
         "order" : order,
         "minPrice" : minPrice,
         "maxPrice" : maxPrice,
-        "order"  : order
+        "order"  : order,
+        "page" : page
     };
 
     // AJAX 요청
@@ -1274,6 +1316,7 @@ function sendCheckboxData() {
             console.log(response.minPrice);
             addMethod(response.pList);
             addPrice(response.avgPrice, response.maxPrice, response.minPrice);
+            addPagination(response.pm);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1286,6 +1329,7 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	
 	let str='';
 	str += `
+    <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
         <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
