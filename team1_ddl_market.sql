@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `payment_detail`;
 
 CREATE TABLE `payment_detail` (
 	`pd_num`	int	NOT NULL primary key auto_increment,
-	`pd_oriNum`	int	not NULL,
+	`pd_oriNum`	varchar(50)	not NULL,
 	`pd_price`	int	not NULL,
 	`pd_me_id`	varchar(15)	NOT NULL
 );
