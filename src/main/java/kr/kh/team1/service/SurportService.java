@@ -26,7 +26,7 @@ public interface SurportService {
 
 	boolean updateSurport(SurportVO surport, MemberVO user);
 
-	//SurportManageVO getSurportManage(int suNum);
+	boolean deleteSurport(int suNum, MemberVO user);
 
 
 

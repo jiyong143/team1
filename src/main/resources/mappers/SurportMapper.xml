@@ -42,11 +42,11 @@
 </select>
 
 <select id="selectSurportManageList" resultType="SurportManageVO">
-	select * from suport_manage
+	SELECT * FROM suport_manage
 </select>
 
 <select id="selectUpHeadList" resultType="UpHeadVO">
-	select * from up_head
+	SELECT * FROM up_head
 </select>
 
 <insert id="insertSurport">
@@ -56,11 +56,11 @@
 
 
 <update id="updateView">
-	update surport set su_view = su_view + 1 where su_num = #{su_num}
+	UPDATE surport SET su_view = su_view + 1 WHERE su_num = #{su_num}
 </update>
 
 <select id="selectSurport" resultType="SurportVO">
-	select * from surport where su_num = #{su_num}
+	SELECT * FROM surport WHERE su_num = #{su_num}
 </select>
 
 <update id="updateSurport">
@@ -72,5 +72,9 @@
 	where
 		su_num = #{surport.su_num}
 </update>
+
+<delete id="deleteSurport">
+	DELETE FROM surport WHERE su_num = #{su_num} 
+</delete>
 
 </mapper>

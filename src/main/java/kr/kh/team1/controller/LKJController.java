@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.mysql.cj.Session;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Insert;
 
 import kr.kh.team1.model.vo.MemberVO;
@@ -115,6 +116,19 @@ public class LKJController {
 		return "message";
 	}
 	
+	@GetMapping("/surport/delete")
+	public String surportDelete(Model model, int suNum, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = surportService.deleteSurport(suNum, user);
+		if(res) {
+			model.addAttribute("url", "/surport/list");
+			model.addAttribute("msg", "글 삭제완료");
+		}else {
+			model.addAttribute("url", "/surport/detail?suNum="+suNum);
+			model.addAttribute("msg", "글 삭제 실패");
+		}
+		return "message";
+	}
 	
 	
 	@GetMapping("/surportManage/list")
