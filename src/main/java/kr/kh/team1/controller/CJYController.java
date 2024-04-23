@@ -57,9 +57,9 @@ public class CJYController {
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
 		System.out.println(cri); 
-	   	int maxPrice = productService.getMaxPrice(mNum,cri);
-	   	int minPrice = productService.getMinPrice(mNum,cri);
-	   	int avgPrice = productService.getAvgPrice(mNum,cri); 
+	   	String maxPrice = productService.getMaxPrice(mNum,cri);
+	   	String minPrice = productService.getMinPrice(mNum,cri);
+	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
 	   	model.addAttribute("maxPrice",maxPrice);
 	   	model.addAttribute("minPrice",minPrice);
 	   	model.addAttribute("avgPrice",avgPrice);

@@ -17,11 +17,11 @@ public interface ProductService {
 
 	int getProductTotalCount(int mNum, Criteria cri);
 
-	int getMaxPrice(int mNum, Criteria cri);
+	String getMaxPrice(int mNum, Criteria cri);
 
-	int getMinPrice(int mNum, Criteria cri);
+	String  getMinPrice(int mNum, Criteria cri);
 
-	int getAvgPrice(int mNum, Criteria cri); 
+	String  getAvgPrice(int mNum, Criteria cri); 
 
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData, String type);
 

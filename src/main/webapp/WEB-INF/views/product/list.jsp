@@ -766,6 +766,18 @@ li {
 	list-style:none;
 }
 
+.product-image img {
+    transition: transform 0.5s ease; /* 이미지 확대/축소 트랜지션 */
+}
+
+.product-image img:hover {
+    transform: scale(1.2); /* 이미지를 1.2배로 확대 */
+}
+
+.product-image img:not(:hover) {
+    transition: transform 0.3s ease; /* 마우스를 뗐을 때 이미지 축소 트랜지션 */
+}
+
 </style>
 </head>
 <body>
@@ -913,14 +925,14 @@ li {
     <label for="saleYn" class="checkbox-label">
         <span class="checkbox-text">예약 중 상품 포함</span>
     </label>
-    <input id="saleYn" name="apple" type="checkbox" value="yes" ${pm.cri.apple == 'yes' ? 'checked' : ''}>
+    <input id="saleYn" name="apple" type="checkbox" value="${pm.cri.apple == 'yes' ? 'checked' : ''}" >
 </div>
 
 <div class="checkbox-group">
     <label for="saleZn" class="checkbox-label">
         <span class="checkbox-text">판매완료 상품 포함</span>
     </label>
-    <input id="saleZn" name="banana" type="checkbox" value="yes" ${pm.cri.banana == 'yes' ? 'checked' : ''}>
+    <input id="saleZn" name="banana" type="checkbox" value="${pm.cri.banana == 'yes' ? 'checked' : ''}" >
 </div>
 </div>
 </li>
@@ -985,7 +997,7 @@ li {
                                 <span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span> 
                             </c:when>
                             <c:otherwise>
-                                <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
+                                <span style="font-weight: bold; font-size: 20px;">${pro.price}</span>
                             </c:otherwise>
                         </c:choose>    
                     </p>
@@ -1145,6 +1157,7 @@ li {
 	
 	
 	function addMethod(list) {
+		console.log(list)
 		let str='';
 		for(pro of list) {
 			str += 
