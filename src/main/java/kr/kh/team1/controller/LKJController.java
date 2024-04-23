@@ -30,7 +30,7 @@ public class LKJController {
 	
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
-		cris.setPerPageNum(5);
+		cris.setPerPageNum(10);
 		ArrayList<SurportVO> surportList = surportService.getSurportList(cris);
 		int totalCount = surportService.getSurportTotalCount(cris);
 		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
