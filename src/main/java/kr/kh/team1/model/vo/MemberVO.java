@@ -21,6 +21,7 @@ public class MemberVO {
 	private String me_authority;
 	private String me_state;
 	private double me_manner;
+	private int me_point;
 	private int me_fi_num;
 	private String me_pw2;
 
