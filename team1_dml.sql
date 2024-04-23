@@ -54,5 +54,4 @@ values (2, 3, "qwe123", "문의사항 테스트", "테스트 입니다");
 insert into surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "qwe123", "데이터베이스 테스트", "테스트 입니다");
 
-select * from surport;
-
+SELECT * FROM market.surport;
