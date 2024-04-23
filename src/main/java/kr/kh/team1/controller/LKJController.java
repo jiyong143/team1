@@ -19,7 +19,6 @@ import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.SurportService;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 public class LKJController {
 	
@@ -35,7 +34,6 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", list);
-		log.info("surportList");
 		return("/surport/list");
 	}
 	
@@ -63,7 +61,6 @@ public class LKJController {
 			model.addAttribute("msg", "고객문의 작성이 실패하였습니다.");
 			model.addAttribute("url", "/surport/insert");
 		}
-		log.info(surport);
 		return "message";
 	}
 	/*

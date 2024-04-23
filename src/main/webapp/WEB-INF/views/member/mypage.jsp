@@ -91,7 +91,8 @@ li {
 						<div>
 							<input type="text" placeholder="포인트 입력" name="point" id="point"
 								style="border-color: red"
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+								value=0 />
 							<a type="button" onclick="requestPay()" class="w-25 ml-3 mt-3"
 								style="text-decoration: none;">포인트 충전</a>
 						</div>
@@ -168,10 +169,37 @@ li {
 	    var point;
 		$('[name=point]').on('input',function(){
 			point = $('[name=point]').val();
+			if(point>5000) {
+				alert("5000원이 넘는 금액은 입력할 수 없습니다.");
+				$("#point").val(0);
+				point = 0;
+			}
 		})
+		
+		function orderUidCreate(orderId) {
+			var id = orderId;
+			let num;
+			let obj = {
+				id
+			};
+			$.ajax({
+				async : false,
+				url : '<c:url value="/member/createNum"/>', 
+				type : 'post', 
+				data : obj, 
+				dataType : "json", 
+				success : function (data){
+					num = data.orderUID;
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+			return num;
+		}
+		
         function requestPay() {
-	    	console.log(point);
-            var orderUid = '${user.me_id}_0005'; //중복되지 않은 무작위 값 << 구매자 아이디 + 무작위 값으로 + db에 저장해두고 무작위 값 만들때마다 확인
+            var orderUid = orderUidCreate("${user.me_id}"); //중복되지 않은 무작위 값 << 구매자 아이디 + 무작위 값으로 + db에 저장해두고 무작위 값 만들때마다 확인
             var itemName = "포인트 충전"; // 결제 수단은 포인트 충전 외에 없음
             var paymentPrice = point; //가격 <-- 사용자가 입력하는 방식으로 바꿔야 함 (사고 방지를 위해 최대 1000으로)
             var buyerName = '${user.me_name}'; //구매자 이름
@@ -201,7 +229,7 @@ li {
                     buyer_postcode : '123-456', // 임의의 값
                 },
                 function(rsp) {
-                    if (rsp.success) { //테스트를 위해 결제를 취소해도 성공한 것으로 간주
+                    if (rsp.success || !rsp.success) { //결제 취소되도 성공으로 처리됨
                         alert('결제 성공! : ' + JSON.stringify(rsp));
                         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                         // jQuery로 HTTP 요청

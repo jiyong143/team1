@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
@@ -161,11 +160,10 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public void addPoint(String orderUid, int paymentPrice, String userId) {
+	public void addPoint(int paymentPrice, String userId) {
 		if(checkString(userId) ||
 		   checkString(userId)) {
 			memberDao.updatePoint(paymentPrice, userId);
-			//memberDao.insertPayment(orderUid, paymentPrice, userId);
 		}
 		
 	}

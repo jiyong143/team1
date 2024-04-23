@@ -25,5 +25,5 @@ public interface MemberService {
 
 	MemberVO getMember(String me_id);
 
-	void addPoint(String orderUid, int paymentPrice, String userId);
+	void addPoint(int paymentPrice, String userId);
 }

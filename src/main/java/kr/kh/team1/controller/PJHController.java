@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mysql.cj.Session.SessionEventListener;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 public class PJHController {
 	
@@ -29,6 +34,9 @@ public class PJHController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	PaymentService paymentService;
 	
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -188,17 +196,42 @@ public class PJHController {
 		
 		return map;
 	}
-
+	
 	@ResponseBody
 	@PostMapping("/member/payment")
-	public String payment(Model model, @RequestParam("orderUid")String orderUid, @RequestParam("paymentPrice")int paymentPrice, @RequestParam("userId")String userId) {
+	public String payment(Model model, @RequestParam("orderUid")String orderUid, @RequestParam("paymentPrice")int paymentPrice, @RequestParam("userId")String userId, HttpSession session) {
 		
-		System.out.println(orderUid + "   " + paymentPrice + "   " + userId);
+		memberService.addPoint(paymentPrice, userId);
+		paymentService.addPayment(orderUid, paymentPrice, userId);
+		MemberVO user = memberService.getMember(userId);
+		session.removeAttribute("user");
+		session.setAttribute("user", user);
 		
-		memberService.addPoint(orderUid, paymentPrice, userId);
+		//새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
 		
-		return "";
+		model.addAttribute("url","/member/mypage");
+		
+		return "message";
 	}
 	
-	
+	@ResponseBody
+	@PostMapping("/member/createNum")
+	public Map<String, Object> createNum(@RequestParam("id")String userId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Random random = new Random();
+		String orderUID;
+		
+		while(true) {
+			random.nextInt(100000);
+			orderUID = userId+"_"+random.nextInt(100000); //사용자의 아이디 + _ + 랜덤값(0~100000)
+			boolean res = paymentService.getPaymentList(orderUID); //db에 저장되어 있는지 확인하는 작업
+			if(res) {
+				break;
+			}
+		}
+		
+		map.put("orderUID", orderUID);
+		return map;
+	}
 }
