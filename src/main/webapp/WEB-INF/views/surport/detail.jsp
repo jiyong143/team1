@@ -16,18 +16,6 @@
     margin-bottom : 10px
 }
 .form-group{ width: 100%;}
-
-.textarea-comment{
-	width: 100%; height: 260px;
-    box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
-    margin-bottom : 10px
-}
-.comment_title{
-    float: left;
-    margin-top: 3px;
-    margin-right: 12px;
-    font-size: 17px;
-}
 .button_comment{
     display: inline-block;
     vertical-align: top;
@@ -43,6 +31,16 @@
 	height: auto;
 	box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
 	padding: 10px;
+}
+.comment-box{padding-left: 5px;}
+.comment-id-box{margin-bottom: 4px;}
+
+.comment-inbox-text{
+    box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
+	margin-top: 5px;
+	width:100%; 
+	overflow: hidden;
+	height: 100px;
 }
 </style>
 </head>
@@ -73,7 +71,7 @@
 	</div>
 		<div class="form-group">
 			<label for="su_content">내용</label>
-			<div class="content-box" id="su_content" name="su_content">${surport.su_content}</div>
+			<div class="content-box" id="su_content" name="content">${surport.su_content}</div>
 		</div>
 		<a href="/team1/surport/list" class="btn btn-outline-dark mb-4 mt-2">목록으로</a>
 		<c:if test="${user.me_id == surport.su_me_id}">
@@ -81,33 +79,38 @@
 			<a href="<c:url value="/surport/update?suNum=${surport.su_num}"/>" class="btn btn-outline-warning mb-3">수정</a>
 		</c:if>
 	
-	<div class="container-comment">	
-	<h3 class="comment_title"> 댓글(<span class="comment-total">-</span>) </h3>
-	
-	
-		
-		<div class="box-comment-list">
-			<div class="box-comment row">
-			
-			
-				<div class="col-3">아이디</div>
-				<div class="col-9">내용</div>
+	<div class="Comment-insert">
+		<div class="comment-inbox">
+			<strong class="comment-inbox-name">${surport.su_me_id}</strong>
+				<textarea class="comment-inbox-text" placeholder="댓글을 남겨보세요"></textarea>
+					<div class="register-box">
+						<button class="btn btn-outline-dark btn-comment-insert mt-3 mb-3">댓글 등록</button>
+					</div>
+					
+			<div class="container-comment mt-3 mb-3">
+				<h2>댓글(<span class="comment-total">2</span>)</h2>
+				<div class="box-comment-list">
+					<div class="box-comment row">
+						<div class="col-3">아이디</div>
+						<div class="col-9">내용</div>
+					</div>
+				</div>
+				<div class="box-pagination">
+					<ul class="pagination justify-content-center"></ul>
+				</div>
+				
+				<c:url value="/surport/list" var="url">
+					<c:param name="page" value="${cris.page}"/>
+					<c:param name="type" value="${cris.type}"/>
+					<c:param name="search" value="${cris.search}"/>
+				</c:url>
+				<a href="${url}" class="btn btn-outline-dark">목록으로</a>
+				<c:if test="${user.me_id == surport.su_me_id}">
+					<a href="<c:url value="/surport/delete?suNum=${surport.su_num}"/>" class="btn btn-outline-success">삭제</a>
+					<a href="<c:url value="/surport/update?suNum=${surport.su_num}"/>" class="btn btn-outline-warning">수정</a>
+				</c:if>
 			</div>
 		</div>
-		<div class="box-pagination">
-			<ul class="pagination justify-content-center"></ul>
-		</div>
-		<div class="box-comment-insert">
-			<em data="" class="comment_inbox_name">${surport.su_me_id}</em>
-			<div class="input-group mb-3">
-				<textarea class="form-control textarea-comment">
-				
-				
-				</textarea>
-			</div>
-				<button class="btn btn-outline-success btn-comment-insert mb-4">댓글 등록</button>
-		</div>
-	
 	</div>
 </div>
 

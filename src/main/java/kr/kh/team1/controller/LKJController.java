@@ -1,6 +1,8 @@
 package kr.kh.team1.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,16 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.mysql.cj.Session;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Insert;
-
+import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
 import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_supot;
+import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.SurportService;
 import lombok.extern.log4j.Log4j;
 
@@ -28,6 +30,9 @@ public class LKJController {
 	
 	@Autowired
 	SurportService surportService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -129,6 +134,40 @@ public class LKJController {
 		}
 		return "message";
 	}
+	
+	@PostMapping("/comment/list")
+	public Map<String, Object> commentList(@RequestBody Criteria_supot cris){
+	/* @RequestBody : 비동기 통신을 하기 위해 데이터를 담아 서버에서 클라이언트로 응답을 보낼 때 본문에 데이터를 담아서 보내야 하는데  
+	 * 요청본문 requestBody, 응답본문 responseBody 을 담아서 보내야 한다. 
+	 */
+		Map<String, Object> map = new HashMap<String, Object>();
+		cris.setPerPageNum(5);
+		ArrayList<CommentVO> commentList = commentService.getCommentList(cris);
+		int totalCount = commentService.getTotalCount(cris);
+		//페이지 정보 생성
+		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
+		//응답으로 전송할 데이터를 Map에 추가
+		map.put("list", commentList);//댓글목록
+		map.put("pms", pms);//페이지 정보
+		return map;
+	}
+	
+	@PostMapping("/comment/insert")
+	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, HttpSession session){
+		//응답으로 전송할 데이터를 담을 Map 객체를 생성
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		boolean res = commentService.insertComment(comment, user);
+		
+		map.put("result", res);
+		log.info(comment);
+		return map;
+
+	}
+	
+	
 	
 	
 	@GetMapping("/surportManage/list")

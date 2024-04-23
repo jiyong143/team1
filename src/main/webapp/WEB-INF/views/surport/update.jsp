@@ -53,7 +53,7 @@
 			<label for="su_content">내용</label>
 		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10">${surport.su_content}</textarea>
 		</div>		
-		<button class="btn btn-dark col-12 mb-4">등록</button>
+		<button class="btn btn-dark col-12 mb-4">수정</button>
 	</form>
 </div>
 <script type="text/javascript">	
