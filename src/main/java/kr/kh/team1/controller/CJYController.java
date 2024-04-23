@@ -77,12 +77,18 @@ public class CJYController {
 	@ResponseBody
 	@GetMapping("/product/list2")  
    	public Map<String ,Object> productList2(int mNum, ProductCriteria cri) {
+		String maxPrice = productService.getMaxPrice(mNum,cri);
+	   	String minPrice = productService.getMinPrice(mNum,cri);
+	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
 	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
-	   	int totalCount = productService.getProductTotalCount(mNum, cri);
+	   	int totalCount = productService.getProductTotalCount(mNum, cri); 
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);  
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
 	   	map.put("pm", pm);
 	   	map.put("pList", productList); 
+	   	map.put("maxPrice", maxPrice);
+	   	map.put("minPrice", minPrice);
+	   	map.put("avgPrice", avgPrice);
 	   	return map;  
 	}
 	

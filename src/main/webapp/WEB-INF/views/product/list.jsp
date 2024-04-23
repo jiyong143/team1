@@ -925,14 +925,13 @@ li {
     <label for="saleYn" class="checkbox-label">
         <span class="checkbox-text">예약 중 상품 포함</span>
     </label>
-    <input id="saleYn" name="apple" type="checkbox" value="${pm.cri.apple == 'yes' ? 'checked' : ''}" >
+    <input id="saleYn" name="apple" type="checkbox" <c:if test="${pm.cri.apple == 'yes' }">checked</c:if> value="yes" >
 </div>
-
 <div class="checkbox-group">
     <label for="saleZn" class="checkbox-label">
         <span class="checkbox-text">판매완료 상품 포함</span>
     </label>
-    <input id="saleZn" name="banana" type="checkbox" value="${pm.cri.banana == 'yes' ? 'checked' : ''}" >
+    <input id="saleZn" name="banana" type="checkbox" <c:if test="${pm.cri.banana == 'yes' }">checked</c:if> value="yes" >
 </div>
 </div>
 </li>
@@ -943,23 +942,25 @@ li {
 </table>
 <br>
 <br>  
-		  <div class="product-price-container">
-    <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
-    <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
-            <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
-        </div>
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
-            <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
-        </div>
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
-            <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
-        </div>
-      </div>
-   </div>
+
+
+   <div class="product-price-container">
+     <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
+     <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+             <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+         </div>
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+             <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+         </div>
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+             <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+         </div>
+       </div>
+    </div>
 		  
 		
 		<div class="mt-3">
@@ -971,7 +972,7 @@ li {
 					<li><button id="asc" class="float-left order-list-item <c:if test="${pm.cri.order == 'desc' }">bg-info</c:if>">낮은가격순</button></li>
 					<li><button id="desc" class="float-left order-list-item <c:if test="${pm.cri.order == 'asc' }">bg-info</c:if>">높은가격순</button></li>
 				</ul>
-	   </div>
+	    </div>
 
 	
 	
@@ -1120,8 +1121,8 @@ li {
 	})
 	
 	function clickOrder(str1) {
-		let apple = '${pm.cri.apple}';
-		let banana = '${pm.cri.banana}';
+		let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+		let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 		let mNum = '${num}';
 		let search = '${pm.cri.search}';
 		let place = '${pm.cri.place}';
@@ -1181,7 +1182,7 @@ li {
 	            }else if(pro.pr_price < 0){
 	            	str += `<span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span>`
 	            }else{
-	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.pr_price }</span>`
+	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }</span>`
 	            }
 	            
 	                str += `
@@ -1220,7 +1221,7 @@ li {
 		}
 		$(".product-list").html(str);
 	}
-
+	
 
 $(".state-option").change(function(){
 	sendCheckboxData();
@@ -1235,7 +1236,18 @@ function sendCheckboxData() {
 	let place = '${pm.cri.place}';
 	let minPrice = '${pm.cri.minPrice}';
 	let maxPrice = '${pm.cri.maxPrice}';
-	let order = '${pm.cri.order}';
+	let order;
+
+	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
+	let activeButton = document.querySelector(".order-list-item.bg-info");
+
+	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
+	if (activeButton) {
+	    order = activeButton.id;
+	}
+
+	// order 변수를 사용할 수 있습니다.
+	console.log("현재 활성화된 버튼의 id:", order);
 
     var data = {
         "apple" : apple,
@@ -1245,7 +1257,8 @@ function sendCheckboxData() {
         "place" : place,
         "order" : order,
         "minPrice" : minPrice,
-        "maxPrice" : maxPrice
+        "maxPrice" : maxPrice,
+        "order"  : order
     };
 
     // AJAX 요청
@@ -1258,14 +1271,37 @@ function sendCheckboxData() {
         success: function(response) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             console.log(response);
+            console.log(response.minPrice);
             addMethod(response.pList);
-            
+            addPrice(response.avgPrice, response.maxPrice, response.minPrice);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
             console.error("Error sending data:", error);
         }
     });
+}
+
+function addPrice(avgPrice, maxPrice, minPrice){
+	
+	let str='';
+	str += `
+	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+    </div>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+    </div>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+    </div>
+  </div>`
+  
+	$(".product-price-container").html(str);	
 }
 
 </script>
