@@ -7,80 +7,85 @@
 <title>admin_page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
 body {
+  margin: 0;
   font-family: "Lato", sans-serif;
 }
 
-.sidenav {
-  height: 100%;
-  width: 0;
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: yellow;
   position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+  height: 100%;
+  overflow: auto;
 }
 
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+.sidebar a {
   display: block;
-  transition: 0.3s;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-#main {
-  transition: margin-left .5s;
+  color: black;
   padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: red;
+  color: white;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.sidebar a:hover:not(.active) {
+  background-color: black;
+  color: white;
 }
+
+.background-box {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 800px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+[class^=box]{ 
+    width: 400px; height: 300px; border: 1px solid black; margin: 10px; background-color: green;
+}
+.box3{ display: inline-block;}
 </style>
 </head>
 <body>
 
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+
+<div class="sidebar">
+  <a class="active" href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
 </div>
 
-<div id="main">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+<div class="background-box">
+      <div class="box3">div 태그입니다. inline-block</div>
+       <div class="box3">div 태그입니다. inline-block</div>
+              <div class="box3">div 태그입니다. inline-block</div>
+       
+
 </div>
 
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
 
 </body>
 </html>

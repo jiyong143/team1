@@ -7,49 +7,38 @@
 <!-- 게시글 리스트 mapper 시작-->
 <select id="selectSurportList" resultType="SurportVO">
     SELECT *
-    FROM surport
-    <!-- 
-    <where>
+    	FROM surport
         <if test='cris.type == "all"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%'))
+        	WHERE su_title like CONCAT('%', #{cris.search}, '%')
+       		OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+           	OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "title"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_content LIKE CONCAT('%', #{cris.search}, '%'))
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "writer"'>
-            AND su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
-    </where>
     ORDER BY ${cris.order} DESC
     LIMIT #{cris.pageStart}, #{cris.perPageNum}
--->
 </select>
 
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
-    FROM surport
-    <!-- 
-    <where>
+    	FROM surport
         <if test='cris.type == "all"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
             OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%'))
+            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "title"'>
-            AND su_title LIKE CONCAT('%', #{cris.search}, '%')
-        </if>
-        <if test='cris.type == "content"'>
-            AND su_content LIKE CONCAT('%', #{cris.search}, '%')
+        	WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "writer"'>
-            AND su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
-    </where>
-    </select>
-     -->
 </select>
 
 <select id="selectSurportManageList" resultType="SurportManageVO">
