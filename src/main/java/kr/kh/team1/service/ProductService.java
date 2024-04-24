@@ -49,3 +49,4 @@ public interface ProductService {
 
 	void addPick(int pr_num);
 }
+
