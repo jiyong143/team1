@@ -43,22 +43,7 @@
 	box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
 	padding: 10px;
 }
-
-.comment-box {
-	padding-left: 5px;
-}
-
-.comment-id-box {
-	margin-bottom: 4px;
-}
-
-.comment-inbox-text {
-	box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
-	margin-top: 5px;
-	width: 100%;
-	overflow: hidden;
-	height: 100px;
-}
+.comment-title{font-size: 22px; margin-bottom: 5px;}
 </style>
 </head>
 <body>
@@ -94,35 +79,6 @@
 			<label for="su_content">내용</label>
 			<div class="content-box" id="su_content" name="content">${surport.su_content}</div>
 		</div>
-		<!-- 댓글 기능 구현 START -->
-		<div class="container-comment mt-3 mb-3">
-			<h2>
-				댓글(<span class="comment-total">2</span>)
-			</h2>
-			<div class="box-comment-list">
-				<div class="box-comment row">
-					<div class="col-3">아이디</div>
-					<div class="col-9">내용</div>
-				</div>
-			</div>
-			<div class="box-pagination">
-				<ul class="pagination justify-content-center"></ul>
-			</div>
-			<div class="box-comment-insert">
-				<div class="input-group mb-3">
-					<textarea class="form-control textarea-comment"></textarea>
-					<button class="btn btn-outline-success btn-comment-insert">댓글 등록</button>
-				</div>
-			</div>
-			<hr>
-		</div>
-		<!-- 댓글기능 구현 END -->
-		<c:url value="/surport/list" var="url">
-			<c:param name="page" value="${cris.page}" />
-			<c:param name="type" value="${cris.type}" />
-			<c:param name="search" value="${cris.search}" />
-		</c:url>
-		
 		<a href="/team1/surport/list" class="btn btn-outline-dark mb-4 mt-2">목록으로</a>
 		<c:if test="${user.me_id == surport.su_me_id}">
 			<a href="<c:url value="/surport/delete?suNum=${surport.su_num}"/>"
@@ -130,6 +86,31 @@
 			<a href="<c:url value="/surport/update?suNum=${surport.su_num}"/>"
 				class="btn btn-outline-warning mb-3">수정</a>
 		</c:if>
+		<!-- 댓글 기능 구현 START -->
+		<div class="box-comment-insert">
+			<div class="input-group mb-3">
+				<textarea class="form-control textarea-comment"></textarea>
+				<button class="btn btn-outline-success btn-comment-insert">댓글 등록</button>
+			</div>
+		</div>
+		<div class="container-comment mt-3 mb-3">
+			<div class="comment-title">댓글(<span class="comment-total"></span>)</div>
+			<div class="box-comment-list">
+				<div class="box-comment row">
+					<div class="col-3">아이디</div>
+					<div class="col-9">내용</div>
+				</div>
+			</div>
+			<div class="box-pagination">
+				<ul class="pagination justify-content-center mt-4 mb-4"></ul>
+			</div>
+		</div>
+		<c:url value="/surport/list" var="url">
+			<c:param name="page" value="${cris.page}" />
+			<c:param name="type" value="${cris.type}" />
+			<c:param name="search" value="${cris.search}" />
+		</c:url>
+		<!-- 댓글기능 구현 END -->
 	</div>
 <script type="text/javascript">	
 //cris 객체의 댓글목록을 가져오기 위한 검색 조건
@@ -203,7 +184,7 @@ function displayCommentPagination(pms) {
 	if(pms.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="${pm.startPage - 1}">이전</a>
+			<a class="page-link" href="javascript:void(0);" data-page="${pms.startPage - 1}">이전</a>
 		</li>`
 	}
 	//페이지네이션 구성

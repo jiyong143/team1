@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -129,6 +130,7 @@ public class LKJController {
 		return "message";
 	}
 
+	@ResponseBody
 	@PostMapping("/comment/list")
 	public Map<String, Object> commentList(@RequestBody Criteria_supot cris) {
 		/*
