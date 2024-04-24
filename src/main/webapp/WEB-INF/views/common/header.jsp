@@ -175,22 +175,22 @@
 						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
 					<c:if test="${user.me_authority == 'user'}">
-					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
+						</li>
+					</c:if>
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
 					</li>
+					<c:if test="${user.me_authority == 'user'}">
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
+						</li>
 					</c:if>
 					<c:if test="${user.me_authority == 'user'}">
-					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
-					</li>
-					</c:if>
-					<c:if test="${user.me_authority == 'user'}">
-					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
-					</li>
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
+						</li>
 					</c:if>
 				</ul>
 				<!-- Left links -->

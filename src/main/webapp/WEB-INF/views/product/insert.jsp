@@ -18,7 +18,7 @@
 				<select name="tg_title" class="form-control">
 					<option id="title" value="">대분류를 선택하세요.</option>
 					<c:forEach items="${topGroupList}" var="tg">
-						<option id="tg_title" value="${tg.tg_title}">${tg.tg_title}</option>
+						<option id="tg_title check" value="${tg.tg_title}">${tg.tg_title}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -59,7 +59,7 @@
 			</div>
 			<div class="form-group">
 				<label>첨부파일(최대 5개)</label>
-				<input type="file" class="form-control" name="files">
+				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
 				<input type="file" class="form-control" name="file">
@@ -127,10 +127,43 @@
 <script type="text/javascript">
 // 서버에 전송하기 전에 제목, 내용 글자수 확인
 $("#productForm").submit(function(e){
-	let title = $("[name = pr_title]").val();
+	let res = false;
+	for(let i = 0; i < 5; i++){
+		let fileTag = document.getElementsByName("file")[i];
+		if(fileTag.value.length != 0){
+			res = true
+			return;
+		}
+	}
+	if(res = true){
+		alert("파일은 1개 이상 등록해야합니다.");
+		return false;
+	}else{
+		return true;
+	}
+	
+	if($("[name=file]").val().length == 0){
+		alert("파일은 1개 이상 등록해야합니다.");
+		return false;
+	}
+	
+	if(!$(".check").checked){
+		alert("대분류를 선택해야합니다.");
+		$("[name = tg_title]").focus();
+		return false;
+	}
+	
+	let title = $("[name = pr_name]").val();
 	if(title.length == 0){
 		alert("제목은 1글자 이상 입력해야 합니다.");
-		$("[name = pr_title]").focus();
+		$("[name = pr_name]").focus();
+		return false;
+	}
+	
+	let place = $("[name = pr_place]").val();
+	if(place.length == 0){
+		alert("지역은 1글자 이상 입력해야 합니다.");
+		$("[name = pr_place]").focus();
 		return false;
 	}
 	
@@ -142,6 +175,7 @@ $("#productForm").submit(function(e){
 	}
 	
 	$(".priceTag").value = $("#pr_price").val();
+	
 });
 
 $('[name = pr_content]').summernote({
