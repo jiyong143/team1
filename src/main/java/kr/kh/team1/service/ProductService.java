@@ -17,11 +17,11 @@ public interface ProductService {
 
 	int getProductTotalCount(int mNum, Criteria cri);
 
-	int getMaxPrice(int mNum, Criteria cri);
+	String getMaxPrice(int mNum, Criteria cri);
 
-	int getMinPrice(int mNum, Criteria cri);
+	String  getMinPrice(int mNum, Criteria cri);
 
-	int getAvgPrice(int mNum, Criteria cri); 
+	String  getAvgPrice(int mNum, Criteria cri); 
 
 	ArrayList<ProductVO> getMypagePro(String me_id, String clickData, String type);
 
@@ -46,4 +46,8 @@ public interface ProductService {
 	String getMsg(String pr_me_id, String me_id);
 
 	String booleanPick(String me_id, int pr_num, PickVO isPick);
+
+	void addPick(int pr_num);
 }
+
+

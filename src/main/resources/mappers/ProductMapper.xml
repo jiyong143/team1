@@ -37,10 +37,14 @@
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
-          <if test='cri.state =="except"'>
+          <if test='cri.apple =="no"'>
+              and pr_ps_state != "예약중"
+          </if>
+          
+           <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
-
+          
           <if test='cri.order == "desc"'>
               order by pr_price desc
           </if>
@@ -67,22 +71,26 @@
 
 	<select id="selectProductTotalCount" resultType="int">
 		select count(*) from product join midgroup on pr_mg_num = mg_num 
-		                     join topgroup on mg_tg_num = tg_num 
-		<if test='cri.search != ""'>
-			where (pr_name like concat('%', #{cri.search}, '%')
-			or pr_content like concat('%', #{cri.search}, '%'))
-			and pr_place like concat('%', #{cri.place}, '%')
-			and pr_price between #{cri.minPrice} and #{cri.maxPrice}
-			and  pr_mg_num = #{num}	
-		</if>
-		<if test='cri.search == ""'>
-			where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
-			and  pr_place like concat('%', #{cri.place}, '%')
-			and  pr_mg_num = #{num}
-		</if>
-		<if test='cri.state =="except"'>
-			and pr_ps_state != "판매완료"
-		</if>
+                              join topgroup on mg_tg_num = tg_num
+            <if test='cri.search != ""'>
+            where (pr_name like concat('%', #{cri.search}, '%')
+            or pr_content like concat('%', #{cri.search}, '%'))
+            and pr_place like concat('%', #{cri.place}, '%')
+            and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and  pr_mg_num = #{num}	
+          </if>
+          <if test='cri.search == ""'>
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and  pr_place like concat('%', #{cri.place}, '%')
+            and  pr_mg_num = #{num}
+          </if>
+          <if test='cri.apple =="no"'>
+              and pr_ps_state != "예약중"
+          </if>
+          
+           <if test='cri.banana =="no"'>
+              and pr_ps_state != "판매완료"
+          </if>
 	</select>
   
   <select id="selectMaxPrice" resultType="int">
@@ -99,7 +107,10 @@
           and  pr_place like concat('%', #{cri.place}, '%')
           and  pr_mg_num = #{num}
         </if>
-        <if test='cri.state =="except"'>
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
@@ -119,8 +130,11 @@
 			and  pr_place like concat('%', #{cri.place}, '%')
 			and  pr_mg_num = #{num}
         </if>
-        <if test='cri.state =="except"'>
-			and pr_ps_state != "판매완료"
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
+            and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
   </select>
@@ -139,7 +153,10 @@
           and  pr_place like concat('%', #{cri.place}, '%')
           and  pr_mg_num = #{num}
         </if>
-        <if test='cri.state =="except"'>
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
@@ -221,4 +238,8 @@
 	<delete id="deletePickByUserAndNum">
 		delete from pick where pi_me_id = #{id} and pi_pr_num = #{pr_num}
 	</delete>
+	
+	<update id="updatePick">
+	  update product set pr_basket = pr_basket+1 where pr_num=#{pr_num}
+	</update>
 </mapper>
