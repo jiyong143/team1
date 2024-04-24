@@ -39,8 +39,7 @@
         <if test='cris.type == "writer"'>
             WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
-    </where>
-    </select>
+</select>
 
 <select id="selectSurportManageList" resultType="SurportManageVO">
 	SELECT * FROM suport_manage

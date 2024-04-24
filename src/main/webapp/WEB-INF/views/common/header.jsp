@@ -178,6 +178,9 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
+					</li>
 					</c:if>
 					<c:if test="${user.me_authority == 'user'}">
 					<li class="nav-item">
