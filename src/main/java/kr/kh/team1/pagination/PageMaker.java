@@ -10,7 +10,7 @@ public class PageMaker {
 	private boolean prev;//이전버튼 활성화
 	private boolean next;//다음버튼 활성화
 	private int displayPageNum;//한 페이지네이션에서 보여준 페이지의 최대 숫자 개수
-	private Criteria cri;
+	private ProductCriteria cri;	 
 	
 	//totalCount, diplayPageNum, perPageNum(cri)를 이용하여 
 	//endPage, startPage, prev, next를 계산하는 메서드
@@ -33,10 +33,14 @@ public class PageMaker {
 		//마지막 페이지네이션이면 false 아니면 true
 		next = endPage == tmpEndPage ? false : true;
 	}
-	public PageMaker(int displayPageNum, Criteria cri, int totalCount) {
-		this.displayPageNum = displayPageNum;
-		this.cri = cri;
-		this.totalCount = totalCount;
+	
+	public PageMaker(int displayPageNum2, ProductCriteria cri2, int totalCount2) {
+		this.displayPageNum = displayPageNum2;
+		this.cri = cri2;
+		this.totalCount = totalCount2;
 		calculate();
 	}
+
+	
+	
 }

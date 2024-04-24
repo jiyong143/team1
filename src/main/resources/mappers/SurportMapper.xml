@@ -4,60 +4,50 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.SurportDAO">
 
-<!-- 게시글 리스트 mapper 시작-->
 <select id="selectSurportList" resultType="SurportVO">
     SELECT *
-    FROM surport
-    <!-- 
-    <where>
+    	FROM surport
         <if test='cris.type == "all"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%'))
+        	WHERE su_title like CONCAT('%', #{cris.search}, '%')
+       		OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+           	OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "title"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_content LIKE CONCAT('%', #{cris.search}, '%'))
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "writer"'>
-            AND su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
-    </where>
     ORDER BY ${cris.order} DESC
     LIMIT #{cris.pageStart}, #{cris.perPageNum}
--->
 </select>
+
 
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
-    FROM surport
-    <!-- 
-    <where>
+    	FROM surport
         <if test='cris.type == "all"'>
-            AND (su_title LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
             OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%'))
+            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "title"'>
-            AND su_title LIKE CONCAT('%', #{cris.search}, '%')
-        </if>
-        <if test='cris.type == "content"'>
-            AND su_content LIKE CONCAT('%', #{cris.search}, '%')
+        	WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
         </if>
         <if test='cris.type == "writer"'>
-            AND su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
     </where>
     </select>
-     -->
-</select>
 
 <select id="selectSurportManageList" resultType="SurportManageVO">
-	select * from suport_manage
+	SELECT * FROM suport_manage
 </select>
 
 <select id="selectUpHeadList" resultType="UpHeadVO">
-	select * from up_head
+	SELECT * FROM up_head
 </select>
 
 <insert id="insertSurport">
@@ -67,21 +57,25 @@
 
 
 <update id="updateView">
-	update surport set su_view = su_view + 1 where su_num = #{su_num}
+	UPDATE surport SET su_view = su_view + 1 WHERE su_num = #{su_num}
 </update>
 
 <select id="selectSurport" resultType="SurportVO">
-	select * from surport where su_num = #{su_num}
+	SELECT * FROM surport WHERE su_num = #{su_num}
 </select>
 
 <update id="updateSurport">
 	update surport set 
-		su_sm_num = #{su.sm_num},
-		su_uh_num = #{su.su_uh_num},
-		su_title = #{su.su_title},
-		su_content = #{su.su_content}
+		su_sm_num = #{surport.su_sm_num},
+		su_uh_num = #{surport.su_uh_num},
+		su_title = #{surport.su_title},
+		su_content = #{surport.su_content}
 	where
-		su_num = #{su.su_num}
+		su_num = #{surport.su_num}
 </update>
+
+<delete id="deleteSurport">
+	DELETE FROM surport WHERE su_num = #{su_num} 
+</delete>
 
 </mapper>
