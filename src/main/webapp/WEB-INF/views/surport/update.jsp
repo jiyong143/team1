@@ -10,12 +10,10 @@
 <style>
 .container-box{
 	width: 100%; height: 260px;
-	
     box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
     margin-bottom : 10px
 }
-.form-group{width: 100%;}
-.update-navi{font-size: 12px; color: red;}
+.form-group{ width: 100%;}
 .page-title{
 	font-size: 28px; 
 	font-weight:800;
@@ -26,13 +24,13 @@
 <body>
 <div class="container">
 	<h1 class="page-title">문의글 수정</h1>
-	<p class="update-navi mt-3">*공란 없이 입력해주세요.</p>
 	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
+	 
 		<div class="select-box col-12 mt-4">
 			<label for="suport_manage">지원타입 선택</label>
 			<select class="form-control" id="suport_manage" name="su_sm_num">
-				<c:forEach items="${suport_manage}" var="sm">
+				<c:forEach items="${surportManageList}" var="sm">
 					<option value="${sm.sm_num}">${sm.sm_name}</option>
 				</c:forEach>
 			</select>
@@ -40,23 +38,22 @@
 		<div class="select-box col-12 mt-3">
 			<label for="up_head">말머리 선택</label>
 			<select class="form-control" id="up_head" name="su_uh_num">
-				<c:forEach items="${up_head}" var="uh">
-					<option value="${sm.uh_num}">${sm.uh_name}</option>
+				<c:forEach items="${upHeadList}" var="uh">
+					<option value="${uh.uh_num}">${uh.uh_name}</option>
 				</c:forEach>
 			</select>
 		</div>
+	 
 		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
-			<input type="text" class="form-control" id="su_title" name="su_title" required placeholder="제목을 입력해주세요.">
+			<input type="text" class="form-control" id="su_title" name="su_title" required value="${surport.su_title}">
 		</div>
 	</div>	
 		<div class="form-group mb-4">
 			<label for="su_content">내용</label>
-		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
+		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10">${surport.su_content}</textarea>
 		</div>		
 		<button class="btn btn-dark col-12 mb-4">수정</button>
-		<a href="/team1/surport/detail" class="btn btn-outline-dark mb-4">취소하기</a>
-		
 	</form>
 </div>
 <script type="text/javascript">	

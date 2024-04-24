@@ -13,5 +13,6 @@
 		<typeAlias type="kr.kh.team1.model.vo.SurportVO" alias="SurportVO"/>
 		<typeAlias type="kr.kh.team1.model.vo.SurportManageVO" alias="SurportManageVO"/>
 		<typeAlias type="kr.kh.team1.model.vo.UpHeadVO" alias="UpHeadVO"/>
+		<typeAlias type="kr.kh.team1.model.vo.CommentVO" alias="CommentVO"/>
    </typeAliases>
 </configuration>
