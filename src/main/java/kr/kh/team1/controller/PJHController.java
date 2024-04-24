@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mysql.cj.Session.SessionEventListener;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 public class PJHController {
 	
@@ -29,6 +34,9 @@ public class PJHController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	PaymentService paymentService;
 	
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -128,8 +136,11 @@ public class PJHController {
 		MemberVO myUser;
 		if(me_id==null) {
 			myUser = (MemberVO)request.getSession().getAttribute("user");
+			model.addAttribute("myUserCheck", myUser.getMe_id());
+			
 		} else {
 			myUser = memberService.getMember(me_id);
+			model.addAttribute("myUserCheck", me_id);
 		}
 		
 		int tradeNum = -1;
@@ -151,12 +162,17 @@ public class PJHController {
 	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type, @RequestParam("userId")String userId) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO sessionMember = (MemberVO)request.getSession().getAttribute("user");
 		MemberVO myUser;
-		if(userId==null) {
-			myUser = (MemberVO)request.getSession().getAttribute("user");
-		} else {
+		
+		if(userId==null) { //자신의 마이페이지를 확인하는 경우
+			myUser = sessionMember; //세션에 저장되어 있는(로그인 한 아이디) 아이디를 불러와서 출력
+			model.addAttribute("myUserCheck", myUser.getMe_id());
+		} else { // 다른 회원의 마이페이지를 확인하는 경우
 			myUser = memberService.getMember(userId);
+			model.addAttribute("myUserCheck", userId);
 		}
+		
 		ArrayList<ProductVO> list;
 		list = productService.getMypagePro(myUser.getMe_id(), clickData, type);
 		
@@ -181,4 +197,41 @@ public class PJHController {
 		return map;
 	}
 	
+	@ResponseBody
+	@PostMapping("/member/payment")
+	public String payment(Model model, @RequestParam("orderUid")String orderUid, @RequestParam("paymentPrice")int paymentPrice, @RequestParam("userId")String userId, HttpSession session) {
+		
+		memberService.addPoint(paymentPrice, userId);
+		paymentService.addPayment(orderUid, paymentPrice, userId);
+		MemberVO user = memberService.getMember(userId);
+		session.removeAttribute("user");
+		session.setAttribute("user", user);
+		
+		//새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
+		
+		model.addAttribute("url","/member/mypage");
+		
+		return "message";
+	}
+	
+	@ResponseBody
+	@PostMapping("/member/createNum")
+	public Map<String, Object> createNum(@RequestParam("id")String userId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Random random = new Random();
+		String orderUID;
+		
+		while(true) {
+			random.nextInt(100000);
+			orderUID = userId+"_"+random.nextInt(100000); //사용자의 아이디 + _ + 랜덤값(0~100000)
+			boolean res = paymentService.getPaymentList(orderUID); //db에 저장되어 있는지 확인하는 작업
+			if(res) {
+				break;
+			}
+		}
+		
+		map.put("orderUID", orderUID);
+		return map;
+	}
 }

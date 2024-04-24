@@ -182,6 +182,16 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
 					</li>
+					<c:if test="${user.me_authority == 'user'}">
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
+						</li>
+					</c:if>
+					<c:if test="${user.me_authority == 'user'}">
+						<li class="nav-item">
+							<a class="nav-link btn btn-light" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
+						</li>
+					</c:if>
 				</ul>
 				<!-- Left links -->
 			</div>

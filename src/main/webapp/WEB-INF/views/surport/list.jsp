@@ -80,7 +80,7 @@
 		<c:forEach begin="${pms.startPage}" end="${pms.endPage}" var="i">
 			<c:set var="active" value="${pm.cris.page == i ?'active':'' }"/>
 			<li class="page-item ${active}">
-				<c:url var="url" value="/post/list">
+				<c:url var="url" value="/surport/list">
 					<c:param name="page" value="${i}"/>
 					<c:param name="search" value="${pms.cris.search}"/>
 					<c:param name="type" value="${pms.cris.type}"/>

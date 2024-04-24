@@ -26,8 +26,7 @@ public interface SurportDAO {
 	SurportVO selectSurport(@Param("su_num") int suNum);
 
 	void updateSurport(@Param("surport") SurportVO surport);
-
-
 	
+	boolean deleteSurport(@Param("su_num") int suNum);	
 
 }

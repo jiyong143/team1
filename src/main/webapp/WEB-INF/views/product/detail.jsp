@@ -213,7 +213,6 @@
 			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
-	
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 	$(".btn-sse").click(function(){

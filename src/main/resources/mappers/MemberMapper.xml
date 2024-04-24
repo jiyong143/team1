@@ -29,4 +29,10 @@
 		where (pr_me_id = #{me_id} or pr_buyId = #{me_id})
 		and tr_me_id !=#{me_id}
 	</select>
+	<update id="updatePoint">
+		update member set me_point = ((select me_point where me_id = #{userId}) + #{paymentPrice}) where me_id=#{userId};
+	</update>
+	<insert id="insertPayment">
+		insert into payment values(#{orderUid}, #{paymentPrice}, #{userId})
+	</insert>
 </mapper>
