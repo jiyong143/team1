@@ -19,28 +19,34 @@ public class ChatServiceImp implements ChatService {
 	private boolean CheckStr(String str) {
 		return str.length() != 0 && str != null;
 	}
-	
+
 	@Override
 	public ChatRoomVO getChatRoom(String me_id, int pr_num) {
-		if(me_id == null || me_id.isEmpty() || pr_num == 0)
+		if(me_id == null)
 			return null;
 		return chatDao.selectChatRoom(me_id, pr_num);
 	}
-
+	
 	@Override
-	public void insertChatRoom(String me_id, int pr_num) {
-		if(me_id == null || me_id.isEmpty() || pr_num == 0) 
-			return;
-		chatDao.insertChatRoom(me_id, pr_num);
-		return;
+	public ChatRoomVO getChatRoomByUser(String me_id, int cr_num) {
+		if(me_id == null)
+			return null;
+		return chatDao.selectChatRoomByUser(me_id, cr_num);
 	}
 
 	@Override
-	public ArrayList<ChatRoomVO> selectChatRoomList(String me_id) {
-		if(me_id == null || me_id.isEmpty()) 
+	public ChatRoomVO getChatRoomBySeller(String me_id, int cr_num) {
+		if(me_id == null)
 			return null;
-		
-		return chatDao.selectChatRoomList(me_id);
+		return chatDao.selectChatRoomBySeller(me_id, cr_num);
+	}
+	
+	@Override
+	public void insertChatRoom(String me_id, int pr_num) {
+		if(me_id == null) 
+			return;
+		chatDao.insertChatRoom(me_id, pr_num);
+		return;
 	}
 
 	@Override
@@ -59,10 +65,24 @@ public class ChatServiceImp implements ChatService {
 
 	@Override
 	public void insertChatRoomState(String me_id, int pr_num) {
-		if(me_id == null || me_id.isEmpty() || pr_num == 0) 
+		if(me_id == null) 
 			return;
 		
 		chatDao.insertChatRoomState(me_id, pr_num);
 		return;
+	}
+
+	@Override
+	public ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id) {
+		if(me_id == null) 
+			return null;
+		return chatDao.selectChatRoomByUserList(me_id);
+	}
+
+	@Override
+	public ArrayList<ChatRoomVO> getChatRoomBySellerList(String me_id) {
+		if(me_id == null) 
+			return null;
+		return chatDao.selectChatRoomBySellerList(me_id);
 	}
 }

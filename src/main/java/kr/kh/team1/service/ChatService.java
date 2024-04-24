@@ -7,16 +7,22 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 
 public interface ChatService {
+	
+	ChatRoomVO getChatRoom(String me_id, int pr_num);
 
-	ChatRoomVO getChatRoom(String user, int pr_num);
+	ChatRoomVO getChatRoomByUser(String me_id, int cr_num);
+
+	ChatRoomVO getChatRoomBySeller(String me_id, int cr_num);
 
 	void insertChatRoom(String me_id, int pr_num);
-
-	ArrayList<ChatRoomVO> selectChatRoomList(String me_id);
 
 	boolean insertChat(MessageDTO message);
 
 	ArrayList<ChatMessageVO> getChatMessageList(int cr_num);
 
 	void insertChatRoomState(String me_id, int pr_num);
+
+	ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id);
+
+	ArrayList<ChatRoomVO> getChatRoomBySellerList(String me_id);
 }
