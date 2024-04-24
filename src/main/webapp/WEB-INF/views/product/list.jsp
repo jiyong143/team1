@@ -762,6 +762,25 @@ button {
     flex-shrink: 0; /* 버튼이 너무 커지지 않도록 설정 */
 }
 
+li {
+	list-style:none;
+}
+
+.product-image img {
+    transition: transform 0.5s ease; /* 이미지 확대/축소 트랜지션 */
+}
+
+.product-image img:hover {
+    transform: scale(1.2); /* 이미지를 1.2배로 확대 */
+}
+
+.product-image img:not(:hover) {
+    transition: transform 0.3s ease; /* 마우스를 뗐을 때 이미지 축소 트랜지션 */
+}
+
+.pagination {
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -780,6 +799,9 @@ button {
          <input type="hidden" value="${pm.cri.place}" name="place">
          <input type="hidden" value="${pm.cri.minPrice}" name="minPrice">
          <input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
+         <input type="hidden" value="${pm.cri.order }" name="order">
+         <input type="hidden" value="${pm.cri.apple }" name="apple">
+         <input type="hidden" value="${pm.cri.banana }" name="banana">
          <input type="search" id="search-header" class="search-input" placeholder="어떤 상품을 찾으시나요?" aria-label="search-header" autocomplete="off" name="search" value="${pm.cri.search }">
          </form>
       </label>
@@ -847,7 +869,7 @@ button {
 <td style="font-size: 20px; font-weight: bold;">카테고리</td>
 <td>
 <div class="flex items-center w-full chawkbazarBreadcrumb">
-    <span style="font-size: 20px; font-weight: bold;">${TName} </span>
+    <span style="font-size: 20px; font-weight: bold;">${TName}</span>
     &gt;
     <span style="font-size: 20px; font-weight: bold;"> ${MName}</span>
 </div>
@@ -862,6 +884,9 @@ button {
 <input type="hidden" value="${num }" name="mNum">
 <input type="hidden" value="${pm.cri.place }" name="place">
 <input type="hidden" value="${pm.cri.search }" name="search">
+<input type="hidden" value="${pm.cri.apple }" name="apple">
+<input type="hidden" value="${pm.cri.banana }" name="banana">
+<input type="hidden" value="${pm.cri.order }" name="order">
 <div class="price-container">
 <div class="minPrice-box">
 <input type="number" id="minPrice" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="최소 금액" data-idx="0" name="minPrice" value="${pm.cri.minPrice }">
@@ -890,6 +915,9 @@ button {
 <input type="hidden" value="${pm.cri.minPrice }" name="minPrice">
 <input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
 <input type="hidden" value="${pm.cri.search }" name="search">
+<input type="hidden" value="${pm.cri.apple }" name="apple">
+<input type="hidden" value="${pm.cri.banana }" name="banana">
+<input type="hidden" value="${pm.cri.order }" name="order">
 <input type="text" class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" placeholder="거래 희망 장소" data-idx="0" name="place" value="${pm.cri.place }">
 <button class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white" style="background-color : black">적용</button>
 </form>
@@ -900,22 +928,20 @@ button {
 <td>
 <ul class="flex undefined">
 <li class="mr-5">
-<label for="saleYn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
-<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
-<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-<span class="text-base ps-1">모든 상품 보기</span>
-</label>
-<label for="saleZn" class="flex items-center justify-start text-base font-medium break-all cursor-pointer text-jnBlack">
-<svg width="20" height="20" viewBox="2 2 20 20" fill="#C2C6CE" xmlns="http://www.w3.org/2000/svg" class="mr-1 pointer-events-none">
-<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-<path d="M16 9L10.5 14.5L8 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-<span class="text-base ps-1">판매완료 상품 제거</span>
-</label>
-<input id="saleYn" name="state" class="hidden" type="radio" value="all" <c:if test="${pm.cri.state == 'all' }">checked</c:if>>
-<input id="saleZn" name="state" class="hidden" type="radio" value="except" <c:if test="${pm.cri.state == 'except' }">checked</c:if>>
+<div class="state-option">
+<div class="checkbox-group">
+    <label for="saleYn" class="checkbox-label">
+        <span class="checkbox-text">예약 중 상품 포함</span>
+    </label>
+    <input id="saleYn" name="apple" type="checkbox" <c:if test="${pm.cri.apple == 'yes' }">checked</c:if> value="yes" >
+</div>
+<div class="checkbox-group">
+    <label for="saleZn" class="checkbox-label">
+        <span class="checkbox-text">판매완료 상품 포함</span>
+    </label>
+    <input id="saleZn" name="banana" type="checkbox" <c:if test="${pm.cri.banana == 'yes' }">checked</c:if> value="yes" >
+</div>
+</div>
 </li>
 </ul>
 </td>
@@ -923,34 +949,39 @@ button {
 </tbody>
 </table>
 <br>
-<br>
-		  
-		  <div class="product-price-container">
-    <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
-    <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
-            <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
-        </div>
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
-            <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
-        </div>
-        <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
-            <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
-            <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
-        </div>
-      </div>
-   </div>
-		  
-		<select class="form-control col-4 offset-8 mb-4" name="order">
-			<option value="pr_num" <c:if test="${pm.cri.order == 'pr_num' }">selected</c:if>>최신순</option>
-			<option value="pr_view" <c:if test="${pm.cri.order == 'pr_view' }">selected</c:if>>조회수순</option>
-			<option value="pr_basket" <c:if test="${pm.cri.order == 'pr_basket' }">selected</c:if>>찜순</option>
-			<option value="desc" <c:if test="${pm.cri.order == 'desc' }">selected</c:if>>가격 높은순</option>
-			<option value="asc" <c:if test="${pm.cri.order == 'asc' }">selected</c:if>>가격 낮은순</option>
-		</select>
+<br>  
 
+
+   <div class="product-price-container">
+     <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
+     <div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+             <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+         </div>
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+             <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+         </div>
+         <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+             <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+             <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+         </div>
+       </div>
+    </div>
+		  
+		<div class="mt-3">
+				<p class="list-size"></p>
+				<ul class="float-right" style="width:50%">
+					<li><button id="pr_num" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_num' }">bg-info</c:if>">최신순</button></li>
+					<li><button id="pr_view" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_view' }">bg-info</c:if>">조회수순</button></li>
+					<li><button id="pr_basket" class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_basket' }">bg-info</c:if>">찜순</button></li>
+					<li><button id="asc" class="float-left order-list-item <c:if test="${pm.cri.order == 'desc' }">bg-info</c:if>">낮은가격순</button></li>
+					<li><button id="desc" class="float-left order-list-item <c:if test="${pm.cri.order == 'asc' }">bg-info</c:if>">높은가격순</button></li>
+				</ul>
+	    </div>
+
+	
 	
    <h1>상품 목록</h1>
    <div class="product-list">
@@ -974,7 +1005,7 @@ button {
                                 <span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span> 
                             </c:when>
                             <c:otherwise>
-                                <span style="font-weight: bold; font-size: 20px;">${pro.pr_price }</span>
+                                <span style="font-weight: bold; font-size: 20px;">${pro.price}</span>
                             </c:otherwise>
                         </c:choose>    
                     </p>
@@ -1005,9 +1036,10 @@ button {
             <br>
         </c:if>
     </c:forEach>
-</div>
+
 	
-	
+	<!-- 페이지네이션 -->
+
 	<ul class="pagination justify-content-center">
 		<c:if test="${pm.prev}">
 			<li class="page-item">
@@ -1021,6 +1053,8 @@ button {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">이전</a>
 			</li>
@@ -1038,6 +1072,8 @@ button {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">${i}</a>
 			</li>
@@ -1054,80 +1090,264 @@ button {
 					<c:param name="maxPrice" value="${pm.cri.maxPrice}"/>
 					<c:param name="order" value="${pm.cri.order}"/>
 					<c:param name="place"  value="${pm.cri.place }" />
+					<c:param name="apple" value="${pm.cri.apple }"/>
+					<c:param name="banana" value="${pm.cri.banana }"/>
 				</c:url>
 				<a class="page-link" href="${url}">다음</a>
 			</li>
 		</c:if>
 	</ul>
-	</div>
+</div>
 <script type="text/javascript">
-$("[name=order]").change(function(){
-	console.log(123);
-	let state = '${pm.cri.state}';
-	let mNum = '${num}';
-	let mName = '${MName}';
-	let tName = '${TName}';
-	let search = '${pm.cri.search}';
-	let place = '${pm.cri.place}';
-	let minPrice = '${pm.cri.minPrice}';
-	let maxPrice = '${pm.cri.maxPrice}';
-	let order = '${order}';
 	
-	$.ajax({
-		url : '<c:url value="/product/list"/>',
-		method : 'get',
-		async : true,
-		data : {
-			"state" : state,
-			"mNum" : mNum,
-			"mName" : mName,
-			"tName" : tName,
-			"search" : search,
-			"place" : place,
-			"minprice" : minPrice,
-			"maxPrice" : maxPrice,
-			"order" : order
-		},
-		success : function(data){
-			console.log(data);
-		}
-	});
+	$(".order-list-item").click(function(){
+		$(".order-list-item").removeClass("bg-info");
+	})
 	
-});
-</script>
+	$("#pr_num").click(function(){
+		$("#pr_num").addClass("bg-info");
+		clickOrder("pr_num");
+		
+	})
+	
+	$("#pr_view").click(function(){
+		$("#pr_view").addClass("bg-info");
+		clickOrder("pr_view");
+		
+	})
+	
+	$("#pr_basket").click(function(){
+		$("#pr_basket").addClass("bg-info");
+		clickOrder("pr_basket");
+		
+	})
+	
+	$("#asc").click(function(){
+		$("#asc").addClass("bg-info");
+		clickOrder("asc");
+		
+	})
+	
+	$("#desc").click(function(){
+		$("#desc").addClass("bg-info");
+		clickOrder("desc");
+		
+	})
+	
+	function clickOrder(str1) {
+		let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+		let banana = document.getElementById("saleZn").checked ? "yes" : "no";
+		let mNum = '${num}';
+		let search = '${pm.cri.search}';
+		let place = '${pm.cri.place}';
+		let minPrice = '${pm.cri.minPrice}';
+		let maxPrice = '${pm.cri.maxPrice}';
+		let page = '${pm.cri.page}';
 
-<script type="text/javascript">
-$("[name=state]").change(function(){
-	let state = '${state}';
+		let obj = { 
+			"order" : str1,
+			"apple" : apple,
+			"banana" : banana,
+			"mNum" : mNum,
+			"search" : search,
+			"place" : place,
+			"minPrice" : minPrice,
+			"maxPrice" : maxPrice,
+			"page" : page
+		};
+		console.log(obj);
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/list2"/>', 
+			type : 'get',
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				console.log(data.pm);
+				addMethod(data.pList);
+				addPagination(data.pm);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log(jqXHR.responseText)
+			}
+		});
+	}
+	
+	
+	function addMethod(list) {
+		console.log(list)
+		let str='';
+		for(pro of list) {
+			str += 
+				`
+				<a href="<c:url value="/product/detail?pNum=\${pro.pr_num}"/>">
+	            <div class="product-container"> 
+	                <!-- 이미지 추가 -->
+	                <div class="product-image">
+	            `
+	            if(pro.fileList.length >= 1){
+	                  str += `<img src="<c:url value='/download\${pro.fileList[0].fi_name}'/>" alt="${pro.pr_name}">`
+	            }
+	            str += `
+	                </div>
+	                <div class="product-box">
+	                    <h5 class="product-name">\${pro.pr_name}</h5>
+	                    <p class="price">
+	              	`;
+	            if(pro.pr_price == 0){
+	            	str += `<span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>`
+	            }else if(pro.pr_price < 0){
+	            	str += `<span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span>`
+	            }else{
+	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }</span>`
+	            }
+	            
+	                str += `
+	                    </p>
+	                    <p class="state">
+	                    `;
+	                    
+	            if(pro.pr_ps_state === '판매완료'){
+	            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                             <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                             <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>`
+                            
+                           
+	            }else if(pro.pr_ps_state === '예약중'){
+	            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                             <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                             <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>`                                       
+	            }
+	            
+	            
+	               str += `
+	                    </svg>
+	                    </p>
+	                    <span class="separator"></span>
+	                    <p class="place">\${pro.pr_place}</p>
+	                    <span class="separator"></span>
+	                    <p class="date">\${pro.time}</p>
+	                </div>
+	            </div>
+	        </a>
+	        `
+	       /*  <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
+	            <br>
+	        </c:if> */
+				
+		}
+		$(".product-list").html(str);
+	}
+	
+	function addPagination(pm){
+		console.log(pm);
+		let str = '';
+		if(pm.prev == true){
+			str += `<li class="page-item">
+			<a class="page-link" href="<c:url value="/product/list?page=\${pm.cri.startPage-1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">이전</a>
+		</li>`;
+		}
+		 for(let i=pm.startPage; i<=pm.endPage; i++){
+			 var active = pm.cri.page == i ? 'active' : '';
+			str +=`<li class="page-item \${active}">
+				<a class="page-link" href="<c:url value="/product/list?page=\${i}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">\${i}</a>
+		     </li>`;
+		 }
+		 
+		 if(pm.next == true){
+				str += `<li class="page-item">
+				<a class="page-link" href="<c:url value="/product/list?page=\${pm.endPage+1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">다음</a>
+			</li>`;
+			}
+		 
+		 $(".pagination justify-content-center").html(str);
+	}
+	
+
+$(".state-option").change(function(){
+	sendCheckboxData();
+}); 
+//체크박스가 변경될 때마다 실행되는 함수
+function sendCheckboxData() {
+    // 체크박스의 상태를 확인하여 데이터 객체에 저장
+    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 	let mNum = '${num}';
-	let mName = '${MName}';
-	let tName = '${TName}';
 	let search = '${pm.cri.search}';
 	let place = '${pm.cri.place}';
 	let minPrice = '${pm.cri.minPrice}';
 	let maxPrice = '${pm.cri.maxPrice}';
-	let order = '${pm.cri.order}';
+	let page = '${pm.cri.page}';
+	let order;
+
+	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
+	let activeButton = document.querySelector(".order-list-item.bg-info");
+
+	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
+	if (activeButton) {
+	    order = activeButton.id;
+	}
+
+	// order 변수를 사용할 수 있습니다.
+	console.log("현재 활성화된 버튼의 id:", order);
+
+    var data = {
+        "apple" : apple,
+        "banana" : banana,
+        "mNum" : mNum,
+        "search" : search,
+        "place" : place,
+        "order" : order,
+        "minPrice" : minPrice,
+        "maxPrice" : maxPrice,
+        "order"  : order,
+        "page" : page
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/list2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(response) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            console.log(response);
+            console.log(response.minPrice);
+            addMethod(response.pList);
+            addPrice(response.avgPrice, response.maxPrice, response.minPrice);
+            addPagination(response.pm);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+} 
+
+function addPrice(avgPrice, maxPrice, minPrice){
 	
-	$.ajax({
-		url : '<c:url value="/product/list"/>',
-		method : 'get',
-		async : true,
-		data : {
-			"state" : state,
-			"mNum" : mNum,
-			"mName" : mName,
-			"tName" : tName,
-			"search" : search,
-			"place" : place,
-			"minprice" : minPrice,
-			"maxPrice" : maxPrice,
-			"order" : order
-		},
-		success : function(data){
-			
-		}
-	});
-});
+	let str='';
+	str += `
+    <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
+	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }</span>
+    </div>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }</span>
+    </div>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }</span>
+    </div>
+  </div>`
+  
+	$(".product-price-container").html(str);	
+}
 
 </script>
 

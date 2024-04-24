@@ -1,5 +1,6 @@
 package kr.kh.team1.model.vo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -59,6 +60,14 @@ public class ProductVO {
 	    }
 	    
 	    return elapsedText;
+	}
+	
+	// 상품의 양수 가격을 천단위로 콤마로 찍어서 출력하는 메서드
+	public String getPrice() {
+		
+		DecimalFormat df = new DecimalFormat("###,###");
+		String formatMoney = df.format(this.pr_price);
+		return formatMoney;	
 	}
 
 		
