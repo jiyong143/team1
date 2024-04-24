@@ -40,6 +40,7 @@ public class CommentServiceImp implements CommentService{
 			!checkString(comment.getCo_content()))
 			return false;
 		comment.setCo_me_id(user.getMe_id());
+		System.out.println(comment);
 		return commentDao.insertComment(comment);
 	}
 
