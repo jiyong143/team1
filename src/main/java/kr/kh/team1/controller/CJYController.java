@@ -52,8 +52,6 @@ public class CJYController {
 	   	return "/product/insert";
 	}
 
-
-
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
 		System.out.println(cri); 
@@ -195,13 +193,19 @@ public class CJYController {
    			return map;
    		}
    		
+   		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
+   		
    		// 채팅방이 없으면 생성
-   		if(chatService.getChatRoom(loginUser.getMe_id(),pr_num) == null) {
+   		if(crv == null) {
    			chatService.insertChatRoom(loginUser.getMe_id(),pr_num);	// 채팅방 생성
-   			ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
+   			crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
    			chatService.insertChatRoomState(loginUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가
    			chatService.insertChatRoomState(prUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 판매자의 채팅 상태 추가 
    		}
+   		
+   		int cr_num = crv.getCr_num();	// 채팅방 번호
+   		map.put("cr_num", cr_num);
+   		
    		return map; 
    	}
    	
