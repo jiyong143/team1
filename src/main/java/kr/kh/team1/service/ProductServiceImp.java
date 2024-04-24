@@ -1,5 +1,6 @@
 package kr.kh.team1.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -75,18 +76,27 @@ public class ProductServiceImp implements ProductService{
 	}	
 
 	@Override
-	public int getMinPrice(int mNum, Criteria cri) {
-		return productDao.selectMinPrice(mNum,cri); 
+	public String getMinPrice(int mNum, Criteria cri) {
+		int minPrice =  productDao.selectMinPrice(mNum,cri); 
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(minPrice);
+
 	}
 
 	@Override
-	public int getMaxPrice(int mNum, Criteria cri) {
-		return productDao.selectMaxPrice(mNum,cri); 
+	public String getMaxPrice(int mNum, Criteria cri) {
+		int maxPrice = productDao.selectMaxPrice(mNum,cri); 
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(maxPrice);
+
 	}
 
 	@Override
-	public int getAvgPrice(int mNum, Criteria cri) {
-		return productDao.selectAvgPrice(mNum,cri); 
+	public String getAvgPrice(int mNum, Criteria cri) {
+		int avgPrice =  productDao.selectAvgPrice(mNum,cri); 
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(avgPrice);
+
 	}
 
 	public boolean insertProduct(ProductVO product, MemberVO user, MultipartFile[] files, String mg_title) {
@@ -190,5 +200,11 @@ public class ProductServiceImp implements ProductService{
 			productDao.deletePickByUserAndNum(me_id, pr_num);
 			return "delete";
 		}
+	}
+
+	@Override
+	public void addPick(int pr_num) {
+		productDao.updatePick(pr_num);
+		
 	}
 }
