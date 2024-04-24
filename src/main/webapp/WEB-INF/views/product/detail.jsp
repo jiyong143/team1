@@ -133,19 +133,19 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-                            <c:when test="${info.pr_ps_state eq '판매완료'}">
-                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
-                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
-                                </svg>
-                            </c:when>  
-                            <c:when test="${info.pr_ps_state eq '예약중'}">
-                                <svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
-                                    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
-                                </svg>
-                            </c:when>
-                        </c:choose>
+						<c:when test="${info.pr_ps_state eq '판매완료'}">
+							<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+							    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+							    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+							</svg>
+						</c:when>  
+						<c:when test="${info.pr_ps_state eq '예약중'}">
+							<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+							    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+							    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+							</svg>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 			<div class="textContainer">
@@ -163,7 +163,17 @@
 					<li>${info.pr_place}</li>
 				</ul>
 			</div>
-			<div class="btnContainer btnBox"></div>
+			<div class="btnContainer btnBox">
+				<c:choose>
+					<c:when test="${!empty user && pick.pi_num != 0}">
+						<i class="bi bi-heart-fill btn-pick"></i>
+					</c:when>
+					<c:otherwise>
+						<i class="bi bi-heart btn-pick"></i>
+					</c:otherwise>
+				</c:choose>
+				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
 		</div>
 		<div class="infoBox">
@@ -214,6 +224,10 @@
 			dataType : "json",
 			success : function (data){
 				console.log(data);
+				if(data.msg != null){
+					alert(data.msg);
+					return;
+				}
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 
@@ -224,18 +238,6 @@
 
 <!-- 찜하기 관련 ajax -->
 <script type="text/javascript">
-	let a = $("#pickValue").val();
-	console.log(a);
-	let pickRes = "";
-	
-	if(a == 'insert'){
-		pickRes = "insert";
-	}else{
-		pickRes = "delete";
-	}
-	
-	dataPick(pickRes);
-
 	$(document).on('click', ".btn-pick",function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
@@ -246,9 +248,11 @@
 			success : function (data){
 				if(data.msg != null){
 					alert(data.msg);
+					return;
 				}
-				console.log(data.res)
+				console.log(data)
 				dataPick(data.res);
+				pickAndViewCount();
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 
@@ -256,9 +260,9 @@
 		});
 	});
 	
-	function dataPick(data){
+	function dataPick(res){
 		let str='';
-		if(data == 'delete'){
+		if(res == 'delete'){
 			str += 
 				`
 				<i class="bi bi-heart btn-pick"></i>
@@ -273,6 +277,44 @@
 		}
 		$(".btnBox").html(str);
 	}
+</script>
+
+<!-- 조회수, 찜하기 관련 ajax -->
+<script type="text/javascript">
+	pickAndViewCount();
+	function pickAndViewCount(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/product/pickAndView"/>',
+			type : 'post', 
+			data : {pr_num : ${pNum}},
+			dataType : "json",
+			success : function (data){
+	            updateInformation(data.pickInfo);
+				// 서버에서 변경된 정보를 가져와서 처리
+	            // 변경된 정보가 있을 경우 업데이트
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+		
+			}
+		});
+	}
+	
+	function updateInformation(pickInfo){
+		let str = '';
+		str += 
+			`
+			<li>\${pickInfo.time}</li>
+			<li>&#183;</li>
+			<li>조회 \${pickInfo.pr_view}</li>
+			<li>&#183;</li>
+			<li>찜 \${pickInfo.pr_pickCount}</li>
+			`;
+		$(".textUl").html(str);
+	}
+
+	// 일정한 간격으로 서버에 변경된 정보를 확인
+	setInterval(pickAndViewCount, 5000);
 </script>
 </body>
 </html>

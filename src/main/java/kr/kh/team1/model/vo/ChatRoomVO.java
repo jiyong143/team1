@@ -12,4 +12,5 @@ public class ChatRoomVO {
 	private String cr_me_id;
 	
 	private ProductVO product;
+	private ChatMessageVO chatMessage;
 }

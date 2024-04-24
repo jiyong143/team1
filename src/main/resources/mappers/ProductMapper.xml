@@ -218,7 +218,7 @@
 		GROUP BY pr_num;
 	</select>
 	
-	<select id="selectMemberByPnum" resultType="kr.kh.team1.model.vo.MemberVO">
+	<select id="selectMemberInfoByUser" resultType="kr.kh.team1.model.vo.MemberVO">
 		select * from member where me_id = #{id}
 	</select>
 	

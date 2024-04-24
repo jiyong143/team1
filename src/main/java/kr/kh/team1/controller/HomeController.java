@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,15 +29,11 @@ public class HomeController {
     
     @Autowired
 	MidGroupService midGroupService;
-	
-	@Autowired
-	ChatService chatService;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {;
 		return "/main/home"; 
 	}
-	
 	
 	@ResponseBody 
 	@RequestMapping(value = "/top/group", method = RequestMethod.GET)
@@ -49,15 +44,5 @@ public class HomeController {
 		map.put("mList", midGroupList);
 		map.put("tList", topGroupList);
 		return map;
-	}
-	
-	@GetMapping("/sse")
-	public String sse(Model model) {
-		int cr_num = 2;
-		ArrayList<ChatMessageVO> chatMsgList  = chatService.getChatMessageList(cr_num);
-
-		model.addAttribute("chatMsgList",chatMsgList);
-
-		return "/chat/sse";
 	}
 }
