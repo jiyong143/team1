@@ -193,12 +193,13 @@ public class CJYController {
    			return map;
    		}
    		
-   		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
-   		
+   		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+   		System.out.println(crv);
    		// 채팅방이 없으면 생성
    		if(crv == null) {
-   			chatService.insertChatRoom(loginUser.getMe_id(),pr_num);	// 채팅방 생성
-   			crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
+   			System.out.println("adasd");
+   			chatService.insertChatRoom(loginUser.getMe_id(), pr_num);	// 채팅방 생성
+   			crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
    			chatService.insertChatRoomState(loginUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가
    			chatService.insertChatRoomState(prUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 판매자의 채팅 상태 추가 
    		}

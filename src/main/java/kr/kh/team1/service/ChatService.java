@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 
 public interface ChatService {
 	
@@ -24,5 +25,9 @@ public interface ChatService {
 
 	ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id);
 
-	ArrayList<ChatRoomVO> getChatRoomBySellerList(String me_id);
+	void updateChatRoomStateById(int num, String me_id);
+
+	ArrayList<ChatStateVO> getChatState(int num);
+
+	void deleteChatRoomAndStateByNum(int num);
 }

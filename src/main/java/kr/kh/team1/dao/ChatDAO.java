@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 
 public interface ChatDAO {
 
@@ -26,5 +27,13 @@ public interface ChatDAO {
 
 	ArrayList<ChatRoomVO> selectChatRoomByUserList(@Param("me_id")String me_id);
 
-	ArrayList<ChatRoomVO> selectChatRoomBySellerList(@Param("me_id")String me_id);
+	void updateChatRoomStateById(@Param("num")int num, @Param("me_id")String me_id);
+
+	ArrayList<ChatStateVO> selectChatRoomState(@Param("num")int num);
+
+	void deleteChatRoomByNum(@Param("num")int num);
+
+	void deleteChatStateByNum(@Param("num")int num);
+
+	void deleteChatMessageByNum(@Param("num")int num);
 }

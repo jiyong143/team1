@@ -69,6 +69,7 @@
 
 <body>
 <div class="container">
+	<input type="hidden" value="${error}" class="error">
 	<div class="msg-list"></div>
 	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
@@ -81,6 +82,13 @@
 </div>
 <script type="text/javascript">
 	getMsgList();
+	
+	let a = $(".error").val();
+	console.log(a);
+	if(a.length != 0){
+		alert(a);
+		location.href = "<c:url value='/'/>";
+	}
 	
 	$("#sseForm").submit(function(e){
 		e.preventDefault();	// 태그의 효과를 막아줌

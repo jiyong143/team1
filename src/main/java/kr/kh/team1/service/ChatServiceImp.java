@@ -9,6 +9,7 @@ import kr.kh.team1.dao.ChatDAO;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 
 @Service
 public class ChatServiceImp implements ChatService {
@@ -80,9 +81,21 @@ public class ChatServiceImp implements ChatService {
 	}
 
 	@Override
-	public ArrayList<ChatRoomVO> getChatRoomBySellerList(String me_id) {
-		if(me_id == null) 
-			return null;
-		return chatDao.selectChatRoomBySellerList(me_id);
+	public void updateChatRoomStateById(int num, String me_id) {
+		chatDao.updateChatRoomStateById(num, me_id);
+		return;
+	}
+
+	@Override
+	public ArrayList<ChatStateVO> getChatState(int num) {
+		return chatDao.selectChatRoomState(num);
+	}
+
+	@Override
+	public void deleteChatRoomAndStateByNum(int num) {
+		chatDao.deleteChatRoomByNum(num);
+		chatDao.deleteChatStateByNum(num);
+		chatDao.deleteChatMessageByNum(num);
+		return;
 	}
 }

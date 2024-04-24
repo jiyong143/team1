@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.utils.SseEmitters;
@@ -42,15 +43,52 @@ public class IBHController {
 	public String sse(Model model, int cr_num, HttpSession session) {
 		
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+
+		
 		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);
 		if(crv == null) {
 			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자
 		}
-		if(crv == null) {
-			return "/main/home";
+		
+		ArrayList<ChatStateVO> cs = chatService.getChatState(cr_num);
+		
+		if (cs.isEmpty()) {
+		    model.addAttribute("error", "없는 채팅방입니다.");
+		}else {
+			ChatStateVO cs0 = cs.get(0);
+			ChatStateVO cs1 = cs.get(1);
+			if(!cs0.getCs_me_id().equals(loginUser.getMe_id()) && !cs1.getCs_me_id().equals(loginUser.getMe_id())) {
+				model.addAttribute("error", "들어갈 수 없는 채팅방입니다.");
+			}else if((cs0.getCs_me_id().equals(loginUser.getMe_id()) && cs0.getCs_state().equals("나감")) ||
+					(cs1.getCs_me_id().equals(loginUser.getMe_id()) && cs1.getCs_state().equals("나감"))){
+				model.addAttribute("error", "나간 채팅방입니다.");
+			}
 		}
+
 		model.addAttribute("cr_num", cr_num);
 		return "/chat/sse";
+	}
+	
+	@ResponseBody
+	@PostMapping("/chat/out")
+	// 해당 채팅방 나가기
+	public Map<String, Object> chatRoomOut(@RequestParam("num") int num, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+
+		chatService.updateChatRoomStateById(num, loginUser.getMe_id());	// 로그인 유저의 채팅방 상태 변경
+		
+		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태 
+		
+		if(cs.get(0).getCs_state().equals("나감") && !cs.get(0).getCs_me_id().equals(loginUser.getMe_id())) {
+			chatService.deleteChatRoomAndStateByNum(num);		// 채팅방 번호에 맞는 채팅방 삭제
+		}else if(cs.get(1).getCs_state().equals("나감") && !cs.get(1).getCs_me_id().equals(loginUser.getMe_id())){
+			chatService.deleteChatRoomAndStateByNum(num);		// 채팅방 번호에 맞는 채팅방 삭제
+		}
+		
+		map.put("num", num);
+		return map;
 	}
 	
     @GetMapping("/chat/list")
@@ -61,9 +99,6 @@ public class IBHController {
     	
     	// 채팅방에 대한 정보
     	ArrayList<ChatRoomVO> crv = chatService.getChatRoomByUserList(loginUser.getMe_id());	// 구매자
-    	if(crv.size() == 0) {
-    		crv = chatService.getChatRoomBySellerList(loginUser.getMe_id());	// 판매자
-    	}
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);

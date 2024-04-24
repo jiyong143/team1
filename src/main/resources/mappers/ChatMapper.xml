@@ -62,13 +62,36 @@
    		select * from chat_message where cm_cr_num = #{cr_num} order by cm_time asc, cm_num asc
    </select>
    
-   <!-- 마이페이지에서 사용 할 구매자 채팅방 리스트 조회 -->
+   <!-- 마이페이지에서 사용 할 채팅방 리스트 조회 -->
    <select id="selectChatRoomByUserList" resultMap="ChatRoomMap">
-   		select * from chat_room where cr_me_id = #{me_id}
+   		select * from chat_room 
+			left join chat_state on cs_cr_num = cr_num 
+			left join product on pr_num = cr_pr_num 
+		where (cs_state = "이용중" and cs_me_id = #{me_id});
    </select>
    
-   <!-- 마이페이지에서 사용 할 판매자 채팅방 리스트 조회 -->
-   <select id="selectChatRoomBySellerList" resultMap="ChatRoomMap">
-   		select * from chat_room left join product on pr_num = cr_pr_num where pr_me_id = #{me_id}
+   <!-- 회원이 채팅방 나감 업데이트 -->
+   <update id="updateChatRoomStateById">
+		update chat_state set cs_state = "나감" where cs_me_id = #{me_id} and cs_cr_num = #{num}
+   </update>
+   
+   <!-- 원하는 채팅방에 해당하는 회원들의 정보 -->
+   <select id="selectChatRoomState" resultType="kr.kh.team1.model.vo.ChatStateVO">
+   		select * from chat_state where cs_cr_num = #{num}
    </select>
+	
+   <!-- 채팅방에 속한 회원들이 나간 상태면 채팅방 삭제  -->
+   <delete id="deleteChatRoomByNum">
+   		delete from chat_room where cr_num = #{num}
+   </delete>
+   
+   <!-- 채팅방에 속한 회원들이 나간 상태면 채팅방 상태 삭제  -->
+   <delete id="deleteChatStateByNum">
+   		delete from chat_state where cs_cr_num = #{num}
+   </delete>
+   
+   <!-- 채팅방에 속한 회원들이 나간 상태면 채팅방 메시지 삭제  -->
+   <delete id="deleteChatMessageByNum">
+   		delete from chat_message where cm_cr_num = #{num}
+   </delete>
 </mapper>

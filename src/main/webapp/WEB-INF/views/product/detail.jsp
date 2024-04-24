@@ -228,12 +228,13 @@
 				if(data.msg != null){
 					alert(data.msg);
 					return;
+				}
+				let num = data.cr_num;
+				if(confirm("채팅방으로 이동하겠습니까?")){
+					var url = '<c:url value="/chat/sse"/>' + '?cr_num=' + num;
+					location.href = url;
 				}else{
-					let num = data.cr_num;
-					confirm("채팅방으로 이동하겠습니까?"){
-						var url = '<c:url value="/chat/sse"/>' + '?cr_num=' + num;
-						location.href = url;
-					}
+					
 				}
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
