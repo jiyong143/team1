@@ -53,7 +53,12 @@ li {
 				class="relative w-full h-full col-span-2 text-black grid grid-cols-1 gap-y-4 gap-x-0 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-6 lg:min-w-[800px]">
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
-						<h2>${myUser.me_id}</h2> <a href="<c:url value='/member/update'/>">회원정보수정</a>
+						<div>
+							<c:if test="${user.me_id == myUserCheck}">
+								<h2>${myUser.me_id}</h2> <a href="<c:url value='/member/update'/>">회원정보수정</a>
+								<a href="<c:url value='/member/delete'/>">회원탈퇴</a>
+							</c:if>
+						</div>
 						<!-- 프로필 이미지 -->
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.mysql.cj.Session.SessionEventListener;
-
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
-import lombok.extern.log4j.Log4j;
+
 
 @Controller
 public class PJHController {
@@ -97,19 +93,44 @@ public class PJHController {
 	
 	@ResponseBody
 	@GetMapping("/email/check/dup")
-	public Map<String, Object> emailCheckDup(@RequestParam("email") String email){
+	public Map<String, Object> emailCheckDup(@RequestParam("email") String email, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.emailCheck(email);
-		map.put("result", res);
+		
+		
+		if(session.getAttribute("user")!=null) {
+			MemberVO member = (MemberVO) session.getAttribute("user");
+			if(member.getMe_email().equals(email)) {
+				map.put("result", true);
+			} else {
+				boolean res = memberService.emailCheck(email);
+				map.put("result", res);
+			}
+		} else {
+			boolean res = memberService.emailCheck(email);
+			map.put("result", res);
+		}
+		
 		return map;
 	}
 	
 	@ResponseBody
 	@GetMapping("/phone/check/dup")
-	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone){
+	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.phoneCheck(phone);
-		map.put("result", res);
+		
+		if(session.getAttribute("user")!=null) { //user가 null이 아니라는 것은 로그인을 했다는 뜻 == 회원정보 수정
+			MemberVO member = (MemberVO) session.getAttribute("user");
+			if(member.getMe_phone().equals(phone)) {
+				map.put("result", true);
+			} else {
+				boolean res = memberService.phoneCheck(phone);
+				map.put("result", res);
+			}
+		} else {
+			boolean res = memberService.phoneCheck(phone);
+			map.put("result", res);
+		}
+		
 		return map;
 	}
 	
@@ -242,16 +263,30 @@ public class PJHController {
 	}
 	
 	@PostMapping("/member/update")
-	public String updateMemberPost(Model model, MemberVO member) {
+	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
 		boolean res = memberService.updateMember(member);
 		if(res) {
+			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
+			
 			model.addAttribute("msg", "회원정보를 수정했습니다.");
 			model.addAttribute("url", "/");
 		}else {
 			model.addAttribute("msg", "회원정보 수정에 실패했습니다.");
 			model.addAttribute("url", "/member/update");
 		}
-			
+		
+		return "message";
+	}
+	
+	@GetMapping("/member/delete")
+	public String deleteMember(Model model, HttpSession session) {
+		MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
+		memberService.deleteMember(user.getMe_id());
+		session.removeAttribute("user");
+		model.addAttribute("msg", "회원탈퇴에 성공했습니다.");
+		model.addAttribute("url", "/");
 		return "message";
 	}
 	

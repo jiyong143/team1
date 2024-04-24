@@ -13,7 +13,7 @@
 <div class="container">
 	<h1 class="mt-1">회원가입</h1>
 	<div class="member-container user-info">
-		<form action="<c:url value="/member/signup"/>" method="post" id="signupfrom">
+		<form action="<c:url value="/member/update"/>" method="post" id="signupfrom">
 			<div class="form-group">
 				<label for="id">아이디:</label>
 				<input type="text" class="form-control" id="id" name="me_id" readOnly value="${member.me_id}">
@@ -179,7 +179,6 @@ function emailCheckDup(){
 		success : function (data){
 			result2 = data.result;
 			if(!result2){
-				
 				$("#email-error2").text("이미 사용중인 이메일입니다.");
 				$("#email-error2").show();
 			}
@@ -214,7 +213,6 @@ function phoneCheckDup(){
 		success : function (data){
 			result3 = data.result;
 			if(!result3){
-				
 				$("#phone-error2").text("이미 사용중인 번호입니다.");
 				$("#phone-error2").show();
 			}

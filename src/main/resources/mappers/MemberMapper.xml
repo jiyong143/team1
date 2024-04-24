@@ -35,4 +35,15 @@
 	<insert id="insertPayment">
 		insert into payment values(#{orderUid}, #{paymentPrice}, #{userId})
 	</insert>
+	<update id="updateMember">
+		update member set 
+		me_pw=#{member.me_pw}, me_email = #{member.me_email}, me_gender = #{member.me_gender}, me_name = #{member.me_name}, 
+		me_birth = #{member.me_birth}, me_phone = #{member.me_phone}, me_addr = #{member.me_addr}
+		where me_id = #{member.me_id}
+	</update>
+	<update id="updateMemberState">
+		update member set
+		me_state = "탈퇴"
+		where me_id = #{me_id}
+	</update>
 </mapper>

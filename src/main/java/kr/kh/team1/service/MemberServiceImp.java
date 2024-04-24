@@ -79,7 +79,7 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public boolean emailCheck(String email) {
 		MemberVO member = memberDao.selectMemberEmail(email);
-		return member == null;
+		return member == null; //member를 찾을 수 없다는 뜻 --> 이메일 사용 가능 true
 	}
 
 	@Override
@@ -188,9 +188,16 @@ public class MemberServiceImp implements MemberService {
 		String encPwString = passwordEncoder.encode(member.getMe_pw());
 		member.setMe_pw(encPwString);
 		
-		memberDao.insertMember(member);
+		memberDao.updateMember(member);
 		
 		return true;
+	}
+
+	@Override
+	public void deleteMember(String me_id) {
+		if(checkString(me_id)) {
+			memberDao.updateMemberState(me_id);
+		}
 	}
 	
 }

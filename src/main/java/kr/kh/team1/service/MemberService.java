@@ -28,4 +28,6 @@ public interface MemberService {
 	void addPoint(int paymentPrice, String userId);
 
 	boolean updateMember(MemberVO member);
+
+	void deleteMember(String me_id);
 }

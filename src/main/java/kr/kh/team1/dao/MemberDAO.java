@@ -20,6 +20,10 @@ public interface MemberDAO {
 	int selectReviewNum(@Param("me_id")String me_id);
 	
 	void updatePoint(@Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
+
+	void updateMember(@Param("member")MemberVO member);
+
+	void updateMemberState(@Param("me_id")String me_id);
 	
 }
 
