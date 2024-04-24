@@ -209,8 +209,6 @@ public class PJHController {
 		
 		//새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
 		
-		model.addAttribute("url","/member/mypage");
-		
 		return "message";
 	}
 	
@@ -234,4 +232,27 @@ public class PJHController {
 		map.put("orderUID", orderUID);
 		return map;
 	}
+	
+	@GetMapping
+	public String updateMember(Model model, HttpSession session) {
+		model.addAttribute("title", "회원정보수정");
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		model.addAttribute("member", member);
+		return "/member/update";
+	}
+	
+	@PostMapping("/member/update")
+	public String updateMemberPost(Model model, MemberVO member) {
+		boolean res = memberService.updateMember(member);
+		if(res) {
+			model.addAttribute("msg", "회원정보를 수정했습니다.");
+			model.addAttribute("url", "/");
+		}else {
+			model.addAttribute("msg", "회원정보 수정에 실패했습니다.");
+			model.addAttribute("url", "/member/update");
+		}
+			
+		return "message";
+	}
+	
 }

@@ -167,5 +167,30 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 	}
+
+	@Override
+	public boolean updateMember(MemberVO member) {
+		if(!checkString(member.getMe_id()) ||
+		   !checkString(member.getMe_pw()) ||
+		   !checkString(member.getMe_pw2()) ||
+		   !checkString(member.getMe_email()) ||
+		   !checkString(member.getMe_gender()) ||
+		   !checkString(member.getMe_name()) ||
+		   !checkString(member.getMe_phone()) ||
+		   !checkString(member.getMe_addr())) {
+			return false;
+		}
+		
+		if(!(member.getMe_pw().equals(member.getMe_pw2()))) {
+			return false;
+		}
+		
+		String encPwString = passwordEncoder.encode(member.getMe_pw());
+		member.setMe_pw(encPwString);
+		
+		memberDao.insertMember(member);
+		
+		return true;
+	}
 	
 }

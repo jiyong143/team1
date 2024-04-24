@@ -26,4 +26,6 @@ public interface MemberService {
 	MemberVO getMember(String me_id);
 
 	void addPoint(int paymentPrice, String userId);
+
+	boolean updateMember(MemberVO member);
 }

@@ -16,7 +16,8 @@ public class PaymentServiceImp implements PaymentService {
 	
 	@Override
 	public void addPayment(String orderUid, int paymentPrice, String userId) {
-		if(checkString(userId) ||
+		System.out.println( "************* " + orderUid +   "  "  + userId);
+		if(checkString(orderUid) &&
 		   checkString(userId)) {
 			paymentDao.insertPayment(orderUid, paymentPrice, userId);
 		}
