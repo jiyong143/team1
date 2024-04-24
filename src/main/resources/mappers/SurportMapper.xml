@@ -40,7 +40,7 @@
         </if>
     </where>
     </select>
-    
+
 
 <select id="selectSurportManageList" resultType="SurportManageVO">
 	SELECT * FROM suport_manage
