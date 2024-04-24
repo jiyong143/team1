@@ -1240,10 +1240,11 @@ li {
 	}
 	
 	function addPagination(pm){
+		console.log(pm);
 		let str = '';
 		if(pm.prev == true){
 			str += `<li class="page-item">
-			<a class="page-link" href="<c:url value="/product/list?page=\${pm.startPage-1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">이전</a>
+			<a class="page-link" href="<c:url value="/product/list?page=\${pm.cri.startPage-1}&mNum=\${num}&mName=\${MName}&tName=\${TName}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${pm.cri.order}&place=\${pm.cri.place}&apple=\${pm.cri.apple}&banana=\${pm.cri.banana}"/>">이전</a>
 		</li>`;
 		}
 		 for(let i=pm.startPage; i<=pm.endPage; i++){
@@ -1323,7 +1324,7 @@ function sendCheckboxData() {
             console.error("Error sending data:", error);
         }
     });
-}
+} 
 
 function addPrice(avgPrice, maxPrice, minPrice){
 	
