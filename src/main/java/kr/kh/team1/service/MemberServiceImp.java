@@ -158,5 +158,14 @@ public class MemberServiceImp implements MemberService {
 		}
 		return memberDao.selectMember(me_id);
 	}
+
+	@Override
+	public void addPoint(int paymentPrice, String userId) {
+		if(checkString(userId) ||
+		   checkString(userId)) {
+			memberDao.updatePoint(paymentPrice, userId);
+		}
+		
+	}
 	
 }
