@@ -10,16 +10,33 @@
 		<result property="cr_me_id" column="cr_me_id"/>
 		<collection property="product" ofType="kr.kh.team1.model.vo.ProductVO"
 			column="cr_pr_num" select="selectProduct"/>
+		<collection property="chatMessage" ofType="kr.kh.team1.model.vo.ChatMessageVO"
+			column="cr_num" select="selectChatMessage"/>
 	</resultMap>
 	
 	<!-- resultMap 조회문 -->
 	<select id="selectProduct" resultType="kr.kh.team1.model.vo.ProductVO">
 		select * from product where pr_num = #{cr_pr_num}
 	</select>
+	
+	<!-- resultMap 조회문  *가장 최신 메시지만 가져옴 -->
+	<select id="selectChatMessage" resultType="kr.kh.team1.model.vo.ChatMessageVO">
+		select * from chat_message where cm_cr_num = #{cr_num} order by cm_time desc, cm_num desc limit 1
+	</select>
    
-   <!-- 제품번호 + 구매자 아이디로 이루어진 채팅방 조회 -->
-   <select id="selectChatRoom" resultMap="ChatRoomMap">
-   		select * from chat_room where cr_pr_num = #{pr_num}
+   <select id="selectChatRoom" resultType="kr.kh.team1.model.vo.ChatRoomVO">
+   		select * from chat_room where cr_pr_num = #{pr_num} and cr_me_id = #{me_id}
+   </select>
+   
+   <!-- 채팅방 번호 + 구매자 아이디로 이루어진 채팅방 조회 -->
+   <select id="selectChatRoomByUser" resultMap="ChatRoomMap">
+   		select * from chat_room where cr_num = #{cr_num} and cr_me_id = #{me_id}
+   </select>
+   
+   <!-- 채팅방 번호 + 판매자 아이디로 이루어진 채팅방 조회 -->
+   <select id="selectChatRoomBySeller" resultMap="ChatRoomMap">
+  		select * from chat_room left join product on pr_num = cr_pr_num 
+  		where pr_me_id = #{me_id} and cr_num = #{cr_num}
    </select>
    
    <!-- 채팅방 생성 -->
@@ -33,12 +50,7 @@
    		insert into chat_state(cs_cr_num,cs_me_id)
    		values(#{pr_num},#{me_id})
    </insert>
-   
-   <!-- 마이페이지에서 사용 할 채팅방 리스트 조회 -->
-   <select id="selectChatRoomList" resultType="kr.kh.team1.model.vo.ChatRoomVO">
-   		select * from chat_room where cr_me_id = #{me_id}
-   </select>
-   
+
    <!-- 채팅 내용 DB에 저장 -->
    <insert id="insertChat">
    		insert into chat_message(cm_cr_num, cm_me_id, cm_content, cm_time)
@@ -47,6 +59,16 @@
    
    <!-- 채팅 내용 -->
    <select id="selectChatMessgeList" resultType="kr.kh.team1.model.vo.ChatMessageVO">
-   		select * from chat_message where cm_cr_num = #{cr_num}
+   		select * from chat_message where cm_cr_num = #{cr_num} order by cm_time asc, cm_num asc
+   </select>
+   
+   <!-- 마이페이지에서 사용 할 구매자 채팅방 리스트 조회 -->
+   <select id="selectChatRoomByUserList" resultMap="ChatRoomMap">
+   		select * from chat_room where cr_me_id = #{me_id}
+   </select>
+   
+   <!-- 마이페이지에서 사용 할 판매자 채팅방 리스트 조회 -->
+   <select id="selectChatRoomBySellerList" resultMap="ChatRoomMap">
+   		select * from chat_room left join product on pr_num = cr_pr_num where pr_me_id = #{me_id}
    </select>
 </mapper>

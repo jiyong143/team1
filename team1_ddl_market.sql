@@ -154,9 +154,10 @@ CREATE TABLE `surport` (
 DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
-   `co_num`   int   NOT NULL primary key auto_increment,
-   `co_content`   text      not NULL,
-   `co_su_num`   int   NOT NULL
+	`co_num`	int	NOT NULL primary key auto_increment,
+	`co_content`	text	NOT NULL,
+	`co_su_num`	int	NOT NULL,
+	`co_me_id`	varchar(15)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `suport_manage`;
@@ -343,11 +344,11 @@ REFERENCES `member` (
    `me_id`
 );
 
-ALTER TABLE `comment` ADD CONSTRAINT `FK_surport_TO_comment_1` FOREIGN KEY (
-   `co_su_num`
+ALTER TABLE `comment` ADD CONSTRAINT `FK_member_TO_comment_1` FOREIGN KEY (
+	`co_me_id`
 )
-REFERENCES `surport` (
-   `su_num`
+REFERENCES `member` (
+	`me_id`
 );
 
 ALTER TABLE `payment_detail` ADD CONSTRAINT `FK_member_TO_payment_detail_1` FOREIGN KEY (
