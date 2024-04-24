@@ -66,12 +66,14 @@ public class CJYController {
 	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
 	   	int totalCount = productService.getProductTotalCount(mNum, cri);
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	model.addAttribute("search",cri.getSearch());
+	   	model.addAttribute("place",cri.getPlace());
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum); 
 	   	session.setAttribute("MName",mName); 
 	   	session.setAttribute("TName",tName);
-	   	return "/product/list";  
+	   	return "/product/list";   
 	}
    
 	@ResponseBody
@@ -84,6 +86,8 @@ public class CJYController {
 	   	int totalCount = productService.getProductTotalCount(mNum, cri); 
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);  
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("place", cri.getPlace() );
+	   	map.put("search", cri.getSearch());
 	   	map.put("order", cri.getOrder() );
 	   	map.put("apple", cri.getApple());
 	   	map.put("banana", cri.getBanana());

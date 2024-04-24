@@ -15,29 +15,41 @@
 
 @media ( min-width : 1024px) .lg\:px-8 {
 	padding-left
-	:
-	 
-	2rem
-	;
 	
-    
+	
+	:
+	
+	 
+	
+	2rem
+	
+	
+	;
 	padding-right
-	:
-	 
-	2rem
-	;
 	
-
+	
+	:
+	
+	 
+	
+	2rem
+	
+	
+	;
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
 	height
-	:
-	 
-	5rem
-	;
 	
-
+	
+	:
+	
+	 
+	
+	5rem
+	
+	
+	;
 }
 
 .px-0 {
@@ -80,39 +92,55 @@
 
 @media ( min-width : 1280px) .xl\:h-24 {
 	height
-	:
-	 
-	6rem
-	;
 	
-
+	
+	:
+	
+	 
+	
+	6rem
+	
+	
+	;
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
 	padding-left
-	:
-	 
-	2rem
-	;
 	
-    
+	
+	:
+	
+	 
+	
+	2rem
+	
+	
+	;
 	padding-right
-	:
-	 
-	2rem
-	;
 	
-
+	
+	:
+	
+	 
+	
+	2rem
+	
+	
+	;
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
 	height
-	:
-	 
-	5rem
-	;
 	
-
+	
+	:
+	
+	 
+	
+	5rem
+	
+	
+	;
 }
 
 *, :after, :before { -
@@ -889,17 +917,18 @@ li {
 }
 
 .horizontal-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-  }
-  .horizontal-list li {
-    background-color: #f2f2f2;
-    padding: 0px;
-    margin: 0;
-    border-radius: 5px;
-  }
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+
+.horizontal-list li {
+	background-color: #f2f2f2;
+	padding: 0px;
+	margin: 0;
+	border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -924,21 +953,10 @@ li {
 									stroke-linejoin="round" fill="transparent"></path>
 								<path d="M21 21.8999L15.5 16.8999" stroke="currentColor"
 									stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round"></path></svg> </span>
-						<form action="<c:url value="/product/list"/>" method="get">
-							<input type="hidden" value="${num }" name="mNum"> <input
-								type="hidden" value="${TName }" name="tName"> <input
-								type="hidden" value="${MName}" name="mName"> <input
-								type="hidden" value="${pm.cri.place}" name="place"> <input
-								type="hidden" value="${pm.cri.minPrice}" name="minPrice">
-							<input type="hidden" value="${pm.cri.maxPrice}" name="maxPrice">
-							<input type="hidden" value="${pm.cri.order }" name="order">
-							<input type="hidden" value="${pm.cri.apple }" name="apple">
-							<input type="hidden" value="${pm.cri.banana }" name="banana">
+									stroke-linejoin="round"></path></svg> </span>					
 							<input type="search" id="search-header" class="search-input"
 								placeholder="어떤 상품을 찾으시나요?" aria-label="search-header"
-								autocomplete="off" name="search" value="${pm.cri.search }">
-						</form>
+								autocomplete="off" name="search" value="${search }">
 					</label>
 				</div>
 
@@ -1103,26 +1121,14 @@ li {
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">거래 희망 주소</td>
-					<td class="price-filter" style="text-align: left">
-						<form action="<c:url value="/product/list"/>" method="get">
-							<input type="hidden" value="${TName }" name="tName"> <input
-								type="hidden" value="${MName}" name="mName"> <input
-								type="hidden" value="${num }" name="mNum"> <input
-								type="hidden" value="address" name="type"> <input
-								type="hidden" value="${pm.cri.minPrice }" name="minPrice">
-							<input type="hidden" value="${pm.cri.maxPrice }" name="maxPrice">
-							<input type="hidden" value="${pm.cri.search }" name="search">
-							<input type="hidden" value="${pm.cri.apple }" name="apple">
-							<input type="hidden" value="${pm.cri.banana }" name="banana">
-							<input type="hidden" value="${pm.cri.order }" name="order">
+					<td class="price-filter" style="text-align: left">		
 							<input type="text"
-								class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
+								class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
 								placeholder="거래 희망 장소" data-idx="0" name="place"
-								value="${pm.cri.place }">
+								value="${place }">
 							<button
 								class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
-								style="background-color: black">적용</button>
-						</form>
+								style="background-color: black">적용</button>			
 					</td>
 				</tr>
 				<tr>
@@ -1202,7 +1208,7 @@ li {
 			</ul>
 		</div>
 
-       
+
 		<h1>상품 목록</h1>
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
@@ -1270,64 +1276,188 @@ li {
 					<br>
 				</c:if>
 			</c:forEach>
-			</div>
-
-
-			<!-- 페이지네이션 -->
-			  
-			<ul class="pagination justify-content-center">
-				<c:if test="${pm.prev}">
-					<li class="page-item"><c:url var="url" value="/product/list">
-							<c:param name="page" value="${pm.startPage - 1}" />
-							<c:param name="mNum" value="${num}" />
-							<c:param name="mName" value="${MName}" />
-							<c:param name="tName" value="${TName}" />
-							<c:param name="search" value="${pm.cri.search}" />
-							<c:param name="minPrice" value="${pm.cri.minPrice}" />
-							<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
-							<c:param name="order" value="${pm.cri.order}" />
-							<c:param name="place" value="${pm.cri.place }" />
-							<c:param name="apple" value="${pm.cri.apple }" />
-							<c:param name="banana" value="${pm.cri.banana }" />
-						</c:url> <a class="page-link" href="${url}">이전</a></li>
-				</c:if>
-				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:set var="active" value="${pm.cri.page == i ?'active':'' }" />
-					<li class="page-item ${active}"><c:url var="url"
-							value="/product/list">
-							<c:param name="page" value="${i}" />
-							<c:param name="mNum" value="${num}" />
-							<c:param name="mName" value="${MName}" />
-							<c:param name="tName" value="${TName}" />
-							<c:param name="search" value="${pm.cri.search}" />
-							<c:param name="minPrice" value="${pm.cri.minPrice}" />
-							<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
-							<c:param name="order" value="${pm.cri.order}" />
-							<c:param name="place" value="${pm.cri.place }" />
-							<c:param name="apple" value="${pm.cri.apple }" />
-							<c:param name="banana" value="${pm.cri.banana }" />
-						</c:url> <a class="page-link" href="${url}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${pm.next}">
-					<li class="page-item"><c:url var="url" value="/product/list">
-							<c:param name="page" value="${pm.endPage + 1}" />
-							<c:param name="mNum" value="${num}" />
-							<c:param name="mName" value="${MName}" />
-							<c:param name="tName" value="${TName}" />
-							<c:param name="search" value="${pm.cri.search}" />
-							<c:param name="minPrice" value="${pm.cri.minPrice}" />
-							<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
-							<c:param name="order" value="${pm.cri.order}" />
-							<c:param name="place" value="${pm.cri.place }" />
-							<c:param name="apple" value="${pm.cri.apple }" />
-							<c:param name="banana" value="${pm.cri.banana }" />
-						</c:url> <a class="page-link" href="${url}">다음</a></li>
-				</c:if>
-			</ul>
 		</div>
-		
-<script type="text/javascript">
+
+
+		<!-- 페이지네이션 -->
+
+		<ul class="pagination justify-content-center">
+			<c:if test="${pm.prev}">
+				<li class="page-item"><c:url var="url" value="/product/list">
+						<c:param name="page" value="${pm.startPage - 1}" />
+						<c:param name="mNum" value="${num}" />
+						<c:param name="mName" value="${MName}" />
+						<c:param name="tName" value="${TName}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="order" value="${pm.cri.order}" />
+						<c:param name="place" value="${pm.cri.place }" />
+						<c:param name="apple" value="${pm.cri.apple }" />
+						<c:param name="banana" value="${pm.cri.banana }" />
+					</c:url> <a class="page-link" href="${url}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+				<c:set var="active" value="${pm.cri.page == i ?'active':'' }" />
+				<li class="page-item ${active}"><c:url var="url"
+						value="/product/list">
+						<c:param name="page" value="${i}" />
+						<c:param name="mNum" value="${num}" />
+						<c:param name="mName" value="${MName}" />
+						<c:param name="tName" value="${TName}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="order" value="${pm.cri.order}" />
+						<c:param name="place" value="${pm.cri.place }" />
+						<c:param name="apple" value="${pm.cri.apple }" />
+						<c:param name="banana" value="${pm.cri.banana }" />
+					</c:url> <a class="page-link" href="${url}">${i}</a></li>
+			</c:forEach>
+			<c:if test="${pm.next}">
+				<li class="page-item"><c:url var="url" value="/product/list">
+						<c:param name="page" value="${pm.endPage + 1}" />
+						<c:param name="mNum" value="${num}" />
+						<c:param name="mName" value="${MName}" />
+						<c:param name="tName" value="${TName}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="order" value="${pm.cri.order}" />
+						<c:param name="place" value="${pm.cri.place }" />
+						<c:param name="apple" value="${pm.cri.apple }" />
+						<c:param name="banana" value="${pm.cri.banana }" />
+					</c:url> <a class="page-link" href="${url}">다음</a></li>
+			</c:if>
+		</ul>
+	</div>
 	
+<script type="text/javascript">
+ 
+<!-- 검색창 입력시 -->
+$(".search-input").change(function(){
+	var search = $(this).val().trim();
+	sendSearch(search);
+});
+
+// 검색창에 입력할 때 실행되는 함수
+function sendSearch(search) {
+    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
+	let mNum = '${num}';
+	let place = $(".place-input").val();
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let tName='${TName}';
+	let mName = '${MName}';
+	let order;
+
+	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
+	let activeButton = document.querySelector(".order-list-item.bg-info");
+
+	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
+	if (activeButton) {
+	    order = activeButton.id;
+	}
+
+    var data = {
+        "apple" : apple,
+        "banana" : banana,
+        "mNum" : mNum,
+        "search" : search,
+        "place" : place,
+        "minPrice" : minPrice,
+        "maxPrice" : maxPrice,
+        "order"  : order,
+        "tName" : tName,
+		"mName" : mName
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/list2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            console.log(data);
+            addMethod(data.pList);
+            addPrice(data.avgPrice, data.maxPrice, data.minPrice);
+            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search );
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+} 
+
+
+<!-- 주소 입력시 -->
+
+$(".place-input").change(function(){
+	var place = $(this).val().trim();
+	sendPlace(place);
+});
+
+// 거래 희망 장소 입력할 때 실행되는 함수
+function sendPlace(place) {
+    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
+	let mNum = '${num}';
+	let minPrice = '${pm.cri.minPrice}';
+	let maxPrice = '${pm.cri.maxPrice}';
+	let tName='${TName}';
+	let mName = '${MName}';
+	let search = $(".search-input").val();
+	let order;
+
+	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
+	let activeButton = document.querySelector(".order-list-item.bg-info");
+
+	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
+	if (activeButton) {
+	    order = activeButton.id;
+	}
+
+    var data = {
+        "apple" : apple,
+        "banana" : banana,
+        "mNum" : mNum,
+        "search" : search,
+        "place" : place,
+        "minPrice" : minPrice,
+        "maxPrice" : maxPrice,
+        "order"  : order,
+        "tName" : tName,
+		"mName" : mName
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/list2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            console.log(data);
+            addMethod(data.pList);
+            addPrice(data.avgPrice, data.maxPrice, data.minPrice);
+            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search );
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+
+
 	$(".order-list-item").click(function(){
 		$(".order-list-item").removeClass("bg-info");
 	})
@@ -1397,7 +1527,7 @@ li {
 			success : function (data){
 				console.log(data.pm);
 				addMethod(data.pList);
-				addPagination(data.pm, data.num, data.TName, data.MName, data.order, data.apple, data.banana);
+				addPagination(data.pm, data.num, data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
@@ -1471,25 +1601,25 @@ li {
 		$(".product-list").html(str);
 	}
 	
-	function addPagination(pm,num,TName, MName, order, apple, banana){
+	function addPagination(pm,num,TName, MName, order, apple, banana, place, search){
 		console.log(pm);
 		console.log(num);
 		let str = '';
 		if(pm.prev == true){
 			str += `<li class="page-item">
-			<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.cri.startPage-1}&mNum=\${num}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${pm.cri.place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
+			<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.cri.startPage-1}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
 		</li>`;
 		}
 		 for(let i=pm.startPage; i<=pm.endPage; i++){
 			 var active = pm.cri.page == i ? 'active' : '';
 			str +=`<li class="page-item \${active}">
-				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${i}&mNum=\${num}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${pm.cri.place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
+				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${i}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
 		     </li>`;
 		 }
 		 
 		 if(pm.next == true){
 				str += `<li class="page-item">
-				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.endPage+1}&mNum=\${num}&search=\${pm.cri.search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${order}&place=\${pm.cri.place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
+				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.endPage+1}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
 			</li>`;
 			}		 
 		 $(".pagination").html(str);
@@ -1550,10 +1680,9 @@ function sendCheckboxData() {
         success: function(response) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             console.log(response);
-            console.log(response.minPrice);
             addMethod(response.pList);
             addPrice(response.avgPrice, response.maxPrice, response.minPrice);
-            addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana );
+            addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana, data.place, data.search );
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1585,9 +1714,9 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	$(".product-price-container").html(str);	
 }
 
-</script> 
+</script>
 
-		<script type="text/javascript">
+	<script type="text/javascript">
 document.getElementById("price").addEventListener("submit", function(event) {
     var minPrice = document.getElementById("minPrice");
     var maxPrice = document.getElementById("maxPrice");
@@ -1604,5 +1733,6 @@ document.getElementById("price").addEventListener("submit", function(event) {
     
 });
 </script>
+
 </body>
 </html>
