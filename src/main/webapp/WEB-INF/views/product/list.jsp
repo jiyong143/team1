@@ -17,22 +17,34 @@
 	padding-left
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	2rem
+	
+	
 	
 	
 	;
 	padding-right
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	2rem
+	
+	
 	
 	
 	;
@@ -42,11 +54,17 @@
 	height
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	5rem
+	
+	
 	
 	
 	;
@@ -94,11 +112,17 @@
 	height
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	6rem
+	
+	
 	
 	
 	;
@@ -108,22 +132,34 @@
 	padding-left
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	2rem
+	
+	
 	
 	
 	;
 	padding-right
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	2rem
+	
+	
 	
 	
 	;
@@ -133,11 +169,17 @@
 	height
 	
 	
+	
+	
 	:
+	
 	
 	 
 	
+	
 	5rem
+	
+	
 	
 	
 	;
@@ -953,10 +995,10 @@ li {
 									stroke-linejoin="round" fill="transparent"></path>
 								<path d="M21 21.8999L15.5 16.8999" stroke="currentColor"
 									stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round"></path></svg> </span>					
-							<input type="search" id="search-header" class="search-input"
-								placeholder="어떤 상품을 찾으시나요?" aria-label="search-header"
-								autocomplete="off" name="search" value="${search }">
+									stroke-linejoin="round"></path></svg> </span> <input type="search"
+						id="search-header" class="search-input"
+						placeholder="어떤 상품을 찾으시나요?" aria-label="search-header"
+						autocomplete="off" name="search" value="${search }">
 					</label>
 				</div>
 
@@ -1081,55 +1123,45 @@ li {
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">가격</td>
 					<td class="price-filter" style="text-align: left">
-						<form id="price" action="<c:url value="/product/list"/>"
-							method="get">
-							<input type="hidden" value="${TName }" name="tName"> <input
-								type="hidden" value="${MName}" name="mName"> <input
-								type="hidden" value="${num }" name="mNum"> <input
-								type="hidden" value="${pm.cri.place }" name="place"> <input
-								type="hidden" value="${pm.cri.search }" name="search"> <input
-								type="hidden" value="${pm.cri.apple }" name="apple"> <input
-								type="hidden" value="${pm.cri.banana }" name="banana"> <input
-								type="hidden" value="${pm.cri.order }" name="order">
-							<div class="price-container">
-								<div class="minPrice-box">
-									<input type="number" id="minPrice"
-										class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-										placeholder="최소 금액" data-idx="0" name="minPrice"
-										value="${pm.cri.minPrice }">
-									<div id="minMessage" style="color: red; font-size: 12px"></div>
-								</div>
-								<span class="mx-[6px]"><svg
-										xmlns="http://www.w3.org/2000/svg" width="10" height="4"
-										fill="none" class="inline">
-                                  <path fill="#5A616B"
-											d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
-                                  </svg></span>
-								<div class="maxPrice-box">
-									<input type="number" id="maxPrice"
-										class="w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-										placeholder="최대 금액" data-idx="1" name="maxPrice"
-										value="${pm.cri.maxPrice }">
-									<div id="maxMessage" style="color: red; font-size: 12px"></div>
-								</div>
-								<button type="submit"
-									class="w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
-									style="background-color: black;">적용</button>
+						<div class="price-container">
+							<div class="minPrice-box">
+								<input type="text" id="minPrice"
+									class="minPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
+									placeholder="최소 금액" data-idx="0" name="minPrice"
+									value="${min }"
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')">
+								<div id="minMessage" style="color: red; font-size: 12px"></div>
 							</div>
-						</form>
+							<span class="mx-[6px]"><svg
+									xmlns="http://www.w3.org/2000/svg" width="10" height="4"
+									fill="none" class="inline">
+                                  <path fill="#5A616B"
+										d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
+                                  </svg></span>
+							<div class="maxPrice-box">
+								<input type="text" id="maxPrice"
+									class="maxPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
+									placeholder="최대 금액" data-idx="1" name="maxPrice"
+									value="${max }"
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')">
+								<div id="maxMessage" style="color: red; font-size: 12px"></div>
+							</div>
+							<button type="submit"
+								class="price-button w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								style="background-color: black;">적용</button>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td style="font-size: 20px; font-weight: bold;">거래 희망 주소</td>
-					<td class="price-filter" style="text-align: left">		
-							<input type="text"
-								class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-								placeholder="거래 희망 장소" data-idx="0" name="place"
-								value="${place }">
-							<button
-								class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
-								style="background-color: black">적용</button>			
-					</td>
+					<td style="font-size: 20px; font-weight: bold;">주소</td>
+					<td class="price-filter" style="text-align: left"><input
+						type="text"
+						class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
+						placeholder="장소를 입력하세요" data-idx="0" name="place"
+						value="${place }" autocomplete="off">
+						<button
+							class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+							style="background-color: black">적용</button></td>
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">옵션</td>
@@ -1331,35 +1363,49 @@ li {
 			</c:if>
 		</ul>
 	</div>
-	
-<script type="text/javascript">
- 
-<!-- 검색창 입력시 -->
-$(".search-input").change(function(){
-	var search = $(this).val().trim();
-	sendSearch(search);
+
+	<script type="text/javascript">
+
+
+<!--가격 적용 버튼 클릭시-->
+const priceButton = document.querySelector('.price-button');
+
+priceButton.addEventListener('click', function() {
+	let minPrice = $(".minPrice-input").val();
+	let maxPrice = $(".maxPrice-input").val(); 
+	if(minPrice=="" || minPrice == null || maxPrice =="" || maxPrice == null){
+		return;
+	}
+	let minPrice1 = minPrice.replace(/,/g, '');
+	minPrice = Number(minPrice1);
+	let maxPrice1 = maxPrice.replace(/,/g, '');
+	maxPrice = Number(maxPrice1);
+	let gap = maxPrice-minPrice;
+	if(gap <0 || maxPrice >1000000000 ){
+		return;
+	}
+	sendPrice(minPrice, maxPrice);
 });
 
-// 검색창에 입력할 때 실행되는 함수
-function sendSearch(search) {
-    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+
+function sendPrice(minPrice, maxPrice){
+	let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 	let mNum = '${num}';
 	let place = $(".place-input").val();
-	let minPrice = '${pm.cri.minPrice}';
-	let maxPrice = '${pm.cri.maxPrice}';
 	let tName='${TName}';
 	let mName = '${MName}';
 	let order;
+	let search = $(".search-input").val();
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
 	let activeButton = document.querySelector(".order-list-item.bg-info");
 
 	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
 	if (activeButton) {
-	    order = activeButton.id;
-	}
-
+	    order = activeButton.id; 
+	}	
+	
     var data = {
         "apple" : apple,
         "banana" : banana,
@@ -1382,10 +1428,115 @@ function sendSearch(search) {
         dataType : "json",
         success: function(data) {
             // 성공적으로 응답을 받았을 때 실행할 코드
-            console.log(data);
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search );
+            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+<!--최소 금액 입력시-->
+const minInput = document.querySelector('#minPrice');
+minInput.addEventListener('keyup', function(e) {
+  let value = e.target.value;
+  // 입력 값이 없으면 빈문자열로 설정
+  if (value === "" || value === null || isNaN(Number(value))) {
+    value = "";
+  } else {
+    value = Number(value.replaceAll(',', ''));
+  }
+  const formatValue = value.toLocaleString('ko-KR');
+  minInput.value = formatValue; 
+});
+
+<!--최대 금액 입력시-->
+const maxInput = document.querySelector('#maxPrice');
+maxInput.addEventListener('keyup', function(e) {
+  let value = e.target.value;
+  // 입력 값이 없으면 빈문자열로 설정
+  if (value === "" || value === null || isNaN(Number(value))) {
+    value = "";
+  } else {
+    value = Number(value.replaceAll(',', ''));
+  }
+  const formatValue = value.toLocaleString('ko-KR');
+  maxInput.value = formatValue; 
+});
+ 
+<!-- 검색창 입력시 -->
+$(".search-input").change(function(){
+	var search = $(this).val().trim();
+	sendSearch(search);
+});
+
+
+// 검색창에 입력할 때 실행되는 함수
+function sendSearch(search) {
+    let apple = document.getElementById("saleYn").checked ? "yes" : "no";
+	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
+	let mNum = '${num}';
+	let place = $(".place-input").val();
+	let minPrice = $(".minPrice-input").val();
+	let maxPrice = $(".maxPrice-input").val(); 
+	let tName='${TName}';
+	let mName = '${MName}';
+	let order;
+
+	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
+	let activeButton = document.querySelector(".order-list-item.bg-info");
+
+	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
+	if (activeButton) {
+	    order = activeButton.id;
+	}
+	
+	if(minPrice=="" || minPrice == null){
+		minPrice =-100;
+	}else if(minPrice=="0"){
+		minPrice=0;
+	}else{
+		let minPrice1 = minPrice.replace(/,/g, '');
+		minPrice = Number(minPrice1);	
+	}
+	
+	if(maxPrice=="" || maxPrice == null){
+		maxPrice =1000000000;
+	}else if(maxPrice=="0"){
+		maxPrice=0;
+	}else{
+		let maxPrice1 = maxPrice.replace(/,/g, '');
+		maxPrice = Number(maxPrice1);	
+	}
+	
+    var data = {
+        "apple" : apple,
+        "banana" : banana,
+        "mNum" : mNum,
+        "search" : search,
+        "place" : place,
+        "minPrice" : minPrice,
+        "maxPrice" : maxPrice,
+        "order"  : order,
+        "tName" : tName,
+		"mName" : mName
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/list2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addMethod(data.pList);
+            addPrice(data.avgPrice, data.maxPrice, data.minPrice);
+            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1396,7 +1547,6 @@ function sendSearch(search) {
 
 
 <!-- 주소 입력시 -->
-
 $(".place-input").change(function(){
 	var place = $(this).val().trim();
 	sendPlace(place);
@@ -1407,8 +1557,8 @@ function sendPlace(place) {
     let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 	let mNum = '${num}';
-	let minPrice = '${pm.cri.minPrice}';
-	let maxPrice = '${pm.cri.maxPrice}';
+	let minPrice = $(".minPrice-input").val();
+	let maxPrice = $(".maxPrice-input").val();
 	let tName='${TName}';
 	let mName = '${MName}';
 	let search = $(".search-input").val();
@@ -1421,7 +1571,25 @@ function sendPlace(place) {
 	if (activeButton) {
 	    order = activeButton.id;
 	}
-
+	
+	if(minPrice=="" || minPrice == null){
+		minPrice =-100;
+	}else if(minPrice=="0"){
+		minPrice=0;
+	}else{
+		let minPrice1 = minPrice.replace(/,/g, '');
+		minPrice = Number(minPrice1);	
+	}
+	
+	if(maxPrice=="" || maxPrice == null){
+		maxPrice =1000000000;
+	}else if(maxPrice=="0"){
+		maxPrice=0;
+	}else{
+		let maxPrice1 = maxPrice.replace(/,/g, '');
+		maxPrice = Number(maxPrice1);	
+	}
+	
     var data = {
         "apple" : apple,
         "banana" : banana,
@@ -1444,10 +1612,9 @@ function sendPlace(place) {
         dataType : "json",
         success: function(data) {
             // 성공적으로 응답을 받았을 때 실행할 코드
-            console.log(data);
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search );
+            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search ,data.min, data.max );
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1496,14 +1663,31 @@ function sendPlace(place) {
 		let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 		let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 		let mNum = '${num}';
-		let search = '${pm.cri.search}';
-		let place = '${pm.cri.place}';
-		let minPrice = '${pm.cri.minPrice}';
-		let maxPrice = '${pm.cri.maxPrice}';
+		let search = $(".search-input").val();
+		let place = $(".place-input").val();
+		let minPrice = $(".minPrice-input").val();
+		let maxPrice = $(".maxPrice-input").val();
 		let page = '${pm.cri.page}';
 		let tName='${TName}';
 		let mName = '${MName}';
-
+				
+		if(minPrice=="" || minPrice == null){
+			minPrice =-100;
+		}else if(minPrice=="0"){
+			minPrice=0;
+		}else{
+			let minPrice1 = minPrice.replace(/,/g, '');
+			minPrice = Number(minPrice1);	
+		}
+		
+		if(maxPrice=="" || maxPrice == null){
+			maxPrice =1000000000;
+		}else if(maxPrice=="0"){
+			maxPrice=0;
+		}else{
+			let maxPrice1 = maxPrice.replace(/,/g, '');
+			maxPrice = Number(maxPrice1);	
+		}
 		let obj = { 
 			"order" : str1,
 			"apple" : apple,
@@ -1525,16 +1709,14 @@ function sendPlace(place) {
 			data : obj,
 			dataType : "json", 
 			success : function (data){
-				console.log(data.pm);
 				addMethod(data.pList);
-				addPagination(data.pm, data.num, data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search);
+				addPagination(data.pm, data.num, data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
 			}
 		});
 	}
-	
 	
 	function addMethod(list) {
 		console.log(list)
@@ -1581,7 +1763,6 @@ function sendPlace(place) {
                              <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>`                                       
 	            }
 	            
-	            
 	               str += `
 	                    </svg>
 	                    </p>
@@ -1601,25 +1782,23 @@ function sendPlace(place) {
 		$(".product-list").html(str);
 	}
 	
-	function addPagination(pm,num,TName, MName, order, apple, banana, place, search){
-		console.log(pm);
-		console.log(num);
+	function addPagination(pm,num,TName, MName, order, apple, banana, place, search, min, max){
 		let str = '';
 		if(pm.prev == true){
 			str += `<li class="page-item">
-			<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.cri.startPage-1}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
+			<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${pm.cri.startPage-1}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
 		</li>`;
 		}
 		 for(let i=pm.startPage; i<=pm.endPage; i++){
 			 var active = pm.cri.page == i ? 'active' : '';
 			str +=`<li class="page-item \${active}">
-				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${i}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${pm.cri.maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
+				<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${i}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
 		     </li>`;
 		 }
 		 
 		 if(pm.next == true){
 				str += `<li class="page-item">
-				<a class="page-link" href="<c:url value="/product/list?tName=\${TName}&mName=\${MName}&page=\${pm.endPage+1}&mNum=\${num}&search=\${search}&minPrice=\${pm.cri.minPrice}&maxPrice=\${maxPrice}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
+				<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${pm.endPage+1}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
 			</li>`;
 			}		 
 		 $(".pagination").html(str);
@@ -1635,10 +1814,10 @@ function sendCheckboxData() {
     let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
 	let mNum = '${num}';
-	let search = '${pm.cri.search}';
-	let place = '${pm.cri.place}';
-	let minPrice = '${pm.cri.minPrice}';
-	let maxPrice = '${pm.cri.maxPrice}';
+	let search = $(".search-input").val();
+	let place = $(".place-input").val();
+	let minPrice = $(".minPrice-input").val();
+	let maxPrice = $(".maxPrice-input").val();
 	let page = '${pm.cri.page}';
 	let tName='${TName}';
 	let mName = '${MName}';
@@ -1651,9 +1830,24 @@ function sendCheckboxData() {
 	if (activeButton) {
 	    order = activeButton.id;
 	}
-
-	// order 변수를 사용할 수 있습니다.
-	console.log("현재 활성화된 버튼의 id:", order);
+	
+	if(minPrice=="" || minPrice == null){
+		minPrice =-100;
+	}else if(minPrice=="0"){
+		minPrice=0;
+	}else{
+		let minPrice1 = minPrice.replace(/,/g, '');
+		minPrice = Number(minPrice1);	
+	}
+	
+	if(maxPrice=="" || maxPrice == null){
+		maxPrice =1000000000;
+	}else if(maxPrice=="0"){
+		maxPrice=0;
+	}else{
+		let maxPrice1 = maxPrice.replace(/,/g, '');
+		maxPrice = Number(maxPrice1);	
+	}
 
     var data = {
         "apple" : apple,
@@ -1679,10 +1873,9 @@ function sendCheckboxData() {
         dataType : "json",
         success: function(response) {
             // 성공적으로 응답을 받았을 때 실행할 코드
-            console.log(response);
             addMethod(response.pList);
             addPrice(response.avgPrice, response.maxPrice, response.minPrice);
-            addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana, data.place, data.search );
+            addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana, response.place, response.search, response.min, response.max);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드

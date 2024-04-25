@@ -55,8 +55,7 @@ public class CJYController {
 
 
 	@GetMapping("/product/list")  
-   	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
-		System.out.println(cri); 
+   	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
 	   	String maxPrice = productService.getMaxPrice(mNum,cri);
 	   	String minPrice = productService.getMinPrice(mNum,cri);
 	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
@@ -71,6 +70,28 @@ public class CJYController {
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum); 
+	   	session.setAttribute("MName",mName); 
+	   	session.setAttribute("TName",tName);
+	   	return "/product/list";   
+	}
+	
+	
+	@GetMapping("/product/list3")   
+   	public String productList3(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
+	   	String maxPrice = productService.getMaxPrice(mNum,cri);
+	   	String minPrice = productService.getMinPrice(mNum,cri);
+	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
+	   	model.addAttribute("maxPrice",maxPrice);
+	   	model.addAttribute("minPrice",minPrice);
+	   	model.addAttribute("avgPrice",avgPrice);
+	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
+	   	int totalCount = productService.getProductTotalCount(mNum, cri);
+	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	model.addAttribute("search",cri.getSearch());
+	   	model.addAttribute("place",cri.getPlace());
+	   	model.addAttribute("pm", pm);
+	   	model.addAttribute("pList",productList); 
+	   	model.addAttribute("num" , mNum);
 	   	session.setAttribute("MName",mName); 
 	   	session.setAttribute("TName",tName);
 	   	return "/product/list";   
@@ -91,6 +112,8 @@ public class CJYController {
 	   	map.put("order", cri.getOrder() );
 	   	map.put("apple", cri.getApple());
 	   	map.put("banana", cri.getBanana());
+	   	map.put("min", cri.getMinPrice());
+		map.put("max", cri.getMaxPrice());
 	   	map.put("TName",tName);
 	   	map.put("MName", mName ); 
 	   	map.put("num", mNum);
