@@ -22,8 +22,8 @@ import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
+import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.SurportService;
-import lombok.extern.log4j.Log4j;
 
 @Controller
 public class LKJController {
@@ -33,6 +33,9 @@ public class LKJController {
 
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	MemberService memberService;
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -160,12 +163,40 @@ public class LKJController {
 		map.put("result", res);
 		return map;
 	}
-
+	
+	@ResponseBody
+	@PostMapping("/comment/delete")
+	public Map<String, Object> commentDelete(@RequestBody CommentVO comment, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = commentService.commentDelete(comment, user);
+		System.out.println(res);
+		map.put("result", res);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/comment/update")
+	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = commentService.updateComment(comment, user);
+		System.out.println(res);
+		map.put("result", res);
+		return map;
+	}
+	
+	@GetMapping("/admin/memberManagement")
+	public String MemberManagement(Model model) {
+		return "/admin/memberManagement";
+	}
+	
+	
 	@GetMapping("/surportManage/list")
 	// 고정 문의글 리스트
 	public String surportManageList(Model model) {
 		return "/surportManage/list";
-	}
+	}	
 
 	@GetMapping("/surportManage/adminList")
 	// 관리자 고정문의 타입 관리

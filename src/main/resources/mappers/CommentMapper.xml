@@ -18,4 +18,15 @@
 		VALUES
 			(#{comment.co_su_num},#{comment.co_me_id},#{comment.co_content})
 	</insert>
+	<select id="selectComment" resultType="CommentVO">
+		SELECT * FROM comment WHERE co_num = #{co_num}
+	</select>
+	<delete id="commentDelete">
+		DELETE FROM comment WHERE co_num = #{co_num}
+	</delete>
+	<update id="updateComment">
+		UPDATE comment 
+			SET co_content = #{comment.co_content} 
+		WHERE co_num = #{comment.co_num} 
+	</update>
 </mapper>

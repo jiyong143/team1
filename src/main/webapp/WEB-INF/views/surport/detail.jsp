@@ -157,7 +157,7 @@ function displayCommentList(list) {
 		// 댓글 작성자와 현재 사용자의 아이디를 비교하여 버튼을 표시할지 여부를 결정합니다.
 		let boxBtns = `
 			<span class="box-btn float-right">
-				<button class="btn btn-outline-danger btn-comment-del" data-num="${item.co_num}">삭제</button>
+				<button class="btn btn-outline-danger btn-comment-remove" data-num="${item.co_num}">삭제</button>
 				<button class="btn btn-outline-danger btn-comment-update" data-num="${item.co_num}">수정</button>
 			</span>`;
 		let btns = '${user.me_id}' == item.co_me_id ? boxBtns : ''; // 작성자와 현재 사용자의 아이디가 일치하면 버튼을 표시합니다.->권한에 따라 버튼표시로 변경
@@ -271,6 +271,99 @@ function checkLogin() {
 		location.href = '<c:url value="/member/login"/>'; // 로그인 페이지로 이동합니다.
 	}
 	return false; // 로그인되어 있지 않음을 반환합니다.
+}
+</script>
+<script type="text/javascript">
+$(document).on('click', '.btn-comment-remove', function(){
+    let comment = {
+        co_num: $(this).data('num')
+    };
+    $.ajax({
+        async: true,
+        url: '<c:url value="/comment/delete"/>',
+        type: "post",
+        data: JSON.stringify(comment), // stringfy가 아니라 stringify로 수정
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data){
+            if(data.result){
+                alert("댓글을 삭제합니다.");
+                getComment(cris); // cris가 어디서 정의되었는지 확인해야 합니다.
+            } else {
+                alert("댓글 삭제에 실패했습니다.");
+            }
+        }, 
+        error: function(xhr, status, error){
+            console.log(xhr);
+            console.log(status); // textStatus가 정의되지 않았으므로 status로 수정
+            console.log(error);
+        }
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).on('click', '.btn-comment-update', function(){
+//'btn-comment-update' 클래스를 가진 버튼이 클릭되었을 때
+	// initComment() 함수를 호출하여 이전에 수정된 댓글을 초기화합니다.
+	initComment();
+	
+	// 수정 중인 댓글의 내용 상자를 찾습니다.
+	let contentBox = $(this).parents(".box-comment").find(".text-comment");
+	
+	// 현재 댓글의 내용을 가져옵니다.
+	let content = contentBox.text();
+	
+	// 현재 내용을 포함한 textarea 요소를 생성합니다.
+	let str = `<textarea class="form-control">${content}</textarea>`;
+	contentBox.after(str); // 내용 상자 뒤에 textarea를 삽입합니다.
+	contentBox.hide(); // 내용 상자를 숨깁니다.
+	
+	// 수정/삭제 버튼을 숨깁니다.
+	$(this).parents(".box-comment").find('.box-btn').hide();
+	
+	// "수정 완료" 버튼을 추가합니다.
+	let cm_num = $(this).data("num"); // 댓글 번호를 가져옵니다.
+	str = `<button class="btn btn-outline-warning btn-complete" data-num="${co_num}">수정 완료</button>`;
+	$(this).parents(".box-comment").find('.box-btn').after(str); // 수정/삭제 버튼 뒤에 버튼을 삽입합니다.
+});
+
+// "수정 완료" 버튼이 클릭되었을 때
+$(document).on('click', '.btn-complete', function(){
+	// 서버에 전송할 댓글 내용과 번호를 포함하는 객체를 생성합니다.
+	let comment = {
+		cm_content : $('.box-comment').find('textarea').val(), // textarea에서 내용을 가져옵니다.
+		cm_num : $(this).data("num") // 버튼의 데이터 속성에서 댓글 번호를 가져옵니다.
+	}
+	
+	// AJAX를 사용하여 댓글 데이터를 서버에 전송합니다.
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/update"/>', // 댓글을 업데이트할 URL입니다.
+		type : 'post', // HTTP 메서드 (POST)
+		data : JSON.stringify(comment), // 댓글 객체를 JSON 형식으로 변환합니다.
+		contentType : "application/json; charset=utf-8", // 콘텐츠 유형을 설정합니다.
+		dataType : "json", // 서버에서 기대되는 데이터 유형입니다.
+		success : function (data){
+			// 서버가 성공을 반환하면 알림을 표시하고 댓글 목록을 새로 고칩니다.
+			if(data.result){
+				alert('댓글을 수정했습니다.');
+				getCommentList(cri);
+			}else{
+				alert('댓글을 수정하지 못했습니다.');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			// 에러를 처리합니다.
+		}
+	});
+})
+
+// 댓글을 원래 상태로 되돌리는 함수
+function initComment(){
+	$('.btn-complete').remove(); // "수정 완료" 버튼을 제거합니다.
+	$('.box-comment').find('textarea').remove(); // textarea를 제거합니다.
+	$('.box-btn').show(); // 수정/삭제 버튼을 표시합니다.
+	$('.text-comment').show(); // 내용 상자를 표시합니다.
 }
 
 </script>
