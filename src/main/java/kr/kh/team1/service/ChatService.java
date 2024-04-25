@@ -6,6 +6,7 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.pagination.Criteria;
 
 public interface ChatService {
 	
@@ -23,11 +24,13 @@ public interface ChatService {
 
 	void insertChatRoomState(String me_id, int pr_num);
 
-	ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id);
+	ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id, Criteria cri);
 
 	void updateChatRoomStateById(int num, String me_id);
 
 	ArrayList<ChatStateVO> getChatState(int num);
 
 	void deleteChatRoomAndStateByNum(int num);
+
+	int getChatRoomTotalCount(String me_id, Criteria cri);
 }

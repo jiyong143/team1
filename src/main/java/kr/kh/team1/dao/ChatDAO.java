@@ -8,6 +8,7 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.pagination.Criteria;
 
 public interface ChatDAO {
 
@@ -25,7 +26,7 @@ public interface ChatDAO {
 
 	void insertChatRoomState(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
 
-	ArrayList<ChatRoomVO> selectChatRoomByUserList(@Param("me_id")String me_id);
+	ArrayList<ChatRoomVO> selectChatRoomByUserList(@Param("me_id")String me_id, @Param("cri")Criteria cri);
 
 	void updateChatRoomStateById(@Param("num")int num, @Param("me_id")String me_id);
 
@@ -36,4 +37,6 @@ public interface ChatDAO {
 	void deleteChatStateByNum(@Param("num")int num);
 
 	void deleteChatMessageByNum(@Param("num")int num);
+
+	int selectChatRoomTotalCount(@Param("me_id")String me_id, @Param("cri")Criteria cri);
 }

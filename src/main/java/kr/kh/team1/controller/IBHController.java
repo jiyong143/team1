@@ -23,6 +23,8 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.PageMaker_chat;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.utils.SseEmitters;
 
@@ -93,15 +95,23 @@ public class IBHController {
 	
     @GetMapping("/chat/list")
     // 채팅방 리스트
-   	public String chatRoomList(Model model, HttpSession session) {
+   	public String chatRoomList(Model model, HttpSession session, int page) {
+    	Criteria cri = new Criteria();
+    	cri.setPerPageNum(2);	// 한 페이지에 게시글 5개 지정
+    	cri.setPage(page);
     	
     	MemberVO loginUser = (MemberVO)session.getAttribute("user");
     	
     	// 채팅방에 대한 정보
-    	ArrayList<ChatRoomVO> crv = chatService.getChatRoomByUserList(loginUser.getMe_id());	// 구매자
+    	ArrayList<ChatRoomVO> crv = chatService.getChatRoomByUserList(loginUser.getMe_id(), cri);
+    	
+    	int totalListCount = chatService.getChatRoomTotalCount(loginUser.getMe_id(), cri);
+    	
+    	PageMaker_chat pm = new PageMaker_chat(3, cri, totalListCount);
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);
+    	model.addAttribute("pm", pm);
 	   	return "/chat/list";
 	}
 

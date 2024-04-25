@@ -10,6 +10,7 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.pagination.Criteria;
 
 @Service
 public class ChatServiceImp implements ChatService {
@@ -74,10 +75,13 @@ public class ChatServiceImp implements ChatService {
 	}
 
 	@Override
-	public ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id) {
+	public ArrayList<ChatRoomVO> getChatRoomByUserList(String me_id, Criteria cri) {
 		if(me_id == null) 
 			return null;
-		return chatDao.selectChatRoomByUserList(me_id);
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return chatDao.selectChatRoomByUserList(me_id, cri);
 	}
 
 	@Override
@@ -97,5 +101,15 @@ public class ChatServiceImp implements ChatService {
 		chatDao.deleteChatStateByNum(num);
 		chatDao.deleteChatMessageByNum(num);
 		return;
+	}
+
+	@Override
+	public int getChatRoomTotalCount(String me_id, Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		if(me_id == null) 
+			return 0;
+		return chatDao.selectChatRoomTotalCount(me_id, cri);
 	}
 }
