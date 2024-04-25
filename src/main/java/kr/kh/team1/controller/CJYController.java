@@ -92,6 +92,8 @@ public class CJYController {
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum);
+	   	model.addAttribute("min",cri.getMinPrice());
+	   	model.addAttribute("max",cri.getMaxPrice());
 	   	session.setAttribute("MName",mName); 
 	   	session.setAttribute("TName",tName);
 	   	return "/product/list";   
