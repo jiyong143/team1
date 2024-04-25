@@ -156,6 +156,8 @@
 					<li>조회 ${info.pr_view}</li>
 					<li>&#183;</li>
 					<li>찜 ${info.pr_pickCount}</li>
+					<li>&#183;</li>
+					<li>채팅 ${info.pr_chatCount}</li>
 				</ul>
 				<ul class="placeUl">
 					<li>&#186;</li>
@@ -317,12 +319,14 @@
 			<li>조회 \${pickInfo.pr_view}</li>
 			<li>&#183;</li>
 			<li>찜 \${pickInfo.pr_pickCount}</li>
+			<li>&#183;</li>
+			<li>채팅 \${pickInfo.pr_chatCount}</li>
 			`;
 		$(".textUl").html(str);
 	}
 
 	// 일정한 간격으로 서버에 변경된 정보를 확인
-	setInterval(pickAndViewCount, 5000);
+	//setInterval(pickAndViewCount, 5000);
 </script>
 </body>
 </html>

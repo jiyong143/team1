@@ -16,6 +16,7 @@
 	     padding : 5px;
 	     float: left;
 	     width: 100%;
+	     background-color: violet;
 	     grid-template-columns: repeat(3, 130px);
 	     grid-template-rows: repeat(3, 30px);
 	}
@@ -44,6 +45,7 @@
         padding : 5px;
         float: right;
         text-align : right;
+        background-color: #ced4da;
         grid-template-columns: repeat(3, 130px);
         grid-template-rows: repeat(3, 30px);
 	}
@@ -52,17 +54,14 @@
 	    grid-column-start: 1;
 	    grid-column-end: 4;
 	    grid-row-start: 1;
-	    background-color: yellow;
 	}	
 	.mine-container .box:nth-of-type(2){
 	    grid-row: 2/4;
 	    grid-column-start: 1;
-	    background-color: gray;
 	}
 	.mine-container .box:nth-of-type(3){
 	    grid-row: 2/4;
 	    grid-column: 2/4;
-	    background-color: skyblue;
 	}
    </style>
 </head>

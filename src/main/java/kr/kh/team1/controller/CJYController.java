@@ -112,20 +112,7 @@ public class CJYController {
 
 		if(optradio == 0 || optradio == -10)
 			product.setPr_price(optradio);
-		
-		if(tg_title.isBlank() || mg_title.isBlank()) {
-			model.addAttribute("msg", "대분류를 선택해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
-		if(file == null || file.length == 0) {
-			System.out.println("ASDASDA");
-			model.addAttribute("msg", "파일은 1개 이상 등록해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
+	
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();
@@ -165,6 +152,7 @@ public class CJYController {
 		    model.addAttribute("pick", pick);
 		    model.addAttribute("loginUser", loginUser);
 	    }
+	    System.out.println("detail"+productInfo);
 	    
 	    model.addAttribute("prUser", prUser);
 	    model.addAttribute("tradeNum", tradeNum);
@@ -245,6 +233,7 @@ public class CJYController {
    		HashMap<String, Object> map = new HashMap<String, Object>();
    		
    		ProductVO productInfo = productService.getProductInfo(pr_num);
+   		System.out.println("pickAndView"+productInfo);
    		map.put("pickInfo", productInfo);
    		return map; 
    	}
