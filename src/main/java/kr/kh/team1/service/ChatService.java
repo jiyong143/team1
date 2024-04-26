@@ -20,7 +20,7 @@ public interface ChatService {
 
 	boolean insertChat(MessageDTO message);
 
-	ArrayList<ChatMessageVO> getChatMessageList(int cr_num);
+	ArrayList<ChatMessageVO> getChatMessageList(int cr_num, int chatCount);
 
 	void insertChatRoomState(String me_id, int pr_num);
 
@@ -33,4 +33,6 @@ public interface ChatService {
 	void deleteChatRoomAndStateByNum(int num);
 
 	int getChatRoomTotalCount(String me_id, Criteria cri);
+
+	int getTotalMsgCount(int cm_cr_num);
 }

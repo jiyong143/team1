@@ -61,8 +61,8 @@ public class ChatServiceImp implements ChatService {
 	}
 
 	@Override
-	public ArrayList<ChatMessageVO> getChatMessageList(int cr_num) {
-		return chatDao.selectChatMessgeList(cr_num);
+	public ArrayList<ChatMessageVO> getChatMessageList(int cr_num, int chatCount) {
+		return chatDao.selectChatMessgeList(cr_num, chatCount);
 	}
 
 	@Override
@@ -111,5 +111,10 @@ public class ChatServiceImp implements ChatService {
 		if(me_id == null) 
 			return 0;
 		return chatDao.selectChatRoomTotalCount(me_id, cri);
+	}
+
+	@Override
+	public int getTotalMsgCount(int cm_cr_num) {
+		return chatDao.selectTotalMsgCount(cm_cr_num);
 	}
 }

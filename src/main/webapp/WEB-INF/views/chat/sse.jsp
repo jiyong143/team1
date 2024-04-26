@@ -9,47 +9,55 @@
 <style>
 	.container{
 		margin-top: 80px;
+		width: 800px;
+	}
+	.container>*{
+		margin:5px;
 	}
 	/* 상대방 */
 	.y-container{ 
+	 	 border: 1px solid black;
+	 	 border-radius:20px;
 	     display: grid;
 	     padding : 5px;
 	     float: left;
-	     width: 100%;
+	     height: auto;
+	     overflow: auto;
 	     background-color: violet;
 	     grid-template-columns: repeat(3, 130px);
 	     grid-template-rows: repeat(3, 30px);
 	}
-	.y-container .box{ border: 1px solid black; padding : 5px;}
+	.y-container .box{padding-bottom: 10px;}
 	.y-container .box:first-of-type{
 	    grid-column-start: 1;
 	    grid-column-end: 4;
 	    grid-row-start: 1;
-	    background-color: yellow;
 	}
 	.y-container .box:nth-of-type(2){
 	    grid-row: 2/4;
 	    grid-column-start: 3;
-	    background-color: gray;
 	}
 	.y-container .box:nth-of-type(3){
 	    grid-row: 2/4;
 	    grid-column: 1/3;
-	    background-color: skyblue;
 	}
 	
 	
 	/* 본인 */
 	.mine-container{ 
+		border: 1px solid black;
+	 	border-radius:20px;
 		display: grid;
         padding : 5px;
         float: right;
         text-align : right;
         background-color: #ced4da;
+        height:auto;
+        width:auto;
+        overflow: auto;
         grid-template-columns: repeat(3, 130px);
         grid-template-rows: repeat(3, 30px);
 	}
-	.mine-container .box{ border: 1px solid black; padding : 5px;}
 	.mine-container .box:first-of-type{
 	    grid-column-start: 1;
 	    grid-column-end: 4;
@@ -63,12 +71,19 @@
 	    grid-row: 2/4;
 	    grid-column: 2/4;
 	}
+	.more{
+		text-align: center;
+	}
    </style>
 </head>
-
 <body>
 <div class="container">
 	<input type="hidden" value="${error}" class="error">
+	<div class="moreBox">
+		<div class="more">
+			<button class="chatmore btn btn-outline-success" onClick="moreChat()">더 보기</button>
+		</div>
+	</div>
 	<div class="msg-list"></div>
 	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
@@ -93,7 +108,7 @@
 		e.preventDefault();	// 태그의 효과를 막아줌
 		let obk = {
 			msg : $("#msg").val(),
-			cr_num :${cr_num} 
+			cr_num : ${cr_num} 
 		}
 		console.log(obk);
 		$.ajax({
@@ -160,7 +175,66 @@
 			$('.msg-list').html(str);
 		}
 	}
-	setInterval(getMsgList, 1000);
+	
+	function moreChat(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/chat/more"/>',
+			type : 'post', 
+			data : {cm_cr_num : ${cr_num}},	
+			dataType : "json",
+			success : function (data){
+				console.log(data);
+				getMsgList();
+				if(data.chatCount >= data.totalMsgCount){
+					$(".moreBox").hide();
+				}
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	}
+	
+	//setInterval(getMsgList, 1000);
+</script>
+
+<script type="text/javascript">
+	//이벤트 생성
+	const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
+	
+	sse.addEventListener('connect', (e) => {
+		const { data: receivedConnectData } = e;
+		console.log('connect event data: ',receivedConnectData);  // "connected!"
+	});
+
+	// 뒤로가기 시 SSE 연결 끊기
+	window.addEventListener('popstate', handlePageNavigation);
+
+	// 페이지 이동 시 SSE 연결 끊기
+	window.addEventListener('beforeunload', handlePageNavigation);
+	
+	// 뒤로가기 동작 감지하여 SSE 연결 닫기
+	function handlePageNavigation() {
+	    sseClose(); // SSE 연결 닫는 함수 호출
+	}
+
+	function sseClose(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/sse/close"/>',
+			type : 'post', 
+			data : {cm_cr_num : ${cr_num}},	
+			dataType : "json",
+			success : function (data){
+				console.log()
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	    sse.close(); // SSE 연결 닫기
+	} 
 </script>
 </body>
 </html>

@@ -59,7 +59,9 @@
    
    <!-- 채팅 내용 -->
    <select id="selectChatMessgeList" resultType="kr.kh.team1.model.vo.ChatMessageVO">
-   		select * from chat_message where cm_cr_num = #{cr_num} order by cm_time asc, cm_num asc
+   		SELECT chat_room.*, message.* FROM chat_room 
+		JOIN (SELECT * FROM chat_message WHERE cm_cr_num = #{cr_num} ORDER BY cm_time DESC, cm_num DESC LIMIT #{chatCount})
+		AS message ON cr_num = cm_cr_num ORDER BY cm_time ASC, cm_num ASC;
    </select>
    
    <!-- 마이페이지에서 사용 할 채팅방 리스트 조회 -->
@@ -100,5 +102,9 @@
    <select id="selectChatRoomTotalCount" resultType="int">
    		select count(*) from chat_room left join product on pr_num = cr_pr_num 
 		left join chat_state on cs_cr_num = cr_num where (cs_state = "이용중" and cs_me_id = #{me_id});
+   </select>
+   
+   <select id="selectTotalMsgCount" resultType="int">
+   		select count(*) from chat_message where cm_cr_num = #{num}
    </select>
 </mapper>

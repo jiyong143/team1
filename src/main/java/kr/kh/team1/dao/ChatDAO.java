@@ -22,7 +22,7 @@ public interface ChatDAO {
 
 	boolean insertChat(@Param("msg")MessageDTO message);
 
-	ArrayList<ChatMessageVO> selectChatMessgeList(@Param("cr_num")int cr_num);
+	ArrayList<ChatMessageVO> selectChatMessgeList(@Param("cr_num")int cr_num, @Param("chatCount")int chatCount);
 
 	void insertChatRoomState(@Param("me_id")String me_id, @Param("pr_num")int pr_num);
 
@@ -39,4 +39,6 @@ public interface ChatDAO {
 	void deleteChatMessageByNum(@Param("num")int num);
 
 	int selectChatRoomTotalCount(@Param("me_id")String me_id, @Param("cri")Criteria cri);
+
+	int selectTotalMsgCount(@Param("num")int cm_cr_num);
 }

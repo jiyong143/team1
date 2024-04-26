@@ -36,16 +36,18 @@ public class IBHController {
 	
 	private final SseEmitters sseEmitters; 
 	
+	private static int chatTotalCount;
+	
 	@Autowired 
 	public IBHController(SseEmitters sseEmitters) {  
 		this.sseEmitters = sseEmitters;  
 	}  
 
 	@GetMapping("/chat/sse")
+	// 채팅방에 해당하지 않는 사람들 막기
 	public String sse(Model model, int cr_num, HttpSession session) {
 		
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-
 		
 		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);
 		if(crv == null) {
@@ -67,6 +69,9 @@ public class IBHController {
 			}
 		}
 
+		int totalMsgCount = chatService.getTotalMsgCount(cr_num);
+		model.addAttribute("totalMsgCount", totalMsgCount);
+		model.addAttribute("chatTotalCount", chatTotalCount);
 		model.addAttribute("cr_num", cr_num);
 		return "/chat/sse";
 	}
@@ -97,7 +102,7 @@ public class IBHController {
     // 채팅방 리스트
    	public String chatRoomList(Model model, HttpSession session, int page) {
     	Criteria cri = new Criteria();
-    	cri.setPerPageNum(2);	// 한 페이지에 게시글 5개 지정
+    	cri.setPerPageNum(5);	// 한 페이지에 게시글 5개 지정
     	cri.setPage(page);
     	
     	MemberVO loginUser = (MemberVO)session.getAttribute("user");
@@ -113,6 +118,20 @@ public class IBHController {
     	model.addAttribute("loginUser", loginUser);
     	model.addAttribute("pm", pm);
 	   	return "/chat/list";
+	}
+    
+    @ResponseBody
+	@PostMapping("/chat/more")
+	// 해당 채팅방 메시지 더보기
+	public Map<String, Object> chatMsgMore(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		
+		chatTotalCount += 1;
+		int totalMsgCount = chatService.getTotalMsgCount(cm_cr_num);
+		map.put("totalMsgCount", totalMsgCount);
+		map.put("chatCount", chatTotalCount);
+		return map;
 	}
 
     @ResponseBody
@@ -183,10 +202,20 @@ public class IBHController {
 	// 리턴타입 꼭 Object일 필요는 없음. List로 보내고 싶으면 List로 수정해도 상관없음 
 	public Map<String, Object> list(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		ArrayList<ChatMessageVO> msg = chatService.getChatMessageList(cm_cr_num);
+		
+		ArrayList<ChatMessageVO> msg = chatService.getChatMessageList(cm_cr_num, chatTotalCount);
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
 		map.put("msgs", msg);
 		map.put("loginUser", loginUser);
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/sse/close")
+	// 채팅방 나갈때 chatTotalCount 초기화
+	public String close(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
+		
+		chatTotalCount = 2;
+		return "";
 	}
 }

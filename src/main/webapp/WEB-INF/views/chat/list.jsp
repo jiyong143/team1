@@ -82,11 +82,13 @@
 	</div><!-- end container -->
 <script type="text/javascript">
 	$(document).on("click", ".outBtn", function(){
+		let page = ${pm.cri.page};
+		console.log(page);
 		let num = $(this).data('num');	// 채팅방 번호
 		
 		if(confirm("채팅방을 나가시겠습니까?")){
 			btnOutCheck(num);
-			var url = '<c:url value="/chat/list"/>';
+			var url = '<c:url value="/chat/list"/>' + '?page='+page;
 			location.href = url;
 		}
 	});
