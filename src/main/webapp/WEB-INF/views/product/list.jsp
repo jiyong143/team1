@@ -14,61 +14,12 @@
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
-	padding-left
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	2rem
-	
-	
-	
-	
-	;
-	padding-right
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	2rem
-	
-	
-	
-	
-	;
-}
-
+	padding-left : 2rem ;
+	padding-right : 2rem;
+	}
 @media ( min-width : 1024px) .lg\:h-20 {
-	height
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	5rem
-	
-	
-	
-	
-	;
-}
+	height :5rem;
+	}
 
 .px-0 {
 	padding-left: 0;
@@ -109,128 +60,18 @@
 }
 
 @media ( min-width : 1280px) .xl\:h-24 {
-	height
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	6rem
-	
-	
-	
-	
-	;
+	height :6rem;
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
-	padding-left
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	2rem
-	
-	
-	
-	
-	;
-	padding-right
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	2rem
-	
-	
-	
-	
-	;
+	padding-left : 2rem;
+	padding-right : 2rem;
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
-	height
-	
-	
-	
-	
-	:
-	
-	
-	 
-	
-	
-	5rem
-	
-	
-	
-	
-	;
+	height : 5rem;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
 
 *, :after, :before {
 	box-sizing: border-box;
@@ -271,51 +112,7 @@ body {
 	line-height: inherit;
 }
 
-:root { -
-	-header-height: 64px; -
-	-sm-header-height: 80px; -
-	-lg-header-height: 204px; -
-	-xl-header-height: 220px;
-}
 
-:root { -
-	-toastify-color-light: #fff; -
-	-toastify-color-dark: #121212; -
-	-toastify-color-info: #3498db; -
-	-toastify-color-success: #07bc0c; -
-	-toastify-color-warning: #f1c40f; -
-	-toastify-color-error: #e74c3c; -
-	-toastify-color-transparent: hsla(0, 0%, 100%, .7); -
-	-toastify-icon-color-info: var(- -toastify-color-info); -
-	-toastify-icon-color-success: var(- -toastify-color-success); -
-	-toastify-icon-color-warning: var(- -toastify-color-warning); -
-	-toastify-icon-color-error: var(- -toastify-color-error); -
-	-toastify-toast-width: 320px; -
-	-toastify-toast-background: #fff; -
-	-toastify-toast-min-height: 64px; -
-	-toastify-toast-max-height: 800px; -
-	-toastify-font-family: sans-serif; -
-	-toastify-z-index: 9999; -
-	-toastify-text-color-light: #757575; -
-	-toastify-text-color-dark: #fff; -
-	-toastify-text-color-info: #fff; -
-	-toastify-text-color-success: #fff; -
-	-toastify-text-color-warning: #fff; -
-	-toastify-text-color-error: #fff; -
-	-toastify-spinner-color: #616161; -
-	-toastify-spinner-color-empty-area: #e0e0e0; -
-	-toastify-color-progress-light: linear-gradient(90deg, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6,
-		#ff2d55); -
-	-toastify-color-progress-dark: #bb86fc; -
-	-toastify-color-progress-info: var(- -toastify-color-info); -
-	-toastify-color-progress-success: var(- -toastify-color-success); -
-	-toastify-color-progress-warning: var(- -toastify-color-warning); -
-	-toastify-color-progress-error: var(- -toastify-color-error);
-}
-
-html {
-	-webkit-tap-highlight-color: transparent;
-}
 
 html {
 	line-height: 1.5;
@@ -350,164 +147,20 @@ html {
 	position: absolute;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
-
-:after, :before { -
-	-tw-content: "";
-}
 
 *, :after, :before {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
 
-:after, :before { -
-	-tw-content: "";
-}
 
 *, :after, :before {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
 
-::backdrop { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
+
 
 :not(.scrollbar-show)::-webkit-scrollbar {
 	display: none;
@@ -517,52 +170,7 @@ html {
 	position: relative;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
+
 
 *, :after, :before {
 	box-sizing: border-box;
@@ -593,47 +201,6 @@ body {
 	line-height: inherit;
 }
 
-:root { -
-	-header-height: 64px; -
-	-sm-header-height: 80px; -
-	-lg-header-height: 204px; -
-	-xl-header-height: 220px;
-}
-
-:root { -
-	-toastify-color-light: #fff; -
-	-toastify-color-dark: #121212; -
-	-toastify-color-info: #3498db; -
-	-toastify-color-success: #07bc0c; -
-	-toastify-color-warning: #f1c40f; -
-	-toastify-color-error: #e74c3c; -
-	-toastify-color-transparent: hsla(0, 0%, 100%, .7); -
-	-toastify-icon-color-info: var(- -toastify-color-info); -
-	-toastify-icon-color-success: var(- -toastify-color-success); -
-	-toastify-icon-color-warning: var(- -toastify-color-warning); -
-	-toastify-icon-color-error: var(- -toastify-color-error); -
-	-toastify-toast-width: 320px; -
-	-toastify-toast-background: #fff; -
-	-toastify-toast-min-height: 64px; -
-	-toastify-toast-max-height: 800px; -
-	-toastify-font-family: sans-serif; -
-	-toastify-z-index: 9999; -
-	-toastify-text-color-light: #757575; -
-	-toastify-text-color-dark: #fff; -
-	-toastify-text-color-info: #fff; -
-	-toastify-text-color-success: #fff; -
-	-toastify-text-color-warning: #fff; -
-	-toastify-text-color-error: #fff; -
-	-toastify-spinner-color: #616161; -
-	-toastify-spinner-color-empty-area: #e0e0e0; -
-	-toastify-color-progress-light: linear-gradient(90deg, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6,
-		#ff2d55); -
-	-toastify-color-progress-dark: #bb86fc; -
-	-toastify-color-progress-info: var(- -toastify-color-info); -
-	-toastify-color-progress-success: var(- -toastify-color-success); -
-	-toastify-color-progress-warning: var(- -toastify-color-warning); -
-	-toastify-color-progress-error: var(- -toastify-color-error);
-}
 
 html {
 	-webkit-tap-highlight-color: transparent;
@@ -651,52 +218,13 @@ html {
 	font-feature-settings: normal;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
+
+*, :after, :before {
+	box-sizing: border-box;
+	border: 0 solid #f9f9f9;
 }
+
+
 
 :after, :before { -
 	-tw-content: "";
@@ -707,108 +235,7 @@ html {
 	border: 0 solid #f9f9f9;
 }
 
-*, :after, :before { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
 
-:after, :before { -
-	-tw-content: "";
-}
-
-*, :after, :before {
-	box-sizing: border-box;
-	border: 0 solid #f9f9f9;
-}
-
-::backdrop { -
-	-tw-border-spacing-x: 0; -
-	-tw-border-spacing-y: 0; -
-	-tw-translate-x: 0; -
-	-tw-translate-y: 0; -
-	-tw-rotate: 0; -
-	-tw-skew-x: 0; -
-	-tw-skew-y: 0; -
-	-tw-scale-x: 1; -
-	-tw-scale-y: 1; -
-	-tw-pan-x:; -
-	-tw-pan-y:; -
-	-tw-pinch-zoom:; -
-	-tw-scroll-snap-strictness: proximity; -
-	-tw-ordinal:; -
-	-tw-slashed-zero:; -
-	-tw-numeric-figure:; -
-	-tw-numeric-spacing:; -
-	-tw-numeric-fraction:; -
-	-tw-ring-inset:; -
-	-tw-ring-offset-width: 0px; -
-	-tw-ring-offset-color: #fff; -
-	-tw-ring-color: rgba(59, 130, 246, .5); -
-	-tw-ring-offset-shadow: 0 0 #0000; -
-	-tw-ring-shadow: 0 0 #0000; -
-	-tw-shadow: 0 0 #0000; -
-	-tw-shadow-colored: 0 0 #0000; -
-	-tw-blur:; -
-	-tw-brightness:; -
-	-tw-contrast:; -
-	-tw-grayscale:; -
-	-tw-hue-rotate:; -
-	-tw-invert:; -
-	-tw-saturate:; -
-	-tw-sepia:; -
-	-tw-drop-shadow:; -
-	-tw-backdrop-blur:; -
-	-tw-backdrop-brightness:; -
-	-tw-backdrop-contrast:; -
-	-tw-backdrop-grayscale:; -
-	-tw-backdrop-hue-rotate:; -
-	-tw-backdrop-invert:; -
-	-tw-backdrop-opacity:; -
-	-tw-backdrop-saturate:; -
-	-tw-backdrop-sepia:;
-}
 
 :not(.scrollbar-show)::-webkit-scrollbar {
 	display: none;
@@ -976,6 +403,18 @@ li {
     display: flex;
 }
 
+.price {
+    margin-right: 10px; 
+}
+
+.bottom-container {
+    font-size: 12px; /* 원하는 크기로 설정 */
+    font-weight:bold;
+}
+
+.bottom-text {
+    color: #A0AEC0; /* 회색으로 설정 */
+}
 </style>
 </head>
 <body>
@@ -1219,7 +658,7 @@ li {
 										<span style="font-weight: bold; font-size: 20px;">${pro.price}원</span>
 									</c:otherwise>
 								</c:choose>
-							</p>
+							</p>							
 							<p class="state">
 								<c:choose>
 									<c:when test="${pro.pr_ps_state eq '판매완료'}">
@@ -1245,15 +684,10 @@ li {
 								</c:choose>
 							</p>
 							</div>
-							<div class="">
-							<span class="text-sm text-gray-400">
-							${pro.pr_place}
-							</span>
-							<span class="text-sm text-gray-400 mx-1">|
-							</span>
-							<span class="text-sm text-gray-400">
-							${pro.time}
-							</span>
+							<div class="bottom-container">
+							<span class="text-sm text-gray-400 bottom-text">${pro.pr_place}</span>
+							<span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
+							<span class="text-sm text-gray-400 bottom-text">${pro.time}</span>
 							</div>
 						</div>
 					</div>
@@ -1688,12 +1122,13 @@ function sendPlace(place) {
 	                </div>
 	                <div class="product-box">
 	                    <h7 class="product-name">\${pro.pr_name}</h7>
+	                    <div class="product-information">
 	                    <p class="price">
 	              	`;
 	            if(pro.pr_price == 0){
 	            	str += `<span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>`
 	            }else if(pro.pr_price < 0){
-	            	str += `<span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span>`
+	            	str += `<span style="font-size: 17px; color: #808080; font-weight: bold;">가격 제안</span>`
 	            }else{
 	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }원</span>`
 	            }
@@ -1718,18 +1153,19 @@ function sendPlace(place) {
 	               str += `
 	                    </svg>
 	                    </p>
-	                    <span class="separator"></span>
-	                    <p class="place">\${pro.pr_place}</p>
-	                    <span class="separator"></span>
-	                    <p class="date">\${pro.time}</p>
+	                    </div>
+	                    <div class="bottom-container">
+	                    <span class="text-sm text-gray-400 bottom-text">\${pro.pr_place}</span>
+	                    <span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
+	                    <span class="text-sm text-gray-400 bottom-text">\${pro.time}</span>
 	                </div>
 	            </div>
+	           </div>
 	        </a>
 	        `
 	       /*  <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
 	            <br>
-	        </c:if> */
-				
+	        </c:if> */		
 		}
 		$(".product-list").html(str);
 	}
