@@ -42,8 +42,7 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", surportList);
-		log.info(surportList);
-		model.addAttribute("list", list);
+		//model.addAttribute("list", list);
 		return("/surport/list");
 	}
 	
@@ -81,7 +80,6 @@ public class LKJController {
 		SurportVO surport = surportService.getSurport(suNum);
 		model.addAttribute("surport", surport);
 		model.addAttribute("title", "고객문의 상세");
-		log.info(surport);
 		return "/surport/detail";
 	}
 	
@@ -116,7 +114,6 @@ public class LKJController {
 			model.addAttribute("url", "/surport/detail?suNum="+surport.getSu_num());
 			model.addAttribute("msg", "문의글 수정에 실패하였습니디.");
 		}
-		log.info(surport);
 		return "message";
 	}
 	
@@ -161,13 +158,9 @@ public class LKJController {
 		boolean res = commentService.insertComment(comment, user);
 		
 		map.put("result", res);
-		log.info(comment);
 		return map;
 
 	}
-	
-	
-	
 	
 	@GetMapping("/surportManage/list")
 	//고정 문의글 리스트 

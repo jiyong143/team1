@@ -52,8 +52,6 @@ public class CJYController {
 	   	return "/product/insert";
 	}
 
-
-
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
 		System.out.println(cri); 
@@ -114,20 +112,7 @@ public class CJYController {
 
 		if(optradio == 0 || optradio == -10)
 			product.setPr_price(optradio);
-		
-		if(tg_title.isBlank() || mg_title.isBlank()) {
-			model.addAttribute("msg", "대분류를 선택해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
-		if(file == null || file.length == 0) {
-			System.out.println("ASDASDA");
-			model.addAttribute("msg", "파일은 1개 이상 등록해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
+	
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();
@@ -167,6 +152,7 @@ public class CJYController {
 		    model.addAttribute("pick", pick);
 		    model.addAttribute("loginUser", loginUser);
 	    }
+	    System.out.println("detail"+productInfo);
 	    
 	    model.addAttribute("prUser", prUser);
 	    model.addAttribute("tradeNum", tradeNum);
@@ -195,13 +181,20 @@ public class CJYController {
    			return map;
    		}
    		
+   		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+   		System.out.println(crv);
    		// 채팅방이 없으면 생성
-   		if(chatService.getChatRoom(loginUser.getMe_id(),pr_num) == null) {
-   			chatService.insertChatRoom(loginUser.getMe_id(),pr_num);	// 채팅방 생성
-   			ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
+   		if(crv == null) {
+   			System.out.println("adasd");
+   			chatService.insertChatRoom(loginUser.getMe_id(), pr_num);	// 채팅방 생성
+   			crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
    			chatService.insertChatRoomState(loginUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가
    			chatService.insertChatRoomState(prUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 판매자의 채팅 상태 추가 
    		}
+   		
+   		int cr_num = crv.getCr_num();	// 채팅방 번호
+   		map.put("cr_num", cr_num);
+   		
    		return map; 
    	}
    	
@@ -240,6 +233,7 @@ public class CJYController {
    		HashMap<String, Object> map = new HashMap<String, Object>();
    		
    		ProductVO productInfo = productService.getProductInfo(pr_num);
+   		System.out.println("pickAndView"+productInfo);
    		map.put("pickInfo", productInfo);
    		return map; 
    	}

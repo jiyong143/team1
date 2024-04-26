@@ -156,6 +156,8 @@
 					<li>조회 ${info.pr_view}</li>
 					<li>&#183;</li>
 					<li>찜 ${info.pr_pickCount}</li>
+					<li>&#183;</li>
+					<li>채팅 ${info.pr_chatCount}</li>
 				</ul>
 				<ul class="placeUl">
 					<li>&#186;</li>
@@ -224,9 +226,17 @@
 			dataType : "json",
 			success : function (data){
 				console.log(data);
+				console.log(data.cr_num);
 				if(data.msg != null){
 					alert(data.msg);
 					return;
+				}
+				let num = data.cr_num;
+				if(confirm("채팅방으로 이동하겠습니까?")){
+					var url = '<c:url value="/chat/sse"/>' + '?cr_num=' + num;
+					location.href = url;
+				}else{
+					
 				}
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
@@ -309,12 +319,14 @@
 			<li>조회 \${pickInfo.pr_view}</li>
 			<li>&#183;</li>
 			<li>찜 \${pickInfo.pr_pickCount}</li>
+			<li>&#183;</li>
+			<li>채팅 \${pickInfo.pr_chatCount}</li>
 			`;
 		$(".textUl").html(str);
 	}
 
 	// 일정한 간격으로 서버에 변경된 정보를 확인
-	setInterval(pickAndViewCount, 5000);
+	//setInterval(pickAndViewCount, 5000);
 </script>
 </body>
 </html>
