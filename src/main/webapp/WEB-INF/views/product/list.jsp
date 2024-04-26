@@ -408,7 +408,7 @@ li {
 }
 
 .bottom-container {
-    font-size: 12px; /* 원하는 크기로 설정 */
+    font-size: 14px; /* 원하는 크기로 설정 */
     font-weight:bold;
 }
 
