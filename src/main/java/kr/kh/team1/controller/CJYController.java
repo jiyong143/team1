@@ -1,5 +1,6 @@
 package kr.kh.team1.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +68,8 @@ public class CJYController {
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);
 	   	model.addAttribute("search",cri.getSearch());
 	   	model.addAttribute("place",cri.getPlace());
+	   	model.addAttribute("minimum",cri.getMinPrice());
+	   	model.addAttribute("maximum",cri.getMaxPrice());
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum); 
@@ -78,6 +81,25 @@ public class CJYController {
 	
 	@GetMapping("/product/list3")   
    	public String productList3(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
+		String min = null;
+		String max = null;
+		if(cri.getMinPrice()==-100) {
+			min="";
+		}else if(cri.getMinPrice()==0) {
+			min="0";
+		}else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			min = formatter.format(cri.getMinPrice());
+		}
+		
+		if(cri.getMaxPrice()==1000000000) {
+			max="";
+		}else if(cri.getMaxPrice()==0) {
+			max="0";
+		}else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			max = formatter.format(cri.getMaxPrice());
+		}
 	   	String maxPrice = productService.getMaxPrice(mNum,cri);
 	   	String minPrice = productService.getMinPrice(mNum,cri);
 	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
@@ -92,8 +114,10 @@ public class CJYController {
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum);
-	   	model.addAttribute("min",cri.getMinPrice());
-	   	model.addAttribute("max",cri.getMaxPrice());
+	   	model.addAttribute("min",min);
+	   	model.addAttribute("max",max);
+	   	model.addAttribute("minimum",cri.getMinPrice());
+	   	model.addAttribute("maximum",cri.getMaxPrice());
 	   	session.setAttribute("MName",mName); 
 	   	session.setAttribute("TName",tName);
 	   	return "/product/list";   

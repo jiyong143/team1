@@ -971,15 +971,17 @@ li {
 	margin: 0;
 	border-radius: 5px;
 }
+
+.product-information {
+    display: flex;
+}
+
 </style>
 </head>
 <body>
 	<div class="container">
 		<div
 			class="h-full lg:h-20 xl:h-24 px-0 lg:px-8 2xl:px-16 max-w-[1024px] min-[1600px]:max-w-[1280px] flex items-center mx-auto box-content justify-between relative before:absolute before:w-screen before:bg-[#F1F1F1] before:bottom-0">
-			<aside
-				class="max-[1279px]:hidden absolute w-[98px] space-y-2 z-30 flex flex-col min-h-[306px] px-2 py-2 rounded bg-white border border-gray-300 top-44 -right-20">
-			</aside>
 			<div class="relative hidden ms-7 me-7 xl:ms-9 lg:block flex-1">
 				<div
 					class="relative flex items-center justify-between w-full rounded-md bg-borderBottom">
@@ -1049,63 +1051,6 @@ li {
 					</div>
 				</div>
 			</div>
-
-			<div class="hidden lg:flex relative w-[300px]">
-				<ul
-					class="flex w-full text-sm font-medium list-none text-jnGray-900 break-keep">
-					<li class="flex items-center justify-center pr-3">
-						<button class="ga4_main_top_menu flex items-center justify-center">
-							<div class="relative cursor-pointer" id="채팅하기">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-									fill="none" id="채팅하기" size="24">
-    <path stroke="#141313" stroke-linecap="round"
-										stroke-linejoin="round" stroke-width="1.5"
-										d="M20.797 12.2c0 1.639-.438 3.175-1.204 4.5l.46 3.035a.9.9 0 0 1-1.23.968l-2.526-.708a9 9 0 1 1 4.5-7.796"
-										clip-rule="evenodd"></path>
-    <path fill="#141313" stroke="#141313" stroke-width="0.15"
-										d="M8.864 12.2a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Zm4 0a1.075 1.075 0 1 0-2.15 0 1.075 1.075 0 0 0 2.15 0Z"></path></svg>
-							</div>
-							<p id="채팅하기" class="ml-1">채팅하기</p>
-						</button>
-					</li>
-					<li
-						class="after:contents-[&quot;&quot;] after:absolute after:w-[1px] after:h-4 after:bg-jnGray-300 after:right-0 before:contents-[&quot;&quot;] before:absolute before:w-[1px] before:h-4 before:bg-jnGray-300 before:left-0 ga4_main_top_menu relative flex items-center justify-center px-3"><a
-						class="flex items-center justify-center [&amp;>p]:ml-1"
-						href="/product/form?type=regist"><svg id="판매하기" width="24"
-								height="24" viewBox="0 0 24 24" fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M13.6859 20.6926H4.92323C3.88605 20.6926 3.08773 19.8241 3.20716 18.8409L4.49579 8.32142C4.5775 7.63983 5.18096 7.12109 5.89756 7.12109H15.8168C16.5334 7.12109 17.1369 7.6338 17.2186 8.32142L17.91 14.0701"
-									stroke="currentColor" stroke-width="1.5"></path>
-								<path
-									d="M8.35938 9.35156V9.5868C8.35938 10.7751 9.47828 11.7462 10.8486 11.7462C12.219 11.7462 13.3379 10.7751 13.3379 9.5868V9.35156"
-									stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round"></path>
-								<path
-									d="M7.35938 7.72983V6.25112C7.35938 4.34555 8.90414 2.80078 10.8097 2.80078V2.80078C12.7153 2.80078 14.26 4.34555 14.26 6.25112V7.72983"
-									stroke="currentColor" stroke-width="1.5"></path>
-								<path
-									d="M17.1179 22.4245C19.3694 22.4245 21.1968 20.5969 21.1968 18.347C21.1968 16.0972 19.3694 14.2695 17.1179 14.2695C14.8665 14.2695 13.0391 16.0972 13.0391 18.347C13.0391 20.5969 14.8665 22.4245 17.1179 22.4245Z"
-									stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round"></path>
-								<path d="M17.1406 19.9298V16.7461" stroke="currentColor"
-									stroke-width="1.2" stroke-linecap="round"
-									stroke-linejoin="round"></path>
-								<path d="M15.5312 18.3439H18.7149" stroke="currentColor"
-									stroke-width="1.2" stroke-linecap="round"
-									stroke-linejoin="round"></path></svg>
-							<p id="판매하기">판매하기</p></a></li>
-					<li class="relative flex flex-1 pl-3"><button
-							class="flex items-center justify-center [&amp;>p]:ml-1">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-								fill="none" size="24">
-								<path stroke="#141313" stroke-linecap="round"
-									stroke-linejoin="round" stroke-width="1.5"
-									d="M16.775 7.716a3.619 3.619 0 1 1-7.238.005 3.619 3.619 0 0 1 7.238-.005M13.15 13.371c-4.026 0-7.298 3.184-7.4 7.145h14.8c-.102-3.961-3.374-7.145-7.4-7.145"></path></svg>
-							<p>마이</p>
-						</button></li>
-				</ul>
-			</div>
 		</div>
 
 		<table class="hidden lg:table filterTable">
@@ -1123,28 +1068,30 @@ li {
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">가격</td>
 					<td class="price-filter" style="text-align: left">
-						<div class="price-container">
+						<div class="price-container" style="display: flex; align-items : center;">
 							<div class="minPrice-box">
 								<input type="text" id="minPrice"
 									class="minPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
 									placeholder="최소 금액" data-idx="0" name="minPrice"
 									value="${min }"
-									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')">
-								<div id="minMessage" style="color: red; font-size: 12px"></div>
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" autocomplete="off">
 							</div>
-							<span class="mx-[6px]"><svg
+							
+							<span class="mx-[6px]">
+							      <svg
 									xmlns="http://www.w3.org/2000/svg" width="10" height="4"
 									fill="none" class="inline">
                                   <path fill="#5A616B"
 										d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
-                                  </svg></span>
+                                  </svg>
+                            </span>
+                                  
 							<div class="maxPrice-box">
 								<input type="text" id="maxPrice"
 									class="maxPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
 									placeholder="최대 금액" data-idx="1" name="maxPrice"
 									value="${max }"
-									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')">
-								<div id="maxMessage" style="color: red; font-size: 12px"></div>
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" autocomplete="off">
 							</div>
 							<button type="submit"
 								class="price-button w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
@@ -1203,7 +1150,7 @@ li {
 					<span id="product-item-price-title-1"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">평균
 						가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }원</span>
 				</div>
 				<div
 					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
@@ -1211,7 +1158,7 @@ li {
 					<span id="product-item-price-title-2"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
 						높은 가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }원</span>
 				</div>
 				<div
 					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
@@ -1219,7 +1166,7 @@ li {
 					<span id="product-item-price-title-3"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
 						낮은 가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }원</span>
 				</div>
 			</div>
 		</div>
@@ -1244,7 +1191,7 @@ li {
 		<h1>상품 목록</h1>
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
-				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>">
+				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>" style="color : black;">
 					<div class="product-container">
 						<!-- 이미지 추가 -->
 						<div class="product-image">
@@ -1255,7 +1202,8 @@ li {
 							</c:if>
 						</div>
 						<div class="product-box">
-							<h5 class="product-name">${pro.pr_name}</h5>
+							<h7 class="product-name">${pro.pr_name}</h7>
+						<div class="product-information">
 							<p class="price">
 								<c:choose>
 									<c:when test="${pro.pr_price == 0}">
@@ -1264,11 +1212,11 @@ li {
 									</c:when>
 									<c:when test="${pro.pr_price < 0}">
 										<span
-											style="font-size: 15px; color: #808080; font-weight: bold;">가격
+											style="font-size: 17px; color: #808080; font-weight: bold;">가격
 											제안</span>
 									</c:when>
 									<c:otherwise>
-										<span style="font-weight: bold; font-size: 20px;">${pro.price}</span>
+										<span style="font-weight: bold; font-size: 20px;">${pro.price}원</span>
 									</c:otherwise>
 								</c:choose>
 							</p>
@@ -1296,33 +1244,38 @@ li {
 									</c:when>
 								</c:choose>
 							</p>
-							<span class="separator"></span>
-							<p class="place">${pro.pr_place}</p>
-							<span class="separator"></span>
-							<p class="date">${pro.time}</p>
+							</div>
+							<div class="">
+							<span class="text-sm text-gray-400">
+							${pro.pr_place}
+							</span>
+							<span class="text-sm text-gray-400 mx-1">|
+							</span>
+							<span class="text-sm text-gray-400">
+							${pro.time}
+							</span>
+							</div>
 						</div>
 					</div>
-				</a>
-				<c:if test="${loop.index % 5 == 4}">
-					<!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
-					<br>
-				</c:if>
-			</c:forEach>
-		</div>
-
+					</a>
+					<c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
+					 <br>
+				    </c:if>
+				</c:forEach>
+			</div>
 
 		<!-- 페이지네이션 -->
 
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
-				<li class="page-item"><c:url var="url" value="/product/list">
+				<li class="page-item"><c:url var="url" value="/product/list3">
 						<c:param name="page" value="${pm.startPage - 1}" />
 						<c:param name="mNum" value="${num}" />
 						<c:param name="mName" value="${MName}" />
 						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -1332,14 +1285,14 @@ li {
 			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 				<c:set var="active" value="${pm.cri.page == i ?'active':'' }" />
 				<li class="page-item ${active}"><c:url var="url"
-						value="/product/list">
+						value="/product/list3">
 						<c:param name="page" value="${i}" />
 						<c:param name="mNum" value="${num}" />
 						<c:param name="mName" value="${MName}" />
 						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -1347,14 +1300,14 @@ li {
 					</c:url> <a class="page-link" href="${url}">${i}</a></li>
 			</c:forEach>
 			<c:if test="${pm.next}">
-				<li class="page-item"><c:url var="url" value="/product/list">
+				<li class="page-item"><c:url var="url" value="/product/list3">
 						<c:param name="page" value="${pm.endPage + 1}" />
 						<c:param name="mNum" value="${num}" />
 						<c:param name="mName" value="${MName}" />
 						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -1719,12 +1672,11 @@ function sendPlace(place) {
 	}
 	
 	function addMethod(list) {
-		console.log(list)
 		let str='';
 		for(pro of list) {
 			str += 
 				`
-				<a href="<c:url value="/product/detail?pNum=\${pro.pr_num}"/>">
+				<a href="<c:url value="/product/detail?pNum=\${pro.pr_num}"/>" style="color : black;">
 	            <div class="product-container"> 
 	                <!-- 이미지 추가 -->
 	                <div class="product-image">
@@ -1735,7 +1687,7 @@ function sendPlace(place) {
 	            str += `
 	                </div>
 	                <div class="product-box">
-	                    <h5 class="product-name">\${pro.pr_name}</h5>
+	                    <h7 class="product-name">\${pro.pr_name}</h7>
 	                    <p class="price">
 	              	`;
 	            if(pro.pr_price == 0){
@@ -1743,7 +1695,7 @@ function sendPlace(place) {
 	            }else if(pro.pr_price < 0){
 	            	str += `<span style="font-size: 15px; color: #808080; font-weight: bold;">가격 제안</span>`
 	            }else{
-	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }</span>`
+	            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }원</span>`
 	            }
 	            
 	                str += `
@@ -1892,39 +1844,21 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
         <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }원</span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
         <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }원</span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
         <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }원</span>
     </div>
   </div>`
   
 	$(".product-price-container").html(str);	
 }
 
-</script>
-
-	<script type="text/javascript">
-document.getElementById("price").addEventListener("submit", function(event) {
-    var minPrice = document.getElementById("minPrice");
-    var maxPrice = document.getElementById("maxPrice");
-    // 최소 금액을 입력하지 않은 경우
-    if (!minPrice.value.trim()) {
-        event.preventDefault(); // 폼 제출을 중단합니다.
-        document.getElementById("minMessage").innerText = "최소 금액을 입력하세요";
-    }
-    // 최대 금액을 입력하지 않은 경우
-    if (!maxPrice.value.trim()) {
-        event.preventDefault(); // 폼 제출을 중단합니다.
-        document.getElementById("maxMessage").innerText = "최대 금액을 입력하세요";
-    }
-    
-});
 </script>
 
 </body>
