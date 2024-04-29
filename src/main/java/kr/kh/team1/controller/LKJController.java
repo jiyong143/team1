@@ -42,7 +42,7 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", surportList);
-//		model.addAttribute("list", list);
+		//model.addAttribute("list", list);
 		return("/surport/list");
 	}
 	
@@ -161,9 +161,6 @@ public class LKJController {
 		return map;
 
 	}
-	
-	
-	
 	
 	@GetMapping("/surportManage/list")
 	//고정 문의글 리스트 
