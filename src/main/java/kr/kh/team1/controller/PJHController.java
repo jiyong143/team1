@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
@@ -289,5 +293,27 @@ public class PJHController {
 		model.addAttribute("url", "/");
 		return "message";
 	}
+	
+	@ResponseBody
+	@PostMapping("/sns/{sns}/check/id")
+	public boolean snsCheckId(@PathVariable("sns")String sns, @RequestParam("email")String email) {
+		
+		return memberService.idCheck(sns, email);
+	}
+	
+//	@ResponseBody
+//	@PostMapping("/sns/{sns}/signup")
+//	public boolean snsSignup(@PathVariable("sns")String sns, @RequestParam("id")String id,@RequestParam("email")String email ) {
+//		
+//		return memberService.signupSns(sns, id, email);
+//	}
+	
+//	@ResponseBody
+//	@PostMapping("/sns/{sns}/login")
+//	public boolean snsLogin(@PathVariable("sns")String sns, @RequestParam("id")String id, HttpSession session) {
+//		MemberVO user = memberService.loginSns(sns, id); 
+//		session.setAttribute("user", user);
+//		return user != null;
+//	}
 	
 }

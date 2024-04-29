@@ -30,4 +30,10 @@ public interface MemberService {
 	boolean updateMember(MemberVO member);
 
 	void deleteMember(String me_id);
+
+	boolean idCheck(String sns, String email);
+
+//	boolean signupSns(String sns, String id, String email);
+//
+//	MemberVO loginSns(String sns, String id);
 }
