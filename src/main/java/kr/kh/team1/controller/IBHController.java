@@ -125,7 +125,6 @@ public class IBHController {
 	// 해당 채팅방 메시지 더보기
 	public Map<String, Object> chatMsgMore(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-
 		
 		chatTotalCount += 1;
 		int totalMsgCount = chatService.getTotalMsgCount(cm_cr_num);

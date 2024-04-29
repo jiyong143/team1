@@ -152,7 +152,6 @@ public class CJYController {
 		    model.addAttribute("pick", pick);
 		    model.addAttribute("loginUser", loginUser);
 	    }
-	    System.out.println("detail"+productInfo);
 	    
 	    model.addAttribute("prUser", prUser);
 	    model.addAttribute("tradeNum", tradeNum);
@@ -182,7 +181,7 @@ public class CJYController {
    		}
    		
    		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
-   		System.out.println(crv);
+
    		// 채팅방이 없으면 생성
    		if(crv == null) {
    			System.out.println("adasd");
@@ -233,7 +232,6 @@ public class CJYController {
    		HashMap<String, Object> map = new HashMap<String, Object>();
    		
    		ProductVO productInfo = productService.getProductInfo(pr_num);
-   		System.out.println("pickAndView"+productInfo);
    		map.put("pickInfo", productInfo);
    		return map; 
    	}
