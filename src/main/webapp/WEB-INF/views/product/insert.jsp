@@ -14,25 +14,29 @@
 		<form action="<c:url value="/product/insert"/>" method="post" enctype="multipart/form-data" id="productForm">
 			<h1>상품 등록</h1>
 			<div class="form-group">
-				<label for="tg_title">대분류</label>
-				<select name="tg_title" class="form-control">
+				<label for="tg_title" style="display: block">카테고리</label>
+				<select name="tg_title" class="form-control" style="width: 50%; display: inline;">
 					<option id="title" value="">대분류를 선택하세요.</option>
 					<c:forEach items="${topGroupList}" var="tg">
-						<option id="tg_title check" value="${tg.tg_title}">${tg.tg_title}</option>
+						<option id="tg_title" value="${tg.tg_title}">${tg.tg_title}</option>
 					</c:forEach>
 				</select>
-			</div>
-			<div class="form-group">
-				<label for="mg_title">중분류</label>
-				<select name="mg_title" class="form-control mid-group"></select>
+				<select name="mg_title" class="form-control mid-group" style="width: 50%; display: inline; float: right"></select>
 			</div>
 			<div class="form-group">
 				<label for="pr_name">제목</label>
 				<input type="text" class="form-control" id="pr_name" name="pr_name">
 			</div>
 			<div class="form-group">
-				<label for="pr_place">지역</label>
-				<input type="text" class="form-control" id="pr_place" name="pr_place">
+				<label for="sido" style="display: block">주소</label>
+				<select name="sido" class="form-control" style="width: 33%; display: inline;">
+					<option id="sido" value="">시/도를 선택하세요.</option>
+					<c:forEach items="${sidoList}" var="sido">
+						<option id="sido check" value="${sido.sido}">${sido.sido}</option>
+					</c:forEach>
+				</select>
+				<select name="sigungu" class="form-control sigungu" style="width: 33%; display: inline;"></select>
+				<select name="h_dong_nm" class="form-control h_dong_nm" style="width: 33%; display: inline;"></select>	
 			</div>
 			<div class="form-group">
 				<label for="pr_content">내용</label>
@@ -72,7 +76,10 @@
 	
 <!-- 대분류 변경시 ajax로 중분류 실시간 변경 -->
 <script type="text/javascript">
+	$("[name=mg_title]").hide();
+	
 	$("[name=tg_title]").change(function(){
+		$("[name=mg_title]").show();
 		let title = $("[name=tg_title]").val();
 		console.log(title);
 		let obj = {
@@ -103,7 +110,77 @@
 		}
 		$(".mid-group").html(str);
 	}
-</script>	
+</script>
+
+<!-- 시/군/구 관련 -->
+<script type="text/javascript">
+	$("[name=sigungu]").hide();
+	$("[name=h_dong_nm]").hide();
+	
+	$("[name=sido]").change(function(){
+		$("[name=sigungu]").show();
+		let sido = $("[name=sido]").val();
+		let obj = {
+			sido : sido
+		}
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/sigungu"/>', 
+			type : 'get', 
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				displaysigungu(data.sigunguList);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+	})
+	
+	function displaysigungu(list){
+		let str = `<option id="sigungu" value="">시/군/구를 선택하세요.</option>`;
+		for(item of list){
+			str += `<option value="\${item.sigungu}">\${item.sigungu}</option>`;
+		}
+		$(".sigungu").html(str);
+	}
+</script>
+
+<!-- 동 관련 -->
+<script type="text/javascript">
+	$("[name=sigungu]").change(function(){
+		$("[name=h_dong_nm]").show();
+		let sido = $("[name=sido]").val();
+		let sigungu = $("[name=sigungu]").val();
+		let obj = {
+			sido : sido,
+			sigungu : sigungu
+		}
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/dong"/>', 
+			type : 'get', 
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				console.log(data);
+				displaydong(data.dongList);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+	})
+
+	function displaydong(list){
+		let str = `<option id="h_dong_nm" value="">동을 선택하세요.</option>`;
+		for(item of list){
+			str += `<option value="\${item.h_dong_nm}">\${item.h_dong_nm}</option>`;
+		}
+		$(".h_dong_nm").html(str);
+	}
+</script>
 
 <!-- 가격 관련 -->
 <script type="text/javascript">
@@ -125,64 +202,57 @@
 
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
-// 서버에 전송하기 전에 제목, 내용 글자수 확인
-$("#productForm").submit(function(e){
-	let res = false;
-	for(let i = 0; i < 5; i++){
-		let fileTag = document.getElementsByName("file")[i];
-		if(fileTag.value.length != 0){
-			res = true
-			return;
+	// 서버에 전송하기 전에 제목, 내용 글자수 확인
+	$("#productForm").submit(function(e){
+		let res = false;
+		for(let i = 0; i < 5; i++){
+			let fileTag = document.getElementsByName("file")[i];
+			if(fileTag.value.length != 0){
+				res = true
+				return;
+			}
 		}
-	}
-	if(res = true){
-		alert("파일은 1개 이상 등록해야합니다.");
-		return false;
-	}else{
-		return true;
-	}
+		if(res = true){
+			alert("파일은 1개 이상 등록해야합니다.");
+			return false;
+		}else{
+			return true;
+		}
+		
+		if($("[name=file]").val().length == 0){
+			alert("파일은 1개 이상 등록해야합니다.");
+			return false;
+		}
+		
+		if(!$(".check").checked){
+			alert("대분류를 선택해야합니다.");
+			$("[name = tg_title]").focus();
+			return false;
+		}
+		
+		let title = $("[name = pr_name]").val();
+		if(title.length == 0){
+			alert("제목은 1글자 이상 입력해야 합니다.");
+			$("[name = pr_name]").focus();
+			return false;
+		}
+		
+		let content = $("[name = pr_content]").val();
+		if(content.length == 0){
+			alert("내용은 1글자 이상 입력해야 합니다.");
+			$("[name = pr_content]").focus();
+			return false;
+		}
+		
+		$(".priceTag").value = $("#pr_price").val();
+		
+	});
 	
-	if($("[name=file]").val().length == 0){
-		alert("파일은 1개 이상 등록해야합니다.");
-		return false;
-	}
-	
-	if(!$(".check").checked){
-		alert("대분류를 선택해야합니다.");
-		$("[name = tg_title]").focus();
-		return false;
-	}
-	
-	let title = $("[name = pr_name]").val();
-	if(title.length == 0){
-		alert("제목은 1글자 이상 입력해야 합니다.");
-		$("[name = pr_name]").focus();
-		return false;
-	}
-	
-	let place = $("[name = pr_place]").val();
-	if(place.length == 0){
-		alert("지역은 1글자 이상 입력해야 합니다.");
-		$("[name = pr_place]").focus();
-		return false;
-	}
-	
-	let content = $("[name = pr_content]").val();
-	if(content.length == 0){
-		alert("내용은 1글자 이상 입력해야 합니다.");
-		$("[name = pr_content]").focus();
-		return false;
-	}
-	
-	$(".priceTag").value = $("#pr_price").val();
-	
-});
-
-$('[name = pr_content]').summernote({
-	placeholder: '내용을 입력하세요',
-	tabsize: 2,
-	height: 400
-});
+	$('[name = pr_content]').summernote({
+		placeholder: '내용을 입력하세요',
+		tabsize: 2,
+		height: 400
+	});
 </script>
 </body>
 </html>
