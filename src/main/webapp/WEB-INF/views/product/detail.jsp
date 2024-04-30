@@ -221,6 +221,7 @@
 			<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
 			   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
 				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+				<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
 				<button class="jiyong-button flex flex-col items-center py-[6px]">
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -230,6 +231,7 @@
 				</svg>
 				<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
 				</button>
+				</form>
 				</li>
 				<!-- 상품 수정 화면으로 이동 -->
 				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">

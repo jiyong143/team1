@@ -48,4 +48,7 @@ public interface ProductService {
 	String booleanPick(String me_id, int pr_num, PickVO isPick);
 
 	void addPick(int pr_num);
+
+	boolean upProduct(MemberVO user, ProductVO pro);
+
 }

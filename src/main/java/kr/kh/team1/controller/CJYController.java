@@ -149,6 +149,25 @@ public class CJYController {
 	   	return map;  
 	}
 	
+	@PostMapping("/product/up")
+	public String productUp(Model model, HttpSession session, int num) {
+		// 회원 정보 가져옴
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		// 위로 올리는 삼품 가져오기
+		ProductVO pro = productService.getProductInfo(num);
+		int mNum = pro.getPr_mg_num();
+		String mName = pro.getPr_mg_name();
+		String tName = pro.getPr_tg_name();
+		if(productService.upProduct(user,pro)) {
+			model.addAttribute("msg", "상품을 위로 올렸습니다.");
+			model.addAttribute("url", "/product/list?mNum=" + mNum  + "&mName=" + mName + "&tName=" + tName);
+		}else {
+			model.addAttribute("msg", "상품을 위로 올리지 못했습니다.");
+			model.addAttribute("url", "/product/detail?pNum=" + num);
+		}
+		return "message"; 
+	}
+	
 	
    	@ResponseBody
    	@GetMapping("/product/midGroup")

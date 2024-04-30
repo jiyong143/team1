@@ -54,7 +54,7 @@
           </if>
 
           <if test='cri.order == "pr_num"'>
-              order by pr_num desc
+              order by pr_date desc
           </if>
           <if test='cri.order == "pr_view"'>
               order by pr_view desc
@@ -243,5 +243,9 @@
 	
 	<update id="updatePick">
 	  update product set pr_basket = pr_basket+1 where pr_num=#{pr_num}
+	</update>
+	
+	<update id="updateTime">
+	  update product set pr_date = now() where pr_num = #{pr_num}
 	</update>
 </mapper>
