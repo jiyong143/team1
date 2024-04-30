@@ -23,11 +23,6 @@
 		LIMIT #{cris.pageStart}, #{cris.perPageNum}
 	</select>
 
-	
-	<select id="selectSurportManageList"
-		resultType="SurportManageVO">
-		SELECT * FROM suport_manage
-	</select>
 
 <select id="selectSurportTotalCount" resultType="int">
     SELECT COUNT(*)
@@ -45,6 +40,11 @@
             WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
         </if>
     </select>
+
+	<select id="selectSurportManageList"
+		resultType="SurportManageVO">
+		SELECT * FROM suport_manage
+	</select>
 
 	<select id="selectUpHeadList" resultType="UpHeadVO">
 		SELECT * FROM up_head
