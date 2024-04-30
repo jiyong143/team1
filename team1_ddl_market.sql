@@ -135,7 +135,8 @@ DROP TABLE IF EXISTS `trade_outcome`;
 CREATE TABLE `trade_outcome` (
    `to_num`   int   NOT NULL primary key auto_increment,
    `to_rt_type` varchar(20) NOT NULL,
-   `to_tr_num`   int   NOT NULL
+   `to_tr_num`   int   NOT NULL,
+   `to_type` int
 );
 
 DROP TABLE IF EXISTS `surport`;
