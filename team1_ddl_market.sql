@@ -344,6 +344,13 @@ REFERENCES `member` (
    `me_id`
 );
 
+ALTER TABLE `comment` ADD CONSTRAINT `FK_surport_TO_comment_1` FOREIGN KEY (
+	`co_su_num`
+)
+REFERENCES `surport` (
+	`su_num`
+);
+
 ALTER TABLE `comment` ADD CONSTRAINT `FK_member_TO_comment_1` FOREIGN KEY (
 	`co_me_id`
 )

@@ -180,7 +180,7 @@
 						</li>
 					</c:if>
 					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
+						<a class="nav-link btn btn-light" href="<c:url value="/chat/list?page=1"/>">채팅방</a>
 					</li>
 					<c:if test="${user.me_authority == 'user'}">
 						<li class="nav-item">
@@ -237,32 +237,6 @@ function showProduct(mNum, mName, tName){
 	location.href = '<c:url value="/product/list?"/>' + urlParams;
 	
 }
-</script>
-
-<script type="text/javascript">
-	//이벤트 생성
-	const sse = new EventSource("<c:url value='/sse/connect'></c:url>");
-	
-	sse.addEventListener('connect', (e) => {
-		const { data: receivedConnectData } = e;
-		console.log('connect event data: ',receivedConnectData);  // "connected!"
-	});
-	
-	sse.addEventListener('receive', e => {  
-	    const { data: receivedData } = e;  
-	    obj = JSON.parse(receivedData);
-	    console.log(obj)
-	    console.log("보낸 사람 : " + obj.from);
-	    console.log("메세지 : " + obj.msg)
-	});
-	
-	//페이지 이동 시 sse 연결 끊기.
-	window.addEventListener('beforeunload', function (e) {
-		if (sse) {
-	  	sse.close(); // SSE 연결 닫기
-	  }
-	});
-
 </script>
 </body>
 </html>
