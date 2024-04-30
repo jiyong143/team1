@@ -23,6 +23,7 @@ import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.TopGroupVO;
+import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
@@ -44,14 +45,6 @@ public class CJYController {
 	
 	@Autowired
 	ChatService chatService;
-
-	@GetMapping("/product/insert")
-	public String productTopGroupList(Model model, HttpSession session) {
-   	
-		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
-	   	model.addAttribute("topGroupList", topGroupList);
-	   	return "/product/insert";
-	}
 
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
@@ -149,6 +142,15 @@ public class CJYController {
 	   	return map;  
 	}
 	
+	@GetMapping("/product/insert")
+	public String productTopGroupList(Model model, HttpSession session) {
+   	
+		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+	   	model.addAttribute("topGroupList", topGroupList);
+	   	model.addAttribute("sidoList", sidoList);
+	   	return "/product/insert";
+	}
 	
    	@ResponseBody
    	@GetMapping("/product/midGroup")
@@ -164,7 +166,7 @@ public class CJYController {
 
    	@PostMapping("/product/insert")  
    	public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip) {
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
@@ -177,6 +179,11 @@ public class CJYController {
 		int mNum = mGroup.getMg_num();
 		String mName = mg_title;
 		String tName = tg_title;
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		System.out.println(place);
+		product.setPr_place(place);
+		
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);

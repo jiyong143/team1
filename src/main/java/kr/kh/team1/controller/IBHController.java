@@ -23,9 +23,11 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.PageMaker_chat;
 import kr.kh.team1.service.ChatService;
+import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
 
 @Controller
@@ -33,6 +35,9 @@ public class IBHController {
 
 	@Autowired
 	ChatService chatService;
+	
+	@Autowired
+	TopGroupService topGroupService;
 	
 	private final SseEmitters sseEmitters; 
 	
@@ -43,6 +48,28 @@ public class IBHController {
 		this.sseEmitters = sseEmitters;  
 	}  
 
+	@ResponseBody
+	@GetMapping("/product/sigungu")
+	// 상품 등록 군/구
+	public Map<String, Object> sigungu(@RequestParam("sido") String sido, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<ZipcodeVO> sigunguList = topGroupService.getSigunguList(sido);
+		map.put("sigunguList", sigunguList);
+		return map;
+	}
+	
+	@ResponseBody
+	@GetMapping("/product/dong")
+	// 상품 등록 군/구
+	public Map<String, Object> dong(@RequestParam("sido") String sido, @RequestParam("sigungu") String sigungu, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		ArrayList<ZipcodeVO> dongList = topGroupService.getDongList(sido, sigungu);
+		map.put("dongList", dongList);
+		return map;
+	}
+	
 	@GetMapping("/chat/sse")
 	// 채팅방에 해당하지 않는 사람들 막기
 	public String sse(Model model, int cr_num, HttpSession session) {
