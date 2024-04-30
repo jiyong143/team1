@@ -161,9 +161,6 @@ public class LKJController {
 
 	}
 	
-	
-	
-	
 	@GetMapping("/surportManage/list")
 	//고정 문의글 리스트 
 	public String surportManageList(Model model) {

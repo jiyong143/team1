@@ -23,28 +23,28 @@
 		LIMIT #{cris.pageStart}, #{cris.perPageNum}
 	</select>
 
-	<select id="selectSurportTotalCount" resultType="int">
-		SELECT COUNT(*)
-		FROM surport
-		<if test='cris.type == "all"'>
-			WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
-			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-			OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-		<if test='cris.type == "title"'>
-			WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
-			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-		<if test='cris.type == "writer"'>
-			WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-	</select>
-
-
+	
 	<select id="selectSurportManageList"
 		resultType="SurportManageVO">
 		SELECT * FROM suport_manage
 	</select>
+
+<select id="selectSurportTotalCount" resultType="int">
+    SELECT COUNT(*)
+    	FROM surport
+        <if test='cris.type == "all"'>
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "title"'>
+        	WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "writer"'>
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+    </select>
 
 	<select id="selectUpHeadList" resultType="UpHeadVO">
 		SELECT * FROM up_head
