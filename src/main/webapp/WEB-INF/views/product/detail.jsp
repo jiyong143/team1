@@ -66,6 +66,45 @@
 		width:35%; margin-top: 50px;
 	}
 	hr{ background : gray; margin-top: 30px; }
+	
+	.jiyong-ul{
+	    display: flex; /* 요소들을 가로로 배열 */
+	    padding: 0;
+	    list-style: none; /* 기본 목록 스타일 제거 */
+	}
+	
+	.jiyong-li{
+	    flex: 1; /* 각각의 li 요소가 동일한 너비를 가지도록 함 */
+	    position: relative; /* 상대 위치 설정 */
+	}
+	
+	.jiyong-li:not(:first-child)::after {
+	    content: ''; /* 가상 요소 생성 */
+	    position: absolute; /* 절대 위치 설정 */
+	    top: 50%; /* 상단 기준으로 50% 위치 */
+	    transform: translateY(-50%); /* 수직 정렬 */
+	    width: 1px; /* 경계선 너비 */
+	    height: 70%; /* 경계선 높이 */
+	    background-color: #D1D5DB; /* 회색 경계선 색상 */
+	    
+	}
+	
+	.jiyong-button{
+	    display: flex; /* 버튼 내부 요소들을 세로로 배치 */
+	    flex-direction: column; /* 버튼 내부 요소들을 세로로 배치 */
+	    align-items: center; /* 버튼 내부 요소들을 수평으로 정렬 */
+	    justify-content: center; /* 버튼 내부 요소들을 수직으로 정렬 */
+	    padding: 6px; /* 내부 여백 설정 */
+	    background-color: transparent; /* 배경색 투명 설정 */
+	    border: none; /* 테두리 제거 */
+	    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 모양으로 변경 */
+	    outline: none; /* 포커스시 테두리 제거 */
+	}
+	
+	.jiyong-button:hover svg path { /* 버튼에 마우스를 올렸을 때 아이콘 색상 변경 */
+	    stroke: #000; /* 아이콘 색상 변경 */
+	}
+	
 </style>
 </head>
 <body>
@@ -177,6 +216,44 @@
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
+			
+			<c:if test="${loginUser.me_id eq prUser.me_id}">
+			<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
+			   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
+				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+				<button class="jiyong-button flex flex-col items-center py-[6px]">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<rect x="4.25" y="4" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+				<rect x="4.25" y="6" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+				<path d="M15 7L18 4L21 7" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+				<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
+				</button>
+				</li>
+				<!-- 상품 수정 화면으로 이동 -->
+				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+				<button class="jiyong-button flex flex-col items-center py-[6px]">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<path d="M7.91993 19.7931C8.05181 19.7601 8.17224 19.6919 8.26836 19.5958L19.9497 7.91448C20.2034 7.66076 20.4047 7.35954 20.542 7.02803C20.6793 6.69652 20.75 6.34121 20.75 5.98239C20.75 5.62357 20.6793 5.26826 20.542 4.93675C20.4047 4.60524 20.2034 4.30402 19.9497 4.0503C19.696 3.79657 19.3948 3.59531 19.0633 3.45799C18.7317 3.32068 18.3764 3.25 18.0176 3.25C17.2929 3.25 16.5979 3.53788 16.0855 4.0503L4.40418 15.7316C4.30806 15.8278 4.23987 15.9482 4.2069 16.0801L3.27239 19.8181C3.2085 20.0737 3.28338 20.344 3.46967 20.5303C3.65596 20.7166 3.92632 20.7915 4.1819 20.7276L7.91993 19.7931Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+				<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
+				</button>
+				</li>
+				<!-- 상품 삭제 화면으로 이동 -->
+				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+				<button class="jiyong-button flex flex-col items-center py-[6px]">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<path d="M10 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				</svg>
+				<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품삭제</p>
+				</button>
+				</li>
+			</ul>
+			</c:if>
 		</div>
 		<div class="infoBox">
 			<h3>상품 정보</h3>

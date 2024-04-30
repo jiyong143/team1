@@ -42,7 +42,6 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", surportList);
-		//model.addAttribute("list", list);
 		return("/surport/list");
 	}
 	
