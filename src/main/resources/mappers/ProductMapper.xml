@@ -29,11 +29,11 @@
             where (pr_name like concat('%', #{cri.search}, '%')
             or pr_content like concat('%', #{cri.search}, '%'))
             and pr_place like concat('%', #{cri.place}, '%')
-            and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
@@ -76,11 +76,11 @@
             where (pr_name like concat('%', #{cri.search}, '%')
             or pr_content like concat('%', #{cri.search}, '%'))
             and pr_place like concat('%', #{cri.place}, '%')
-            and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
@@ -103,7 +103,7 @@
           and  pr_mg_num = #{num}	
         </if>
         <if test='cri.search == ""'>
-          where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+          where  pr_price between #{cri.minPrice} and #{cri.maxPrice} 
           and  pr_place like concat('%', #{cri.place}, '%')
           and  pr_mg_num = #{num}
         </if>
