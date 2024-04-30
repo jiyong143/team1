@@ -18,7 +18,7 @@ CREATE TABLE `member` (
    `me_state`   varchar(4)   not   NULL default '이용중',
    `me_manner`   double   not   NULL default 36.5,
    `me_point` int not null default 0,
-    `me_fi_num` int
+   `me_fi_num` int
 );
 
 DROP TABLE IF EXISTS `topGroup`;
