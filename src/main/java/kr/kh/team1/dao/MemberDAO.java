@@ -1,7 +1,10 @@
 package kr.kh.team1.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberDAO {
 
@@ -20,6 +23,12 @@ public interface MemberDAO {
 	int selectReviewNum(@Param("me_id")String me_id);
 	
 	void updatePoint(@Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
+
+	//관리자 -> 회원관리에 필요한 코드 
+	ArrayList<MemberVO> selectMemberList(Criteria_member crim);
+
+	int selectTotalCountMember(@Param("crim") Criteria_member crim);
+
 	
 }
 

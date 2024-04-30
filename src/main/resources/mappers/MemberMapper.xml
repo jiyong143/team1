@@ -35,4 +35,56 @@
 	<insert id="insertPayment">
 		insert into payment values(#{orderUid}, #{paymentPrice}, #{userId})
 	</insert>
+	<!-- 관리자 권한으로 회원관리에 필요한 코드 -->
+	<select id="selectMemberList" resultType="kr.kh.team1.model.vo.MemberVO">
+	    SELECT * FROM member
+	    <!-- 
+	    <if test='crim != null'>
+	        <if test='crim.type=="me_id"'>
+	            WHERE me_id LIKE CONCAT('%', #{crim.search},'%')
+	        </if>
+	        <if test='crim.type=="me_authority"'>
+	            WHERE me_authority = 
+	                <choose>
+	                    <when test='crim.search == "관리자"'> 'ADMIN'
+	                    </when>
+	                    <when test='crim.search == "회원"'> 'USER'
+	                    </when>
+	                    <when test='crim.search == "메니저"'> 'MANAGER'
+	                    </when>
+	                </choose>
+	        </if>
+	        <if test='crim.type=="me_ms_state"'>
+	            WHERE me_ms_state LIKE CONCAT('%', #{crim.search}, '%')
+	        </if>
+	    </if>
+	    ORDER BY me_id
+	    LIMIT #{crim.pageStart}, #{crim.perPageNum} -->
+	</select>
+	<select id="selectTotalCountMember" resultType="int">
+	    SELECT COUNT(*) FROM member
+	    <!-- 
+	    <if test='crim != null'>
+	        <if test='crim.type=="me_id"'>
+	            WHERE me_id LIKE CONCAT('%', #{crim.search},'%')
+	        </if>
+	        <if test='crim.type=="me_authority"'>
+	            WHERE me_authority = 
+	                <choose>
+	                    <when test='crim.search == "관리자"'> 'ADMIN'
+	                    </when>
+	                    <when test='crim.search == "회원"'> 'USER'
+	                    </when>
+	                    <when test='crim.search == "메니저"'> 'MANAGER'
+	                    </when>
+	                </choose>
+	        </if>
+	        <if test='crim.type=="me_ms_state"'>
+	            WHERE me_ms_state LIKE CONCAT('%', #{crim.search}, '%')
+	        </if>
+	    </if> -->
+	</select>
+	<update id="updateAuthority">
+		UPDATE member SET me_authority WHERE me_id
+	</update>
 </mapper>

@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria_member;
 
 @Service 
 public class MemberServiceImp implements MemberService { 
@@ -166,6 +168,24 @@ public class MemberServiceImp implements MemberService {
 			memberDao.updatePoint(paymentPrice, userId);
 		}
 		
+	}
+
+	//관리자 -> 회원관리에 필요한 코드 
+	@Override
+	public ArrayList<MemberVO> getMemberList(Criteria_member crim) {
+		if(crim == null) {
+			//1page 당 10개씩 표기 
+			crim = new Criteria_member(1,10);
+		}
+		return memberDao.selectMemberList(crim);
+	}
+
+	@Override
+	public int getTotalCountMember(Criteria_member crim) {
+		if(crim == null) {
+			return 0;
+		}
+		return memberDao.selectTotalCountMember(crim);
 	}
 	
 }

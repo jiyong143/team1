@@ -1,7 +1,10 @@
 package kr.kh.team1.service;
 
+import java.util.ArrayList;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberService {
 
@@ -26,4 +29,12 @@ public interface MemberService {
 	MemberVO getMember(String me_id);
 
 	void addPoint(int paymentPrice, String userId);
+
+	//관리자 -> 회원관리에 필요한 코드 
+	
+	ArrayList<MemberVO> getMemberList(Criteria_member crim);
+	
+	int getTotalCountMember(Criteria_member crim);
+
+
 }

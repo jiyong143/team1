@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.vo.CommentVO;
@@ -19,7 +20,9 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
 import kr.kh.team1.model.vo.UpHeadVO;
+import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.pagination.Criteria_supot;
+import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.MemberService;
@@ -187,10 +190,29 @@ public class LKJController {
 	}
 	
 	@GetMapping("/admin/memberManagement")
-	public String MemberManagement(Model model) {
+	public String memberManagement(Model model) {
 		return "/admin/memberManagement";
+	}	
+	//회원관리 START -> 회원정보 불러오기
+	@GetMapping("/admin/memberManager")
+	public String memberManager(Model model, Criteria_member crim) {
+		crim.setPerPageNum(10);
+		ArrayList<MemberVO> memberList = memberService.getMemberList(crim);
+		int totalCount = memberService.getTotalCountMember(crim);
+		PageMaker_member pmm = new PageMaker_member(5, crim, totalCount);
+		model.addAttribute("pmm", pmm);
+		model.addAttribute("title", "회원관리 페이지");
+		model.addAttribute("list", memberList);
+	    return "/admin/memberManager";
 	}
 	
+	
+	//회원관리 END
+	
+	@GetMapping("/admin/inquityManager")
+	public String InquityManager(Model model) {
+		return "/admin/inquityManager";
+	}
 	
 	@GetMapping("/surportManage/list")
 	// 고정 문의글 리스트

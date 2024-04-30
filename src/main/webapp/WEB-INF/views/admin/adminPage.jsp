@@ -7,6 +7,7 @@
 <title>admin_page</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
@@ -65,34 +66,32 @@
 
 .Manager-container{width: 600px; height:auto; margin-left: 220px;}
 
-
-
+.myChart{width: 200px; height: 200px; margin-left: 1000px;}
 </style>
 </head>
 <body>
-
-
 <div class="sidebar">
   <a class="active" href="#home">사이트 정보</a>
-  <a href="/team1/admin/memberManagement">회원 관리</a>
+  <a href="/team1/admin/memberManager">회원 관리</a>
   <a href="#news">신고관리</a>
-  <a href="#contact">고객센터 관리</a>
+  <a href="/team1/admin/inquityManager">고객센터 관리</a>
 </div>
-
 <div class="Manager-container">
   <h2>메니저 명단</h2>
   <p><a href="/team1/admin/memberManagement">회원 관리 바로가기</a></p>           
   <table class="table">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>번호</th>
+        <th>아이디</th>
+        <th>이메일</th>
+        <th>전화번호</th>
+        <th>권한</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>John</td>
+        <td>${member.me_id}</td>
         <td>Doe</td>
         <td>john@example.com</td>
       </tr>
@@ -109,7 +108,6 @@
     </tbody>
   </table>
 </div>
-      
 <div class="Manager-container">
   <h2>최근 신고내역</h2>
   <p><a href="#">신고 관리 바로가기</a></p>            
@@ -140,8 +138,34 @@
     </tbody>
   </table>
 </div>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<script>
+const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+const yValues = [55, 49, 44, 24, 15];
+const barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
 
-
-
+new Chart("myChart", {
+  type: "doughnut",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "World Wide Wine Production 2018"
+    }
+  }
+});
+</script>
 </body>
 </html>
