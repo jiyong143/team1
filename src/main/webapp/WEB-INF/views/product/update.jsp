@@ -9,7 +9,7 @@
 <style>
 
 .product-update{
-    position: absolute;
+    position: relative;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -24,13 +24,15 @@
   
   #productTitle {
     padding: 0.5rem 1rem; /* 내부 여백 설정 */
-    width: 60%; /* 너비를 부모 요소에 맞게 설정 */
+    width: 20%; /* 너비를 부모 요소에 맞게 설정 */
     border: 1px solid #ccc; /* 테두리 설정 */
     border-radius: 0.25rem; /* 둥근 모서리 설정 */
     font-size: 14px; /* 폰트 크기 설정 */
     color: #333; /* 폰트 색상 설정 */
     transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
-    
+    position : absolute;
+    top : 350px;
+    left : 685px;   
 }
 
 #productTitle:focus {
@@ -49,6 +51,7 @@
 
 .jiyong{
 position : relative;
+margin-right : 5px;
 }
 
 .delete-button{
@@ -60,8 +63,11 @@ border: none;
 padding: 0;
 }
 
-
-
+.image-update{
+top : 200px;
+left : 700px;
+position : absolute;
+}
 
 </style>
 </head>
@@ -102,10 +108,7 @@ padding: 0;
 	    </ul> 
 	  </div>
 	</div>
-	
 	<input value="${pro.pr_name }" id="productTitle" name="productTitle" type="text" placeholder="상품명" class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md" autocomplete="off" spellcheck="false" aria-invalid="false">
-
-
 </div>
 
 <script type="text/javascript">
