@@ -73,7 +73,7 @@
 <div class="sidebar">
   <a class="active" href="#home">사이트 정보</a>
   <a href="/team1/admin/memberManager">회원 관리</a>
-  <a href="#news">신고관리</a>
+  <a href="/team1/report/list">신고관리</a>
   <a href="/team1/admin/inquityManager">고객센터 관리</a>
 </div>
 <div class="Manager-container">

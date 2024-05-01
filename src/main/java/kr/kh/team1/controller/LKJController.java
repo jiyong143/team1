@@ -18,15 +18,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
 import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_member;
+import kr.kh.team1.pagination.Criteria_report;
 import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_member;
+import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.ReportService;
 import kr.kh.team1.service.SurportService;
 
 @Controller
@@ -40,6 +45,9 @@ public class LKJController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	ReportService reportService;
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -217,8 +225,28 @@ public class LKJController {
 	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), memberInfo.getMe_authority(), memberInfo.getMe_state());
 	    return map;
 	}
-	
 	//회원관리 END
+	//신고 START
+	@GetMapping("/report/list")
+	public String reportList(Model model, Criteria_report crir) {
+		crir.setPerPageNum(10);
+		ArrayList<ReportVO> reportList = reportService.getReportList(crir);
+		int totalCount = reportService.getReportTotalCount(crir);
+		PageMaker_report pmr = new PageMaker_report(5, crir, totalCount);
+		model.addAttribute(pmr);
+		model.addAttribute("title", "신고 게시판");
+		model.addAttribute("list", reportList);
+		return "/report/list";
+	}
+	
+	@GetMapping("/report/insert")
+	public String reportInsert(Model model, ReportVO report, ProductVO product,  HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reportService.insertReport(report, product, user);
+		model.addAttribute("title", "신고들 작성");
+		return "/report/insert";
+	}
+	//신고 END
 	@GetMapping("/admin/inquityManager")
 	public String InquityManager(Model model) {
 		return "/admin/inquityManager";
