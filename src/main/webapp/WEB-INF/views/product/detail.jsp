@@ -235,6 +235,7 @@
 				</li>
 				<!-- 상품 수정 화면으로 이동 -->
 				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+				<a href="<c:url value="/product/update?num=${info.pr_num }"/>" method="get">
 				<button class="jiyong-button flex flex-col items-center py-[6px]">
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -242,6 +243,7 @@
 				</svg>
 				<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
 				</button>
+				</a>
 				</li>
 				<!-- 상품 삭제 화면으로 이동 -->
 				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">

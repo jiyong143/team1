@@ -52,6 +52,15 @@ public class CJYController {
 	   	model.addAttribute("topGroupList", topGroupList);
 	   	return "/product/insert";
 	}
+	
+	@GetMapping("/product/update")
+	public String productUpdate(Model model, int num ) {
+		ArrayList <FileVO> files = productService.getFileBypNum(num);
+		ProductVO pro = productService.getProductInfo(num);
+		model.addAttribute("pro", pro);
+		model.addAttribute("files" , files);
+		return "product/update"; 
+	}
 
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
