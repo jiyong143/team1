@@ -29,11 +29,11 @@
             where (pr_name like concat('%', #{cri.search}, '%')
             or pr_content like concat('%', #{cri.search}, '%'))
             and pr_place like concat('%', #{cri.place}, '%')
-            and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
@@ -54,7 +54,7 @@
           </if>
 
           <if test='cri.order == "pr_num"'>
-              order by pr_num desc
+              order by pr_date desc
           </if>
           <if test='cri.order == "pr_view"'>
               order by pr_view desc
@@ -76,11 +76,11 @@
             where (pr_name like concat('%', #{cri.search}, '%')
             or pr_content like concat('%', #{cri.search}, '%'))
             and pr_place like concat('%', #{cri.place}, '%')
-            and pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            and pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_mg_num = #{num}	
           </if>
           <if test='cri.search == ""'>
-            where pr_price between #{cri.minPrice} and #{cri.maxPrice}
+            where pr_price between #{cri.minPrice} and #{cri.maxPrice} 
             and  pr_place like concat('%', #{cri.place}, '%')
             and  pr_mg_num = #{num}
           </if>
@@ -103,7 +103,7 @@
           and  pr_mg_num = #{num}	
         </if>
         <if test='cri.search == ""'>
-          where  pr_price between #{cri.minPrice} and #{cri.maxPrice}
+          where  pr_price between #{cri.minPrice} and #{cri.maxPrice} 
           and  pr_place like concat('%', #{cri.place}, '%')
           and  pr_mg_num = #{num}
         </if>
@@ -211,7 +211,9 @@
 			mg_title as pr_mg_name, 
 			tg_title as pr_tg_name,
 				(select count(*) from pick 
-				 JOIN product ON pr_num = pi_pr_num where pi_pr_num = #{pr_num}) AS pr_pickCount from product
+				 JOIN product ON pr_num = pi_pr_num where pi_pr_num = #{pr_num}) AS pr_pickCount,
+				 (select count(*) from chat_room left join product on pr_num = cr_pr_num
+				  join chat_message on cr_num = cm_cr_num where cr_pr_num = 9) as pr_chatCount from product
 			right join midgroup on pr_mg_num = mg_num
 			right join topgroup on mg_tg_num = tg_num
 		where pr_num = #{pr_num}
@@ -242,4 +244,9 @@
 	<update id="updatePick">
 	  update product set pr_basket = pr_basket+1 where pr_num=#{pr_num}
 	</update>
+	
+	<update id="updateTime">
+	  update product set pr_date = now() where pr_num = #{pr_num}
+	</update>
+
 </mapper>

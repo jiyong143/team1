@@ -46,19 +46,12 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 (3,"cjy0896","세탁기 싸게 팔아요","강남구 강남동","유행하는 세탁기에요",400000),
 (4,"cjy0896","냄장고 싸게 팔아요","군포시 산본동","냉장고 엄청 차가워요",350000);
 
-select * from product;
-
 insert into `suport_manage`(sm_name) value ("공지사항");
 insert into `suport_manage`(sm_name) value ("문의사항");
-
-select * from suport_manage;
-SELECT sm_name FROM suport_manage;
 
 insert into `up_head`(uh_name) value ("필독");
 insert into `up_head`(uh_name) value ("공지");
 insert into `up_head`(uh_name) value ("문의");
-
-select * from up_head;
 
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "qwe123", "문의사항 테스트", "테스트 입니다");
@@ -93,3 +86,18 @@ insert into comment (co_su_num, co_me_id, co_content)
 values (8, "admin1", "댓글 테스트 입니다");
 
 select * from comment;
+
+values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
+
+ALTER TABLE `market`.`chat_state` 
+DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
+ALTER TABLE `market`.`chat_state` 
+ADD CONSTRAINT `FK_chat_room_TO_chat_state_1`
+  FOREIGN KEY (`cs_cr_num`)
+  REFERENCES `market`.`chat_room` (`cr_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+

@@ -58,8 +58,7 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", surportList);
-		// model.addAttribute("list", list);
-		return ("/surport/list");
+		return("/surport/list");
 	}
 
 	@GetMapping("/surport/insert")
@@ -186,7 +185,7 @@ public class LKJController {
 		map.put("result", res);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/comment/update")
 	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment, HttpSession session){

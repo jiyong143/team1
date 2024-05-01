@@ -31,6 +31,9 @@ public interface MemberDAO {
 
 	boolean updateAuthority(@Param("me_id") String me_id, @Param("me_authority") String me_authority, @Param("me_state")String me_state);
 
+	void updateMember(@Param("member")MemberVO member);
+
+	void updateMemberState(@Param("me_id")String me_id);
 	
 }
 

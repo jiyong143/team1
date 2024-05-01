@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.SurportDAO">
-
 	<select id="selectSurportList" resultType="SurportVO">
 	    SELECT *
 	    	FROM surport
@@ -75,6 +74,77 @@
 	
 	<delete id="deleteSurport">
 		DELETE FROM surport WHERE su_num = #{su_num} 
+		SELECT *
+		FROM surport
+		<if test='cris.type == "all"'>
+			WHERE su_title like CONCAT('%', #{cris.search}, '%')
+			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+			OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+		</if>
+		<if test='cris.type == "title"'>
+			WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+		</if>
+		<if test='cris.type == "writer"'>
+			WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+		</if>
+		ORDER BY ${cris.order} DESC
+		LIMIT #{cris.pageStart}, #{cris.perPageNum}
+	</select>
+
+<select id="selectSurportTotalCount" resultType="int">
+    SELECT COUNT(*)
+    	FROM surport
+        <if test='cris.type == "all"'>
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "title"'>
+        	WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "writer"'>
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+    </select>
+
+	<select id="selectSurportManageList"
+		resultType="SurportManageVO">
+		SELECT * FROM suport_manage
+	</select>
+
+	<select id="selectUpHeadList" resultType="UpHeadVO">
+		SELECT * FROM up_head
+	</select>
+
+	<insert id="insertSurport">
+		INSERT INTO surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+		VALUES (#{surport.su_sm_num}, #{surport.su_uh_num},
+		#{surport.su_me_id}, #{surport.su_title}, #{surport.su_content})
+	</insert>
+
+	<update id="updateView">
+		UPDATE surport SET su_view = su_view + 1 WHERE su_num = #{su_num}
+	</update>
+
+	<select id="selectSurport" resultType="SurportVO">
+		SELECT * FROM surport WHERE su_num = #{su_num}
+	</select>
+
+	<update id="updateSurport">
+		update surport set
+		su_sm_num = #{surport.su_sm_num},
+		su_uh_num = #{surport.su_uh_num},
+		su_title =
+		#{surport.su_title},
+		su_content = #{surport.su_content}
+		where
+		su_num = #{surport.su_num}
+	</update>
+
+	<delete id="deleteSurport">
+		DELETE FROM surport WHERE su_num = #{su_num}
 	</delete>
 
 </mapper>

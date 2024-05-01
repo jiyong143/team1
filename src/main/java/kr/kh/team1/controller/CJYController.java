@@ -1,5 +1,6 @@
 package kr.kh.team1.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.TopGroupVO;
+import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
@@ -44,19 +46,19 @@ public class CJYController {
 	@Autowired
 	ChatService chatService;
 
-	@GetMapping("/product/insert")
-	public String productTopGroupList(Model model, HttpSession session) {
-   	
-		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
-	   	model.addAttribute("topGroupList", topGroupList);
-	   	return "/product/insert";
+	
+	@GetMapping("/product/update")
+	public String productUpdate(Model model, int num ) {
+		ArrayList <FileVO> files = productService.getFileBypNum(num);
+		ProductVO pro = productService.getProductInfo(num);
+		model.addAttribute("pro", pro);
+		model.addAttribute("files" , files);
+		return "product/update"; 
 	}
 
 
-
 	@GetMapping("/product/list")  
-   	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) { 
-		System.out.println(cri); 
+   	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
 	   	String maxPrice = productService.getMaxPrice(mNum,cri);
 	   	String minPrice = productService.getMinPrice(mNum,cri);
 	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
@@ -66,17 +68,66 @@ public class CJYController {
 	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
 	   	int totalCount = productService.getProductTotalCount(mNum, cri);
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	model.addAttribute("search",cri.getSearch());
+	   	model.addAttribute("place",cri.getPlace());
+	   	model.addAttribute("minimum",cri.getMinPrice());
+	   	model.addAttribute("maximum",cri.getMaxPrice());
 	   	model.addAttribute("pm", pm);
 	   	model.addAttribute("pList",productList); 
 	   	model.addAttribute("num" , mNum); 
 	   	session.setAttribute("MName",mName); 
 	   	session.setAttribute("TName",tName);
-	   	return "/product/list";  
+	   	return "/product/list";   
+	}
+	
+	
+	@GetMapping("/product/list3")   
+   	public String productList3(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
+		String min = null;
+		String max = null;
+		if(cri.getMinPrice()==-100) {
+			min="";
+		}else if(cri.getMinPrice()==0) {
+			min="0";
+		}else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			min = formatter.format(cri.getMinPrice());
+		}
+		
+		if(cri.getMaxPrice()==1000000000) {
+			max="";
+		}else if(cri.getMaxPrice()==0) {
+			max="0";
+		}else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			max = formatter.format(cri.getMaxPrice());
+		}
+	   	String maxPrice = productService.getMaxPrice(mNum,cri);
+	   	String minPrice = productService.getMinPrice(mNum,cri);
+	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
+	   	model.addAttribute("maxPrice",maxPrice);
+	   	model.addAttribute("minPrice",minPrice);
+	   	model.addAttribute("avgPrice",avgPrice);
+	   	ArrayList <ProductVO> productList = productService.getProductList(mNum, cri);
+	   	int totalCount = productService.getProductTotalCount(mNum, cri);
+	   	PageMaker pm = new PageMaker(3, cri, totalCount);
+	   	model.addAttribute("search",cri.getSearch());
+	   	model.addAttribute("place",cri.getPlace());
+	   	model.addAttribute("pm", pm);
+	   	model.addAttribute("pList",productList); 
+	   	model.addAttribute("num" , mNum);
+	   	model.addAttribute("min",min);
+	   	model.addAttribute("max",max);
+	   	model.addAttribute("minimum",cri.getMinPrice());
+	   	model.addAttribute("maximum",cri.getMaxPrice());
+	   	session.setAttribute("MName",mName); 
+	   	session.setAttribute("TName",tName);
+	   	return "/product/list";   
 	}
    
 	@ResponseBody
 	@GetMapping("/product/list2")  
-   	public Map<String ,Object> productList2(int mNum, ProductCriteria cri) {
+   	public Map<String ,Object> productList2(int mNum, ProductCriteria cri, String tName, String mName) {
 		String maxPrice = productService.getMaxPrice(mNum,cri);
 	   	String minPrice = productService.getMinPrice(mNum,cri);
 	   	String avgPrice = productService.getAvgPrice(mNum,cri); 
@@ -84,6 +135,16 @@ public class CJYController {
 	   	int totalCount = productService.getProductTotalCount(mNum, cri); 
 	   	PageMaker pm = new PageMaker(3, cri, totalCount);  
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("place", cri.getPlace() );
+	   	map.put("search", cri.getSearch());
+	   	map.put("order", cri.getOrder() );
+	   	map.put("apple", cri.getApple());
+	   	map.put("banana", cri.getBanana());
+	   	map.put("min", cri.getMinPrice());
+		map.put("max", cri.getMaxPrice());
+	   	map.put("TName",tName);
+	   	map.put("MName", mName ); 
+	   	map.put("num", mNum);
 	   	map.put("pm", pm);
 	   	map.put("pList", productList); 
 	   	map.put("maxPrice", maxPrice);
@@ -92,6 +153,37 @@ public class CJYController {
 	   	return map;  
 	}
 	
+
+	@PostMapping("/product/up")
+	public String productUp(Model model, HttpSession session, int num) {
+		// 회원 정보 가져옴
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		// 위로 올리는 삼품 가져오기
+		ProductVO pro = productService.getProductInfo(num);
+		int mNum = pro.getPr_mg_num();
+		String mName = pro.getPr_mg_name();
+		String tName = pro.getPr_tg_name();
+		if(productService.upProduct(user,pro)) {
+			model.addAttribute("msg", "상품을 위로 올렸습니다.");
+			model.addAttribute("url", "/product/list?mNum=" + mNum  + "&mName=" + mName + "&tName=" + tName);
+		}else {
+			model.addAttribute("msg", "상품을 위로 올리지 못했습니다.");
+			model.addAttribute("url", "/product/detail?pNum=" + num);
+		}
+		return "message"; 
+	}
+	
+
+	@GetMapping("/product/insert")
+	public String productTopGroupList(Model model, HttpSession session) {
+   	
+		ArrayList<TopGroupVO> topGroupList = topGroupService.getTopGroupList();
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+	   	model.addAttribute("topGroupList", topGroupList);
+	   	model.addAttribute("sidoList", sidoList);
+	   	return "/product/insert";
+	}
+
 	
    	@ResponseBody
    	@GetMapping("/product/midGroup")
@@ -107,32 +199,24 @@ public class CJYController {
 
    	@PostMapping("/product/insert")  
    	public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio) {
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip) {
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
 
 		if(optradio == 0 || optradio == -10)
 			product.setPr_price(optradio);
-		
-		if(tg_title.isBlank() || mg_title.isBlank()) {
-			model.addAttribute("msg", "대분류를 선택해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
-		if(file == null || file.length == 0) {
-			System.out.println("ASDASDA");
-			model.addAttribute("msg", "파일은 1개 이상 등록해야합니다.");
-			model.addAttribute("url", "/product/insert");
-			return "message";
-		}
-		
+	
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();
 		String mName = mg_title;
 		String tName = tg_title;
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		System.out.println(place);
+		product.setPr_place(place);
+		
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);
@@ -195,13 +279,20 @@ public class CJYController {
    			return map;
    		}
    		
+   		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+
    		// 채팅방이 없으면 생성
-   		if(chatService.getChatRoom(loginUser.getMe_id(),pr_num) == null) {
-   			chatService.insertChatRoom(loginUser.getMe_id(),pr_num);	// 채팅방 생성
-   			ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(),pr_num);
+   		if(crv == null) {
+   			System.out.println("adasd");
+   			chatService.insertChatRoom(loginUser.getMe_id(), pr_num);	// 채팅방 생성
+   			crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
    			chatService.insertChatRoomState(loginUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가
    			chatService.insertChatRoomState(prUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 판매자의 채팅 상태 추가 
    		}
+   		
+   		int cr_num = crv.getCr_num();	// 채팅방 번호
+   		map.put("cr_num", cr_num);
+   		
    		return map; 
    	}
    	
