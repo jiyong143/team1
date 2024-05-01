@@ -57,7 +57,9 @@
 				<div class="form-check">
 					<label class="form-check-label">
 						<input type="radio" class="form-check-input priceTag" value="" name="optradio">가격 등록
-						<input type="number" class="form-control" id="pr_price" name="pr_price" disabled>
+						<input type="text" class="form-control" id="pr_price" name="pr_price"
+						 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						 autocomplete="off" disabled>
 					</label>
 				</div>
 			</div>

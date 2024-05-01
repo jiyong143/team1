@@ -191,11 +191,10 @@ public class IBHController {
 			return "로그인을 하지 않았습니다.";
 		
 		// 회원 + 상품 번호 채팅방 가져옴
-		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);	// 구매자
+		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);	// 구매자 기준
 		if(crv == null)
-			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자
+			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자 기준
 		
-		System.out.println(crv);
 		SseEmitter emitter;
 
 		if(loginUser .getMe_id().equals(crv.getProduct().getPr_me_id())) {
@@ -205,17 +204,23 @@ public class IBHController {
 			emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
 		}
 		
-		if(emitter == null)
-			return "상대방이 로그인을 하지 않았습니다.";
+		MessageDTO message = new MessageDTO(crv.getCr_num() ,loginUser.getMe_id(), msg);
 		
-		try { 
-			MessageDTO message = new MessageDTO(crv.getCr_num() ,loginUser.getMe_id(), msg);
+		if(emitter == null) {
+			chatService.insertChat(message);
+			chatTotalCount++;
+			return "상대방이 로그인을 하지 않았습니다.";
+		}
+		
+		try {
+			chatService.insertChat(message);
+			ChatMessageVO cm = chatService.getChatMessageRecent(message.getCm_cr_num());
+			message.setCm_time(cm.getDate_str());
 			
 			emitter.send(SseEmitter.event()
 	              .name("receive")
 	              .data(message));
-			
-			chatService.insertChat(message);
+			chatTotalCount++;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
