@@ -209,5 +209,13 @@ public class ProductServiceImp implements ProductService{
 		
 	}
 
-	
+	@Override
+	public boolean upProduct(MemberVO user, ProductVO pro) {
+		if(user==null||!user.getMe_id().equals(pro.getPr_me_id())) {
+			return false;
+		}
+		int num = pro.getPr_num();
+		return productDao.updateTime(num); 
+	}
+
 }

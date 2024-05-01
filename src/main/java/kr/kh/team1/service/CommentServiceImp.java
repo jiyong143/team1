@@ -36,10 +36,10 @@ public class CommentServiceImp implements CommentService{
 	public boolean insertComment(CommentVO comment, MemberVO user) {
 		if(user == null || user.getMe_id() == null)
 			return false;
-		if(	comment == null ||
-			!checkString(comment.getCo_content()))
+		if(	comment == null || !checkString(comment.getCo_content()))
 			return false;
 		comment.setCo_me_id(user.getMe_id());
+		System.out.println(comment);
 		return commentDao.insertComment(comment);
 	}
 
@@ -47,4 +47,29 @@ public class CommentServiceImp implements CommentService{
 		return str != null && str.length() != 0;
 	}
 
+	@Override
+	public boolean commentDelete(CommentVO comment, MemberVO user) {
+		if(comment == null || user == null)
+			return false;
+		CommentVO dbComment = commentDao.selectComment(comment.getCo_num());
+		//작성자 확인
+		if (dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
+			return false;
+		return commentDao.commentDelete(comment.getCo_num());
+	}
+
+	@Override
+	public boolean updateComment(CommentVO comment, MemberVO user) {
+		if(comment == null || !checkString(comment.getCo_content()))
+			return false;
+		if(user == null) {
+			return false;
+		}
+		CommentVO dbComment = commentDao.selectComment(comment.getCo_num());
+		if(dbComment == null ||
+				dbComment.getCo_me_id().equals(user.getMe_id()))
+			return false;
+		return commentDao.updateComment(comment);
+	}
+	
 }

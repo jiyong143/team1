@@ -50,4 +50,6 @@ public interface ProductDAO {
   
 	void updatePick(@Param("pr_num")int pr_num);
 
+	boolean updateTime(@Param("pr_num")int num);
+
 }
