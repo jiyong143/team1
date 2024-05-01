@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.model.vo.ProductVO;
 
 public interface MemberService {
@@ -36,9 +37,18 @@ public interface MemberService {
 
 	int getReviewNum(String me_id);
 
+	void addPoint(int paymentPrice, String userId);
 
+	//관리자 -> 회원관리에 필요한 코드 
+	
+	ArrayList<MemberVO> getMemberList(Criteria_member crim);
+	
+	int getTotalCountMember(Criteria_member crim);
+
+	boolean updateAuthority(String me_id, String me_authority, String me_state);
 
 //	boolean signupSns(String sns, String id, String email);
 //
 //	MemberVO loginSns(String sns, String id);
+
 }
