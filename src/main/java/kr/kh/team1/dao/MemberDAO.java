@@ -29,6 +29,8 @@ public interface MemberDAO {
 
 	int selectTotalCountMember(@Param("crim") Criteria_member crim);
 
+	boolean updateAuthority(@Param("me_id") String me_id, @Param("me_authority") String me_authority);
+
 	
 }
 

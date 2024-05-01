@@ -186,6 +186,19 @@ public class MemberServiceImp implements MemberService {
 			return 0;
 		}
 		return memberDao.selectTotalCountMember(crim);
+	}	
+
+	@Override
+	public boolean updateAuthority(String me_id, String me_authority) {
+	    // 유효한 사용자 ID와 권한인지 확인
+	    if (me_id == null || me_id.isEmpty() || me_authority == null || me_authority.isEmpty()) {
+	        return false;
+	    }
+	    
+	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
+	    boolean res = memberDao.updateAuthority(me_id, me_authority);
+	    
+	    return res; // 업데이트 결과를 반환합니다.
 	}
 	
 }

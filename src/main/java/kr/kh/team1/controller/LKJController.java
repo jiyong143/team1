@@ -188,7 +188,7 @@ public class LKJController {
 		map.put("result", res);
 		return map;
 	}
-	
+
 	@GetMapping("/admin/memberManagement")
 	public String memberManagement(Model model) {
 		return "/admin/memberManagement";
@@ -196,14 +196,25 @@ public class LKJController {
 	//회원관리 START -> 회원정보 불러오기
 	@GetMapping("/admin/memberManager")
 	public String memberManager(Model model, Criteria_member crim) {
-		crim.setPerPageNum(10);
 		ArrayList<MemberVO> memberList = memberService.getMemberList(crim);
 		int totalCount = memberService.getTotalCountMember(crim);
 		PageMaker_member pmm = new PageMaker_member(5, crim, totalCount);
+		crim.setPerPageNum(10);
+		//페이지 당 정보 수
 		model.addAttribute("pmm", pmm);
 		model.addAttribute("title", "회원관리 페이지");
 		model.addAttribute("list", memberList);
 	    return "/admin/memberManager";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/memberManager")
+	public String memberAuthority(Model model, @RequestParam("me_id")String me_id, @RequestParam("me_authority")String me_authority, HttpSession session) {
+	    MemberVO user = (MemberVO) session.getAttribute("user");
+	    System.out.println(me_authority);
+	    // 회원의 권한을 변경하는 비즈니스 로직 수행
+	    boolean res = memberService.updateAuthority(me_id, me_authority);
+	    return "true";
 	}
 	
 	
