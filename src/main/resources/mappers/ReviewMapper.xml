@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team1.dao.ReviewDAO">
+	<select id="selectReviewProList" resultType="kr.kh.team1.model.vo.ProductVO">
+		select * from product join trade_review on pr_num = tr_pr_num
+					  join trade_outcome on tr_num = to_tr_num
+                      where tr_me_id = #{id} &amp;&amp; (select count(*) from trade_outcome where to_type = 0) = 0
+	</select>
+	
+	<select id="selectReviewType" resultType="kr.kh.team1.model.vo.ReviewTypeVO">
+		select * from review_type
+	</select>
+	
+	<select id="selectTradeReviewNum" resultType="int">
+		select count(*) from product join trade_review on pr_num = tr_pr_num
+					  join trade_outcome on tr_num = to_tr_num
+                      where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where to_type = 0) = 0
+	</select>
+</mapper>
