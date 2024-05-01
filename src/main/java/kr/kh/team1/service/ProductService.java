@@ -50,5 +50,6 @@ public interface ProductService {
 
 	void addPick(int pr_num);
 
-	
+	boolean upProduct(MemberVO user, ProductVO pro);
+
 }

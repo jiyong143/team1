@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.model.vo.ProductVO;
+
 
 @Service 
 public class MemberServiceImp implements MemberService { 
@@ -169,6 +171,37 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 	}
+
+	//관리자 -> 회원관리에 필요한 코드 시작
+	@Override
+	public ArrayList<MemberVO> getMemberList(Criteria_member crim) {
+		if(crim == null) {
+			//1page 당 10개씩 표기 
+			crim = new Criteria_member(1,10);
+		}
+		return memberDao.selectMemberList(crim);
+	}
+
+	@Override
+	public int getTotalCountMember(Criteria_member crim) {
+		if(crim == null) {
+			return 0;
+		}
+		return memberDao.selectTotalCountMember(crim);
+	}	
+
+	@Override
+	public boolean updateAuthority(String me_id, String me_authority, String me_state) {
+	    // 유효한 사용자 ID와 권한인지 확인
+	    if (me_id == null || me_id.isEmpty() || me_authority == null || me_authority.isEmpty()
+	    	|| me_state == null || me_state.isEmpty()) {
+	        return false;
+	    }
+	    
+	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
+	    return memberDao.updateAuthority(me_id, me_authority, me_state);
+	}
+  //관리자 -> 회원관리에 필요한 코드 끝
 
 	@Override
 	public boolean updateMember(MemberVO member) {
