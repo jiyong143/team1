@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
+import kr.kh.team1.service.ReviewService;
 
 
 @Controller
@@ -37,6 +39,9 @@ public class PJHController {
 	
 	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -174,9 +179,13 @@ public class PJHController {
 		int reviewNum = -1;
 		reviewNum = memberService.getReviewNum(myUser.getMe_id());
 		
+		int tradeReviewNum = -1;
+		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id());
+		
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum",reviewNum);
+		model.addAttribute("tradeReviewNum",tradeReviewNum);
 		model.addAttribute("listSize", 0);
 		
 		return "/member/mypage";
@@ -299,6 +308,25 @@ public class PJHController {
 	public boolean snsCheckId(@PathVariable("sns")String sns, @RequestParam("email")String email) {
 		
 		return memberService.idCheck(sns, email);
+	}
+	
+	@GetMapping("/review/write")
+	public String reviewWrite(Model model, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); //리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우) 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼 수 있음)
+		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewType", reviewType);
+		return "/review/write";
+	}
+	
+	@PostMapping("/review/write")
+	public String reviewWritePost(Model model, @RequestParam("rt_type")ArrayList<String> reviewType) { //마이페이지에서 후기를 작성하는 경우는 무조건 구매자
+		
+		//reviewService.addReview(reviewType);
+		
+		return "/review/write";
 	}
 	
 //	@ResponseBody

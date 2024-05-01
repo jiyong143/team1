@@ -1,7 +1,10 @@
 package kr.kh.team1.service;
 
+import java.util.ArrayList;
+
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
 
 public interface MemberService {
 
@@ -19,10 +22,6 @@ public interface MemberService {
 
 	MemberVO getMemberDate();
 
-	int getTradeNum(String me_id);
-
-	int getReviewNum(String me_id);
-
 	MemberVO getMember(String me_id);
 
 	void addPoint(int paymentPrice, String userId);
@@ -32,6 +31,12 @@ public interface MemberService {
 	void deleteMember(String me_id);
 
 	boolean idCheck(String sns, String email);
+
+	int getTradeNum(String me_id);
+
+	int getReviewNum(String me_id);
+
+
 
 //	boolean signupSns(String sns, String id, String email);
 //

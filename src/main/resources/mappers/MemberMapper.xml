@@ -46,4 +46,5 @@
 		me_state = "탈퇴"
 		where me_id = #{me_id}
 	</update>
+	
 </mapper>

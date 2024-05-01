@@ -24,6 +24,8 @@ public interface MemberDAO {
 	void updateMember(@Param("member")MemberVO member);
 
 	void updateMemberState(@Param("me_id")String me_id);
+
+	
 	
 }
 

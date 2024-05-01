@@ -77,6 +77,9 @@ li {
 							<tr style="width: auto">
 								<td style="text-align: center;">안전거래</td>
 								<td style="text-align: center;">거래후기</td>
+								<c:if test="${user.me_id == myUserCheck}">
+									<td style="text-align: center;">후기작성</td>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
@@ -84,7 +87,11 @@ li {
 								<td style="text-align: center;"><a href="#">${tradeNum}</a></td>
 								<!-- 거래횟수 -->
 								<td style="text-align: center;"><a href="#">${reviewNum}</a></td>
-								<!-- 거래후기갯수 -->
+								<!-- 거래후기개수 -->
+								<c:if test="${user.me_id == myUserCheck}">
+									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">${tradeReviewNum}</a></td>
+								</c:if>
+								<!-- 작성 가능한 후기 개수 -->
 							</tr>
 						</tbody>
 					</table>
@@ -149,8 +156,8 @@ li {
 								<td>${pro.pr_num }</td>
 								<td>${pro.tg_title }</td>
 								<td>${pro.mg_title }</td>
-								<td><a
-									href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
+								<td>
+								<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 								</td>
 								<td>${pro.pr_me_id }</td>
 								<td>${pro.pr_basket }</td>

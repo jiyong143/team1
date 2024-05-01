@@ -15,6 +15,7 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.utils.UploadFileUtils;
 
@@ -207,4 +208,6 @@ public class ProductServiceImp implements ProductService{
 		productDao.updatePick(pr_num);
 		
 	}
+
+	
 }

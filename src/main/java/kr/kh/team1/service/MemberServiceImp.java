@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
 
 @Service 
 public class MemberServiceImp implements MemberService { 
@@ -68,6 +70,23 @@ public class MemberServiceImp implements MemberService {
 		
 		return null;
 		
+	}
+	
+	@Override
+	public int getTradeNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectUserTradeNum(me_id); 
+
+	}
+	
+	@Override
+	public int getReviewNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectReviewNum(me_id);
 	}
 
 	@Override
@@ -135,23 +154,6 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int getTradeNum(String me_id) {
-		if(!checkString(me_id)) {
-			return -1;
-		}
-		return memberDao.selectUserTradeNum(me_id); 
-
-	}
-	
-	@Override
-	public int getReviewNum(String me_id) {
-		if(!checkString(me_id)) {
-			return -1;
-		}
-		return memberDao.selectReviewNum(me_id);
-	}
-
-	@Override
 	public MemberVO getMember(String me_id) {
 		if(!checkString(me_id)) {
 			return null;
@@ -205,6 +207,8 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDao.selectMemberEmail(email);
 		return user != null;
 	}
+
+
 
 //	@Override
 //	public boolean signupSns(String sns, String id, String email) {
