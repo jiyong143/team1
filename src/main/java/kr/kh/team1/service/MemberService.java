@@ -37,8 +37,6 @@ public interface MemberService {
 
 	int getReviewNum(String me_id);
 
-	void addPoint(int paymentPrice, String userId);
-
 	//관리자 -> 회원관리에 필요한 코드 
 	
 	ArrayList<MemberVO> getMemberList(Criteria_member crim);
