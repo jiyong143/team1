@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.ProductVO;
 
 @Service 
 public class MemberServiceImp implements MemberService { 
@@ -69,6 +71,23 @@ public class MemberServiceImp implements MemberService {
 		return null;
 		
 	}
+	
+	@Override
+	public int getTradeNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectUserTradeNum(me_id); 
+
+	}
+	
+	@Override
+	public int getReviewNum(String me_id) {
+		if(!checkString(me_id)) {
+			return -1;
+		}
+		return memberDao.selectReviewNum(me_id);
+	}
 
 	@Override
 	public boolean idCheck(String id) {
@@ -79,7 +98,7 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public boolean emailCheck(String email) {
 		MemberVO member = memberDao.selectMemberEmail(email);
-		return member == null;
+		return member == null; //member를 찾을 수 없다는 뜻 --> 이메일 사용 가능 true
 	}
 
 	@Override
@@ -135,23 +154,6 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public int getTradeNum(String me_id) {
-		if(!checkString(me_id)) {
-			return -1;
-		}
-		return memberDao.selectUserTradeNum(me_id); 
-
-	}
-	
-	@Override
-	public int getReviewNum(String me_id) {
-		if(!checkString(me_id)) {
-			return -1;
-		}
-		return memberDao.selectReviewNum(me_id);
-	}
-
-	@Override
 	public MemberVO getMember(String me_id) {
 		if(!checkString(me_id)) {
 			return null;
@@ -167,5 +169,71 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 	}
+
+	@Override
+	public boolean updateMember(MemberVO member) {
+		if(!checkString(member.getMe_id()) ||
+		   !checkString(member.getMe_pw()) ||
+		   !checkString(member.getMe_pw2()) ||
+		   !checkString(member.getMe_email()) ||
+		   !checkString(member.getMe_gender()) ||
+		   !checkString(member.getMe_name()) ||
+		   !checkString(member.getMe_phone()) ||
+		   !checkString(member.getMe_addr())) {
+			return false;
+		}
+		
+		if(!(member.getMe_pw().equals(member.getMe_pw2()))) {
+			return false;
+		}
+		
+		String encPwString = passwordEncoder.encode(member.getMe_pw());
+		member.setMe_pw(encPwString);
+		
+		memberDao.updateMember(member);
+		
+		return true;
+	}
+
+	@Override
+	public void deleteMember(String me_id) {
+		if(checkString(me_id)) {
+			memberDao.updateMemberState(me_id);
+		}
+	}
+	
+	@Override
+	public boolean idCheck(String sns, String email) {
+		MemberVO user = memberDao.selectMemberEmail(email);
+		return user != null;
+	}
+
+
+
+//	@Override
+//	public boolean signupSns(String sns, String id, String email) {
+//		try {
+//			int num = Integer.parseInt(id);
+//			num = num * 2;
+//			id = sns + "!" + num;
+//		}catch(Exception e) {
+//			id = sns + "!" + id;
+//		}
+//		MemberVO memberVO = new MemberVO(id, email);
+//		return memberDao.insertMember(memberVO);
+//	}
+
+//	@Override
+//	public MemberVO loginSns(String sns, String id) {
+//		try {
+//			int num = Integer.parseInt(id);
+//			num = num * 2;
+//			id = sns + "!" + num;
+//		}catch(Exception e) {
+//			id = sns + "!" + id;
+//		}
+//		return memberDao.selectMember(id);
+//	}
+	
 	
 }
