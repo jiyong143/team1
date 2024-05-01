@@ -244,4 +244,6 @@
 	<update id="updatePick">
 	  update product set pr_basket = pr_basket+1 where pr_num=#{pr_num}
 	</update>
+	
+	
 </mapper>

@@ -53,7 +53,12 @@ li {
 				class="relative w-full h-full col-span-2 text-black grid grid-cols-1 gap-y-4 gap-x-0 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-6 lg:min-w-[800px]">
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
-						<h2>${myUser.me_id}</h2>
+						<div>
+							<c:if test="${user.me_id == myUserCheck}">
+								<h2>${myUser.me_id}</h2> <a href="<c:url value='/member/update'/>">회원정보수정</a>
+								<a href="<c:url value='/member/delete'/>">회원탈퇴</a>
+							</c:if>
+						</div>
 						<!-- 프로필 이미지 -->
 						<div class="flex items-center translate-x-3 lg:hidden">
 							<img alt="" src="">
@@ -72,6 +77,9 @@ li {
 							<tr style="width: auto">
 								<td style="text-align: center;">안전거래</td>
 								<td style="text-align: center;">거래후기</td>
+								<c:if test="${user.me_id == myUserCheck}">
+									<td style="text-align: center;">후기작성</td>
+								</c:if>
 							</tr>
 						</thead>
 						<tbody>
@@ -79,7 +87,11 @@ li {
 								<td style="text-align: center;"><a href="#">${tradeNum}</a></td>
 								<!-- 거래횟수 -->
 								<td style="text-align: center;"><a href="#">${reviewNum}</a></td>
-								<!-- 거래후기갯수 -->
+								<!-- 거래후기개수 -->
+								<c:if test="${user.me_id == myUserCheck}">
+									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">${tradeReviewNum}</a></td>
+								</c:if>
+								<!-- 작성 가능한 후기 개수 -->
 							</tr>
 						</tbody>
 					</table>
@@ -144,8 +156,8 @@ li {
 								<td>${pro.pr_num }</td>
 								<td>${pro.tg_title }</td>
 								<td>${pro.mg_title }</td>
-								<td><a
-									href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
+								<td>
+								<a href="<c:url value="/post/detail?pNum=${pro.pr_num }"/>">${pro.pr_name}</a>
 								</td>
 								<td>${pro.pr_me_id }</td>
 								<td>${pro.pr_basket }</td>

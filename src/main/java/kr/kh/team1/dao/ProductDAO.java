@@ -9,6 +9,7 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
 
 public interface ProductDAO { 
@@ -48,4 +49,5 @@ public interface ProductDAO {
 	boolean deletePickByUserAndNum(@Param("id")String me_id, @Param("pr_num")int pr_num);
   
 	void updatePick(@Param("pr_num")int pr_num);
+
 }

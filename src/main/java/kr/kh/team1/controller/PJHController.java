@@ -8,23 +8,25 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.Session.SessionEventListener;
-
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
+import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
-import lombok.extern.log4j.Log4j;
+import kr.kh.team1.service.ReviewService;
+
 
 @Controller
 public class PJHController {
@@ -37,6 +39,9 @@ public class PJHController {
 	
 	@Autowired
 	PaymentService paymentService;
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -97,19 +102,44 @@ public class PJHController {
 	
 	@ResponseBody
 	@GetMapping("/email/check/dup")
-	public Map<String, Object> emailCheckDup(@RequestParam("email") String email){
+	public Map<String, Object> emailCheckDup(@RequestParam("email") String email, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.emailCheck(email);
-		map.put("result", res);
+		
+		
+		if(session.getAttribute("user")!=null) {
+			MemberVO member = (MemberVO) session.getAttribute("user");
+			if(member.getMe_email().equals(email)) {
+				map.put("result", true);
+			} else {
+				boolean res = memberService.emailCheck(email);
+				map.put("result", res);
+			}
+		} else {
+			boolean res = memberService.emailCheck(email);
+			map.put("result", res);
+		}
+		
 		return map;
 	}
 	
 	@ResponseBody
 	@GetMapping("/phone/check/dup")
-	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone){
+	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.phoneCheck(phone);
-		map.put("result", res);
+		
+		if(session.getAttribute("user")!=null) { //user가 null이 아니라는 것은 로그인을 했다는 뜻 == 회원정보 수정
+			MemberVO member = (MemberVO) session.getAttribute("user");
+			if(member.getMe_phone().equals(phone)) {
+				map.put("result", true);
+			} else {
+				boolean res = memberService.phoneCheck(phone);
+				map.put("result", res);
+			}
+		} else {
+			boolean res = memberService.phoneCheck(phone);
+			map.put("result", res);
+		}
+		
 		return map;
 	}
 	
@@ -149,9 +179,13 @@ public class PJHController {
 		int reviewNum = -1;
 		reviewNum = memberService.getReviewNum(myUser.getMe_id());
 		
+		int tradeReviewNum = -1;
+		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id());
+		
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum",reviewNum);
+		model.addAttribute("tradeReviewNum",tradeReviewNum);
 		model.addAttribute("listSize", 0);
 		
 		return "/member/mypage";
@@ -209,8 +243,6 @@ public class PJHController {
 		
 		//새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
 		
-		model.addAttribute("url","/member/mypage");
-		
 		return "message";
 	}
 	
@@ -234,4 +266,82 @@ public class PJHController {
 		map.put("orderUID", orderUID);
 		return map;
 	}
+	
+	@GetMapping
+	public String updateMember(Model model, HttpSession session) {
+		model.addAttribute("title", "회원정보수정");
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		model.addAttribute("member", member);
+		return "/member/update";
+	}
+	
+	@PostMapping("/member/update")
+	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
+		boolean res = memberService.updateMember(member);
+		if(res) {
+			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
+			
+			model.addAttribute("msg", "회원정보를 수정했습니다.");
+			model.addAttribute("url", "/");
+		}else {
+			model.addAttribute("msg", "회원정보 수정에 실패했습니다.");
+			model.addAttribute("url", "/member/update");
+		}
+		
+		return "message";
+	}
+	
+	@GetMapping("/member/delete")
+	public String deleteMember(Model model, HttpSession session) {
+		MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
+		memberService.deleteMember(user.getMe_id());
+		session.removeAttribute("user");
+		model.addAttribute("msg", "회원탈퇴에 성공했습니다.");
+		model.addAttribute("url", "/");
+		return "message";
+	}
+	
+	@ResponseBody
+	@PostMapping("/sns/{sns}/check/id")
+	public boolean snsCheckId(@PathVariable("sns")String sns, @RequestParam("email")String email) {
+		
+		return memberService.idCheck(sns, email);
+	}
+	
+	@GetMapping("/review/write")
+	public String reviewWrite(Model model, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		String userId = user.getMe_id();
+		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); //리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우) 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼 수 있음)
+		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewType", reviewType);
+		return "/review/write";
+	}
+	
+	@PostMapping("/review/write")
+	public String reviewWritePost(Model model, @RequestParam("rt_type")ArrayList<String> reviewType) { //마이페이지에서 후기를 작성하는 경우는 무조건 구매자
+		
+		//reviewService.addReview(reviewType);
+		
+		return "/review/write";
+	}
+	
+//	@ResponseBody
+//	@PostMapping("/sns/{sns}/signup")
+//	public boolean snsSignup(@PathVariable("sns")String sns, @RequestParam("id")String id,@RequestParam("email")String email ) {
+//		
+//		return memberService.signupSns(sns, id, email);
+//	}
+	
+//	@ResponseBody
+//	@PostMapping("/sns/{sns}/login")
+//	public boolean snsLogin(@PathVariable("sns")String sns, @RequestParam("id")String id, HttpSession session) {
+//		MemberVO user = memberService.loginSns(sns, id); 
+//		session.setAttribute("user", user);
+//		return user != null;
+//	}
+	
 }
