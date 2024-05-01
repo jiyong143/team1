@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.SurportManageVO;
@@ -209,17 +210,15 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/admin/memberManager")
-	public String memberAuthority(Model model, @RequestParam("me_id")String me_id, @RequestParam("me_authority")String me_authority, HttpSession session) {
-	    MemberVO user = (MemberVO) session.getAttribute("user");
-	    System.out.println(me_authority);
+	public Map<String, Object> memberAuthority(Model model, MemberDTO memberInfo, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 	    // 회원의 권한을 변경하는 비즈니스 로직 수행
-	    boolean res = memberService.updateAuthority(me_id, me_authority);
-	    return "true";
+	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), memberInfo.getMe_authority(), memberInfo.getMe_state());
+	    return map;
 	}
 	
-	
 	//회원관리 END
-	
 	@GetMapping("/admin/inquityManager")
 	public String InquityManager(Model model) {
 		return "/admin/inquityManager";

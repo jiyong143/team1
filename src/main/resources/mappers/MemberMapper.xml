@@ -43,6 +43,6 @@
 	    SELECT COUNT(*) FROM member
 	</select>
 	<update id="updateAuthority">
-   		 UPDATE member SET me_authority = #{me_authority} WHERE me_id = #{me_id}
+   		 UPDATE member SET me_authority = #{me_authority}, me_state = #{me_state} WHERE me_id = #{me_id}
 	</update>
 </mapper>

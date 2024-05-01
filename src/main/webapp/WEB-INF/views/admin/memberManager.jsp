@@ -48,28 +48,29 @@
   <tbody>
   	<c:forEach items="${list}" var="member">
 	  <tr>
-	    <td>${member.me_name}</td>
-	    <td class="me_id">${member.me_id}</td>
-	    <td>${member.me_email}</td>
-	    <td>${member.me_gender}</td>
-	    <td>${member.me_phone}</td>
-	    <td>
-		  <select class="form-control me_authority" name="me_authority">
-			  <option value="${member.me_authority}">${member.me_authority}</option>
-			  <option value="manager" <c:if test='${member.me_authority == "manager"}'>selected</c:if>>manager</option>
- 			  <option value="user" <c:if test='${member.me_authority == "user"}'>selected</c:if>>user</option>
-		  </select>
-	    </td>
-	     <td>
-		  <select class="form-control me_state" name="me_state">
-			  <option value="${member.me_state}">${member.me_state}</option>
-			  <option value="차단" <c:if test='${member.me_state == "차단"}'>selected</c:if>>차단</option>
-			  <option value="정지" <c:if test='${member.me_state == "정지"}'>selected</c:if>>정지</option>
-		  </select>
-	    </td>
-	    <td>
-		  <button type="button" class="btn btn-danger saveButton">저장</button>
-		</td>
+	  	<c:if test="${member.me_authority != 'admin'}">
+		    <td>${member.me_name}</td>
+		    <td class="me_id">${member.me_id}</td>
+		    <td>${member.me_email}</td>
+		    <td>${member.me_gender}</td>
+		    <td>${member.me_phone}</td>
+		    <td>
+			  <select class="form-control me_authority" name="me_authority">
+	 			  <option value="user" <c:if test='${member.me_authority == "user"}'>selected</c:if>>user</option>
+				  <option value="manager" <c:if test='${member.me_authority == "manager"}'>selected</c:if>>manager</option>
+			  </select>
+		    </td>
+		     <td>
+			  <select class="form-control me_state" name="me_state">
+				  <option value="이용중" <c:if test='${member.me_state == "이용중"}'>selected</c:if>>이용중</option>
+				  <option value="차단" <c:if test='${member.me_state == "차단"}'>selected</c:if>>차단</option>
+				  <option value="정지" <c:if test='${member.me_state == "정지"}'>selected</c:if>>정지</option>
+			  </select>
+		    </td>
+		    <td>
+			  <button type="button" class="btn btn-danger saveButton">저장</button>
+			</td>
+		</c:if>
 	  </tr>
   	</c:forEach>
   </tbody>
@@ -84,14 +85,20 @@ $(document).ready(function() {
 	    var me_id = $row.find(".me_id").text(); // 아이디 가져오기
 	    var me_authority = $row.find(".me_authority").val(); // 권한 가져오기
 	    var me_state = $row.find(".me_state").val(); // 상태 가져오기
-	    data.push({ me_id: me_id, me_authority: me_authority, me_state: me_state});
+	    let obj = {
+	    	me_id : me_id,
+	    	me_authority : me_authority,
+	    	me_state : me_state
+	    }
+	    data.push({me_id : me_id, me_authority : me_authority, me_state : me_state});
 	    console.log(data);
+	    console.log(obj);
 	    // 서버에 데이터 전송
 	    $.ajax({
 	      type: "POST",
-	      url: "/admin/memberManager",
-	      contentType: "application/json; charset=utf-8",
-	      data: JSON.stringify(data),
+	      url: '<c:url value="/admin/memberManager"/>',
+	      data: obj,
+	      dataType : "json",
 	      success: function(response) {
 	        alert("권한이 변경되었습니다.");
 	      },

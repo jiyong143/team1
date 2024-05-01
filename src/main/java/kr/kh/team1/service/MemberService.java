@@ -36,7 +36,5 @@ public interface MemberService {
 	
 	int getTotalCountMember(Criteria_member crim);
 
-	boolean updateAuthority(String me_id, String me_authority);
-
-
+	boolean updateAuthority(String me_id, String me_authority, String me_state);
 }

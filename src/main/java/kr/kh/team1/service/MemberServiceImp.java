@@ -189,16 +189,14 @@ public class MemberServiceImp implements MemberService {
 	}	
 
 	@Override
-	public boolean updateAuthority(String me_id, String me_authority) {
+	public boolean updateAuthority(String me_id, String me_authority, String me_state) {
 	    // 유효한 사용자 ID와 권한인지 확인
-	    if (me_id == null || me_id.isEmpty() || me_authority == null || me_authority.isEmpty()) {
+	    if (me_id == null || me_id.isEmpty() || me_authority == null || me_authority.isEmpty()
+	    	|| me_state == null || me_state.isEmpty()) {
 	        return false;
 	    }
 	    
 	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
-	    boolean res = memberDao.updateAuthority(me_id, me_authority);
-	    
-	    return res; // 업데이트 결과를 반환합니다.
+	    return memberDao.updateAuthority(me_id, me_authority, me_state);
 	}
-	
 }
