@@ -51,7 +51,7 @@ public class IBHController {
 	@ResponseBody
 	@GetMapping("/product/sigungu")
 	// 상품 등록 군/구
-	public Map<String, Object> sigungu(@RequestParam("sido") String sido, HttpSession session){
+	public Map<String, Object> sigungu(@RequestParam("sido") String sido){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<ZipcodeVO> sigunguList = topGroupService.getSigunguList(sido);
@@ -61,8 +61,8 @@ public class IBHController {
 	
 	@ResponseBody
 	@GetMapping("/product/dong")
-	// 상품 등록 군/구
-	public Map<String, Object> dong(@RequestParam("sido") String sido, @RequestParam("sigungu") String sigungu, HttpSession session){
+	// 상품 등록 동
+	public Map<String, Object> dong(@RequestParam("sido") String sido, @RequestParam("sigungu") String sigungu){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		ArrayList<ZipcodeVO> dongList = topGroupService.getDongList(sido, sigungu);

@@ -127,11 +127,6 @@
 	                    	<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">							
 						</a>
 					</li>
-					<!-- 검색창 -->
-                   <form class="d-flex">
-						<input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
-						<button class="btn btn-outline-success" type="submit">검색</button>
-                   </form>
 					<!-- Navbar dropdown -->
 					<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 45px">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
