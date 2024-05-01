@@ -56,7 +56,6 @@
 		#{surport.su_me_id}, #{surport.su_title}, #{surport.su_content})
 	</insert>
 
-
 	<update id="updateView">
 		UPDATE surport SET su_view = su_view + 1 WHERE su_num = #{su_num}
 	</update>
