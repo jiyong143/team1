@@ -40,10 +40,10 @@ insert into `up_head`(uh_name) value ("공지");
 insert into `up_head`(uh_name) value ("문의");
 
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (2, 3, "qwe123", "문의사항 테스트", "테스트 입니다");
+values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
 
-insert into surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (1, 2, "qwe123", "데이터베이스 테스트", "테스트 입니다");
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
 
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
