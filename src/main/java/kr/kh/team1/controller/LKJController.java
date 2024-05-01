@@ -58,8 +58,7 @@ public class LKJController {
 		model.addAttribute("pms", pms);
 		model.addAttribute("title", "고객지원");
 		model.addAttribute("list", surportList);
-		// model.addAttribute("list", list);
-		return ("/surport/list");
+		return("/surport/list");
 	}
 
 	@GetMapping("/surport/insert")
@@ -251,7 +250,15 @@ public class LKJController {
 	public String InquityManager(Model model) {
 		return "/admin/inquityManager";
 	}
-	
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		boolean res = commentService.insertComment(comment, user);
+		
+		map.put("result", res);
+		return map;
+
+	}
+
 	@GetMapping("/surportManage/list")
 	// 고정 문의글 리스트
 	public String surportManageList(Model model) {
