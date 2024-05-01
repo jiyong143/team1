@@ -35,6 +35,17 @@
 	<insert id="insertPayment">
 		insert into payment values(#{orderUid}, #{paymentPrice}, #{userId})
 	</insert>
+	<!-- 관리자 권한으로 회원관리에 필요한 코드 -->
+	<select id="selectMemberList" resultType="kr.kh.team1.model.vo.MemberVO">
+	    SELECT * FROM member
+	</select>
+	<select id="selectTotalCountMember" resultType="int">
+	    SELECT COUNT(*) FROM member
+	</select>
+	<update id="updateAuthority">
+   		 UPDATE member SET me_authority = #{me_authority}, me_state = #{me_state} WHERE me_id = #{me_id}
+	</update>
+  <!-- 관리자 권한으로 회원관리에 필요한 코드 -->
 	<update id="updateMember">
 		update member set 
 		me_pw=#{member.me_pw}, me_email = #{member.me_email}, me_gender = #{member.me_gender}, me_name = #{member.me_name}, 
@@ -46,5 +57,4 @@
 		me_state = "탈퇴"
 		where me_id = #{me_id}
 	</update>
-	
 </mapper>
