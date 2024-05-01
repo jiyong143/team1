@@ -171,7 +171,7 @@ public class MemberServiceImp implements MemberService {
 		
 	}
 
-	//관리자 -> 회원관리에 필요한 코드 
+	//관리자 -> 회원관리에 필요한 코드 시작
 	@Override
 	public ArrayList<MemberVO> getMemberList(Criteria_member crim) {
 		if(crim == null) {
@@ -200,6 +200,7 @@ public class MemberServiceImp implements MemberService {
 	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
 	    return memberDao.updateAuthority(me_id, me_authority, me_state);
 	}
+  //관리자 -> 회원관리에 필요한 코드 끝
 
 	@Override
 	public boolean updateMember(MemberVO member) {

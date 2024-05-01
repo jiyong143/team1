@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.SurportDAO">
-
 	<select id="selectSurportList" resultType="SurportVO">
 	    SELECT *
 	    	FROM surport
@@ -109,6 +108,23 @@
 			WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
 		</if>
 	</select>
+
+<select id="selectSurportTotalCount" resultType="int">
+    SELECT COUNT(*)
+    	FROM surport
+        <if test='cris.type == "all"'>
+            WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "title"'>
+        	WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
+            OR su_content LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+        <if test='cris.type == "writer"'>
+            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
+        </if>
+    </select>
 
 	<select id="selectSurportManageList"
 		resultType="SurportManageVO">

@@ -26,6 +26,7 @@ insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me
 ("admin1", "admin1", "admin1@kh.kr", "여성", "관리자1", "1998-04-02", "010-2211-4466", "광진구 화양동", "admin");
 
 select * from member;
+
 insert into `product_state`values
 ("판매중"),
 ("예약중"),
@@ -88,6 +89,9 @@ insert into comment (co_su_num, co_me_id, co_content)
 values (8, "admin1", "댓글 테스트 입니다");
 
 select * from comment;
+values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
 
 ALTER TABLE `market`.`chat_state` 
@@ -98,3 +102,4 @@ ADD CONSTRAINT `FK_chat_room_TO_chat_state_1`
   REFERENCES `market`.`chat_room` (`cr_num`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+

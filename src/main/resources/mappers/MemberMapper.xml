@@ -45,6 +45,7 @@
 	<update id="updateAuthority">
    		 UPDATE member SET me_authority = #{me_authority}, me_state = #{me_state} WHERE me_id = #{me_id}
 	</update>
+  	<!-- 관리자 권한으로 회원관리에 필요한 코드 -->
 
 	<update id="updateMember">
 		update member set 

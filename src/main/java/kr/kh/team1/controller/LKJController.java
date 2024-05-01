@@ -185,7 +185,7 @@ public class LKJController {
 		map.put("result", res);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/comment/update")
 	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment, HttpSession session){
