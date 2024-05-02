@@ -14,6 +14,8 @@ public interface ReviewDAO {
 	
 	ArrayList<ReviewTypeVO> selectReviewType();
 
-	void insertReview(@Param("reviewType")ArrayList<String> reviewType, @Param("prNum")int prNum);
+	void insertReview(@Param("reviewType")ArrayList<String> reviewType, @Param("trNum")int trNum);
+
+	int selectTrNum(@Param("prNum")int prNum);
 	
 }

@@ -42,18 +42,24 @@ public class ReviewServiceImp implements ReviewService {
 	public ArrayList<ReviewTypeVO> getReviewType() {
 		return reviewDao.selectReviewType();
 	}
+	
+	@Override
+	public int getTrNum(int prNum) {
+		return reviewDao.selectTrNum(prNum);
+	}
 
 	@Override
-	public boolean addReview(ArrayList<String> reviewType, int prNum) {
+	public boolean addReview(ArrayList<String> reviewType, int trNum) {
 		for(String i:reviewType) {
 			if(!checkString(i)) {
 				return false;
 			}
 		}
 		
-		reviewDao.insertReview(reviewType, prNum);
+		reviewDao.insertReview(reviewType, trNum);
 		
 		return true;
 		
 	}
+
 }

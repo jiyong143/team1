@@ -328,7 +328,8 @@ public class PJHController {
 
 	@PostMapping("/review/write")
 	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
-		boolean res = reviewService.addReview(reviewType, prNum);
+		int trNum = reviewService.getTrNum(prNum);
+		boolean res = reviewService.addReview(reviewType, trNum);
 
 		return "/review/write";
 	}
