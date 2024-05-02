@@ -19,4 +19,5 @@ public class MidGroupServiceImp implements MidGroupService {
 		return midGroupDao.selectMidGroupList(); 
 	}
 
+
 }

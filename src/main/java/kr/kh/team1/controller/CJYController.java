@@ -28,6 +28,7 @@ import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.MidGroupService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.TopGroupService;
 
@@ -45,16 +46,36 @@ public class CJYController {
 	
 	@Autowired
 	ChatService chatService;
-
+	
+	
 	
 	@GetMapping("/product/update")
 	public String productUpdate(Model model, int num ) {
 		ArrayList <FileVO> files = productService.getFileBypNum(num);
 		ProductVO pro = productService.getProductInfo(num);
+		int topNum = productService.getTopNum(num);
+		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
+		TopGroupVO topGroup = topGroupService.getTopGroup(topNum);
+		model.addAttribute("midList",topGroup.getMidGroupList());
 		model.addAttribute("pro", pro);
 		model.addAttribute("files" , files);
-		return "product/update"; 
+		model.addAttribute("topList",topGroupList);
+		return "/product/update"; 
 	}
+	
+	@ResponseBody
+	@GetMapping("/product/update1")
+	public Map<String ,Object> productUpdate1(String topName) {
+		TopGroupVO topGroup = topGroupService.getTopGroupByName(topName);
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("mids",topGroup.getMidGroupList()  );
+	   	return map;  
+	}
+
+
+		
+	
+	
 
 
 	@GetMapping("/product/list")  

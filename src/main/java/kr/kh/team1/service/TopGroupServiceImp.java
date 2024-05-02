@@ -47,4 +47,16 @@ public class TopGroupServiceImp implements TopGroupService {
 		return topGroupDao.selectdongList(sido, sigungu);
 	}
 
+
+	@Override
+	public TopGroupVO getTopGroup(int topNum) {
+		return topGroupDao.selectTopGroup(topNum); 
+	}
+
+	@Override
+	public TopGroupVO getTopGroupByName(String topName) {
+		return topGroupDao.selectTopGroupByName(topName); 
+	}
+
+
 }

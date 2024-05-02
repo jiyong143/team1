@@ -33,4 +33,11 @@
 	<select id="selectdongList" resultType="kr.kh.team1.model.vo.ZipcodeVO">
 		select distinct H_DONG_NM from zipcode where sido = #{sido} and sigungu = #{sigungu}
 	</select>
+	
+	<select id="selectTopGroup" resultMap="TopGroupMap">
+	   select * from topgroup where tg_num = #{num}
+	</select>
+	<select id="selectTopGroupByName" resultMap="TopGroupMap">
+	   select * from topgroup where tg_title = #{name}
+	</select>
 </mapper>

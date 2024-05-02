@@ -17,4 +17,10 @@ public interface TopGroupService {
 	ArrayList<ZipcodeVO> getSigunguList(String sido);
 
 	ArrayList<ZipcodeVO> getDongList(String sido, String sigungu);
+
+	TopGroupVO getTopGroup(int topNum);
+
+	TopGroupVO getTopGroupByName(String topName);
+	
+
 }
