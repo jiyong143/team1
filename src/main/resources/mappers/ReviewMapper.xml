@@ -6,7 +6,7 @@
 	<select id="selectReviewProList" resultType="kr.kh.team1.model.vo.ProductVO">
 		select * from product join trade_review on pr_num = tr_pr_num
 					  join trade_outcome on tr_num = to_tr_num
-                      where tr_me_id = #{id} &amp;&amp; (select count(*) from trade_outcome where to_type = 0) = 0
+                      where tr_me_id = #{id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
 	</select>
 	
 	<select id="selectReviewType" resultType="kr.kh.team1.model.vo.ReviewTypeVO">
@@ -16,6 +16,18 @@
 	<select id="selectTradeReviewNum" resultType="int">
 		select count(*) from product join trade_review on pr_num = tr_pr_num
 					  join trade_outcome on tr_num = to_tr_num
-                      where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where to_type = 0) = 0
+                      where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
 	</select>
+	
+	<select id="selectTrNum" resultType="int">
+		select tr_num from trade_review where tr_pr_num = #{prNum}
+	</select>
+	
+	<insert id="insertReview">
+			insert into trade_outcome(to_rt_type, to_tr_num, to_type) 
+			values
+			<foreach collection="reviewType" item="reviewType" separator=",">
+				(#{reviewType}, #{trNum}, 0)
+			</foreach>
+	</insert>
 </mapper>
