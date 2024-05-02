@@ -28,7 +28,7 @@ buildSrc/build
 /integration-tests/build
 /src/asciidoc/build
 spring-test/test-output/
-
+cdn/
 # Maven artifacts
 /target/
 

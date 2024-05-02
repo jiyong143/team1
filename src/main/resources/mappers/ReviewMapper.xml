@@ -18,4 +18,7 @@
 					  join trade_outcome on tr_num = to_tr_num
                       where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where to_type = 0) = 0
 	</select>
+	<insert id="insertReview">
+		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("", , 1)
+	</insert>
 </mapper>

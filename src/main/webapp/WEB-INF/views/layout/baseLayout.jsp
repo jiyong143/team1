@@ -11,14 +11,18 @@
 	<c:otherwise>스프링</c:otherwise>
 </c:choose>
 </title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- Latest compiled and minified CSS --> 
+<link rel="stylesheet" href="<c:url value='/resources/cdn/bootstrap.css'/>">
+<!-- <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
 <!-- jQuery library -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/cdn/jquery-3.7.1.min.js'/>">
+<!-- <script src="http://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script> -->
 <!-- Popper JS -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- <script src="http://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> -->
 <!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/cdn/bootstrap.bundle.js'/>">
+<!-- <script src="http://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> -->
 </head>
 <body>
     <tiles:insertAttribute name="header"/>
@@ -28,4 +32,3 @@
     <tiles:insertAttribute name="footer" />
 </body>
 </html>
-
