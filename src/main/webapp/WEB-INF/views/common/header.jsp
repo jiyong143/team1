@@ -182,7 +182,6 @@
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
 					</li>
-					<c:if test="${user.me_authority == 'admin'}">
 					<c:if test="${user.me_authority == 'user'}">
 						<li class="nav-item">
 							<a class="nav-link btn btn-light" href="<c:url value="/chat/list?page=1"/>">채팅방</a>

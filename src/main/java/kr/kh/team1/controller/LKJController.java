@@ -250,14 +250,6 @@ public class LKJController {
 	public String InquityManager(Model model) {
 		return "/admin/inquityManager";
 	}
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		
-		boolean res = commentService.insertComment(comment, user);
-		
-		map.put("result", res);
-		return map;
-
-	}
 
 	@GetMapping("/surportManage/list")
 	// 고정 문의글 리스트
