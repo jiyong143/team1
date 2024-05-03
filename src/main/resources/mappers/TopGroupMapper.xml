@@ -23,15 +23,15 @@
 	</select>
 	
 	<select id="selectSidoList" resultType="kr.kh.team1.model.vo.ZipcodeVO">
-		select DISTINCT sido from zipcode
+		select DISTINCT sido from addr
 	</select>
 	
 	<select id="selectSigunguList" resultType="kr.kh.team1.model.vo.ZipcodeVO">
-		select distinct sigungu from zipcode where sido = #{sido}
+		select distinct sigungu from addr where sido = #{sido}
 	</select>
 	
 	<select id="selectdongList" resultType="kr.kh.team1.model.vo.ZipcodeVO">
-		select distinct H_DONG_NM from zipcode where sido = #{sido} and sigungu = #{sigungu}
+		select distinct H_DONG_NM from addr where sido = #{sido} and sigungu = #{sigungu}
 	</select>
 	
 	<select id="selectTopGroup" resultMap="TopGroupMap">

@@ -137,6 +137,15 @@ display : flex;
 padding-left : 0;
 }
 
+.free-button{
+left : 380px;
+position : absolute;
+}
+
+.suggest-button{
+left : 280px;
+position : absolute;
+}
 
 </style>
 </head>
@@ -207,8 +216,8 @@ padding-left : 0;
 	
 	<div id="price-update" class="price-update flex items-center justify-between w-full border border-gray-300 border-solid rounded px-4  text-base scale-85 origin-top-left -mb-3  w-[117.65%] p-6  h-[60px] false">
 		<label for="search" class="flex items-center py-0.5 w-2/3">
-		<span>₩</span>
-		<input id="price-input" name="productPrice" type="text" inputmode="numeric" class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500" placeholder="판매가격" value="${pro.pr_price }" style="border : none; outline : none;">
+		<span id="won" style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if>;">₩</span>
+		<input id="price-input" name="productPrice" type="text" inputmode="numeric" class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500" placeholder="판매가격" value="${price}" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if> ; border : none; outline : none;" <c:if test="${pro.pr_price ==0 || pro.pr_price == -10 }">disabled</c:if> >
 		</label>
 		<button class="free-button flex items-center justify-center text-center text-jnGray-900">
 		<svg width="22" height="22" viewBox="0 0 22 22" fill="<c:if test="${pro.pr_price == 0 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != 0 }">#FFFFFF</c:if> " xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
@@ -222,8 +231,7 @@ padding-left : 0;
 		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 		가격제안</button>
-	</div>
-			
+	</div>		
 	</div>
 
 <script type="text/javascript">
@@ -359,6 +367,7 @@ function displayFile(file) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+	var pNum = '${pro.pr_num}';
     var serverText = '${pro.pr_tg_name}';
     var serverText1 = '${pro.pr_mg_name}';
     var buttons = document.querySelectorAll('#topGroup button');
@@ -366,23 +375,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     buttons.forEach(function(button) {
         var buttonText = button.querySelector('p').textContent.trim();
-        
         if (buttonText === serverText) {
             button.classList.add('selected');
             button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
             button.querySelector('p').style.color = 'black'; // 진하게 만들기
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
         }
         
         button.addEventListener('click', function() {
             buttons.forEach(function(btn) {
                 btn.classList.remove('selected');
-                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
-                button.querySelector('p').style.color = 'initial';
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
             });
             
             button.classList.add('selected');
             button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
-            button.querySelector('p').style.color = 'black'; 
+            button.querySelector('p').style.color = 'black';
+            button.closest('li').style.backgroundColor = '#ced4da';
+            console.log(pNum);
             sendTop(button);
         });      
     });
@@ -394,32 +406,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (buttonText === serverText1) {
             button.classList.add('selected');
             button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
-            button.querySelector('p').style.color = 'black'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기            
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
         }
         
         button.addEventListener('click', function() {
             buttons1.forEach(function(btn) {
                 btn.classList.remove('selected');
-                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
-                button.querySelector('p').style.color = 'initial';
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화 
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
             });
             
             button.classList.add('selected');
             button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
             button.querySelector('p').style.color = 'black'; 
+            button.closest('li').style.backgroundColor = '#ced4da';
         });      
     });
 });
 
 
 function sendTop(button) {
-    
+	var pNum = '${pro.pr_num}';
 	var topName = button.querySelector('p').textContent.trim();
-		
+	console.log(pNum);
     var data = {
-       "topName" : topName
+       "topName" : topName,
+       "pNum" : pNum
     };
 
+    console.log(data)
     // AJAX 요청
     $.ajax({
     	async : false,
@@ -428,8 +445,9 @@ function sendTop(button) {
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(data) {
+        	console.log(data);
             // 성공적으로 응답을 받았을 때 실행할 코드
-            addMid(data.mids);
+            addMid(data.mids, data.mName);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -438,20 +456,27 @@ function sendTop(button) {
     });
 } 
 
-function addMid(mids){
+function addMid(mids,mName){
 	
 	let str = '';
 	str += `<ul class="category-ul flex flex-col border-solid border-jnGray-300">`;
 	for(let i=0; i<mids.length; i++){
 		const mid = mids[i];
-		str += `<li class="false h-10 p-3 midGroup-li">
-			    <button onClick="clickMid(this)">
-			    <p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">\${mid.mg_title }</p>
-			    </button>
-			    </li>`;
+		if(mName === mid.mg_title){
+			str+=`<li class="false h-10 p-3 midGroup-li" style="background-color : #ced4da; ">
+			      <button onClick="clickMid(this)">
+			      <p class="truncate break-keep" style="font-weight : bold; color : black;">\${mid.mg_title }</p>
+			      </button>
+				  </li>`;
+		}else{
+			str+=`<li class="false h-10 p-3 midGroup-li">
+			      <button onClick="clickMid(this)">
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial;">\${mid.mg_title }</p>
+			      </button>
+				  </li>`;
+		}
 	}
 	str+=`</ul>`;
-		
 	 $("#midGroup").html(str);
 }
 
@@ -461,12 +486,14 @@ function clickMid(button){
 	 buttons1.forEach(function(btn) {
      btn.classList.remove('selected');
      btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
-     button.querySelector('p').style.color = 'initial';
+     btn.querySelector('p').style.color = 'initial';
+     btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
      });
 	 
 	 button.classList.add('selected');
      button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
-     button.querySelector('p').style.color = 'black'; 	 
+     button.querySelector('p').style.color = 'black'; 	
+     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
 }
 
 	const container = document.getElementById('price-update');
@@ -488,34 +515,58 @@ function clickMid(button){
 	const freeIcon = freeButton.querySelector('svg');
 	const suggestButton = document.querySelector('.suggest-button');
 	const suggestIcon = suggestButton.querySelector('svg');
+	const priceInput = document.getElementById("price-input");
+	const won = document.getElementById("won");
 	
 	freeButton.addEventListener('click', function() {
 		const freeValue = freeIcon.getAttribute('fill');
 		if(freeValue === 'rgb(13, 204, 90)'){
 			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			won.style.color=""; // 색 기본으로
+			priceInput.style.color="";
+			priceInput.value = ""; // 가격입력창 비우기
+			priceInput.disabled= false;
 		}else{
 			freeIcon.setAttribute('fill', 'rgb(13, 204, 90)'); // 아이콘의 색상을 초록색으로 변경
-		}
-		
-		suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
-	    
+			priceInput.value = "무료나눔"; // 가격입력창에 무료나눔이라고 뜨게 하기
+			priceInput.disabled= true;
+			priceInput.style.color = "green"; // 색은 초록색으로
+			won.style.color="green"; // 마찬가지로 초록색으로
+			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+		}    
 	});
 	
 	suggestButton.addEventListener('click', function() {
 		const suggestValue = suggestIcon.getAttribute('fill');
 		if(suggestValue === 'rgb(13, 204, 90)'){
 			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			priceInput.value = ""; // 가격입력창 비우기
+			won.style.color=""; // 색 기본으로
+			priceInput.style.color="";
+			priceInput.disabled= false;
 		}else{
 			suggestIcon.setAttribute('fill', 'rgb(13, 204, 90)'); // 아이콘의 색상을 초록색으로 변경
-		}
-		
-		freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
-	    
+			priceInput.value = "가격제안"; // 가격입력창에 무료나눔이라고 뜨게 하기
+			priceInput.style.color = "gray"; // 색은 회색으로
+			won.style.color="gray"; // 마찬가지로 회색으로
+			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			priceInput.disabled= true;
+		}   
 	});
 	
+	<!--가격 입력시 작용 -->
+	priceInput.addEventListener('keyup', function(e) {
+		  let value = e.target.value;
+		  // 입력 값이 없으면 빈문자열로 설정
+		  if (value === "" || value === null || isNaN(Number(value))) {
+		    value = "";
+		  } else {
+		    value = Number(value.replaceAll(',', ''));
+		  }
+		  const formatValue = value.toLocaleString('ko-KR');
+		  priceInput.value = formatValue; 
+		});
 	
-	
-
 </script>
 </body>
 </html>

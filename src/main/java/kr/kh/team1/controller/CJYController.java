@@ -53,6 +53,16 @@ public class CJYController {
 	public String productUpdate(Model model, int num ) {
 		ArrayList <FileVO> files = productService.getFileBypNum(num);
 		ProductVO pro = productService.getProductInfo(num);
+		String price = null;
+		if(pro.getPr_price()==-10) {
+			price="가격제안";
+		}else if(pro.getPr_price()==0) {
+			price="무료나눔";
+		}else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			price = formatter.format(pro.getPr_price());
+		}
+		model.addAttribute("price",price);
 		int topNum = productService.getTopNum(num);
 		ArrayList <TopGroupVO> topGroupList = topGroupService.getTopGroupList(); 
 		TopGroupVO topGroup = topGroupService.getTopGroup(topNum);
@@ -63,19 +73,17 @@ public class CJYController {
 		return "/product/update"; 
 	}
 	
+	
 	@ResponseBody
 	@GetMapping("/product/update1")
-	public Map<String ,Object> productUpdate1(String topName) {
+	public Map<String ,Object> productUpdate1(String topName, int pNum) {
+		ProductVO pro = productService.getProductInfo(pNum);// pNum 상품이 포함된 mid의 이름
 		TopGroupVO topGroup = topGroupService.getTopGroupByName(topName);
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
-	   	map.put("mids",topGroup.getMidGroupList()  );
+	   	map.put("mids",topGroup.getMidGroupList());
+	   	map.put("mName",pro.getPr_mg_name());
 	   	return map;  
 	}
-
-
-		
-	
-	
 
 
 	@GetMapping("/product/list")  

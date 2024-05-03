@@ -12,4 +12,8 @@ public interface ReviewService {
 	ArrayList<ProductVO> getReviewProList(String userId);
 
 	ArrayList<ReviewTypeVO> getReviewType();
+	
+    int getTrNum(int prNum);
+	
+	boolean addReview(ArrayList<String> reviewType, int trNum);
 }
