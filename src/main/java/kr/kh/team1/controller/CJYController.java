@@ -70,6 +70,7 @@ public class CJYController {
 		model.addAttribute("pro", pro);
 		model.addAttribute("files" , files);
 		model.addAttribute("topList",topGroupList);
+		model.addAttribute("count",pro.getPr_content().length());
 		return "/product/update"; 
 	}
 	

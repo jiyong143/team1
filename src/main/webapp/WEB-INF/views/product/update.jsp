@@ -24,32 +24,38 @@
   
   #productTitle {
     padding: 0.5rem 1rem; /* 내부 여백 설정 */
-    width: 23%; /* 너비를 부모 요소에 맞게 설정 */
+    width: 25%; /* 너비를 부모 요소에 맞게 설정 */
     border: 1px solid #ccc; /* 테두리 설정 */
     border-radius: 0.25rem; /* 둥근 모서리 설정 */
     font-size: 14px; /* 폰트 크기 설정 */
     color: #333; /* 폰트 색상 설정 */
     transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
     position : absolute;
-    top : 350px;
-    left : 800px;   
+    top : 170px;
+    left : 700px;   
 }
 
 .price-update{
 padding: 0.5rem 1rem; /* 내부 여백 설정 */
-    width: 23%; /* 너비를 부모 요소에 맞게 설정 */
+    width: 25%; /* 너비를 부모 요소에 맞게 설정 */
     border: 1px solid #ccc; /* 테두리 설정 */
     border-radius: 0.25rem; /* 둥근 모서리 설정 */
     font-size: 14px; /* 폰트 크기 설정 */
     color: #333; /* 폰트 색상 설정 */
     transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
     position : absolute;
-    top : 700px;
-    left : 800px; 
+    top : 495px;
+    left : 700px; 
 
 }
 
 #productTitle:focus {
+    outline: none; /* 포커스 시 기본 아웃라인 제거 */
+    border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
+}
+
+#product-content:focus {
     outline: none; /* 포커스 시 기본 아웃라인 제거 */
     border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
@@ -77,15 +83,15 @@ padding: 0;
 }
 
 .image-update{
-top : 200px;
-left : 800px;
+top : 40px;
+left : 700px;
 position : absolute;
 }
 
 .category-update {
     position : absolute;
-    top : 450px;
-    left : 780px;
+    top : 250px;
+    left : 680px;
 }
 
 .topGroup-li , .midGroup-li{
@@ -114,7 +120,7 @@ left : 0;
 #topGroup , #midGroup {
     max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
     overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
-    width : 245px;
+    width : 239px;
     
 }
 
@@ -123,6 +129,10 @@ left : 0;
 }
 
 #midGroup::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#product-content::-webkit-scrollbar {
     display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
@@ -138,13 +148,35 @@ padding-left : 0;
 }
 
 .free-button{
-left : 380px;
+left : 370px;
 position : absolute;
+color : green;
 }
 
 .suggest-button{
-left : 280px;
+left : 270px;
 position : absolute;
+color : gray;
+}
+
+#product-content{
+position : absolute;
+left : 700px;
+top : 587px;
+width : 476px;
+
+}
+
+.contentCount{
+position : absolute;
+left : 1108px;
+top : 1115px;
+}
+
+.michael{
+position : absolute;
+left : 1137px;
+top : 1115px;
 }
 
 </style>
@@ -231,7 +263,14 @@ position : absolute;
 		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 		가격제안</button>
-	</div>		
+	</div>
+	
+	<div class="content-update">
+	<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" maxlength="1000" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
+	<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
+	<span class="michael">/1000</span>
+	</div>	
+		
 	</div>
 
 <script type="text/javascript">
@@ -566,6 +605,15 @@ function clickMid(button){
 		  const formatValue = value.toLocaleString('ko-KR');
 		  priceInput.value = formatValue; 
 		});
+	
+	
+	const textarea = document.getElementById('product-content');
+	const span = document.getElementById('contentCount');
+	
+	textarea.addEventListener('input', function() {
+        const charCount = textarea.value.length;
+        span.textContent =  charCount;
+    });
 	
 </script>
 </body>
