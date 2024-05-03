@@ -92,6 +92,13 @@ values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
 
+/*
+show global variables like 'local_infile';
+set global local_infile=true;
+
+load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+*/
+
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
 ALTER TABLE `market`.`chat_state` 
