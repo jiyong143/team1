@@ -25,7 +25,9 @@ import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.pagination.PageMaker_chat;
+import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
@@ -248,5 +250,12 @@ public class IBHController {
 		
 		chatTotalCount = 2;
 		return "";
+	}
+	
+	//회원관리 START -> 회원정보 불러오기
+	@GetMapping("/admin/categoryManager")
+	public String memberManager(Model model) {
+		
+	    return "/admin/categoryManager";
 	}
 }

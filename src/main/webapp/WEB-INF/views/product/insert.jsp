@@ -204,9 +204,30 @@
 
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
-	// 서버에 전송하기 전에 제목, 내용 글자수 확인
+
+	const pr_price = document.querySelector('#pr_price');
+	pr_price.addEventListener('keyup', function(e) {
+		let value = e.target.value;
+		// 입력 값이 없으면 빈문자열로 설정
+		if (value === "" || value === null || isNaN(Number(value))) {
+		  value = "";
+		} else {
+		  value = Number(value.replaceAll(',', ''));
+		}
+		const formatValue = value.toLocaleString('ko-KR');
+		pr_price.value = formatValue; 
+	});
+	
+	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
 	$("#productForm").submit(function(e){
 		let res = false;
+		
+		if(!$(".h_dong_nm").checked){
+			alert("주소를 입력해야 합니다.");
+			$(".h_dong_nm").focus();
+			return false;
+		}
+		
 		for(let i = 0; i < 5; i++){
 			let fileTag = document.getElementsByName("file")[i];
 			if(fileTag.value.length != 0){
@@ -214,17 +235,14 @@
 				return;
 			}
 		}
+		
 		if(res = true){
 			alert("파일은 1개 이상 등록해야합니다.");
 			return false;
 		}else{
 			return true;
 		}
-		
-		if($("[name=file]").val().length == 0){
-			alert("파일은 1개 이상 등록해야합니다.");
-			return false;
-		}
+
 		
 		if(!$(".check").checked){
 			alert("대분류를 선택해야합니다.");
@@ -245,6 +263,8 @@
 			$("[name = pr_content]").focus();
 			return false;
 		}
+		
+		
 		
 		$(".priceTag").value = $("#pr_price").val();
 		
