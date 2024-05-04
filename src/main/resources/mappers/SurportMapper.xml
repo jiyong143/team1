@@ -65,21 +65,5 @@
 	</update>
 	<delete id="deleteSurport">
 		DELETE FROM surport WHERE su_num = #{su_num} 
-		SELECT *
-		FROM surport
-		<if test='cris.type == "all"'>
-			WHERE su_title like CONCAT('%', #{cris.search}, '%')
-			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-			OR su_me_id LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-		<if test='cris.type == "title"'>
-			WHERE su_title LIKE CONCAT('%', #{cris.search}, '%')
-			OR su_content LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-		<if test='cris.type == "writer"'>
-			WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
-		</if>
-		ORDER BY ${cris.order} DESC
-		LIMIT #{cris.pageStart}, #{cris.perPageNum}
 	</delete>
 </mapper>

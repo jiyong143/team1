@@ -11,36 +11,34 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 0;
-  position: fixed;
+  width: 210px;
+  position: auto;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 20px;
+    margin-bottom: 100px;
+  
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
-  transition: 0.3s;
 }
 
 .sidenav a:hover {
   color: #f1f1f1;
 }
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
 }
 
 @media screen and (max-height: 450px) {
@@ -51,24 +49,26 @@ body {
 <title>Home</title>
 </head>
 <body>
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
-</div>
-<h2><img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">가지 각색 중고 매매</h2>
-<span class="menu-leftside-button" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; <img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">menu</span>
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-}
-</script>
-    
+<div class="sidenav">
+
+<div class="container">
+  <div class="card" style="width:100%; background-color: gray;">
+	<img src="<c:url value="/resources/img/avatar1.png"/>" alt="Card image" style="width:100%;">
+    <div class="card-body">
+      <h4 class="card-title" style="font-size: 10px;">John Doe</h4>
+      <a href="#" class="btn btn-primary" style="width: 80px; font-size: 10px;">See Profile</a>
+    </div>
+  </div>
+</div>
+
+
+
+  <a href="<c:url value="/product/insert"/>">판매하기</a>
+  <a href="<c:url value="/report/list"/>">신고</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+</div>   
+
 </body>
 </html>

@@ -26,12 +26,23 @@ public class ReportServiceImp implements ReportService{
 
 	@Override
 	public int getReportTotalCount(Criteria_report crir) {
-		// TODO Auto-generated method stub
 		return reportDao.selectReportTotalCount(crir);
 	}
 
 	@Override
-	public boolean insertReport(ReportVO report, ProductVO product, MemberVO user) {
+	public boolean insertReportProduct(ReportVO report, ProductVO product, MemberVO user) {
+		if(user == null || report == null || product == null) {
+			return false;
+		}
+		if( !checkString(report.getRe_name()) ||
+			//!checkString(report.getRe_pr_num()) ||
+			!checkString(report.getRe_content())) {
+			return false;
+		}
+		return false;
+	}
+
+	private boolean checkString(String re_content) {
 		// TODO Auto-generated method stub
 		return false;
 	}

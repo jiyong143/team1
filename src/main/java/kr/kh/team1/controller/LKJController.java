@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.MemberDTO;
@@ -132,13 +131,13 @@ public class LKJController {
 
 	@GetMapping("/surport/delete")
 	public String surportDelete(Model model, int suNum, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = surportService.deleteSurport(suNum, user);
-		if (res) {
+		if(res) {
 			model.addAttribute("url", "/surport/list");
 			model.addAttribute("msg", "글 삭제완료");
-		} else {
-			model.addAttribute("url", "/surport/detail?suNum=" + suNum);
+		}else {
+			model.addAttribute("url", "/surport/detail?suNum="+suNum);
 			model.addAttribute("msg", "글 삭제 실패");
 		}
 		return "message";
@@ -239,9 +238,9 @@ public class LKJController {
 	}
 	
 	@GetMapping("/report/insert")
-	public String reportInsert(Model model, ReportVO report, ProductVO product,  HttpSession session) {
+	public String reportProductInsert(Model model, ReportVO report, ProductVO product,  HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReport(report, product, user);
+		boolean res = reportService.insertReportProduct(report, product, user);
 		model.addAttribute("title", "신고들 작성");
 		return "/report/insert";
 	}
@@ -278,5 +277,9 @@ public class LKJController {
 	// 관리자 페이지
 	public String adminPage(Model model) {
 		return "/admin/adminPage";
+	}
+	@GetMapping("/admin/managerPage")
+	public String managePage(Model model) {
+		return "/admin/managerPage";
 	}
 }

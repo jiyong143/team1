@@ -267,7 +267,7 @@ public class PJHController {
 		return map;
 	}
 	
-	@GetMapping
+	@GetMapping("member/update")
 	public String updateMember(Model model, HttpSession session) {
 		model.addAttribute("title", "회원정보수정");
 		MemberVO member = (MemberVO)session.getAttribute("user");
