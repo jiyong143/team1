@@ -23,6 +23,7 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.Criteria_member;
@@ -252,10 +253,36 @@ public class IBHController {
 		return "";
 	}
 	
-	//회원관리 START -> 회원정보 불러오기
-	@GetMapping("/admin/categoryManager")
-	public String memberManager(Model model) {
+	@GetMapping("/admin/topCategoryManager")
+	// 대분류 페이지
+	public String topCategoryManager(Model model) {
 		
-	    return "/admin/categoryManager";
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+		model.addAttribute("topList", topList);
+	    return "/admin/topCategoryManager";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/topCategoryManager")
+	// 대분류 추가
+	public String topCategoryManagerPost(Model model, String topGroup) {
+
+		System.out.println(topGroup);
+		/*
+		boolean res = topGroupService.insertTopGroup(topGroup);
+		if(res) {
+			model.addAttribute("msg", "대분류 추가했습니다.");
+		}else {
+			model.addAttribute("msg", "대분류 추가하지 못했습니다.");
+		}
+		model.addAttribute("url", "/admin/topCategoryManager");
+	    */
+	    return "추가했습니다.";
+	}
+	
+	@GetMapping("/admin/midCategoryManager")
+	public String midCategoryManager(Model model) {
+		
+	    return "/admin/midCategoryManager";
 	}
 }

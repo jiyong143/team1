@@ -24,17 +24,17 @@
 </head>
 <body>
 <div class="container mt-3 col-6 card-1">
-	<h2 style="font-weight: bold">카테고리 관리</h2>
+	<h2 style="font-weight: bold">중분류 관리</h2>
 	<div class="input-group mb-3" style="margin-top: 30px;">
-		<input type="text" class="form-control category-content" placeholder="새로 등록할 카테고리 이름을 입력하세요.">
+		<input type="text" class="form-control category-content" placeholder="새로 등록할 중분류 이름을 입력하세요.">
 		<button class="btn btn-success btn-category-insert" type="button">등록</button>
 	</div>
 	<table class="table table-hover category-list-table">
 		<tbody class="box-category-list">
 			<tr class="box-category">
-				<td class="col-2">카테고리 번호</td>
-				<td class="col-7">카테고리 제목</td>
-				<td class="col-7">카테고리 작성자</td>
+				<td class="col-2">중분류 번호</td>
+				<td class="col-7">중분류 제목</td>
+				<td class="col-7">중분류 작성자</td>
 				<td class="col-3">
 					<div class="btn-category-group">
 						<button class="btn btn-outline-warning">수정</button>

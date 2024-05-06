@@ -47,4 +47,11 @@ public class TopGroupServiceImp implements TopGroupService {
 		return topGroupDao.selectdongList(sido, sigungu);
 	}
 
+	@Override
+	public boolean insertTopGroup(String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.insertTopGroup(topGroup);
+	}
+
 }
