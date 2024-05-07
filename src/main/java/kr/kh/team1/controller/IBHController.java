@@ -265,24 +265,50 @@ public class IBHController {
 	@ResponseBody
 	@PostMapping("/admin/topCategoryManager")
 	// 대분류 추가
-	public String topCategoryManagerPost(Model model, String topGroup) {
-
-		System.out.println(topGroup);
-		/*
+	public Map<String, Object> topCategoryManagerPost(String topGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = topGroupService.insertTopGroup(topGroup);
 		if(res) {
-			model.addAttribute("msg", "대분류 추가했습니다.");
+			map.put("msg", "추가했습니다.");
 		}else {
-			model.addAttribute("msg", "대분류 추가하지 못했습니다.");
+			map.put("msg", "추가하지 못했습니다.");
 		}
-		model.addAttribute("url", "/admin/topCategoryManager");
-	    */
-	    return "추가했습니다.";
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/updateTopCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.updateTopGroup(tg_num, topGroup);
+		if(res) {
+			map.put("msg", "수정했습니다.");
+		}else {
+			map.put("msg", "수정하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/deleteTopCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> deleteTopCategoryManagerPost(int tg_num) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.deleteTopGroup(tg_num);
+		if(res) {
+			map.put("msg", "삭제했습니다.");
+		}else {
+			map.put("msg", "삭제하지 못했습니다.");
+		}
+		return map;
 	}
 	
 	@GetMapping("/admin/midCategoryManager")
 	public String midCategoryManager(Model model) {
-		
 	    return "/admin/midCategoryManager";
 	}
 }

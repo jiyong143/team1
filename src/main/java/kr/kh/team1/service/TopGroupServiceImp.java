@@ -54,4 +54,16 @@ public class TopGroupServiceImp implements TopGroupService {
 		return topGroupDao.insertTopGroup(topGroup);
 	}
 
+	@Override
+	public boolean deleteTopGroup(int tg_num) {
+		return topGroupDao.deleteTopGroup(tg_num);
+	}
+
+	@Override
+	public boolean updateTopGroup(int tg_num, String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.updateTopGroup(tg_num, topGroup);
+	}
+
 }

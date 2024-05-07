@@ -38,4 +38,12 @@
 		insert into topgroup(tg_title)
 		values(#{topGroup})
 	</insert>
+	
+	<delete id="deleteTopGroup">
+		delete from topgroup where tg_num = #{tg_num}
+	</delete>
+	
+	<update id="updateTopGroup">
+		update topgroup set tg_title = #{topGroup} where tg_num = #{tg_num}
+	</update>
 </mapper>

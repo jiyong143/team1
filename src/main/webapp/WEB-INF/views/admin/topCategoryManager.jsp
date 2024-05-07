@@ -27,7 +27,7 @@
 	<h2 style="font-weight: bold">대분류 관리</h2>
 	<div class="input-group mb-3" style="margin-top: 30px;">
 		<input type="text" name="topGroup" class="form-control category-content" placeholder="새로 등록할 대분류 이름을 입력하세요.">
-		<button class="btn btn-success btn-category-insert" type="button" onClick="addBtn()">등록</button>
+		<button class="btn btn-success btn-category-insert" type="button">등록</button>
 	</div>
 	<table class="table table-hover category-list-table">
 		<thead class="box-category-list">
@@ -68,13 +68,67 @@
 	</div>
 </div>
 <script type="text/javascript">
-	function addBtn(){
+	<!-- 대분류 추가 -->
+	$(document).on("click", ".btn-category-insert", function(){
 		let topGroup = $("[name=topGroup]").val();
 		$.ajax({
 			async : true,
 			url : '<c:url value="/admin/topCategoryManager"/>',
 			type : 'post', 
+			dataType : "json",
 			data : {topGroup : topGroup},	
+			success : function (data){
+			    alert(data.msg);
+			    $("[name=topGroup]").val("");
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	});
+
+	<!-- 대분류 수정 -->
+	$(document).on("click", ".updateBtn", function(){
+		let tg_num = this.value;	// 수정할 대분류 번호 => DB에 저장되 있는 번호
+		$(".btn-category-insert").addClass("btn-category-update");
+		$(".btn-category-insert").removeClass("btn-category-insert");
+		$("[name=topGroup]").attr("placeholder", "수정할 대분류 이름을 입력하세요.");
+		
+		$(".btn-category-update").click(function(){
+			let topGroup = $("[name=topGroup]").val();
+			let obj = {
+				topGroup : topGroup,
+				tg_num : tg_num
+			}
+			$.ajax({
+				async : true,
+				url : '<c:url value="/admin/updateTopCategoryManager"/>',
+				type : 'post', 
+				dataType : "json",
+				data : obj,	
+				success : function (data){
+				    console.log(data);
+				    alert(data.msg);
+					$(".btn-category-update").addClass("btn-category-insert");
+					$(".btn-category-update").removeClass("btn-category-update");
+					$("[name=topGroup]").attr("placeholder", "새로 추가할 대분류 이름을 입력하세요.");
+				},
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});
+		});
+	});
+	
+	<!-- 대분류 삭제 -->
+	$(document).on("click", ".deleteBtn", function(){
+		let tg_num = this.value;	// 삭제할 대분류 번호
+		$.ajax({
+			async : true,
+			url : '<c:url value="/admin/deleteTopCategoryManager"/>',
+			type : 'post', 
+			dataType : "json",
+			data : {tg_num : tg_num},	
 			success : function (data){
 			    console.log(data);
 			},
@@ -82,16 +136,6 @@
 
 			}
 		});
-	}
-
-	$(document).on("click", ".updateBtn", function(){
-		let val = this.value;	// 수정할 대분류 번호
-		
-	});
-	
-	$(document).on("click", ".deleteBtn", function(){
-		let val2 = this.value;	// 삭제할 대분류 번호
-		alert(val2);
 	});
 </script>
 </body>
