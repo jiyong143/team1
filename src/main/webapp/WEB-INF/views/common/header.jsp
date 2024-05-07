@@ -6,186 +6,184 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style type="text/css">
-	.nav-item {
-		padding: 0.5rem 0xp;
-		display: inline-block;
-	}
-	
-	.dropdown-hover:hover>.dropdown-menu {
-		display: inline-block;
-	}
-	
-	.dropdown-hover>.dropdown-toggle:active {
-		pointer-events: none;
-	}
+.nav-item {
+	padding: 0.5rem 0xp;
+	display: inline-block;
+}
 
-	.card-1 {
-	  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-	  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-	}
-	
-	.card-1:hover {
-	  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-	}
-	
-	.ca-name {
-		background: #F2F2F2;
-		padding: 0 10px;
-		font-weight: bold;
-		color: 	#787878;
-		border-radius: 10px;
-		margin-left: 5px
-	}
-	
-	.title-text{
-		display:block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		min-width: 100px;
-		max-width: 100px;
-	
-	}
-	
-	table tr th,table tr td {
-		text-align: center;
-	}
-	
-	.aTag {
-		text-decoration: none; color: black;
-	}
-	
-	.aTag:hover {
-		text-decoration: underline;
-		color: #848484;
-	}
-	
-	/* 검색창을 가운데로 정렬하기 위한 CSS */
-    .d-flex {
-       justify-content: center; /* 가로 방향 가운데 정렬 */
-       align-items: center; /* 세로 방향 가운데 정렬 */
-       height: 100%; /* 부모 요소의 높이를 100%로 설정하여 수직 가운데 정렬 */
-    }
-    
-	/* 카테고리 메뉴 스타일 */
-	.dropdown-menu {
-	    border: none; /* 테두리 없음 */
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-	    border-radius: 8px; /* 모서리 둥글게 */
-	    padding: 10px; /* 내부 간격 */
-	}
-	
-	.dropdown-menu a {
-	    color: #333; /* 링크 색상 */
-	    text-decoration: none; /* 밑줄 없음 */
-	    transition: color 0.3s ease; /* 색상 전환 효과 */
-	    display: block; /* 링크를 블록 레벨 요소로 표시하여 전체 너비 차지 */
-	    padding: 8px 15px; /* 내부 간격 */
-	}
-	
-	.dropdown-menu a:hover {
-	    background-color: #f8f9fa; /* 호버시 배경색 변경 */
-	    color: #007bff; /* 호버시 텍스트 색상 변경 */
-	}
-	
-	.dropdown-menu .divider {
-	    margin: 5px 0; /* 구분선 간격 */
-	    border-top: 1px solid #dee2e6; /* 구분선 스타일 */
-	}
-	
-	.dropdown-menu .dropdown-header {
-	    font-size: 0.85rem; /* 헤더 폰트 크기 */
-	    color: #6c757d; /* 헤더 색상 */
-	    padding: 3px 15px; /* 내부 간격 */
-	    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
-	}
+.dropdown-hover:hover>.dropdown-menu {
+	display: inline-block;
+}
+
+.dropdown-hover>.dropdown-toggle:active {
+	pointer-events: none;
+}
+
+.card-1 {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+	background-color: red;
+}
+
+.card-1:hover {
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px
+		rgba(0, 0, 0, 0.22);
+}
+
+.ca-name {
+	background: #F2F2F2;
+	padding: 0 10px;
+	font-weight: bold;
+	color: #787878;
+	border-radius: 10px;
+	margin-left: 5px
+}
+
+.title-text {
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 100px;
+	max-width: 100px;
+}
+
+table tr th, table tr td {
+	text-align: center;
+}
+
+.aTag {
+	text-decoration: none;
+	color: black;
+}
+
+.aTag:hover {
+	text-decoration: underline;
+	color: #848484;
+}
+
+/* 카테고리 메뉴 스타일 */
+.dropdown-menu {
+	border: none; /* 테두리 없음 */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+	border-radius: 8px; /* 모서리 둥글게 */
+	padding: 10px; /* 내부 간격 */
+}
+
+.dropdown-menu a {
+	color: #262626; /* 링크 색상 */
+	text-decoration: none; /* 밑줄 없음 */
+	transition: color 0.3s ease; /* 색상 전환 효과 */
+	display: block; /* 링크를 블록 레벨 요소로 표시하여 전체 너비 차지 */
+	padding: 8px 15px; /* 내부 간격 */
+}
+
+.dropdown-menu a:hover {
+	background-color: dark; /* 호버시 배경색 변경 */
+	color: #007bff; /* 호버시 텍스트 색상 변경 */
+}
+
+.dropdown-menu .divider {
+	margin: 5px 0; /* 구분선 간격 */
+	border-top: 1px solid #dee2e6; /* 구분선 스타일 */
+}
+
+.dropdown-menu .dropdown-header {
+	font-size: 0.85rem; /* 헤더 폰트 크기 */
+	color: white; /* 헤더 색상 */
+	padding: 3px 15px; /* 내부 간격 */
+	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"
-		style="padding: 0px; height: 80px">
-		<!-- Container wrapper -->
-		<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark"
+	 style="padding: 0px; height: 80px">
+	<!-- Container wrapper -->
+	<div class="container-fluid">
+		<!-- Collapsible wrapper -->
+		<div class="collapse navbar-collapse" id="navbarExampleOnHover">
+		<!-- Left links -->
+		<ul class="navbar-nav me-auto ps-lg-0"
+			style="padding-left: 0.15rem; margin-left: 20px">
+			<li class="nav-item">
+				<a class="nav-link"href="<c:url value="/"/>"> 
+					<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width: 40px; margin-bottom: 2px;">
+					<span style="font-weight: bold; font-size: 24px; color: white; margin-right: 20px; margin-bottom: 4px;">가지</span>
+				</a>
+		    </li>
+		</ul>
+		<ul class="navbar-nav ms-auto ps-lg-0" style="padding-right: 0.15rem">
+			<c:if test="${user == null}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/login"/>">로그인</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/signup"/>">회원가입</a>
+				</li>
+			</c:if>
+			<c:if test="${user != null}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/logout"/>">로그아웃</a>
+				</li>
+			</c:if>
+			<c:if test="${user.me_authority == 'user'}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/mypage"/>">마이페이지</a>
+				</li>
+			</c:if>
+			<c:if test="${user.me_authority == 'user'}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/product/insert"/>">판매하기</a>
+				</li>
+			</c:if>
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list"/>">채팅방</a>
+				</li>
+			<c:if test="${user.me_authority != null}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list?page=1"/>">채팅방</a>
+				</li>
+			</c:if>
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/surport/list"/>">고객센터</a>
+				</li>
+			<c:if test="${user.me_authority == 'admin'}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
+				</li>
+			</c:if>
+			<c:if test="${user.me_authority == 'admin'}">
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
+				</li>
+			</c:if>	
+		</ul>
 			<!-- Toggle button -->
-			<button class="navbar-toggler px-0" type="button"
-				data-mdb-toggle="collapse" data-mdb-target="#navbarExampleOnHover"
-				aria-controls="navbarExampleOnHover" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler px-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExampleOnHover"
+					aria-controls="navbarExampleOnHover" aria-expanded="false" aria-label="Toggle navigation">
 				<i class="fas fa-bars"></i>
 			</button>
-			
-			<!-- Collapsible wrapper -->
-			<div class="collapse navbar-collapse" id="navbarExampleOnHover">
-				<!-- Left links -->
-				<ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem; margin-left: 20px">
-					<li class="nav-item">
-						<a class="nav-link" href="<c:url value="/"/>">
-							<span style="font-weight: bold; font-size : 24px" >Gaji</span>							
-	                    	<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">							
-						</a>
-					</li>
-					<!-- Navbar dropdown -->
-					<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 45px">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-							카테고리 </a> <!-- Dropdown menu -->
-						<div class="dropdown-menu col-10 mt-0 card-1"
-							aria-labelledby="navbarDropdown"
-							style="border-top-left-radius: 0; border-top-right-radius: 0;">
-							<div class="container">
-								<div class="row my-4 here"></div>
-							</div>
+				<!-- 카테고리 드롭다운 -->
+				<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 50px">
+					<a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button"
+					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
+					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 
+						 style="border-top-left-radius: 0; border-top-right-radius: 0;">
+						<div class="container">
+							<div class="row my-4 here"></div>
 						</div>
-					</li>
-				</ul>
-				<ul class="navbar-nav ms-auto ps-lg-0"
-					style="padding-right: 0.15rem">
-					<c:if test="${user == null}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/member/login"/>">로그인</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" style="margin-left: 7px" href="<c:url value="/member/signup"/>">회원가입</a>
-						</li>
-					</c:if>
-					<c:if test="${user != null}">
-			        	<li class="nav-item">
-				          	<a class="nav-link btn btn-light" href="<c:url value="/member/logout"/>">로그아웃</a>
-				        </li>
-			        </c:if>
-			        <c:if test="${user.me_authority == 'user'}">
-					    <li class="nav-item">
-					    	<a class="nav-link btn btn-light" href="<c:url value="/member/mypage"/>">마이</a>
-						</li>
-			        </c:if>
-			        <c:if test="${user.me_authority == 'admin'}">
-						<li class="nav-item">
-					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자</a>
-						</li>		
-			        </c:if>
-					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
-					</li>
-					<c:if test="${user.me_authority != null}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
-						</li>
-					</c:if>
-					<c:if test="${user.me_authority == 'user'}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/chat/list?page=1"/>">채팅방</a>
-						</li>
-					</c:if>
-				</ul>
-				<!-- Left links -->
-			</div>
-			<!-- Collapsible wrapper -->
+					</div>
+				</li>
+		<!-- Left links -->
 		</div>
-		<!-- Container wrapper -->
-	</nav>
+	<!-- Collapsible wrapper -->
+	</div>
+<!-- Container wrapper -->
+</nav>
 <script type="text/javascript">
 getGroup();
 function getGroup(){
@@ -211,18 +209,15 @@ function getGroup(){
 	})
 }
 
-
-function showProduct(mNum, mName, tName){
-	
+function showProduct(mNum, mName, tName){	
 	let urlParams = new URLSearchParams("?");
-	if(mNum)
-		urlParams.append("mNum", mNum);
-	if(mName)
-		urlParams.append("mName", mName);
-	if(tName)
-		urlParams.append("tName", tName);
-	location.href = '<c:url value="/product/list?"/>' + urlParams;
-	
+		if(mNum)
+			urlParams.append("mNum", mNum);
+		if(mName)
+			urlParams.append("mName", mName);
+		if(tName)
+			urlParams.append("tName", tName);
+	location.href = '<c:url value="/product/list?"/>' + urlParams;	
 }
 </script>
 </body>

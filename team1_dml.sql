@@ -30,6 +30,19 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 (3,"cjy0896","세탁기 싸게 팔아요","강남구 강남동","유행하는 세탁기에요",400000),
 (4,"cjy0896","냄장고 싸게 팔아요","군포시 산본동","냉장고 엄청 차가워요",350000);
 
+insert into `suport_manage`(sm_name) value ("공지사항");
+insert into `suport_manage`(sm_name) value ("문의사항");
+
+insert into `up_head`(uh_name) value ("필독");
+insert into `up_head`(uh_name) value ("공지");
+insert into `up_head`(uh_name) value ("문의");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 2, "qwe123", "문의사항 테스트", "테스트 입니다");
+
 
 
 show global variables like 'local_infile';
@@ -40,8 +53,34 @@ load data local infile "D:\address/addr.txt" into table addr character set 'utf8
 show global variables like 'local_infile';
 set global local_infile=true;
 
+SELECT * FROM surport;
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (3, "admin1", "댓글 테스트 입니다");
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (5, "admin1", "댓글 테스트 입니다");
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (3, "admin1", "댓글 테스트 입니다");
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (7, "admin1", "댓글 테스트 입니다");
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (10, "admin1", "댓글 테스트 입니다");
+
+insert into comment (co_su_num, co_me_id, co_content)
+values (8, "admin1", "댓글 테스트 입니다");
+
+select * from comment;
+values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
+
+insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
 load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
 */
+
 
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;

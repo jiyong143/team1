@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>admin_page</title>
+<title>manager_page</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -74,10 +74,7 @@
   <a class="active" href="#home">사이트 정보</a>
   <a href="/team1/admin/memberManager">회원 관리</a>
   <a href="/team1/report/list">신고관리</a>
-  <a href="/team1/admin/inquityManager">카테고리 관리</a>
-  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
-  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
-
+  <a href="/team1/admin/inquityManager">고객센터 관리</a>
 </div>
 <div class="Manager-container">
   <h2>메니저 명단</h2>

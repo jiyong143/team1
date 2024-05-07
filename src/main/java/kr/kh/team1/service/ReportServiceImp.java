@@ -26,17 +26,31 @@ public class ReportServiceImp implements ReportService{
 
 	@Override
 	public int getReportTotalCount(Criteria_report crir) {
-		// TODO Auto-generated method stub
 		return reportDao.selectReportTotalCount(crir);
 	}
 
 	@Override
-	public boolean insertReport(ReportVO report, ProductVO product, MemberVO user) {
+	public boolean insertReportProduct(ReportVO report, ProductVO product, MemberVO user) {
+		if(user == null || report == null || product == null) {
+			return false;
+		}
+		if( !checkString(report.getRe_name()) ||
+			//!checkString(report.getRe_pr_num()) ||
+			!checkString(report.getRe_content())) {
+			return false;
+		}
+		return false;
+	}
+
+	private boolean checkString(String re_content) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	public ArrayList<ProductVO> getProductList() {
+		return reportDao.selectProductList();
+
 	public boolean insertReportByIBH(ReportVO report) {
 		
 		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
@@ -45,6 +59,7 @@ public class ReportServiceImp implements ReportService{
 			return false;
 		System.out.println("1");
 		return reportDao.insertReportByIBH(report);
+
 	}
 
 }

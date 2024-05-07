@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria_report;
 
@@ -13,6 +14,9 @@ public interface ReportDAO {
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
 
+	ArrayList<ProductVO> selectProductList();
+
 	boolean insertReportByIBH(@Param("report") ReportVO report);
+
 
 }
