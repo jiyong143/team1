@@ -217,6 +217,7 @@ public class ProductServiceImp implements ProductService{
 		int num = pro.getPr_num();
 		return productDao.updateTime(num); 
 	}
+	
 
 	@Override
 	public int getTopNum(int num) {
