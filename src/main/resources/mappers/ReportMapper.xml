@@ -11,13 +11,8 @@
 		SELECT COUNT(*) FROM surport
 	</select>
 
-	<select id="selectProductList" resultType="ProductVO">
-		select * from product
-	</select>
-
 	<insert id="insertReportByIBH">
-		insert into report(re_me_id, re_name, re_content,
-		re_date)
+		insert into report(re_me_id, re_name, re_content, re_date)
 		values(#{report.},#{report.},#{report.},now())
 	</insert>
 

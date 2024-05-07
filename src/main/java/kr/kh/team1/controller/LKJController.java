@@ -246,17 +246,9 @@ public class LKJController {
 	public String reportProductInsert(Model model) {
 		ArrayList<ProductVO> list = reportService.getProductList();
 		model.addAttribute("list", list);
-		return "";
-	}
-	
-	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		//boolean res = reportService.insertReport(report, product, user);
-		model.addAttribute("title", "신고들 작성");
-		model.addAttribute("me_id", me_id);
-
 		return "/report/insert";
 	}
+	
 	
 	@PostMapping("/report/insert")
 	public String reportProductInsertPost(Model model, ReportVO report, ProductVO product, HttpServletRequest request) {
@@ -266,13 +258,15 @@ public class LKJController {
 			model.addAttribute("url", "/report/list");
 		}else {
 			model.addAttribute("msg", "신고글 작성에 실패아였습니다.");
-			model.addAttribute("url", "/report/inser");
+			model.addAttribute("url", "/report/insert");
 		}
 		System.out.println(report);
 		return "message";
 
 	}
-
+	
+	//채팅방 신고
+	@PostMapping("/report/insetChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
 
 		System.out.println(report);
@@ -282,7 +276,7 @@ public class LKJController {
 			model.addAttribute("url", "/report/list");
 		}else {
 			model.addAttribute("msg", "신고 실패!");
-			model.addAttribute("url", "/report/insert?me_id="+report.getRe_me_id());
+			model.addAttribute("url", "/report/insetChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
 	}

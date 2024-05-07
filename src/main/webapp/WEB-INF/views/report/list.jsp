@@ -24,8 +24,8 @@
 			<tr>
 				<th>번호</th>
 				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
-				<th>작성자</th>
 				<th>신고 타입</th>
+				<th>작성자</th>
 				<th>신고일</th>
 				<th>처분상태</th>
 			</tr>
@@ -33,7 +33,7 @@
 		<tbody>
 			<c:forEach items="${list}" var="report">
 			<tr>
-				<td>${surport.su_num}</td>
+				<td>${report.re_num}</td>
 				<td class="list-title">
 					<c:url value="/report/detail" var="url">
 						<c:param name="reNum" value="${report.re_num}"/>

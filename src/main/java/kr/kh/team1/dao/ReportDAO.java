@@ -14,8 +14,6 @@ public interface ReportDAO {
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
 
-	ArrayList<ProductVO> selectProductList();
-
 	boolean insertReportByIBH(@Param("report") ReportVO report);
 
 
