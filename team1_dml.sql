@@ -98,6 +98,7 @@ set global local_infile=true;
 
 load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
 */
+
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
 ALTER TABLE `market`.`chat_state` 
