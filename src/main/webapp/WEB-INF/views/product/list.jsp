@@ -7,7 +7,7 @@
 <style>
 .container {
 	overflow: auto;
-}
+} 
 
 .xl\:h-24 {
 	height: 6rem;

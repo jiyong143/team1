@@ -35,4 +35,6 @@ public interface ChatService {
 	int getChatRoomTotalCount(String me_id, Criteria cri);
 
 	int getTotalMsgCount(int cm_cr_num);
+
+	ArrayList<ChatRoomVO> getChatRoomIds(int pNum);
 }

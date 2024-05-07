@@ -10,9 +10,10 @@
 
 .product-update{
     position: relative;
-    top: 30%;
+    top: 1000px;
     left: 50%;
     transform: translate(-50%, -50%);
+    height : 2000px;
 }
 
 .file-list {
@@ -104,6 +105,11 @@ list-style-type: none;
 left : 0;
 }
 
+.buyer-li{
+list-style-type: none;
+left : 0;
+}
+
 #topGroup button {
     border: none; /* 버튼의 테두리를 제거합니다. */
     background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
@@ -130,10 +136,23 @@ left : 0;
     
 }
 
+#buyer {
+    max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+    overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+    width : 480px;
+    
+}
+
+
+
 #topPlace , #midPlace, #smallPlace{
 max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
 overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
 width : 158px;
+}
+
+#buyer::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #topPlace::-webkit-scrollbar {
@@ -178,6 +197,12 @@ display : flex;
 padding-left : 0;
 }
 
+.buyer-ul{
+padding-left : 0;
+}
+
+
+
 .place-ul{
 padding-left : 0;
 }
@@ -217,7 +242,7 @@ top : 1115px;
 .place-update{
 position : absolute;
 left : 685px;
-top : 1140px;
+top : 1530px;
 }
 
 .place-update button{
@@ -225,11 +250,85 @@ top : 1140px;
  background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
+#buyer button{
+border: none; /* 버튼의 테두리를 제거합니다. */
+background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+}
+
+.font-semibold{
+position : absolute;
+left : 700px;
+top : 1140px;
+}
+
+.state-update{
+position : absolute;
+left : 700px;
+top : 200px;
+}
+
+.iButton{
+position : absolute;
+left : 0;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+.rButton{
+position : absolute;
+left : 120px;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+
+.cButton{
+position : absolute;
+left : 240px;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+
+#buyer{
+position : absolute;
+left : 700px;
+top : 1280px;
+display : none;
+}
+
+.buyer-span{
+position : absolute;
+left : 700px;
+top : 1240px;
+}
+
 </style>
 </head>
 <body>
 <div class="product-update">
-	<div class="image-update" style="display : flex;">
+	<div class="image-update" style="display : flex; height : 100px;">
 	  <div class="image-picker">
 	    <input name="media" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
 	    <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="openFilePicker()">
@@ -265,7 +364,7 @@ top : 1140px;
 	  </div>
 	</div>
 	<input value="${pro.pr_name }" id="productTitle" name="productTitle" type="text" placeholder="상품명" class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md" autocomplete="off" spellcheck="false" aria-invalid="false">
-	<section class="category-update">
+	<section class="category-update" style="height : 100px;">
 	<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
 	<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 	<ul class="category-ul flex flex-col border-solid border-jnGray-300">
@@ -315,6 +414,15 @@ top : 1140px;
 		<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
 		<span class="michael">/1000</span>
 		</div>	
+	<p class="font-semibold">상품상태</p>
+	<div class="state-update flex gap-3">
+	<button class="iButton" style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};" >판매중</button>
+	<button class="rButton" style="background-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '예약중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : ''};">예약중</button>
+	<button class="cButton" style="background-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매완료' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : ''};">판매완료</button>
+	</div>
+	<span class="buyer-span"></span>
+	<div id="buyer"class="overflow-y-auto border border-solid rounded border-jnGray-300">
+	</div>
 	<section class="place-update">
 		<div class="place-list flex-row w-full overflow-hidden text-sm font-medium h-60">
 		<div id="topPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
@@ -952,6 +1060,124 @@ function clickMid(button){
         const charCount = textarea.value.length;
         span.textContent =  charCount;
     });
+	
+	
+	var iButton = document.querySelector(".iButton");
+	var rButton = document.querySelector(".rButton");
+	var cButton = document.querySelector(".cButton");
+	
+	var stateButtons = document.querySelectorAll('.state-update button');
+	
+	iButton.addEventListener('click', function() {
+		var buyer = document.getElementById("buyer");
+		var buyerSpan = document.querySelector(".buyer-span");
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		iButton.style.backgroundColor = 'rgb(13 204 90)';
+		iButton.style.color = 'rgb(255 255 255)';
+		iButton.style.borderColor = 'rgb(13 204 90)';
+		buyerSpan.textContent="";
+		buyer.style.display = "none";
+	});
+	
+	rButton.addEventListener('click', function() {
+		var buyer = document.getElementById("buyer");
+		var buyerSpan = document.querySelector(".buyer-span");
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		rButton.style.backgroundColor = 'rgb(13 204 90)';
+		rButton.style.color = 'rgb(255 255 255)';
+		rButton.style.borderColor = 'rgb(13 204 90)';
+		buyerSpan.textContent="";
+		buyer.style.display = "none";
+	});
+	
+	cButton.addEventListener('click', function() {
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		cButton.style.backgroundColor = 'rgb(13 204 90)';
+		cButton.style.color = 'rgb(255 255 255)';
+		cButton.style.borderColor = 'rgb(13 204 90)';
+		showIds();// 채팅방 아이디 뿌려주는 함수
+	});
+	
+	function showIds(){
+		var pNum = '${pro.pr_num}';
+	    var data = {
+	       "pNum" : pNum
+	    };
+
+	    // AJAX 요청
+	    $.ajax({
+	    	async : false,
+	        type: "get",
+	        url: '<c:url value="/product/update5"/>', 
+	        data: data, // 보낼 데이터 입력
+	        dataType : "json",
+	        success: function(data) {
+	            // 성공적으로 응답을 받았을 때 실행할 코드
+	            addIds(data.chatRoomList);
+	        },
+	        error: function(xhr, status, error) {
+	            // 요청이 실패했을 때 실행할 코드
+	            console.error("Error sending data:", error);
+	        }
+	    });
+		
+	}
+	
+	
+	function addIds(list){
+		var buyerSpan = document.querySelector(".buyer-span");
+		if(list.length==0){
+			buyerSpan.textContent ="채팅방이 존재하지 않아 구매자 아이디를 찾을 수 없습니다.";
+			console.log(1);
+			return;
+		}
+		buyerSpan.textContent ="구매자의 아이디를 선택하세요.";
+		var buyer = document.getElementById("buyer");
+		buyer.style.display = "block";
+		let str = '';
+		str += `<ul class="buyer-ul flex flex-col border-solid border-jnGray-300">`;
+		for(let i=0; i<list.length; i++){
+			const object = list[i];
+				str+=`<li class="false h-10 p-3 buyer-li">
+				      <button onClick="clickBuyer(this)">
+				      <p class="truncate break-keep" style="color : black; font-size : 15px;">\${object.cr_me_id }</p>
+				      </button>
+					  </li>`;
+		}
+		str+=`</ul>`;
+		 $("#buyer").html(str);
+	}
+	
+	function clickBuyer(button){
+		var buyerButton = document.querySelectorAll('#buyer button');
+		 buyerButton.forEach(function(btn) {
+	     btn.classList.remove('selected');
+	     btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+	     btn.querySelector('p').style.color = 'initial';
+	     btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+	     });
+		 
+		 button.classList.add('selected');
+	     button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+	     button.querySelector('p').style.color = 'black'; 	
+	     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+	}
+	
 	
 </script>
 </body>

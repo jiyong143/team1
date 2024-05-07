@@ -144,6 +144,15 @@ public class CJYController {
 	   	return map;  
 	}
 	
+	@ResponseBody
+	@GetMapping("/product/update5")
+	public Map<String ,Object> productUpdate5(int pNum) {
+		ArrayList <ChatRoomVO> chatRoomList = chatService.getChatRoomIds(pNum);
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("chatRoomList", chatRoomList);
+	   	return map;  
+	}
+	
 	
 	
 	
