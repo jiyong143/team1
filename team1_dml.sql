@@ -31,7 +31,25 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 (4,"cjy0896","냄장고 싸게 팔아요","군포시 산본동","냉장고 엄청 차가워요",350000);
 
 
+
 show global variables like 'local_infile';
 set global local_infile=true;
 load data local infile "D:\address/addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+
+/*
+show global variables like 'local_infile';
+set global local_infile=true;
+
+load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+*/
+
+ALTER TABLE `market`.`chat_state` 
+DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
+ALTER TABLE `market`.`chat_state` 
+ADD CONSTRAINT `FK_chat_room_TO_chat_state_1`
+  FOREIGN KEY (`cs_cr_num`)
+  REFERENCES `market`.`chat_room` (`cr_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
 

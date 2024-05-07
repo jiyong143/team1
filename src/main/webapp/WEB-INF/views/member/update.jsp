@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-	<h1 class="mt-1">회원가입</h1>
+	<h1 class="mt-1">회원정보수정</h1>
 	<div class="member-container user-info">
 		<form action="<c:url value="/member/update"/>" method="post" id="signupfrom">
 			<div class="form-group">
