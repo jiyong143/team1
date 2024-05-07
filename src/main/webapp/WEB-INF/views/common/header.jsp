@@ -132,7 +132,7 @@ table tr th, table tr td {
 			</c:if>
 			<c:if test="${user.me_authority == 'user'}">
 				<li class="nav-item">
-					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/mypage"/>">마이</a>
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/member/mypage"/>">마이페이지</a>
 				</li>
 			</c:if>
 			<c:if test="${user.me_authority == 'user'}">

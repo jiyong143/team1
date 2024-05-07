@@ -50,6 +50,16 @@ public class ReportServiceImp implements ReportService{
 	@Override
 	public ArrayList<ProductVO> getProductList() {
 		return reportDao.selectProductList();
+
+	public boolean insertReportByIBH(ReportVO report) {
+		
+		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
+			report.getRe_name() == null || report.getRe_name().isBlank() ||
+			report.getRe_content() == null || report.getRe_content().isBlank())
+			return false;
+		System.out.println("1");
+		return reportDao.insertReportByIBH(report);
+
 	}
 
 }

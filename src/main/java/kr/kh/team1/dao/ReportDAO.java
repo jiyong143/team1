@@ -16,4 +16,7 @@ public interface ReportDAO {
 
 	ArrayList<ProductVO> selectProductList();
 
+	boolean insertReportByIBH(@Param("report") ReportVO report);
+
+
 }

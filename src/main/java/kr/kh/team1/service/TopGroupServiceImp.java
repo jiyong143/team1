@@ -47,4 +47,32 @@ public class TopGroupServiceImp implements TopGroupService {
 		return topGroupDao.selectdongList(sido, sigungu);
 	}
 
+	@Override
+	public boolean insertTopGroup(String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.insertTopGroup(topGroup);
+	}
+
+	@Override
+	public boolean deleteTopGroup(int tg_num) {
+		return topGroupDao.deleteTopGroup(tg_num);
+	}
+
+	@Override
+	public boolean updateTopGroup(int tg_num, String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.updateTopGroup(tg_num, topGroup);
+	}
+
+	@Override
+	public TopGroupVO getTopGroup(int topNum) {
+		return topGroupDao.selectTopGroup(topNum); 
+	}
+
+	@Override
+	public TopGroupVO getTopGroupByName(String topName) {
+		return topGroupDao.selectTopGroupByName(topName); 
+	}
 }

@@ -216,23 +216,6 @@
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
-			<c:if test="${prUser.me_id eq user.me_id}">
-				<button class="changeState btn btn-outline-success" style="width: 100%">상태 변경</button>
-				<div style="margin-top: 10px" class="stateBox">
-					<div>
-						<select style="width: 30%; height: 40px; display: hidden" class="stateOption">
-							<option>판매중</option>
-							<option>예약중</option>
-							<option>판매완료</option>
-						</select>
-						<select style="margin-left: 4%; width: 40%; height: 40px;" class="buyer">
-							<option>a</option>
-							<option>b</option>
-						</select>
-						<button style="width: 20%; float: right; height: 40px;" class="decideState btn btn-outline-success">선택</button>
-					</div>
-				</div>
-			</c:if>
 			
 			<c:if test="${loginUser.me_id eq prUser.me_id}">
 				<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
@@ -297,14 +280,14 @@
 						<table class="w-100">
 							<thead>
 								<tr style="width:auto">
-									<td>안전거래</td>
-									<td>거래후기</td>
+									<td style="text-align: center;">안전거래</td>
+									<td style="text-align: center;">거래후기</td>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
-									<td><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
+									<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
+									<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
 								</tr>
 							</tbody>
 						</table>
@@ -313,30 +296,6 @@
 			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
-<!-- sse관련 ajax -->
-<script type="text/javascript">
-	$(".stateBox").hide();
-	$(".buyer").hide();
-	
-	$(".changeState").click(function(){
-		$(".stateBox").show();
-		let state = $(".stateOption").val();
-	});
-	
-	$(document).on("change", ".stateOption", function(){
-		let state = $(".stateOption").val();
-		if(state != '판매중'){
-			$(".buyer").show();
-		}else{
-			$(".buyer").hide();	
-		}
-	});
-	
-	$(".decideState").click(function(){
-		alert(1);
-	})
-</script>	
-	
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 	$(".btn-sse").click(function(){

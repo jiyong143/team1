@@ -27,22 +27,21 @@ import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReviewService;
 
-
 @Controller
 public class PJHController {
-	
+
 	@Autowired
 	MemberService memberService;
-	
+
 	@Autowired
 	ProductService productService;
-	
+
 	@Autowired
 	PaymentService paymentService;
-	
+
 	@Autowired
 	ReviewService reviewService;
-	
+
 	@GetMapping("/main/home")
 	public String home(Model model) {
 		MemberVO dateTest = memberService.getMemberDate();
@@ -50,65 +49,65 @@ public class PJHController {
 		model.addAttribute("test1", dateTest);
 		return "/main/home";
 	}
-	
+
 	@GetMapping("/member/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "회원가입");
 		return "/member/signup";
 	}
+
 	@PostMapping("/member/signup")
 	public String signupPost(Model model, MemberVO member) {
 		boolean res = memberService.signup(member);
-		if(res) {
+		if (res) {
 			model.addAttribute("msg", "회원가입을 성공했습니다.");
 			model.addAttribute("url", "/");
-		}else {
+		} else {
 			model.addAttribute("msg", "회원가입을 실패했습니다.");
 			model.addAttribute("url", "/member/signup");
 		}
-			
+
 		return "message";
 	}
-	
+
 	@GetMapping("/member/login")
 	public String login(Model model) {
 		model.addAttribute("title", "로그인");
 		return "/member/login";
 	}
-	
+
 	@PostMapping("/member/login")
 	public String loginPost(Model model, LoginDTO loginDto, HttpSession session) {
 		MemberVO user = memberService.login(loginDto);
-		model.addAttribute("user", user);//user라는 이름으로 전송
+		model.addAttribute("user", user);// user라는 이름으로 전송
 		session.setAttribute("user", user);
-		if(user != null) {
+		if (user != null) {
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인을 했습니다.");
-		}else {
+		} else {
 			model.addAttribute("url", "/member/login");
 			model.addAttribute("msg", "로그인을 하지 못했습니다.");
 		}
 		return "message";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/id/check/dup")
-	public Map<String, Object> idCheckDup(@RequestParam("id") String id){
+	public Map<String, Object> idCheckDup(@RequestParam("id") String id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = memberService.idCheck(id);
 		map.put("result", res);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/email/check/dup")
-	public Map<String, Object> emailCheckDup(@RequestParam("email") String email, HttpSession session){
+	public Map<String, Object> emailCheckDup(@RequestParam("email") String email, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		
-		if(session.getAttribute("user")!=null) {
+
+		if (session.getAttribute("user") != null) {
 			MemberVO member = (MemberVO) session.getAttribute("user");
-			if(member.getMe_email().equals(email)) {
+			if (member.getMe_email().equals(email)) {
 				map.put("result", true);
 			} else {
 				boolean res = memberService.emailCheck(email);
@@ -118,18 +117,18 @@ public class PJHController {
 			boolean res = memberService.emailCheck(email);
 			map.put("result", res);
 		}
-		
+
 		return map;
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/phone/check/dup")
-	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone, HttpSession session){
+	public Map<String, Object> phoneCheckDup(@RequestParam("phone") String phone, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(session.getAttribute("user")!=null) { //user가 null이 아니라는 것은 로그인을 했다는 뜻 == 회원정보 수정
+
+		if (session.getAttribute("user") != null) { // user가 null이 아니라는 것은 로그인을 했다는 뜻 == 회원정보 수정
 			MemberVO member = (MemberVO) session.getAttribute("user");
-			if(member.getMe_phone().equals(phone)) {
+			if (member.getMe_phone().equals(phone)) {
 				map.put("result", true);
 			} else {
 				boolean res = memberService.phoneCheck(phone);
@@ -139,19 +138,19 @@ public class PJHController {
 			boolean res = memberService.phoneCheck(phone);
 			map.put("result", res);
 		}
-		
+
 		return map;
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/birth/check/dup")
-	public Map<String, Object> birthCheckDup(@RequestParam("birth") String birth){
+	public Map<String, Object> birthCheckDup(@RequestParam("birth") String birth) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = memberService.birthCheck(birth);
 		map.put("result", res);
 		return map;
 	}
-	
+
 	@GetMapping("/member/logout")
 	public String logout(Model model, HttpSession session) {
 		session.removeAttribute("user");
@@ -159,140 +158,144 @@ public class PJHController {
 		model.addAttribute("url", "/");
 		return "message";
 	}
-	
+
 	@GetMapping("/member/mypage")
 	public String mypage(Model model, HttpServletRequest request, String me_id) {
-		
+
 		MemberVO myUser;
-		if(me_id==null) {
-			myUser = (MemberVO)request.getSession().getAttribute("user");
+		if (me_id == null) {
+			myUser = (MemberVO) request.getSession().getAttribute("user");
 			model.addAttribute("myUserCheck", myUser.getMe_id());
-			
+
 		} else {
 			myUser = memberService.getMember(me_id);
 			model.addAttribute("myUserCheck", me_id);
 		}
-		
+
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id());
-		
+
 		int reviewNum = -1;
 		reviewNum = memberService.getReviewNum(myUser.getMe_id());
-		
+
 		int tradeReviewNum = -1;
 		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id());
-		
+
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
-		model.addAttribute("reviewNum",reviewNum);
-		model.addAttribute("tradeReviewNum",tradeReviewNum);
+		model.addAttribute("reviewNum", reviewNum);
+		model.addAttribute("tradeReviewNum", tradeReviewNum);
 		model.addAttribute("listSize", 0);
-		
+
 		return "/member/mypage";
 	}
-	
+
 	@ResponseBody
 	@GetMapping("/member/mypage/all")
-	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request, @RequestParam("clickData")String clickData, @RequestParam("type")String type, @RequestParam("userId")String userId) {
-		
+	public Map<String, Object> mypageProduct(Model model, HttpServletRequest request,
+			@RequestParam("clickData") String clickData, @RequestParam("type") String type,
+			@RequestParam("userId") String userId) {
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		MemberVO sessionMember = (MemberVO)request.getSession().getAttribute("user");
+		MemberVO sessionMember = (MemberVO) request.getSession().getAttribute("user");
 		MemberVO myUser;
-		
-		if(userId==null) { //자신의 마이페이지를 확인하는 경우
-			myUser = sessionMember; //세션에 저장되어 있는(로그인 한 아이디) 아이디를 불러와서 출력
+
+		if (userId == null) { // 자신의 마이페이지를 확인하는 경우
+			myUser = sessionMember; // 세션에 저장되어 있는(로그인 한 아이디) 아이디를 불러와서 출력
 			model.addAttribute("myUserCheck", myUser.getMe_id());
 		} else { // 다른 회원의 마이페이지를 확인하는 경우
 			myUser = memberService.getMember(userId);
 			model.addAttribute("myUserCheck", userId);
 		}
-		
+
 		ArrayList<ProductVO> list;
 		list = productService.getMypagePro(myUser.getMe_id(), clickData, type);
-		
-		if(list.size() == 0 ) {
+
+		if (list.size() == 0) {
 			model.addAttribute("listSize", list.size());
 			map.put("list", list);
-			
+
 			return map;
 		}
-		
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
-		for(int i=0; i<list.size(); i++) {
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		for (int i = 0; i < list.size(); i++) {
 			String tmpDate = simpleDateFormat.format(list.get(i).getPr_date());
 			list.get(i).setPr_date2(tmpDate);
 		}
 		list.get(0).setListSize(list.size());
-		
+
 		model.addAttribute("listSize", list.size());
-		
+
 		map.put("list", list);
-		
+
 		return map;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/member/payment")
-	public String payment(Model model, @RequestParam("orderUid")String orderUid, @RequestParam("paymentPrice")int paymentPrice, @RequestParam("userId")String userId, HttpSession session) {
-		
+	public String payment(Model model, @RequestParam("orderUid") String orderUid,
+			@RequestParam("paymentPrice") int paymentPrice, @RequestParam("userId") String userId,
+			HttpSession session) {
+
 		memberService.addPoint(paymentPrice, userId);
 		paymentService.addPayment(orderUid, paymentPrice, userId);
 		MemberVO user = memberService.getMember(userId);
 		session.removeAttribute("user");
 		session.setAttribute("user", user);
-		
-		//새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
-		
+
+		// 새로고침해야 바뀐 포인트 값이 마이페이지에 적용됨
+
 		return "message";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/member/createNum")
-	public Map<String, Object> createNum(@RequestParam("id")String userId) {
+	public Map<String, Object> createNum(@RequestParam("id") String userId) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		Random random = new Random();
 		String orderUID;
-		
-		while(true) {
+
+		while (true) {
 			random.nextInt(100000);
-			orderUID = userId+"_"+random.nextInt(100000); //사용자의 아이디 + _ + 랜덤값(0~100000)
-			boolean res = paymentService.getPaymentList(orderUID); //db에 저장되어 있는지 확인하는 작업
-			if(res) {
+			orderUID = userId + "_" + random.nextInt(100000); // 사용자의 아이디 + _ + 랜덤값(0~100000)
+			boolean res = paymentService.getPaymentList(orderUID); // db에 저장되어 있는지 확인하는 작업
+			if (res) {
 				break;
 			}
 		}
-		
+
 		map.put("orderUID", orderUID);
 		return map;
 	}
 	
-	@GetMapping("member/update")
+	@GetMapping("/member/update")
 	public String updateMember(Model model, HttpSession session) {
 		model.addAttribute("title", "회원정보수정");
-		MemberVO member = (MemberVO)session.getAttribute("user");
+		MemberVO member = (MemberVO) session.getAttribute("user");
 		model.addAttribute("member", member);
 		return "/member/update";
 	}
-	
+
 	@PostMapping("/member/update")
 	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
 		boolean res = memberService.updateMember(member);
-		if(res) {
+		if (res) {
 			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
 			session.removeAttribute("user");
 			session.setAttribute("user", user);
-			
+
 			model.addAttribute("msg", "회원정보를 수정했습니다.");
 			model.addAttribute("url", "/");
-		}else {
+		} else {
 			model.addAttribute("msg", "회원정보 수정에 실패했습니다.");
 			model.addAttribute("url", "/member/update");
 		}
-		
+
 		return "message";
 	}
-	
+
 	@GetMapping("/member/delete")
 	public String deleteMember(Model model, HttpSession session) {
 		MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
@@ -302,40 +305,42 @@ public class PJHController {
 		model.addAttribute("url", "/");
 		return "message";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/sns/{sns}/check/id")
-	public boolean snsCheckId(@PathVariable("sns")String sns, @RequestParam("email")String email) {
-		
+	public boolean snsCheckId(@PathVariable("sns") String sns, @RequestParam("email") String email) {
+
 		return memberService.idCheck(sns, email);
 	}
-	
+
 	@GetMapping("/review/write")
 	public String reviewWrite(Model model, HttpSession session) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		String userId = user.getMe_id();
-		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); //리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우) 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼 수 있음)
+		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); // 리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우)
+																					// 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼
+																					// 수 있음)
 		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewType", reviewType);
 		return "/review/write";
 	}
-	
+
 	@PostMapping("/review/write")
-	public String reviewWritePost(Model model, @RequestParam("rt_type")ArrayList<String> reviewType) { //마이페이지에서 후기를 작성하는 경우는 무조건 구매자
-		
-		//reviewService.addReview(reviewType);
-		
+	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
+		int trNum = reviewService.getTrNum(prNum);
+		boolean res = reviewService.addReview(reviewType, trNum);
+
 		return "/review/write";
 	}
-	
+
 //	@ResponseBody
 //	@PostMapping("/sns/{sns}/signup")
 //	public boolean snsSignup(@PathVariable("sns")String sns, @RequestParam("id")String id,@RequestParam("email")String email ) {
 //		
 //		return memberService.signupSns(sns, id, email);
 //	}
-	
+
 //	@ResponseBody
 //	@PostMapping("/sns/{sns}/login")
 //	public boolean snsLogin(@PathVariable("sns")String sns, @RequestParam("id")String id, HttpSession session) {
@@ -343,5 +348,6 @@ public class PJHController {
 //		session.setAttribute("user", user);
 //		return user != null;
 //	}
-	
+
 }
+

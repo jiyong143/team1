@@ -52,4 +52,6 @@ public interface ProductService {
 
 	boolean upProduct(MemberVO user, ProductVO pro);
 
+	int getTopNum(int num);
+
 }

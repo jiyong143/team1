@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.cj.util.TestUtils;
+
 import kr.kh.team1.dao.ReviewDAO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
@@ -40,4 +42,23 @@ public class ReviewServiceImp implements ReviewService {
 	public ArrayList<ReviewTypeVO> getReviewType() {
 		return reviewDao.selectReviewType();
 	}
+
+	@Override
+	public int getTrNum(int prNum) {
+		return reviewDao.selectTrNum(prNum);
+	}
+
+	@Override
+	public boolean addReview(ArrayList<String> reviewType, int trNum) {
+		for(String i:reviewType) {
+			if(!checkString(i)) {
+				return false;
+			}
+		}
+		
+		reviewDao.insertReview(reviewType, trNum);
+
+	}
+
+
 }

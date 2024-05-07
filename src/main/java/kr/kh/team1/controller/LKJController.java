@@ -246,6 +246,13 @@ public class LKJController {
 	public String reportProductInsert(Model model) {
 		ArrayList<ProductVO> list = reportService.getProductList();
 		model.addAttribute("list", list);
+
+	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		//boolean res = reportService.insertReport(report, product, user);
+		model.addAttribute("title", "신고들 작성");
+		model.addAttribute("me_id", me_id);
+
 		return "/report/insert";
 	}
 	
@@ -263,6 +270,21 @@ public class LKJController {
 		return "message";
 
 	}
+
+	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
+
+		System.out.println(report);
+		boolean res = reportService.insertReportByIBH(report);
+		if(res) {
+			model.addAttribute("msg", "신고 성공!");
+			model.addAttribute("url", "/report/list");
+		}else {
+			model.addAttribute("msg", "신고 실패!");
+			model.addAttribute("url", "/report/insert?me_id="+report.getRe_me_id());
+		}
+		return "message";
+	}
+	
 	//신고 END
 	@GetMapping("/admin/inquityManager")
 	public String InquityManager(Model model) {

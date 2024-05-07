@@ -248,5 +248,9 @@
 	<update id="updateTime">
 	  update product set pr_date = now() where pr_num = #{pr_num}
 	</update>
+	
+	<select id="selectTopNum" resultType="int">
+	  select tg_num from product join midgroup on pr_mg_num = mg_num join topgroup on mg_tg_num = tg_num where pr_num = #{pr_num}
+	</select>
 
 </mapper>

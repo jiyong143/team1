@@ -1,5 +1,3 @@
-use market;
-
 insert into `topgroup` values
 (1,"옷"),
 (2,"가전제품"); 
@@ -11,21 +9,7 @@ insert into `midgroup` values
 (4,2,"냉장고");
 
 insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr) values
-("cjy0896","test11","test11@kh.kr","남성","taster","1997-02-22","010-1234-4567","관악구 봉천동");
-
-insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr) values
-("qwe123", "qwe123", "qwe123@kh.kr", "남성", "홍길동", "2000-12-03", "010-2233-4455", "광진구 화양동");
-
-insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr) values
-("zxc123", "zxc123", "zxc123@kh.kr", "남성", "김길동", "1998-04-03", "010-4455-6677", "성북구 상수동");
-
-insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr) values
-("asd123", "asd123", "asd123@kh.kr", "여성", "진달래", "2001-06-02", "010-7798-4466", "광진구 화양동");
-
-insert into `member`(me_id,me_pw,me_email,me_gender,me_name,me_birth,me_phone,me_addr,me_authority) values
-("admin1", "admin1", "admin1@kh.kr", "여성", "관리자1", "1998-04-02", "010-2211-4466", "광진구 화양동", "admin");
-
-select * from member;
+("cjy0896","michael@0896","dkdlel404@naver.com","남성","지용","1997-03-13","010-8829-0896","관악구 봉천동");
 
 insert into `product_state`values
 ("판매중"),
@@ -59,14 +43,15 @@ values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "qwe123", "문의사항 테스트", "테스트 입니다");
 
-insert into surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (1, 2, "qwe123", "데이터베이스 테스트", "테스트 입니다");
 
-insert into surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (2, 3, "zxc123", "테스트", "테스트 입니다 테스트 입니다 테스트 입니다");
 
-insert into surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (2, 3, "asd123", "고객문의", "고객문의 테스트 입니다");
+show global variables like 'local_infile';
+set global local_infile=true;
+load data local infile "D:\address/addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+
+/*
+show global variables like 'local_infile';
+set global local_infile=true;
 
 SELECT * FROM surport;
 
@@ -93,6 +78,9 @@ values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
 
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
+load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+*/
+
 
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
@@ -102,4 +90,5 @@ ADD CONSTRAINT `FK_chat_room_TO_chat_state_1`
   REFERENCES `market`.`chat_room` (`cr_num`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
 

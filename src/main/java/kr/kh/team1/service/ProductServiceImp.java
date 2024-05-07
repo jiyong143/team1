@@ -219,4 +219,9 @@ public class ProductServiceImp implements ProductService{
 	}
 	
 
+	@Override
+	public int getTopNum(int num) {
+		return productDao.selectTopNum(num); 
+	}
+
 }

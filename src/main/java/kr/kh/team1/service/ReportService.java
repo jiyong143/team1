@@ -17,4 +17,6 @@ public interface ReportService {
 
 	ArrayList<ProductVO> getProductList();
 
+	boolean insertReportByIBH(ReportVO report);
+
 }
