@@ -57,7 +57,7 @@ public class ReviewServiceImp implements ReviewService {
 		}
 		
 		reviewDao.insertReview(reviewType, trNum);
-
+		return true;
 	}
 
 
