@@ -15,4 +15,6 @@ public interface ReportService {
 
 	boolean insertReport(ReportVO report, ProductVO product, MemberVO user);
 
+	boolean insertReportByIBH(ReportVO report);
+
 }

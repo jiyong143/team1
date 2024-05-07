@@ -75,6 +75,8 @@
   <a href="/team1/admin/memberManager">회원 관리</a>
   <a href="/team1/report/list">신고관리</a>
   <a href="/team1/admin/inquityManager">고객센터 관리</a>
+  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
+  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
 </div>
 <div class="Manager-container">
   <h2>메니저 명단</h2>

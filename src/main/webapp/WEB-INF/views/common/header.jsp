@@ -127,11 +127,6 @@
 	                    	<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width:40px;">							
 						</a>
 					</li>
-					<!-- 검색창 -->
-                   <form class="d-flex">
-						<input class="form-control me-2" type="search" placeholder="검색" aria-label="Search">
-						<button class="btn btn-outline-success" type="submit">검색</button>
-                   </form>
 					<!-- Navbar dropdown -->
 					<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 45px">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -168,13 +163,13 @@
 			        </c:if>
 			        <c:if test="${user.me_authority == 'admin'}">
 						<li class="nav-item">
-					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminpage"/>">관리자</a>
+					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자</a>
 						</li>		
 			        </c:if>
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
-					<c:if test="${user.me_authority == 'user'}">
+					<c:if test="${user.me_authority != null}">
 						<li class="nav-item">
 							<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 						</li>
@@ -182,16 +177,6 @@
 					<c:if test="${user.me_authority == 'user'}">
 						<li class="nav-item">
 							<a class="nav-link btn btn-light" href="<c:url value="/chat/list?page=1"/>">채팅방</a>
-						</li>
-					</c:if>
-					<c:if test="${user.me_authority == 'user'}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
-						</li>
-					</c:if>
-					<c:if test="${user.me_authority == 'admin'}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
 						</li>
 					</c:if>
 				</ul>
