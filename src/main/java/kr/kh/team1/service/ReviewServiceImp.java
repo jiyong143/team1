@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.cj.util.TestUtils;
+
 import kr.kh.team1.dao.ReviewDAO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
@@ -55,7 +57,8 @@ public class ReviewServiceImp implements ReviewService {
 		}
 		
 		reviewDao.insertReview(reviewType, trNum);
-		
-		return true;
+
 	}
+
+
 }

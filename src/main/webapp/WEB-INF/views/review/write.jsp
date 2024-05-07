@@ -100,7 +100,7 @@
 				<fieldset>
 					<legend>상대방의 후기를 작성해주세요</legend>
 					<form action="<c:url value='/review/write'/>" method="post">
-					<input id="prNum" type="hidden" value="10"/>
+					<input name="prNum" id="prNum" type="hidden" value="10"/>
 						<c:forEach items="${reviewType}" var="reviewType">
 							<c:if test="${reviewType.rt_type!='default'}">
 								<div>
@@ -118,11 +118,9 @@
 	</div>
 	<script type="text/javascript">
 		const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
-
+		
 		$(".popupBtn").click(function() {
-			console.log($("#prNum").value);//<--왜 안되는 거임
-			$("#prNum").value=this.value;
-			console.log($("#prNum").value);
+			$("#prNum").val(this.value);
 			modal.style.display = "block"; // 버튼을 클릭하면 모달을 보이게 함
 		});
 
@@ -135,8 +133,6 @@
 				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
 			}
 		};
-		
-		
 		
 	</script>
 </body>
