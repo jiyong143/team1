@@ -176,7 +176,7 @@
 	})
 
 	function displaydong(list){
-		let str = `<option id="h_dong_nm" value="">동을 선택하세요.</option>`;
+		let str = `<option id="h_dong_nm" value="x">동을 선택하세요.</option>`;
 		for(item of list){
 			str += `<option value="\${item.h_dong_nm}">\${item.h_dong_nm}</option>`;
 		}
@@ -221,7 +221,7 @@
 	$("#productForm").submit(function(e){
 		let res = false;
 
-		if($(".h_dong_nm").val() == null){
+		if($(".h_dong_nm").val() == 'x'){
 			alert("주소를 입력해야 합니다.");
 			$(".h_dong_nm").focus();
 			return false;
