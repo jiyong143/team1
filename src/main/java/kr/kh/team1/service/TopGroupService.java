@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
+import kr.kh.team1.pagination.Criteria;
 
 public interface TopGroupService {
 
@@ -18,7 +19,6 @@ public interface TopGroupService {
 
 	ArrayList<ZipcodeVO> getDongList(String sido, String sigungu);
 
-
 	boolean insertTopGroup(String topGroup);
 
 	boolean deleteTopGroup(int tg_num);
@@ -28,4 +28,8 @@ public interface TopGroupService {
 	TopGroupVO getTopGroup(int topNum);
 
 	TopGroupVO getTopGroupByName(String topName);
+
+	ArrayList<TopGroupVO> getTopGroupListByCri(Criteria cri);
+
+	int getTopGroupTotalCount();
 }

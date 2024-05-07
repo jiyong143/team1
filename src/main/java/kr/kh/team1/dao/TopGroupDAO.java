@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
+import kr.kh.team1.pagination.Criteria;
 
 public interface TopGroupDAO {
 
@@ -20,7 +21,6 @@ public interface TopGroupDAO {
 
 	ArrayList<ZipcodeVO> selectdongList(@Param("sido")String sido, @Param("sigungu")String sigungu);
 
-
 	boolean insertTopGroup(@Param("topGroup")String topGroup);
 
 	boolean deleteTopGroup(@Param("tg_num")int tg_num);
@@ -32,4 +32,8 @@ public interface TopGroupDAO {
 	TopGroupVO selectTopGroup(@Param("num")int topNum);
 
 	TopGroupVO selectTopGroupByName(@Param("name")String topName);
+
+	ArrayList<TopGroupVO> selectTopGroupListByCri(@Param("cri")Criteria cri);
+
+	int selectTopGroupTotalCount();
 }

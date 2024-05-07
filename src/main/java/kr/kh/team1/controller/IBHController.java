@@ -26,9 +26,7 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
-import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.pagination.PageMaker_chat;
-import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
@@ -255,10 +253,15 @@ public class IBHController {
 	
 	@GetMapping("/admin/topCategoryManager")
 	// 대분류 페이지
-	public String topCategoryManager(Model model) {
+	public String topCategoryManager(Model model, Criteria cri) {
 		
-		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+		cri.setPerPageNum(5);
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupListByCri(cri);
+		int totalTopGroupCount = topGroupService.getTopGroupTotalCount();
+		PageMaker_chat pm = new PageMaker_chat(5, cri, totalTopGroupCount);
+		
 		model.addAttribute("topList", topList);
+		model.addAttribute("pm", pm);
 	    return "/admin/topCategoryManager";
 	}
 	
@@ -279,7 +282,7 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/updateTopCategoryManager")
-	// 대분류 추가
+	// 대분류 수정
 	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -294,7 +297,7 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/deleteTopCategoryManager")
-	// 대분류 추가
+	// 대분류 삭제
 	public Map<String, Object> deleteTopCategoryManagerPost(int tg_num) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -308,7 +311,11 @@ public class IBHController {
 	}
 	
 	@GetMapping("/admin/midCategoryManager")
+	// 중분류 페이지
 	public String midCategoryManager(Model model) {
+		
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+		model.addAttribute("list", topList);
 	    return "/admin/midCategoryManager";
 	}
 }

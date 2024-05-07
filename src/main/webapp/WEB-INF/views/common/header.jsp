@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style type="text/css">
 .nav-item {
 	padding: 0.5rem 0xp;

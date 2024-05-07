@@ -9,6 +9,7 @@ import kr.kh.team1.dao.TopGroupDAO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
+import kr.kh.team1.pagination.Criteria;
 
 @Service
 public class TopGroupServiceImp implements TopGroupService {
@@ -74,5 +75,18 @@ public class TopGroupServiceImp implements TopGroupService {
 	@Override
 	public TopGroupVO getTopGroupByName(String topName) {
 		return topGroupDao.selectTopGroupByName(topName); 
+	}
+
+	@Override
+	public ArrayList<TopGroupVO> getTopGroupListByCri(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return topGroupDao.selectTopGroupListByCri(cri); 
+	}
+
+	@Override
+	public int getTopGroupTotalCount() {
+		return topGroupDao.selectTopGroupTotalCount(); 
 	}
 }
