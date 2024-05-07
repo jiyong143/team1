@@ -246,9 +246,9 @@ public class LKJController {
 	public String reportProductInsert(Model model) {
 		ArrayList<ProductVO> list = reportService.getProductList();
 		model.addAttribute("list", list);
-		return null;
+		return "";
 	}
-
+	
 	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		//boolean res = reportService.insertReport(report, product, user);

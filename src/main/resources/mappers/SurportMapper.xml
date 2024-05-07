@@ -63,7 +63,6 @@
 		where
 			su_num = #{surport.su_num}
 	</update>
-
 	<delete id="deleteSurport">
 		DELETE FROM surport WHERE su_num = #{su_num}
 	</delete>
