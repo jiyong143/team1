@@ -50,6 +50,7 @@ public class ReportServiceImp implements ReportService{
 	@Override
 	public ArrayList<ProductVO> getProductList() {
 		return reportDao.selectProductList();
+	}
 
 	public boolean insertReportByIBH(ReportVO report) {
 		

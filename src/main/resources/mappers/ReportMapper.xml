@@ -19,10 +19,7 @@
 	<select id="selectReportList" resultType="ReportVO">
 		select * from report
 	</select>
-	
-	<select id="selectReportTotalCount" resultType="int">
-		SELECT COUNT(*) FROM surport
-	</select>
+
 	
 	<insert id="insertReportByIBH">
 		insert into report(re_me_id, re_name, re_content, re_date)
