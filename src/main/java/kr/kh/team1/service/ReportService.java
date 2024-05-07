@@ -15,4 +15,6 @@ public interface ReportService {
 
 	boolean insertReportProduct(ReportVO report, ProductVO product, MemberVO user);
 
+	ArrayList<ProductVO> getProductList();
+
 }

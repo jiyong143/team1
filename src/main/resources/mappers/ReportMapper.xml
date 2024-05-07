@@ -10,4 +10,7 @@
 	SELECT COUNT(*)
 	    	FROM surport
 </select>
+<select id="selectProductList" resultType="ProductVO">
+	select * from product
+</select>
 </mapper>

@@ -217,5 +217,6 @@ public class ProductServiceImp implements ProductService{
 		int num = pro.getPr_num();
 		return productDao.updateTime(num); 
 	}
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReportService;
 import kr.kh.team1.service.SurportService;
 
@@ -47,6 +49,9 @@ public class LKJController {
 	
 	@Autowired
 	ReportService reportService;
+	
+	@Autowired
+	ProductService productService;
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -238,11 +243,25 @@ public class LKJController {
 	}
 	
 	@GetMapping("/report/insert")
-	public String reportProductInsert(Model model, ReportVO report, ProductVO product,  HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReportProduct(report, product, user);
-		model.addAttribute("title", "신고들 작성");
+	public String reportProductInsert(Model model) {
+		ArrayList<ProductVO> list = reportService.getProductList();
+		model.addAttribute("list", list);
 		return "/report/insert";
+	}
+	
+	@PostMapping("/report/insert")
+	public String reportProductInsertPost(Model model, ReportVO report, ProductVO product, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getAttribute("user");
+		if(reportService.insertReportProduct(report, product, user)) {
+			model.addAttribute("msg", "신고글 작성을 완료하였습니다.");
+			model.addAttribute("url", "/report/list");
+		}else {
+			model.addAttribute("msg", "신고글 작성에 실패아였습니다.");
+			model.addAttribute("url", "/report/inser");
+		}
+		System.out.println(report);
+		return "message";
+
 	}
 	//신고 END
 	@GetMapping("/admin/inquityManager")

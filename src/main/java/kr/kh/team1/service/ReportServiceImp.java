@@ -47,4 +47,9 @@ public class ReportServiceImp implements ReportService{
 		return false;
 	}
 
+	@Override
+	public ArrayList<ProductVO> getProductList() {
+		return reportDao.selectProductList();
+	}
+
 }
