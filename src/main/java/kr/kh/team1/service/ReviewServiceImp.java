@@ -42,7 +42,7 @@ public class ReviewServiceImp implements ReviewService {
 	public ArrayList<ReviewTypeVO> getReviewType() {
 		return reviewDao.selectReviewType();
 	}
-	
+
 	@Override
 	public int getTrNum(int prNum) {
 		return reviewDao.selectTrNum(prNum);
@@ -57,9 +57,8 @@ public class ReviewServiceImp implements ReviewService {
 		}
 		
 		reviewDao.insertReview(reviewType, trNum);
-		
-		return true;
-		
+
 	}
+
 
 }
