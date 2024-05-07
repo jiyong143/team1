@@ -204,7 +204,6 @@
 
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
-
 	const pr_price = document.querySelector('#pr_price');
 	pr_price.addEventListener('keyup', function(e) {
 		let value = e.target.value;
@@ -221,8 +220,8 @@
 	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
 	$("#productForm").submit(function(e){
 		let res = false;
-		
-		if(!$(".h_dong_nm").checked){
+
+		if($(".h_dong_nm").val() == null){
 			alert("주소를 입력해야 합니다.");
 			$(".h_dong_nm").focus();
 			return false;
@@ -242,7 +241,6 @@
 		}else{
 			return true;
 		}
-
 		
 		if(!$(".check").checked){
 			alert("대분류를 선택해야합니다.");
@@ -263,8 +261,6 @@
 			$("[name = pr_content]").focus();
 			return false;
 		}
-		
-		
 		
 		$(".priceTag").value = $("#pr_price").val();
 		
