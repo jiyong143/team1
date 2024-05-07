@@ -120,8 +120,21 @@
 	$("[name=h_dong_nm]").hide();
 	
 	$("[name=sido]").change(function(){
+		
 		$("[name=sigungu]").show();
 		let sido = $("[name=sido]").val();
+		
+		// sido == 세종...
+		if($("[name=sido]").val() == '세종특별자치시'){
+			$("[name=h_dong_nm]").show();
+			let obj = {
+				sido : sido,
+				sigungu : ""
+			}
+			dongAjax(obj);
+		}
+		
+		// sido != 세종...
 		let obj = {
 			sido : sido
 		}
@@ -159,6 +172,10 @@
 			sido : sido,
 			sigungu : sigungu
 		}
+		dongAjax(obj);
+	})
+	
+	function dongAjax(obj){
 		$.ajax({
 			async : false,
 			url : '<c:url value="/product/dong"/>', 
@@ -173,7 +190,7 @@
 	
 			}
 		});
-	})
+	}
 
 	function displaydong(list){
 		let str = `<option id="h_dong_nm" value="x">동을 선택하세요.</option>`;

@@ -43,6 +43,12 @@ public class TopGroupServiceImp implements TopGroupService {
 
 	@Override
 	public ArrayList<ZipcodeVO> getDongList(String sido, String sigungu) {
+
+		// 세종특별자치시인 경우
+		if(sido.equals("세종특별자치시") || sigungu == null)
+			return topGroupDao.selectdongListBySido(sido);
+
+		// 위 경우 제외한 나머지
 		if(sido.isEmpty() || sido.isBlank() || sigungu.isEmpty() || sigungu.isBlank())
 			return null;
 		return topGroupDao.selectdongList(sido, sigungu);
