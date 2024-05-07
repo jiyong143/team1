@@ -41,4 +41,6 @@ public interface ChatDAO {
 	int selectChatRoomTotalCount(@Param("me_id")String me_id, @Param("cri")Criteria cri);
 
 	int selectTotalMsgCount(@Param("num")int cm_cr_num);
+
+	ChatMessageVO selectChatMessageRecent(@Param("num")int cm_cr_num);
 }

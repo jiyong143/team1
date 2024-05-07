@@ -21,6 +21,7 @@
 					<th>최근 메시지 내용</th>
 					<th>최근 메시지 시간</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,6 +40,14 @@
 								</c:if>
 								<td onClick="location.href='${url}'">${crv.chatMessage.cm_content}</td>
 								<td onClick="location.href='${url}'">${crv.chatMessage.date_str}</td>
+								<td>
+									<c:if test="${loginUser.me_id eq crv.cr_me_id}">
+										<button class="declarationBtn" data-id="${crv.product.pr_me_id}">신고하기</button>
+									</c:if>
+									<c:if test="${loginUser.me_id ne crv.cr_me_id}">
+										<button class="declarationBtn" data-id="${crv.cr_me_id}">신고하기</button>
+									</c:if>
+								</td>
 								<td>
 									<button class="outBtn" data-num="${crv.cr_num}">나가기</button>
 								</td>
@@ -80,6 +89,8 @@
 			</c:if>
 		</ul>
 	</div><!-- end container -->
+	
+<!-- 나가기 버튼 -->
 <script type="text/javascript">
 	$(document).on("click", ".outBtn", function(){
 		let page = ${pm.cri.page};
@@ -106,6 +117,20 @@
 			}
 		});
 	}
+</script>
+
+<!-- 신고하기 버튼 -->
+<script type="text/javascript">
+	$(document).on("click", ".declarationBtn", function(){
+		let page = ${pm.cri.page};
+		let id = $(this).data('id');	// 채팅방 번호
+		
+		if(confirm("채팅방을 신고하시겠습니까?")){
+			var url = '<c:url value="/report/insert"/>' + '?me_id='+ id;
+			console.log(url);
+			location.href = url;
+		}
+	});
 </script>
 </body>
 </html>

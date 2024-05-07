@@ -269,7 +269,7 @@ public class PJHController {
 		map.put("orderUID", orderUID);
 		return map;
 	}
-
+	
 	@GetMapping("/member/update")
 	public String updateMember(Model model, HttpSession session) {
 		model.addAttribute("title", "회원정보수정");

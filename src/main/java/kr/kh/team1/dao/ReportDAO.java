@@ -13,4 +13,6 @@ public interface ReportDAO {
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
 
+	boolean insertReportByIBH(@Param("report") ReportVO report);
+
 }
