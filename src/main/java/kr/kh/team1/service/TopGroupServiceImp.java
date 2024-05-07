@@ -66,4 +66,13 @@ public class TopGroupServiceImp implements TopGroupService {
 		return topGroupDao.updateTopGroup(tg_num, topGroup);
 	}
 
+	@Override
+	public TopGroupVO getTopGroup(int topNum) {
+		return topGroupDao.selectTopGroup(topNum); 
+	}
+
+	@Override
+	public TopGroupVO getTopGroupByName(String topName) {
+		return topGroupDao.selectTopGroupByName(topName); 
+	}
 }

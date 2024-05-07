@@ -18,9 +18,14 @@ public interface TopGroupService {
 
 	ArrayList<ZipcodeVO> getDongList(String sido, String sigungu);
 
+
 	boolean insertTopGroup(String topGroup);
 
 	boolean deleteTopGroup(int tg_num);
 
 	boolean updateTopGroup(int tg_num, String topGroup);
+
+	TopGroupVO getTopGroup(int topNum);
+
+	TopGroupVO getTopGroupByName(String topName);
 }
