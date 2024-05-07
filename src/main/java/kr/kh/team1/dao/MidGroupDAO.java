@@ -11,4 +11,5 @@ public interface MidGroupDAO {
 
 	ArrayList<MidGroupVO> selectMidGroupList();
 
+
 }

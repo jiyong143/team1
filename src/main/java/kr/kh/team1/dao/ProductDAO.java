@@ -52,4 +52,6 @@ public interface ProductDAO {
 
 	boolean updateTime(@Param("pr_num")int num);
 
+	int selectTopNum(@Param("pr_num")int num);
+
 }

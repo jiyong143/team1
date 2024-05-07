@@ -218,4 +218,9 @@ public class ProductServiceImp implements ProductService{
 		return productDao.updateTime(num); 
 	}
 
+	@Override
+	public int getTopNum(int num) {
+		return productDao.selectTopNum(num); 
+	}
+
 }

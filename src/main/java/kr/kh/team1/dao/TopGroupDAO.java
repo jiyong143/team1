@@ -19,4 +19,10 @@ public interface TopGroupDAO {
 	ArrayList<ZipcodeVO> selectSigunguList(@Param("sido")String sido);
 
 	ArrayList<ZipcodeVO> selectdongList(@Param("sido")String sido, @Param("sigungu")String sigungu);
+
+	ArrayList<MidGroupVO> selectMidGroupListByNum(@Param("pr_num")int num);
+
+	TopGroupVO selectTopGroup(@Param("num")int topNum);
+
+	TopGroupVO selectTopGroupByName(@Param("name")String topName);
 }
