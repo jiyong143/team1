@@ -51,8 +51,16 @@ public class CJYController {
 	
 	@GetMapping("/product/update")
 	public String productUpdate(Model model, int num ) {
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
 		ArrayList <FileVO> files = productService.getFileBypNum(num);
 		ProductVO pro = productService.getProductInfo(num);
+		String address = pro.getPr_place();
+		String[] components = address.split(" ");
+		String sido = components[0];
+        String gu = components[1];
+        String dong = components[2];
+        ArrayList <ZipcodeVO> guList = topGroupService.getSigunguList(sido);
+        ArrayList <ZipcodeVO> dongList = topGroupService.getDongList(sido, gu);
 		String price = null;
 		if(pro.getPr_price()==-10) {
 			price="가격제안";
@@ -71,7 +79,13 @@ public class CJYController {
 		model.addAttribute("files" , files);
 		model.addAttribute("topList",topGroupList);
 		model.addAttribute("count",pro.getPr_content().length());
-		return "/product/update"; 
+		model.addAttribute("sidoList",sidoList);
+		model.addAttribute("sido",sido);
+		model.addAttribute("gu",gu);
+		model.addAttribute("dong",dong);
+		model.addAttribute("guList",guList);
+		model.addAttribute("dongList",dongList);
+		return "/product/update";  
 	}
 	
 	
@@ -85,6 +99,54 @@ public class CJYController {
 	   	map.put("mName",pro.getPr_mg_name());
 	   	return map;  
 	}
+	
+	
+	@ResponseBody
+	@GetMapping("/product/update2")
+	public Map<String ,Object> productUpdate2(String topPlace, int pNum) {
+		ProductVO pro = productService.getProductInfo(pNum);
+		String address = pro.getPr_place();
+		String[] components = address.split(" ");
+		String gu = components[1]; 
+		ArrayList <ZipcodeVO> guList = topGroupService.getSigunguList(topPlace);
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("guList",guList);
+	   	map.put("gu", gu);
+	   	return map;  
+	}
+	
+	@ResponseBody
+	@GetMapping("/product/update3")
+	public Map<String ,Object> productUpdate3(String midPlace, int pNum) {
+		ProductVO pro = productService.getProductInfo(pNum);
+		String address = pro.getPr_place(); 
+		String[] components = address.split(" ");
+		String sido = components[0];
+		String dong = components[2]; 
+		ArrayList <ZipcodeVO> dongList = topGroupService.getDongList(sido, midPlace); 
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("dong", dong);
+	   	map.put("dongList",dongList );
+	   	return map;  
+	}
+	
+	@ResponseBody
+	@GetMapping("/product/update4")
+	public Map<String ,Object> productUpdate4(String topPlace, String midPlace, int pNum) {
+		ProductVO pro = productService.getProductInfo(pNum);
+		String address = pro.getPr_place(); 
+		String[] components = address.split(" ");
+		String dong = components[2]; 
+		ArrayList <ZipcodeVO> dongList = topGroupService.getDongList(topPlace, midPlace);  
+	   	HashMap<String, Object> map = new HashMap<String, Object>();
+	   	map.put("dong", dong);
+	   	map.put("dongList",dongList );
+	   	return map;  
+	}
+	
+	
+	
+	
 
 
 	@GetMapping("/product/list")  
@@ -229,7 +291,7 @@ public class CJYController {
 
    	@PostMapping("/product/insert")  
    	public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip) {
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip) { 
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
@@ -243,7 +305,7 @@ public class CJYController {
 		String mName = mg_title;
 		String tName = tg_title;
 		
-		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm(); 
 		System.out.println(place);
 		product.setPr_place(place);
 		

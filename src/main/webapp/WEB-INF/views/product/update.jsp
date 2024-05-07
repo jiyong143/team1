@@ -99,6 +99,11 @@ list-style-type: none;
 left : 0;
 }
 
+.topPlace-li , .midPlace-li{
+list-style-type: none;
+left : 0;
+}
+
 #topGroup button {
     border: none; /* 버튼의 테두리를 제거합니다. */
     background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
@@ -110,6 +115,7 @@ left : 0;
     background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
    
 }
+
 
 .price-update button{
 
@@ -123,6 +129,25 @@ left : 0;
     width : 239px;
     
 }
+
+#topPlace , #midPlace, #smallPlace{
+max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+width : 158px;
+}
+
+#topPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#midPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#smallPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
 
 #topGroup::-webkit-scrollbar {
     display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
@@ -142,8 +167,18 @@ display : flex;
  left : 18px;
 }
 
+.place-list{
+display : flex;
+ position : absolute;
+ left : 18px;
+}
+
 
 .category-ul{
+padding-left : 0;
+}
+
+.place-ul{
 padding-left : 0;
 }
 
@@ -177,6 +212,17 @@ top : 1115px;
 position : absolute;
 left : 1137px;
 top : 1115px;
+}
+
+.place-update{
+position : absolute;
+left : 685px;
+top : 1140px;
+}
+
+.place-update button{
+ border: none; /* 버튼의 테두리를 제거합니다. */
+ background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
 </style>
@@ -269,25 +315,36 @@ top : 1115px;
 		<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
 		<span class="michael">/1000</span>
 		</div>	
-	<section class="category-update">
-		<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
-		<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${topList }" var="top">
-		<li class="false h-10 p-3 topGroup-li">
+	<section class="place-update">
+		<div class="place-list flex-row w-full overflow-hidden text-sm font-medium h-60">
+		<div id="topPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${sidoList }" var="sido">
+		<li class="false h-10 p-3 topPlace-li">
 		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${top.tg_title }</p>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${sido.sido }</p>
 		</button>
 		</li>
 		</c:forEach>
 		</ul>
 		</div>
-		<div id="midGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${midList }" var="mid">
-		<li class="false h-10 p-3 midGroup-li">
+		<div id="midPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${guList }" var="gu">
+		<li class="false h-10 p-3 midPlace-li">
 		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${mid.mg_title }</p>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${gu.sigungu }</p>
+		</button>
+		</li>
+		</c:forEach>
+		</ul>
+		</div>
+		<div id="smallPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${dongList }" var="dong">
+		<li class="false h-10 p-3 midPlace-li">
+		<button>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${dong.h_dong_nm }</p>
 		</button>
 		</li>
 		</c:forEach>
@@ -489,6 +546,94 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+	var pNum = '${pro.pr_num}';
+    var serverText = '${sido}';
+    var serverText1 = '${gu}';
+    var serverText2 = '${dong}';
+    var buttons = document.querySelectorAll('#topPlace button');
+    var buttons1 = document.querySelectorAll('#midPlace button');
+    var buttons2 = document.querySelectorAll('#smallPlace button');
+    
+    buttons.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        if (buttonText === serverText) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black';
+            button.closest('li').style.backgroundColor = '#ced4da';
+            sendTopPlace(button);
+        });      
+    });
+    
+    
+    buttons1.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        
+        if (buttonText === serverText1) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기            
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons1.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화 
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+            
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black'; 
+            button.closest('li').style.backgroundColor = '#ced4da';
+            sendMidPlace(button);
+        });      
+    });
+    
+    buttons2.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        
+        if (buttonText === serverText2) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기            
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons2.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화 
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+            
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black'; 
+            button.closest('li').style.backgroundColor = '#ced4da';
+        });      
+    });
+ 
+});
+
 
 function sendTop(button) {
 	var pNum = '${pro.pr_num}';
@@ -519,6 +664,64 @@ function sendTop(button) {
     });
 } 
 
+
+function sendTopPlace(button) {
+	var pNum = '${pro.pr_num}';
+	var topPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "topPlace" : topPlace,
+       "pNum" : pNum
+    };
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addMidPlace(data.guList, data.gu);
+            removeSmallPlace();// 동 공간을 리셋하는 작업
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+function removeSmallPlace(){
+	let str = '';
+	$("#smallPlace").html(str);
+}
+
+function sendMidPlace(button) {
+	var pNum = '${pro.pr_num}';
+	var midPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "midPlace" : midPlace,
+       "pNum" : pNum
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update3"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addSmallPlace(data.dongList, data.dong);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
 function addMid(mids,mName){
 	
 	let str = '';
@@ -528,13 +731,13 @@ function addMid(mids,mName){
 		if(mName === mid.mg_title){
 			str+=`<li class="false h-10 p-3 midGroup-li" style="background-color : #ced4da; ">
 			      <button onClick="clickMid(this)">
-			      <p class="truncate break-keep" style="font-weight : bold; color : black;">\${mid.mg_title }</p>
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${mid.mg_title }</p>
 			      </button>
 				  </li>`;
 		}else{
 			str+=`<li class="false h-10 p-3 midGroup-li">
 			      <button onClick="clickMid(this)">
-			      <p class="truncate break-keep" style="font-weight : normal; color : initial;">\${mid.mg_title }</p>
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${mid.mg_title }</p>
 			      </button>
 				  </li>`;
 		}
@@ -543,6 +746,117 @@ function addMid(mids,mName){
 	 $("#midGroup").html(str);
 }
 
+function addMidPlace(mids, gu){
+	
+	let str = '';
+	str += `<ul class="place-ul flex flex-col border-solid border-jnGray-300">`;
+	for(let i=0; i<mids.length; i++){
+		const mid = mids[i];
+		if(gu === mid.sigungu){
+			str+=`<li class="false h-10 p-3 midPlace-li" style="background-color : #ced4da; ">
+			      <button onClick="clickMidPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${mid.sigungu }</p>
+			      </button>
+				  </li>`;
+		}else{
+			str+=`<li class="false h-10 p-3 midPlace-li">
+			      <button onClick="clickMidPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${mid.sigungu}</p>
+			      </button>
+				  </li>`;
+		}
+	}
+	str+=`</ul>`;
+	 $("#midPlace").html(str);
+}
+
+
+function addSmallPlace(smalls, dong){
+	
+	let str = '';
+	str += `<ul class="place-ul flex flex-col border-solid border-jnGray-300">`;
+	for(let i=0; i<smalls.length; i++){
+		const small = smalls[i];
+		if(dong === small.h_dong_nm){
+			str+=`<li class="false h-10 p-3 smallPlace-li" style="background-color : #ced4da; ">
+			      <button onClick="clickSmallPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${small.h_dong_nm }</p>
+			      </button>
+				  </li>`;
+		}else{
+			str+=`<li class="false h-10 p-3 smallPlace-li">
+			      <button onClick="clickSmallPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${small.h_dong_nm}</p>
+			      </button>
+				  </li>`;
+		}
+	}
+	str+=`</ul>`;
+	 $("#smallPlace").html(str);
+}
+
+
+function clickMidPlace(button){
+	 var buttons1 = document.querySelectorAll('#midPlace button');
+	 buttons1.forEach(function(btn) {
+    btn.classList.remove('selected');
+    btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+    btn.querySelector('p').style.color = 'initial';
+    btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+    });
+	 
+	button.classList.add('selected');
+    button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+    button.querySelector('p').style.color = 'black'; 	
+    button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+    sendMidAddr(button);
+}
+
+
+function sendMidAddr(button) {
+	var pNum = '${pro.pr_num}';
+	var topPlace = document.querySelector("#topPlace .selected").querySelector('p').textContent.trim();
+	var midPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "midPlace" : midPlace,
+       "topPlace" : topPlace,
+       "pNum" : pNum
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update4"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addSmallPlace(data.dongList, data.dong);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+
+
+function clickSmallPlace(button){
+	 var buttons2 = document.querySelectorAll('#smallPlace button');
+	 buttons2.forEach(function(btn) {
+   btn.classList.remove('selected');
+   btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+   btn.querySelector('p').style.color = 'initial';
+   btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+   });
+	 
+   button.classList.add('selected');
+   button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+   button.querySelector('p').style.color = 'black'; 	
+   button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+}
 
 function clickMid(button){
 	 var buttons1 = document.querySelectorAll('#midGroup button');

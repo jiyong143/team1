@@ -166,11 +166,6 @@
 					    	<a class="nav-link btn btn-light" href="<c:url value="/member/mypage"/>">마이</a>
 						</li>
 			        </c:if>
-			        <c:if test="${user.me_authority == 'admin'}">
-						<li class="nav-item">
-					    	<a class="nav-link btn btn-light" href="<c:url value="/admin/adminpage"/>">관리자</a>
-						</li>		
-			        </c:if>
 					<li class="nav-item">
 						<a class="nav-link btn btn-light" href="<c:url value="/surport/list"/>">고객센터</a>
 					</li>
@@ -179,10 +174,6 @@
 							<a class="nav-link btn btn-light" href="<c:url value="/product/insert"/>">판매하기</a>
 						</li>
 					</c:if>
-					<li class="nav-item">
-						<a class="nav-link btn btn-light" href="<c:url value="/chat/list"/>">채팅방</a>
-					</li>
-<%-- 					<c:if test="${user.me_authority == 'admin'}"> --%>
 					<c:if test="${user.me_authority == 'user'}">
 						<li class="nav-item">
 							<a class="nav-link btn btn-light" href="<c:url value="/chat/list?page=1"/>">채팅방</a>
@@ -191,11 +182,6 @@
 					<c:if test="${user.me_authority == 'user'}">
 						<li class="nav-item">
 							<a class="nav-link btn btn-light" href="<c:url value="/admin/adminPage"/>">관리자 페이지</a>
-						</li>
-					</c:if>
-					<c:if test="${user.me_authority == 'admin'}">
-						<li class="nav-item">
-							<a class="nav-link btn btn-light" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
 						</li>
 					</c:if>
 				</ul>
