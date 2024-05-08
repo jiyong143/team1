@@ -74,17 +74,106 @@
 				<label id="phone-error2" class="error text-danger"></label>
 			</div>
 			<div class="form-group">
-				<label for="addr">주소:</label>
-				<input type="text" class="form-control" id="addr" name="me_addr" required>
-				<label id="addr-error" class="error text-danger" for="addr"></label>
+				<label for="sido" style="display: block">주소</label>
+				<select name="sido" class="form-control" style="width: 33%; display: inline;" required>
+					<option id="sido" value="">시/도를 선택하세요.</option>
+					<c:forEach items="${sidoList}" var="sido">
+						<option id="sido check" value="${sido.sido}">${sido.sido}</option>
+					</c:forEach>
+				</select>
+				<select name="sigungu" class="form-control sigungu" style="width: 33%; display: inline;" required></select>
+				<select name="h_dong_nm" class="form-control h_dong_nm" style="width: 33%; display: inline;" required></select>
+				<p class="text-danger d-none" id="addr_id">주소를 입력해주세요.</p>
 			</div>
 			<button type="submit" class="btn btn-outline-success col-12 mb-5">회원가입</button>
 		</form>
 	</div>
 </div>
 
+<!-- 시/군/구 관련 -->
+<script type="text/javascript">
+	$("[name=sigungu]").hide();
+	$("[name=h_dong_nm]").hide();
+	
+	$("[name=sido]").change(function(){
+		$("[name=sigungu]").show();
+		let sido = $("[name=sido]").val();
+		let obj = {
+			sido : sido
+		}
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/sigungu"/>', 
+			type : 'get', 
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				displaysigungu(data.sigunguList);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+	})
+	
+	function displaysigungu(list){
+		let str = `<option id="sigungu" value="">시/군/구를 선택하세요.</option>`;
+		for(item of list){
+			str += `<option value="\${item.sigungu}">\${item.sigungu}</option>`;
+		}
+		$(".sigungu").html(str);
+	}
+</script>
+
+<!-- 동 관련 -->
+<script type="text/javascript">
+	$("[name=sigungu]").change(function(){
+		$("[name=h_dong_nm]").show();
+		let sido = $("[name=sido]").val();
+		let sigungu = $("[name=sigungu]").val();
+		let obj = {
+			sido : sido,
+			sigungu : sigungu
+		}
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/dong"/>', 
+			type : 'get', 
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				displaydong(data.dongList);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+	
+			}
+		});
+	})
+
+	function displaydong(list){
+		let str = `<option id="h_dong_nm" value="">동을 선택하세요.</option>`;
+		for(item of list){
+			str += `<option value="\${item.h_dong_nm}">\${item.h_dong_nm}</option>`;
+		}
+		$(".h_dong_nm").html(str);
+	}
+</script>
+
 <!-- 유효성 검사 -->
 <script type="text/javascript">
+
+$("[name=h_dong_nm]").val()
+
+function addr() {
+	if($("[name=h_dong_nm]").val()!=null && $("[name=sigungu]").val() != null && $("[name=sido]").val() != null) {
+		$("#addr_id").removeClass("d-none");
+		return true;
+	} else {
+		$("#addr_id").addClass("d-none");
+		return false;
+	}
+}
+
 $("#signupfrom").validate({
 	rules : {
 		me_id : {
@@ -138,15 +227,12 @@ $("#signupfrom").validate({
 		me_birth : {
 			required : "필수 항목입니다."
 		},
-		me_addr : {
-			required : "필수 항목입니다."
-		},
 		me_pw2 : {
 			required : "필수 항목입니다."
 		}
 	},
 	submitHandler : function(form){
-		if(idCheckDup() && emailCheckDup() && phoneCheckDup() && birthCheckDup()) {
+		if(idCheckDup() && emailCheckDup() && phoneCheckDup() && birthCheckDup() && addr()) {
 			return true;
 		}
 		return false;
@@ -287,9 +373,9 @@ function birthCheckDup(){
 				$("#birth-error2").text("입력할 수 없는 생년월일입니다.");
 				$("#birth-error2").show();
 			}
-		}, 
+		},
 		error : function(jqXHR, textStatus, errorThrown){
-
+			
 		}
 	});
 	return result;

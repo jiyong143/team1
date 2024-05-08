@@ -105,7 +105,7 @@ li {
 								style="border-color: red"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
 								value=0 />
-							<a type="button" onclick="requestPay()" class="w-25 ml-3 mt-3"
+							<a type="button" onclick="requestPayCheck()" class="w-25 ml-3 mt-3"
 								style="text-decoration: none;">포인트 충전</a>
 						</div>
 					</c:if>
@@ -210,10 +210,19 @@ li {
 			return num;
 		}
 		
+		function requestPayCheck() {
+			if(point<=0 || point == null) {
+        		alert("0원 이하의 금액은 입력할 수 없습니다.");
+        	} else {
+        		requestPay();
+        	}
+		}
+		
         function requestPay() {
+        	
             var orderUid = orderUidCreate("${user.me_id}"); //중복되지 않은 무작위 값 << 구매자 아이디 + 무작위 값으로 + db에 저장해두고 무작위 값 만들때마다 확인
             var itemName = "포인트 충전"; // 결제 수단은 포인트 충전 외에 없음
-            var paymentPrice = point; //가격 <-- 사용자가 입력하는 방식으로 바꿔야 함 (사고 방지를 위해 최대 1000으로)
+            var paymentPrice = point; //가격 <-- 사고 방지를 위해 최대 5000으로
             var buyerName = '${user.me_name}'; //구매자 이름
             var buyerEmail = '${user.me_email}'; //구매자 이메일
             var buyerAddress = '${user.me_addr}'; //구매자 주소
@@ -241,7 +250,7 @@ li {
                     buyer_postcode : '123-456', // 임의의 값
                 },
                 function(rsp) {
-                    if (rsp.success || !rsp.success) { //결제 취소되도 성공으로 처리됨
+                    if (rsp.success) { //테스트시에는 결제 취소되도 성공으로 처리되게
                         alert('결제 성공! : ' + JSON.stringify(rsp));
                         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                         // jQuery로 HTTP 요청
