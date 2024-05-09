@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.MemberDTO;
@@ -31,6 +31,7 @@ import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.MemberService;
+import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReportService;
 import kr.kh.team1.service.SurportService;
 
@@ -48,6 +49,9 @@ public class LKJController {
 	
 	@Autowired
 	ReportService reportService;
+	
+	@Autowired
+	ProductService productService;
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -132,13 +136,13 @@ public class LKJController {
 
 	@GetMapping("/surport/delete")
 	public String surportDelete(Model model, int suNum, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user");
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = surportService.deleteSurport(suNum, user);
-		if (res) {
+		if(res) {
 			model.addAttribute("url", "/surport/list");
 			model.addAttribute("msg", "글 삭제완료");
-		} else {
-			model.addAttribute("url", "/surport/detail?suNum=" + suNum);
+		}else {
+			model.addAttribute("url", "/surport/detail?suNum="+suNum);
 			model.addAttribute("msg", "글 삭제 실패");
 		}
 		return "message";
@@ -239,18 +243,56 @@ public class LKJController {
 	}
 	
 	@GetMapping("/report/insert")
-	public String reportInsert(Model model, ReportVO report, ProductVO product,  HttpSession session) {
+	public String reportProductInsert(Model model) {
+		ArrayList<ProductVO> list = reportService.getProductList();
+		model.addAttribute("list", list);
+		return "";
+	}
+	
+	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReport(report, product, user);
+		//boolean res = reportService.insertReport(report, product, user);
 		model.addAttribute("title", "신고들 작성");
+		model.addAttribute("me_id", me_id);
+
 		return "/report/insert";
 	}
+	
+	@PostMapping("/report/insert")
+	public String reportProductInsertPost(Model model, ReportVO report, ProductVO product, HttpServletRequest request) {
+		MemberVO user = (MemberVO)request.getAttribute("user");
+		if(reportService.insertReportProduct(report, product, user)) {
+			model.addAttribute("msg", "신고글 작성을 완료하였습니다.");
+			model.addAttribute("url", "/report/list");
+		}else {
+			model.addAttribute("msg", "신고글 작성에 실패아였습니다.");
+			model.addAttribute("url", "/report/inser");
+		}
+		System.out.println(report);
+		return "message";
+
+	}
+
+	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
+
+		System.out.println(report);
+		boolean res = reportService.insertReportByIBH(report);
+		if(res) {
+			model.addAttribute("msg", "신고 성공!");
+			model.addAttribute("url", "/report/list");
+		}else {
+			model.addAttribute("msg", "신고 실패!");
+			model.addAttribute("url", "/report/insert?me_id="+report.getRe_me_id());
+		}
+		return "message";
+	}
+	
 	//신고 END
 	@GetMapping("/admin/inquityManager")
 	public String InquityManager(Model model) {
 		return "/admin/inquityManager";
 	}
-	
+
 	@GetMapping("/surportManage/list")
 	// 고정 문의글 리스트
 	public String surportManageList(Model model) {
@@ -278,5 +320,9 @@ public class LKJController {
 	// 관리자 페이지
 	public String adminPage(Model model) {
 		return "/admin/adminPage";
+	}
+	@GetMapping("/admin/managerPage")
+	public String managePage(Model model) {
+		return "/admin/managerPage";
 	}
 }

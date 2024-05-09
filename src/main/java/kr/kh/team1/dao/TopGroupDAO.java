@@ -20,6 +20,13 @@ public interface TopGroupDAO {
 
 	ArrayList<ZipcodeVO> selectdongList(@Param("sido")String sido, @Param("sigungu")String sigungu);
 
+
+	boolean insertTopGroup(@Param("topGroup")String topGroup);
+
+	boolean deleteTopGroup(@Param("tg_num")int tg_num);
+
+	boolean updateTopGroup(@Param("tg_num")int tg_num, @Param("topGroup")String topGroup);
+
 	ArrayList<MidGroupVO> selectMidGroupListByNum(@Param("pr_num")int num);
 
 	TopGroupVO selectTopGroup(@Param("num")int topNum);

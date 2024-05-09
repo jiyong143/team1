@@ -122,4 +122,9 @@ public class ChatServiceImp implements ChatService {
 	public ArrayList<ChatRoomVO> getChatRoomIds(int pNum) {
 		return chatDao.selectChatRoomIds(pNum); 
 	}
+
+  @Override
+	public ChatMessageVO getChatMessageRecent(int cm_cr_num) {
+		return chatDao.selectChatMessageRecent(cm_cr_num);
+	}
 }

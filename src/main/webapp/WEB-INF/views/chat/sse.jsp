@@ -95,7 +95,9 @@
 	</form>
 </div>
 <script type="text/javascript">
+	$(".moreBox").hide();
 	getMsgList();
+	moreChat();
 	
 	let a = $(".error").val();
 	console.log(a);
@@ -188,6 +190,8 @@
 				getMsgList();
 				if(data.chatCount >= data.totalMsgCount){
 					$(".moreBox").hide();
+				}else{
+					$(".moreBox").show();
 				}
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
@@ -208,6 +212,26 @@
 		console.log('connect event data: ',receivedConnectData);  // "connected!"
 	});
 
+	sse.addEventListener('receive', e => {  
+		let obj = JSON.parse(e.data);
+		console.log(obj);
+	    console.log("메시지가 도착했습니다.");
+		displayReceive(obj);
+	});
+	
+	function displayReceive(obj){
+		console.log("asda");
+		let str =
+			`
+			<div class="y-container">
+				<div class="box">\${obj.cm_me_id}</div>
+				<div class="box">\${obj.cm_time}</div>
+				<div class="box">\${obj.cm_content}</div>
+			</div>
+			`;
+		$(".msg-list").append(str);
+	}
+	
 	// 뒤로가기 시 SSE 연결 끊기
 	window.addEventListener('popstate', handlePageNavigation);
 
@@ -227,7 +251,7 @@
 			data : {cm_cr_num : ${cr_num}},	
 			dataType : "json",
 			success : function (data){
-				console.log()
+				console.log("MsgCount 초기화");
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 

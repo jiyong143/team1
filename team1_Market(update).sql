@@ -66,12 +66,13 @@ DROP TABLE IF EXISTS `report`;
 
 CREATE TABLE `report` (
    `re_num`   int   NOT NULL primary key auto_increment,
-   `re_pr_num`   int   NOT NULL,
+   `re_pr_num`   int   NULL,
    `re_me_id`   varchar(15)   NOT NULL,
    `re_name`   varchar(10)   not   NULL,
    `re_content` text not NULL,
    `re_date`   dateTime not NULL default now(),
-   `re_state`   varchar(20)   not   NULL default "신고접수"
+   `re_state`   varchar(20)   not   NULL default "신고접수",
+   `re_cr_num`	int	NULL
 );
 
 DROP TABLE IF EXISTS `pick`;
@@ -228,17 +229,24 @@ REFERENCES `product` (
 );
 
 ALTER TABLE `report` ADD CONSTRAINT `FK_product_TO_report_1` FOREIGN KEY (
-   `re_pr_num`
+	`re_pr_num`
 )
 REFERENCES `product` (
-   `pr_num`
+	`pr_num`
 );
 
 ALTER TABLE `report` ADD CONSTRAINT `FK_member_TO_report_1` FOREIGN KEY (
-   `re_me_id`
+	`re_me_id`
 )
 REFERENCES `member` (
-   `me_id`
+	`me_id`
+);
+
+ALTER TABLE `report` ADD CONSTRAINT `FK_chat_room_TO_report_1` FOREIGN KEY (
+	`re_cr_num`
+)
+REFERENCES `chat_room` (
+	`cr_num`
 );
 
 ALTER TABLE `pick` ADD CONSTRAINT `FK_member_TO_pick_1` FOREIGN KEY (

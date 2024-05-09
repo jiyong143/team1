@@ -24,26 +24,17 @@
 </head>
 <body>
 <div class="container mt-3 col-6 card-1">
-	<h2 style="font-weight: bold">카테고리 관리</h2>
+	<h2 style="font-weight: bold">중분류 관리</h2>
 	<div class="input-group mb-3" style="margin-top: 30px;">
-		<input type="text" class="form-control category-content" placeholder="새로 등록할 카테고리 이름을 입력하세요.">
-		
+		<input type="text" class="form-control category-content" placeholder="새로 등록할 중분류 이름을 입력하세요.">
 		<button class="btn btn-success btn-category-insert" type="button">등록</button>
 	</div>
-	<div class="input-group mb-3" style="margin-top: 30px;">
-		<select class="form-control">
-			<option value="">
-		</select>
-		<input type="text" class="form-control category-content" placeholder="새로 등록할 카테고리 이름을 입력하세요.">
-		
-		<button class="btn btn-success btn-category-insert" type="button">등록</button>
-	</div>
-
 	<table class="table table-hover category-list-table">
 		<tbody class="box-category-list">
 			<tr class="box-category">
-				<td class="col-7">대분류 제목</td>
+				<td class="col-2">중분류 번호</td>
 				<td class="col-7">중분류 제목</td>
+				<td class="col-7">중분류 작성자</td>
 				<td class="col-3">
 					<div class="btn-category-group">
 						<button class="btn btn-outline-warning">수정</button>
@@ -152,9 +143,9 @@ $(document).on("click", ".box-category-pagination .page-link", function(){
 <script type="text/javascript">
 $(".btn-category-insert").click(function(){
 	//로그인 체크
-	if(!${user.me_authority eq 'ADMIN' }){
+	if(!${user.me_authority eq 'admin' }){
 		if(confirm("관리자 기능입니다. 로그인 화면으로 이동하시겠습니까?")){
-			location.href = "<c:url value='/login'/>";
+			location.href = "<c:url value='/member/login'/>";
 			return;
 		}
 		else{
@@ -164,7 +155,7 @@ $(".btn-category-insert").click(function(){
 	}
 	
 	let category = $(".category-content").val();
-	
+		
 	$.ajax({
 		url : '<c:url value="/category/insert"/>',
 		method : "post",
