@@ -270,15 +270,6 @@ public class LKJController {
 		return "message";
 	}
 	
-	//신고 상세내역
-	@GetMapping("/report/detailProduct")
-	public String detailProduct(Model model, int reNum) {
-		ReportVO report = reportService.getReport(reNum);
-		model.addAttribute("report", report);
-		model.addAttribute("title", "신고글 상세내역");
-		return "/report/detailProduct";
-	}
-	
 	//채팅방 신고
 	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
@@ -293,6 +284,15 @@ public class LKJController {
 			model.addAttribute("url", "/report/insetChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
+	}
+	
+	//신고 상세내역
+	@GetMapping("/report/detailProduct")
+	public String detailProduct(Model model, int reNum) {
+		ReportVO report = reportService.getReport(reNum);
+		model.addAttribute("report", report);
+		model.addAttribute("title", "신고글 상세내역");
+		return "/report/detailProduct";
 	}
 	
 	//신고 END

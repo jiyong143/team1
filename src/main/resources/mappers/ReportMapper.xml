@@ -5,10 +5,18 @@
 <mapper namespace="kr.kh.team1.dao.ReportDAO">
 	<select id="selectReportList" resultType="ReportVO">
 		SELECT * FROM report
+		<if test='crir.type == "writer"'>
+            WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
+        </if>
+        ORDER BY ${crir.order} DESC
+	    LIMIT #{crir.pageStart}, #{crir.perPageNum}
 	</select>
 
 	<select id="selectReportTotalCount" resultType="int">
-		SELECT COUNT(*) FROM surport
+		SELECT COUNT(*) FROM report
+		<if test='crir.type == "writer"'>
+            WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
+        </if>
 	</select>
 
 	<select id="selectProductList" resultType="ProductVO">

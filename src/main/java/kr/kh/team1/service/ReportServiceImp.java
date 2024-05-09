@@ -28,7 +28,7 @@ public class ReportServiceImp implements ReportService{
 	public int getReportTotalCount(Criteria_report crir) {
 		return reportDao.selectReportTotalCount(crir);
 	}
-	//신고 리스트 출력 완료
+	
 	//신고글 작성 
 	@Override
 	public ArrayList<ProductVO> getProductList() {
@@ -49,6 +49,16 @@ public class ReportServiceImp implements ReportService{
 	}
 	
 	@Override
+	public ProductVO getRePrNum(int rePrNum) {
+		return reportDao.selectRePrNum(rePrNum);
+	}
+
+	@Override
+	public ReportVO getReport(int reNum) {
+		return reportDao.selectReport(reNum);
+	}
+	
+	@Override
 	public boolean insertReportByIBH(ReportVO report) {
 		
 		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
@@ -58,16 +68,7 @@ public class ReportServiceImp implements ReportService{
 		return reportDao.insertReportByIBH(report);
 	}
 
-	@Override
-	public ProductVO getRePrNum(int rePrNum) {
-		return reportDao.selectRePrNum(rePrNum);
-	}
-
-	@Override
-	public ReportVO getReport(int reNum) {
-		return reportDao.selectReport(reNum);
-	}
-
+	
 
 
 }

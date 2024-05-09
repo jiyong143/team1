@@ -18,11 +18,10 @@ public interface ReportDAO {
 
 	boolean insertReportProd(@Param("report") ReportVO report);
 
-	boolean insertReportByIBH(@Param("report") ReportVO report);
-
 	ProductVO selectRePrNum(@Param("re_pr_num") int rePrNum);
-
+	
 	ReportVO selectReport(@Param("re_num") int reNum);
 
+	boolean insertReportByIBH(@Param("report") ReportVO report);
 
 }
