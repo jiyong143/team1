@@ -44,6 +44,10 @@
 		width: calc(100% - 50px);
 		float: right;
 	}
+	.btn-report{
+		width: calc(100% - 50px);
+		float: right;
+	}
 	.infoBox{
 		float: left; display: inline-block;
 		width:65%; margin-top: 50px;
@@ -214,6 +218,7 @@
 					</c:otherwise>
 				</c:choose>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>				
 			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
 			

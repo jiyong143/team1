@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
 .container-box{
-   width: 100%; height: 200px;
+   width: 100%; height: 280px;
     box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
     margin-bottom : 5px;
     padding: 2px;
@@ -36,8 +36,19 @@
 <body>
 <div class="container">
    <h1 class="page-title">신고글 작성</h1>
-   <form action="<c:url value="/report/insert"/>" method="post" enctype="multipart/form-data">
+   <form action="<c:url value="/report/insertProduct"/>" method="post" enctype="multipart/form-data">
 		<div class="container-box">
+
+			<div class="form-group col-12 mt-3">
+			   <label for="re_pr_num">신고 대상자</label>
+			   <input type="number" class="form-control" id="re_pr_num" name="re_pr_num" readonly value="${info.pr_num}">
+			</div>
+			
+			<div class="form-group col-12 mt-3">
+			   <label for="re_me_id">신고 신정자</label>
+			   <input type="text" class="form-control" id="re_me_id" name="re_me_id" readonly value="${user.me_id}">
+			</div>
+			
 			<div class="select-box col-12 mt-3">
 				<label for="suport_manage">신고유형</label>
 		      	<select class="form-control" id="report_name" name="re_name">
@@ -50,10 +61,7 @@
 					<option value="기타 문제가 있어요." <c:if test='${report.re_name == "기타 문제가 있어요."}'>selected</c:if>>기타 문제가 있어요.</option>
 				</select>
 			</div>
-			<div class="form-group col-12 mt-3">
-			   <label for="re_me_id">신고작성자</label>
-			   <input type="text" class="form-control" id="re_me_id" name="re_me_id" readonly placeholder="${member.me_id}" value="${member.me_id}">
-			</div>
+			
 		</div>   
 		<div class="form-group mb-2">
 			<label for="re_content">내용</label>
