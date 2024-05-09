@@ -5,17 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <style type="text/css">
 	.card-1 {
+		background-color:white;
 		padding: 30px;
-	  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-	  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	}
 	.card-1:hover {
-	  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+		box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	}
 	.category-list-table {
 		margin-top: 20px
@@ -38,10 +36,10 @@
 				<td class="col-2"></td>
 			</tr>
 		</thead>
-		<tbody>
-			<c:forEach items="${topList}" var="topList" varStatus="i">
+		<tbody class="topGroupList">
+			<c:forEach items="${topList}" var="topList" varStatus="vs">
 				<tr>
-					<td>${i.index+1}</td>
+					<td>${vs.index + pm.cri.pageStart + 1}</td>
 					<td>${topList.tg_title}</td>
 					<td>
 						<button value="${topList.tg_num}" class="updateBtn btn btn-outline-warning">수정</button>
@@ -55,15 +53,30 @@
 	</table>
 	<div class="box-category-pagination">
 		<ul class="pagination justify-content-center">
-			<li class="page-item">
-				<a class="page-link" href="javascript:void(0);">이전</a>
-			</li>
-			<li class="page-item active">
-				<a class="page-link" href="javascript:void(0);">1</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="javascript:void(0);">다음</a>
-			</li>
+			<c:if test="${pm.prev}">
+				<c:url value="/admin/topCategoryManager" var="url">
+					<c:param name="page" value="${pm.startPage - 1}"/>
+				</c:url>
+				<li class="page-item">
+					<a class="page-link" href="${url}">이전</a>
+				</li>
+			</c:if>
+			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+				<c:url value="/admin/topCategoryManager" var="url">
+					<c:param name="page" value="${i}"/>
+				</c:url>
+				<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+					<a class="page-link" href="${url}">${i}</a>
+				</li>
+			</c:forEach>
+			<c:if test="${pm.next}">
+				<c:url value="/admin/topCategoryManager" var="url">
+					<c:param name="page" value="${pm.endPage + 1}"/>
+				</c:url>
+				<li class="page-item">
+					<a class="page-link" href="${url}">다음</a>
+				</li>
+			</c:if>
 		</ul>
 	</div>
 </div>
@@ -80,6 +93,8 @@
 			success : function (data){
 			    alert(data.msg);
 			    $("[name=topGroup]").val("");
+			    var url = '<c:url value="/admin/topCategoryManager"/>' + '?page=1';
+				location.href = url;
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 
@@ -112,6 +127,8 @@
 					$(".btn-category-update").addClass("btn-category-insert");
 					$(".btn-category-update").removeClass("btn-category-update");
 					$("[name=topGroup]").attr("placeholder", "새로 추가할 대분류 이름을 입력하세요.");
+					var url = '<c:url value="/admin/topCategoryManager"/>' + '?page=1';
+					location.href = url;
 				},
 				error : function(jqXHR, textStatus, errorThrown){
 
@@ -130,7 +147,9 @@
 			dataType : "json",
 			data : {tg_num : tg_num},	
 			success : function (data){
-			    console.log(data);
+			    alert(data.msg);
+			    var url = '<c:url value="/admin/topCategoryManager"/>' + '?page=1';
+				location.href = url;
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 
