@@ -8,6 +8,51 @@
 <title>Insert title here</title>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <style type="text/css">
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+#btnWrap {
+	width: 500px;
+	margin: 100px auto;
+}
+
+#modalWrap {
+	position: fixed; /* 화면에 고정 */
+	z-index: 1; /* 상위에 위치 */
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7); /* 반투명한 배경색 */
+	display: none; /* 초기에는 숨김 */
+}
+
+#modalBody {
+	width: 500px;
+	height: 300px;
+	padding: 30px 30px;
+	margin: 0 auto;
+	border: 1px solid #777;
+	background-color: #fff;
+}
+
+#closeBtn {
+	float: right;
+	font-weight: bold;
+	color: #777;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.close::before {
+	content: "\00d7";
+	font-size: 30pt;
+}
 .px-0 {
 	padding-left: 0;
 	padding-right: 0;
@@ -54,8 +99,9 @@ li {
 				<div class="flex flex-col space-y-2 justify-start">
 					<div class="flex items-center">
 						<div>
-							<c:if test="${user.me_id == myUserCheck}">
-								<h2>${myUser.me_id}</h2> <a href="<c:url value='/member/update'/>">회원정보수정</a>
+							<h2>${myUser.me_id}</h2> 
+							<c:if test="${user.me_id == myUserCheck}"> 
+								<a href="<c:url value='/member/update'/>">회원정보수정</a>
 								<a href="<c:url value='/member/delete'/>">회원탈퇴</a>
 							</c:if>
 						</div>
@@ -76,22 +122,22 @@ li {
 						<thead>
 							<tr style="width: auto">
 								<td style="text-align: center;">안전거래</td>
-								<td style="text-align: center;">거래후기</td>
+								<td id="popupBtn1" style="text-align: center; cursor: pointer;">거래후기</td>
 								<c:if test="${user.me_id == myUserCheck}">
-									<td style="text-align: center;">후기작성</td>
+									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">후기작성</a></td>
 								</c:if>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td style="text-align: center;"><a href="#">${tradeNum}</a></td>
 								<!-- 거래횟수 -->
-								<td style="text-align: center;"><a href="#">${reviewNum}</a></td>
+								<td style="text-align: center;">${tradeNum}</td>
 								<!-- 거래후기개수 -->
+								<td id="popupBtn2" style="text-align: center; cursor: pointer;">${reviewNum}</td> <!-- 구매후기와 판매후기를 나눠서 볼 수 있음 -->
+								<!-- 작성 가능한 후기 개수 -->
 								<c:if test="${user.me_id == myUserCheck}">
 									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">${tradeReviewNum}</a></td>
 								</c:if>
-								<!-- 작성 가능한 후기 개수 -->
 							</tr>
 						</tbody>
 					</table>
@@ -172,8 +218,56 @@ li {
 				</div>
 			</div>
 		</div>
+		<div id="modalWrap">
+			<!-- 모달 창을 감싸는 div -->
+			<div id="modalBody">
+				<!-- 모달을 닫는 X 버튼 -->
+				<span id="closeBtn">&times;</span>
+				<!-- 모달 창 내용 -->
+				<fieldset>
+					<legend>이런점이 좋았어요</legend>
+					<table>
+						
+						<thead>
+							<tr>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr>
+								<td>test1</td>
+								<td>test2</td>
+							</tr>
+						</tbody>
+									
+					</table>
+				</fieldset>
+			</div>
+		</div>	
 	</div>
+	
+	
+	
+	<script type="text/javascript">
+		const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
+		
+		$("#popupBtn1, #popupBtn2").click(function() {
+			modal.style.display = "block"; // 버튼을 클릭하면 모달을 보이게 함
+		});
 
+		$("#closeBtn").click(function() {
+			modal.style.display = "none"; // 모달을 닫는 버튼(X)을 클릭하면 모달을 숨김
+		});
+
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
+			}
+		};	
+	</script>
+	
 	<!-- 결제 api 스크립트 -->
 	<script type="text/javascript">
 		var IMP = window.IMP;
