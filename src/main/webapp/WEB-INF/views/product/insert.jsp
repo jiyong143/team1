@@ -96,7 +96,7 @@
 			success : function (data){
 				console.log(data);
 				displayMidGroup(data.data);
-			}, 
+			},
 			error : function(jqXHR, textStatus, errorThrown){
 
 			}
@@ -120,8 +120,21 @@
 	$("[name=h_dong_nm]").hide();
 	
 	$("[name=sido]").change(function(){
+		
 		$("[name=sigungu]").show();
 		let sido = $("[name=sido]").val();
+		
+		// sido == 세종...
+		if($("[name=sido]").val() == '세종특별자치시'){
+			$("[name=h_dong_nm]").show();
+			let obj = {
+				sido : sido,
+				sigungu : ""
+			}
+			dongAjax(obj);
+		}
+		
+		// sido != 세종...
 		let obj = {
 			sido : sido
 		}
@@ -159,6 +172,10 @@
 			sido : sido,
 			sigungu : sigungu
 		}
+		dongAjax(obj);
+	})
+	
+	function dongAjax(obj){
 		$.ajax({
 			async : false,
 			url : '<c:url value="/product/dong"/>', 
@@ -173,10 +190,10 @@
 	
 			}
 		});
-	})
+	}
 
 	function displaydong(list){
-		let str = `<option id="h_dong_nm" value="">동을 선택하세요.</option>`;
+		let str = `<option id="h_dong_nm" value="x">동을 선택하세요.</option>`;
 		for(item of list){
 			str += `<option value="\${item.h_dong_nm}">\${item.h_dong_nm}</option>`;
 		}
@@ -204,7 +221,6 @@
 
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
-
 	const pr_price = document.querySelector('#pr_price');
 	pr_price.addEventListener('keyup', function(e) {
 		let value = e.target.value;
@@ -221,8 +237,8 @@
 	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
 	$("#productForm").submit(function(e){
 		let res = false;
-		
-		if(!$(".h_dong_nm").checked){
+
+		if($(".h_dong_nm").val() == 'x'){
 			alert("주소를 입력해야 합니다.");
 			$(".h_dong_nm").focus();
 			return false;
@@ -242,7 +258,6 @@
 		}else{
 			return true;
 		}
-
 		
 		if(!$(".check").checked){
 			alert("대분류를 선택해야합니다.");
@@ -263,8 +278,6 @@
 			$("[name = pr_content]").focus();
 			return false;
 		}
-		
-		
 		
 		$(".priceTag").value = $("#pr_price").val();
 		

@@ -10,7 +10,6 @@ public class ChatRoomVO {
 	private int cr_num; 
 	private int cr_pr_num; 
 	private String cr_me_id;
-	
 	private ProductVO product;
 	private ChatMessageVO chatMessage;
 }

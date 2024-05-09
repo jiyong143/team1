@@ -19,8 +19,6 @@ public interface MemberDAO {
 	MemberVO selectMember1(@Param("string")String string);
 
 	int selectUserTradeNum(@Param("me_id")String me_id);
-
-	int selectReviewNum(@Param("me_id")String me_id);
 	
 	void updatePoint(@Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
 
@@ -34,6 +32,10 @@ public interface MemberDAO {
 	void updateMember(@Param("member")MemberVO member);
 
 	void updateMemberState(@Param("me_id")String me_id);
+
+	int selectReviewNumSeller(@Param("me_id")String me_id);
+
+	int selectReviewNumBuyer(@Param("me_id")String me_id);
 	
 }
 

@@ -10,9 +10,10 @@
 
 .product-update{
     position: relative;
-    top: 30%;
+    top: 1000px;
     left: 50%;
     transform: translate(-50%, -50%);
+    height : 2000px;
 }
 
 .file-list {
@@ -99,6 +100,16 @@ list-style-type: none;
 left : 0;
 }
 
+.topPlace-li , .midPlace-li{
+list-style-type: none;
+left : 0;
+}
+
+.buyer-li{
+list-style-type: none;
+left : 0;
+}
+
 #topGroup button {
     border: none; /* 버튼의 테두리를 제거합니다. */
     background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
@@ -110,6 +121,7 @@ left : 0;
     background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
    
 }
+
 
 .price-update button{
 
@@ -123,6 +135,38 @@ left : 0;
     width : 239px;
     
 }
+
+#buyer {
+    max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+    overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+    width : 480px;
+    
+}
+
+
+
+#topPlace , #midPlace, #smallPlace{
+max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+width : 158px;
+}
+
+#buyer::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#topPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#midPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
+#smallPlace::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+}
+
 
 #topGroup::-webkit-scrollbar {
     display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
@@ -142,8 +186,24 @@ display : flex;
  left : 18px;
 }
 
+.place-list{
+display : flex;
+ position : absolute;
+ left : 18px;
+}
+
 
 .category-ul{
+padding-left : 0;
+}
+
+.buyer-ul{
+padding-left : 0;
+}
+
+
+
+.place-ul{
 padding-left : 0;
 }
 
@@ -169,7 +229,7 @@ width : 476px;
 
 .contentCount{
 position : absolute;
-left : 1108px;
+left : 1100px;
 top : 1115px;
 }
 
@@ -179,11 +239,121 @@ left : 1137px;
 top : 1115px;
 }
 
+.place-update{
+position : absolute;
+left : 685px;
+top : 1530px;
+}
+
+.place-update button{
+ border: none; /* 버튼의 테두리를 제거합니다. */
+ background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+}
+
+#buyer button{
+border: none; /* 버튼의 테두리를 제거합니다. */
+background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+}
+
+.font-semibold{
+position : absolute;
+left : 700px;
+top : 1140px;
+}
+
+.state-update{
+position : absolute;
+left : 700px;
+top : 200px;
+}
+
+.iButton{
+position : absolute;
+left : 0;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+.rButton{
+position : absolute;
+left : 120px;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+
+.cButton{
+position : absolute;
+left : 240px;
+top : 975px;
+display: inline-block;
+line-height: 3;
+white-space: nowrap;
+text-align: center;
+vertical-align: middle;
+padding: 0 20px;
+border-radius: 20px;
+border: 1px solid black;
+font-weight : bold;
+}
+
+#buyer{
+position : absolute;
+left : 700px;
+top : 1280px;
+display : none;
+}
+
+.buyer-span{
+position : absolute;
+left : 700px;
+top : 1240px;
+color: red;
+font-size: 12px;
+}
+
+#nameMessage{
+position : absolute;
+left : 700px;
+top : 210px;
+color: red;
+font-size: 12px;
+}
+
+#priceMessage{
+position : absolute;
+left : 700px;
+top : 550px;
+color: red;
+font-size: 12px;
+}
+
+#contentMessage{
+position : absolute;
+left : 700px;
+top : 1120px;
+color: red;
+font-size: 12px;
+}
 </style>
 </head>
 <body>
 <div class="product-update">
-	<div class="image-update" style="display : flex;">
+	<div class="image-update" style="display : flex; height : 100px;">
 	  <div class="image-picker">
 	    <input name="media" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
 	    <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="openFilePicker()">
@@ -219,7 +389,8 @@ top : 1115px;
 	  </div>
 	</div>
 	<input value="${pro.pr_name }" id="productTitle" name="productTitle" type="text" placeholder="상품명" class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md" autocomplete="off" spellcheck="false" aria-invalid="false">
-	<section class="category-update">
+	<p id="nameMessage" style="display: none;">최대 30자까지 입력할 수 있습니다.</p>
+	<section class="category-update" style="height : 100px;">
 	<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
 	<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
 	<ul class="category-ul flex flex-col border-solid border-jnGray-300">
@@ -264,30 +435,52 @@ top : 1115px;
 		</svg>
 		가격제안</button>
 	</div>
+	<p id="priceMessage" style="display: none;">최대 1억원까지 입력 가능합니다.</p>
 		<div class="content-update">
-		<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" maxlength="1000" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
+		<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
+		<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력 가능합니다.</p>
 		<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
 		<span class="michael">/1000</span>
 		</div>	
-	<section class="category-update">
-		<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
-		<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${topList }" var="top">
-		<li class="false h-10 p-3 topGroup-li">
+	<p class="font-semibold">상품상태</p>
+	<div class="state-update flex gap-3">
+	<button class="iButton" style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};" >판매중</button>
+	<button class="rButton" style="background-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '예약중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : ''};">예약중</button>
+	<button class="cButton" style="background-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매완료' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : ''};">판매완료</button>
+	</div>
+	<span class="buyer-span"></span>
+	<div id="buyer"class="overflow-y-auto border border-solid rounded border-jnGray-300">
+	</div>
+	<section class="place-update">
+		<div class="place-list flex-row w-full overflow-hidden text-sm font-medium h-60">
+		<div id="topPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${sidoList }" var="sido">
+		<li class="false h-10 p-3 topPlace-li">
 		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${top.tg_title }</p>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${sido.sido }</p>
 		</button>
 		</li>
 		</c:forEach>
 		</ul>
 		</div>
-		<div id="midGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${midList }" var="mid">
-		<li class="false h-10 p-3 midGroup-li">
+		<div id="midPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${guList }" var="gu">
+		<li class="false h-10 p-3 midPlace-li">
 		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${mid.mg_title }</p>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${gu.sigungu }</p>
+		</button>
+		</li>
+		</c:forEach>
+		</ul>
+		</div>
+		<div id="smallPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+		<c:forEach items="${dongList }" var="dong">
+		<li class="false h-10 p-3 midPlace-li">
+		<button>
+		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${dong.h_dong_nm }</p>
 		</button>
 		</li>
 		</c:forEach>
@@ -489,6 +682,94 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+	var pNum = '${pro.pr_num}';
+    var serverText = '${sido}';
+    var serverText1 = '${gu}';
+    var serverText2 = '${dong}';
+    var buttons = document.querySelectorAll('#topPlace button');
+    var buttons1 = document.querySelectorAll('#midPlace button');
+    var buttons2 = document.querySelectorAll('#smallPlace button');
+    
+    buttons.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        if (buttonText === serverText) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black';
+            button.closest('li').style.backgroundColor = '#ced4da';
+            sendTopPlace(button);
+        });      
+    });
+    
+    
+    buttons1.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        
+        if (buttonText === serverText1) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기            
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons1.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화 
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+            
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black'; 
+            button.closest('li').style.backgroundColor = '#ced4da';
+            sendMidPlace(button);
+        });      
+    });
+    
+    buttons2.forEach(function(button) {
+        var buttonText = button.querySelector('p').textContent.trim();
+        
+        if (buttonText === serverText2) {
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 진하게 만들기
+            button.querySelector('p').style.color = 'black'; // 진하게 만들기            
+            button.closest('li').style.backgroundColor = '#ced4da';// 버튼 포함하는 li의 배경색을 회색으로 
+        }
+        
+        button.addEventListener('click', function() {
+            buttons2.forEach(function(btn) {
+                btn.classList.remove('selected');
+                btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화 
+                btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+                btn.querySelector('p').style.color = 'initial';
+            });
+            
+            button.classList.add('selected');
+            button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+            button.querySelector('p').style.color = 'black'; 
+            button.closest('li').style.backgroundColor = '#ced4da';
+        });      
+    });
+ 
+});
+
 
 function sendTop(button) {
 	var pNum = '${pro.pr_num}';
@@ -519,6 +800,64 @@ function sendTop(button) {
     });
 } 
 
+
+function sendTopPlace(button) {
+	var pNum = '${pro.pr_num}';
+	var topPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "topPlace" : topPlace,
+       "pNum" : pNum
+    };
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update2"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addMidPlace(data.guList, data.gu);
+            removeSmallPlace();// 동 공간을 리셋하는 작업
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+function removeSmallPlace(){
+	let str = '';
+	$("#smallPlace").html(str);
+}
+
+function sendMidPlace(button) {
+	var pNum = '${pro.pr_num}';
+	var midPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "midPlace" : midPlace,
+       "pNum" : pNum
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update3"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addSmallPlace(data.dongList, data.dong);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
 function addMid(mids,mName){
 	
 	let str = '';
@@ -528,13 +867,13 @@ function addMid(mids,mName){
 		if(mName === mid.mg_title){
 			str+=`<li class="false h-10 p-3 midGroup-li" style="background-color : #ced4da; ">
 			      <button onClick="clickMid(this)">
-			      <p class="truncate break-keep" style="font-weight : bold; color : black;">\${mid.mg_title }</p>
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${mid.mg_title }</p>
 			      </button>
 				  </li>`;
 		}else{
 			str+=`<li class="false h-10 p-3 midGroup-li">
 			      <button onClick="clickMid(this)">
-			      <p class="truncate break-keep" style="font-weight : normal; color : initial;">\${mid.mg_title }</p>
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${mid.mg_title }</p>
 			      </button>
 				  </li>`;
 		}
@@ -543,6 +882,117 @@ function addMid(mids,mName){
 	 $("#midGroup").html(str);
 }
 
+function addMidPlace(mids, gu){
+	
+	let str = '';
+	str += `<ul class="place-ul flex flex-col border-solid border-jnGray-300">`;
+	for(let i=0; i<mids.length; i++){
+		const mid = mids[i];
+		if(gu === mid.sigungu){
+			str+=`<li class="false h-10 p-3 midPlace-li" style="background-color : #ced4da; ">
+			      <button onClick="clickMidPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${mid.sigungu }</p>
+			      </button>
+				  </li>`;
+		}else{
+			str+=`<li class="false h-10 p-3 midPlace-li">
+			      <button onClick="clickMidPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${mid.sigungu}</p>
+			      </button>
+				  </li>`;
+		}
+	}
+	str+=`</ul>`;
+	 $("#midPlace").html(str);
+}
+
+
+function addSmallPlace(smalls, dong){
+	
+	let str = '';
+	str += `<ul class="place-ul flex flex-col border-solid border-jnGray-300">`;
+	for(let i=0; i<smalls.length; i++){
+		const small = smalls[i];
+		if(dong === small.h_dong_nm){
+			str+=`<li class="false h-10 p-3 smallPlace-li" style="background-color : #ced4da; ">
+			      <button onClick="clickSmallPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${small.h_dong_nm }</p>
+			      </button>
+				  </li>`;
+		}else{
+			str+=`<li class="false h-10 p-3 smallPlace-li">
+			      <button onClick="clickSmallPlace(this)">
+			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${small.h_dong_nm}</p>
+			      </button>
+				  </li>`;
+		}
+	}
+	str+=`</ul>`;
+	 $("#smallPlace").html(str);
+}
+
+
+function clickMidPlace(button){
+	 var buttons1 = document.querySelectorAll('#midPlace button');
+	 buttons1.forEach(function(btn) {
+    btn.classList.remove('selected');
+    btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+    btn.querySelector('p').style.color = 'initial';
+    btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+    });
+	 
+	button.classList.add('selected');
+    button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+    button.querySelector('p').style.color = 'black'; 	
+    button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+    sendMidAddr(button);
+}
+
+
+function sendMidAddr(button) {
+	var pNum = '${pro.pr_num}';
+	var topPlace = document.querySelector("#topPlace .selected").querySelector('p').textContent.trim();
+	var midPlace = button.querySelector('p').textContent.trim();
+    var data = {
+       "midPlace" : midPlace,
+       "topPlace" : topPlace,
+       "pNum" : pNum
+    };
+
+    // AJAX 요청
+    $.ajax({
+    	async : false,
+        type: "get",
+        url: '<c:url value="/product/update4"/>', 
+        data: data, // 보낼 데이터 입력
+        dataType : "json",
+        success: function(data) {
+            // 성공적으로 응답을 받았을 때 실행할 코드
+            addSmallPlace(data.dongList, data.dong);
+        },
+        error: function(xhr, status, error) {
+            // 요청이 실패했을 때 실행할 코드
+            console.error("Error sending data:", error);
+        }
+    });
+}
+
+
+
+function clickSmallPlace(button){
+	 var buttons2 = document.querySelectorAll('#smallPlace button');
+	 buttons2.forEach(function(btn) {
+   btn.classList.remove('selected');
+   btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+   btn.querySelector('p').style.color = 'initial';
+   btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+   });
+	 
+   button.classList.add('selected');
+   button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+   button.querySelector('p').style.color = 'black'; 	
+   button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+}
 
 function clickMid(button){
 	 var buttons1 = document.querySelectorAll('#midGroup button');
@@ -618,26 +1068,176 @@ function clickMid(button){
 	});
 	
 	<!--가격 입력시 작용 -->
-	priceInput.addEventListener('keyup', function(e) {
-		  let value = e.target.value;
-		  // 입력 값이 없으면 빈문자열로 설정
-		  if (value === "" || value === null || isNaN(Number(value))) {
-		    value = "";
-		  } else {
-		    value = Number(value.replaceAll(',', ''));
-		  }
-		  const formatValue = value.toLocaleString('ko-KR');
-		  priceInput.value = formatValue; 
-		});
+	priceInput.addEventListener('input', function() {
+	    var priceMessage = document.getElementById("priceMessage");
+	    let value = this.value;
+	    
+	    if (value === "" || value === null || isNaN(Number(value))) {
+	        // 입력 값이 없거나 숫자가 아니면 빈 문자열로 설정
+	        this.value = "";
+	        priceMessage.style.display = "none"; // 메시지 숨김
+	    } else {
+	        // 입력값을 숫자로 변환하여 최대값을 확인
+	        const numericValue = Number(value.replaceAll(',', ''));
+	        if (numericValue <= 100000000) {
+	            // 최대값 이내의 값인 경우 표시를 업데이트
+	            const formatValue = numericValue.toLocaleString('ko-KR');
+	            this.value = formatValue; 
+	            priceMessage.style.display = "none"; // 메시지 숨김
+	        } else {
+	            // 최대값을 초과하는 경우 입력을 막고 메시지를 표시
+	            this.value = value.slice(0, 8); // 100,000,000 이상의 값은 100,000,000으로 제한
+	            const formatValue = Number(this.value.replaceAll(',', '')).toLocaleString('ko-KR');
+	            this.value = formatValue; // 콤마 추가
+	            priceMessage.style.display = "block"; // 메시지 표시
+	        }
+	    }
+	});
+	
+	var iButton = document.querySelector(".iButton");
+	var rButton = document.querySelector(".rButton");
+	var cButton = document.querySelector(".cButton");
+	
+	var stateButtons = document.querySelectorAll('.state-update button');
+	
+	iButton.addEventListener('click', function() {
+		var buyer = document.getElementById("buyer");
+		var buyerSpan = document.querySelector(".buyer-span");
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		iButton.style.backgroundColor = 'rgb(13 204 90)';
+		iButton.style.color = 'rgb(255 255 255)';
+		iButton.style.borderColor = 'rgb(13 204 90)';
+		buyerSpan.textContent="";
+		buyer.style.display = "none";
+	});
+	
+	rButton.addEventListener('click', function() {
+		var buyer = document.getElementById("buyer");
+		var buyerSpan = document.querySelector(".buyer-span");
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		rButton.style.backgroundColor = 'rgb(13 204 90)';
+		rButton.style.color = 'rgb(255 255 255)';
+		rButton.style.borderColor = 'rgb(13 204 90)';
+		buyerSpan.textContent="";
+		buyer.style.display = "none";
+	});
+	
+	cButton.addEventListener('click', function() {
+		var stateButtons = document.querySelectorAll('.state-update button');
+		    stateButtons.forEach(function(btn) {
+		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
+		    btn.style.color = '';
+		    btn.style.borderColor = '';
+		    });
+		cButton.style.backgroundColor = 'rgb(13 204 90)';
+		cButton.style.color = 'rgb(255 255 255)';
+		cButton.style.borderColor = 'rgb(13 204 90)';
+		showIds();// 채팅방 아이디 뿌려주는 함수
+	});
+	
+	function showIds(){
+		var pNum = '${pro.pr_num}';
+	    var data = {
+	       "pNum" : pNum
+	    };
+
+	    // AJAX 요청
+	    $.ajax({
+	    	async : false,
+	        type: "get",
+	        url: '<c:url value="/product/update5"/>', 
+	        data: data, // 보낼 데이터 입력
+	        dataType : "json",
+	        success: function(data) {
+	            // 성공적으로 응답을 받았을 때 실행할 코드
+	            addIds(data.chatRoomList);
+	        },
+	        error: function(xhr, status, error) {
+	            // 요청이 실패했을 때 실행할 코드
+	            console.error("Error sending data:", error);
+	        }
+	    });
+		
+	}
 	
 	
-	const textarea = document.getElementById('product-content');
-	const span = document.getElementById('contentCount');
+	function addIds(list){
+		var buyerSpan = document.querySelector(".buyer-span");
+		if(list.length==0){
+			buyerSpan.textContent ="채팅방이 존재하지 않아 구매자 아이디를 찾을 수 없습니다.";
+			return;
+		}
+		buyerSpan.textContent ="구매자의 아이디를 선택하세요.";
+		var buyer = document.getElementById("buyer");
+		buyer.style.display = "block";
+		let str = '';
+		str += `<ul class="buyer-ul flex flex-col border-solid border-jnGray-300">`;
+		for(let i=0; i<list.length; i++){
+			const object = list[i];
+				str+=`<li class="false h-10 p-3 buyer-li">
+				      <button onClick="clickBuyer(this)">
+				      <p class="truncate break-keep" style="color : black; font-size : 15px;">\${object.cr_me_id }</p>
+				      </button>
+					  </li>`;
+		}
+		str+=`</ul>`;
+		 $("#buyer").html(str);
+	}
 	
-	textarea.addEventListener('input', function() {
-        const charCount = textarea.value.length;
-        span.textContent =  charCount;
-    });
+	function clickBuyer(button){
+		var buyerButton = document.querySelectorAll('#buyer button');
+		 buyerButton.forEach(function(btn) {
+	     btn.classList.remove('selected');
+	     btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
+	     btn.querySelector('p').style.color = 'initial';
+	     btn.closest('li').style.backgroundColor = ''; // 버튼 포함하는 li의 배경색을 기본으로 
+	     });
+		 
+		 button.classList.add('selected');
+	     button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
+	     button.querySelector('p').style.color = 'black'; 	
+	     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+	}
+	
+	
+	<!--제약 조건들-->
+	
+	document.getElementById("productTitle").addEventListener("input", function() {
+		var nameMessage = document.getElementById("nameMessage");
+	    var inputTextLength = this.value.length;
+	    if (inputTextLength > 30) {
+	        this.value = this.value.slice(0, 30);
+	        nameMessage.style.display = "block";
+	    }else{
+	    nameMessage.style.display = "none";  
+	    }
+	});
+	
+	document.getElementById("product-content").addEventListener("input", function() {
+	    const span = document.getElementById('contentCount');
+	    var contentMessage = document.getElementById("contentMessage");
+	    var inputTextLength = this.value.length;
+	    if (inputTextLength > 1000) {
+	        this.value = this.value.slice(0, 1000);
+	        contentMessage.style.display = "block";
+	        span.textContent = 1000;
+	    } else {
+	        contentMessage.style.display = "none";  
+	        span.textContent = inputTextLength;
+	    }
+	});
+
+	
 	
 </script>
 </body>

@@ -11,4 +11,5 @@ public class MidGroupVO {
 	private int mg_tg_num; 
 	private String mg_title;
 
+	private String mg_tg_title;
 }

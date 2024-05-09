@@ -24,11 +24,6 @@
 		pr_ps_state = "판매완료"
 	    and (pr_buyId = #{me_id} or pr_me_id = #{me_id} )
 	</select>
-	<select id="selectReviewNum" resultType="int"> 
-		select count(*)  from trade_review join product on tr_pr_num = pr_num  
-		where (pr_me_id = #{me_id} or pr_buyId = #{me_id})
-		and tr_me_id !=#{me_id}
-	</select>
 	<update id="updatePoint">
 		update member set me_point = ((select me_point where me_id = #{userId}) + #{paymentPrice}) where me_id=#{userId};
 	</update>
@@ -58,4 +53,14 @@
 		me_state = "탈퇴"
 		where me_id = #{me_id}
 	</update>
+	<select id="selectReviewNumSeller" resultType="int">
+		select count(*) from trade_outcome join trade_review on tr_num = to_tr_num
+										   join product on pr_num = tr_pr_num 
+										   where pr_me_id = #{me_id} and to_type = 1 and to_rt_type != "default";
+	</select>
+	<select id="selectReviewNumBuyer" resultType="int">
+		select count(*) from trade_outcome join trade_review on tr_num = to_tr_num
+										   join product on pr_num = tr_pr_num 
+										   where pr_buyId = #{me_id} and to_type = 0 and to_rt_type != "default";
+	</select>
 </mapper>
