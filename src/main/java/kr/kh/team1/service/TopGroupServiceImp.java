@@ -95,4 +95,43 @@ public class TopGroupServiceImp implements TopGroupService {
 	public int getTopGroupTotalCount() {
 		return topGroupDao.selectTopGroupTotalCount(); 
 	}
+
+	@Override
+	public ArrayList<MidGroupVO> getMidGroupList(int topGroup, Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return topGroupDao.selectMidGroupList(topGroup, cri); 
+	}
+
+	@Override
+	public TopGroupVO getTopGroupByNum(String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return null;
+		return topGroupDao.selectTopGroupByNum(topGroup);
+	}
+
+	@Override
+	public int getTotalMidGroupByTopCount(int num, Criteria cri) {
+		return topGroupDao.selectTotalMidGroupByTopCount(num, cri);
+	}
+
+	@Override
+	public boolean insertMidGroup(String topGroup, int tg) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.insertMidGroup(topGroup, tg);
+	}
+
+	@Override
+	public boolean updateMidGroup(int tg_num, String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.updateMidGroup(tg_num, topGroup);
+	}
+
+	@Override
+	public boolean deleteMidGroup(int tg_num) {
+		return topGroupDao.deleteMidGroup(tg_num);
+	}
 }

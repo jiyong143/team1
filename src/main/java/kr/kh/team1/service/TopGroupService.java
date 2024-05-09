@@ -32,4 +32,16 @@ public interface TopGroupService {
 	ArrayList<TopGroupVO> getTopGroupListByCri(Criteria cri);
 
 	int getTopGroupTotalCount();
+
+	ArrayList<MidGroupVO> getMidGroupList(int topGroup, Criteria cri);
+
+	TopGroupVO getTopGroupByNum(String topGroup);
+
+	int getTotalMidGroupByTopCount(int num, Criteria cri);
+
+	boolean insertMidGroup(String topGroup, int num);
+
+	boolean updateMidGroup(int tg_num, String topGroup);
+
+	boolean deleteMidGroup(int tg_num);
 }

@@ -23,6 +23,7 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
@@ -114,7 +115,7 @@ public class IBHController {
 
 		chatService.updateChatRoomStateById(num, loginUser.getMe_id());	// 로그인 유저의 채팅방 상태 변경
 		
-		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태 
+		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태
 		
 		if(cs.get(0).getCs_state().equals("나감") && !cs.get(0).getCs_me_id().equals(loginUser.getMe_id())) {
 			chatService.deleteChatRoomAndStateByNum(num);		// 채팅방 번호에 맞는 채팅방 삭제
@@ -315,7 +316,76 @@ public class IBHController {
 	public String midCategoryManager(Model model) {
 		
 		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+	
 		model.addAttribute("list", topList);
 	    return "/admin/midCategoryManager";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/midCategoryByTopManager")
+	// 대분류에 맞는 중분류 출력
+	public Map<String, Object> midCategoryByTopManagerPost(String topGroup, Criteria cri) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		cri.setPerPageNum(5);
+		
+		TopGroupVO tg = topGroupService.getTopGroupByNum(topGroup);
+		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupList(tg.getTg_num(), cri);
+		
+		for(int i = 0; i < midList.size(); i++) {
+			midList.get(i).setMg_tg_title(topGroup);
+		}
+		
+		int totalMidGroupByTopCount = topGroupService.getTotalMidGroupByTopCount(tg.getTg_num(), cri);
+		PageMaker_chat pm = new PageMaker_chat(5, cri, totalMidGroupByTopCount);
+		
+		map.put("pm", pm);
+		map.put("midList", midList);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/addMidCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> addMidCategoryManagerPost(String topGroup, String tg) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		TopGroupVO topg = topGroupService.getTopGroupByNum(tg);
+		boolean res = topGroupService.insertMidGroup(topGroup, topg.getTg_num());
+		if(res) {
+			map.put("msg", "추가했습니다.");
+		}else {
+			map.put("msg", "추가하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/updateMidCategoryManager")
+	// 대분류 수정
+	public Map<String, Object> updateMidCategoryManagerPost(int tg_num, String topGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.updateMidGroup(tg_num, topGroup);
+		if(res) {
+			map.put("msg", "수정했습니다.");
+		}else {
+			map.put("msg", "수정하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/deleteMidCategoryManager")
+	// 대분류 삭제
+	public Map<String, Object> deleteMidCategoryManagerPost(int tg_num) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.deleteMidGroup(tg_num);
+		if(res) {
+			map.put("msg", "삭제했습니다.");
+		}else {
+			map.put("msg", "삭제하지 못했습니다.");
+		}
+		return map;
 	}
 }

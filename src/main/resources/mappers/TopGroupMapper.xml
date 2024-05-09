@@ -15,8 +15,7 @@
 	</select>
 	
 	<select id="selectTopGroupListByCri" resultMap ="TopGroupMap">
-		select * from topgroup 
-		limit #{cri.pageStart}, #{cri.perPageNum}
+		select * from topgroup limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectTopGroupTotalCount" resultType="int">
@@ -67,4 +66,29 @@
 	<update id="updateTopGroup">
 		update topgroup set tg_title = #{topGroup} where tg_num = #{tg_num}
 	</update>
+	
+	<select id="selectMidGroupList" resultType="kr.kh.team1.model.vo.MidGroupVO">
+		select * from midgroup where mg_tg_num = #{tg} limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectTopGroupByNum" resultType="kr.kh.team1.model.vo.TopGroupVO">
+		select * from topgroup where tg_title = #{tg}
+	</select>
+	
+	<select id="selectTotalMidGroupByTopCount" resultType="int">
+		select count(*) from midgroup where mg_tg_num = #{tg}
+	</select>
+	
+	<insert id="insertMidGroup">
+		insert into midgroup(mg_tg_num, mg_title)
+		values(#{tg}, #{topGroup})
+	</insert>
+	
+	<update id="updateMidGroup">
+		update midgroup set mg_title = #{topGroup} where mg_num = #{tg}
+	</update>
+	
+	<delete id="deleteMidGroup">
+		delete from midgroup where mg_num = #{tg}
+	</delete>
 </mapper>

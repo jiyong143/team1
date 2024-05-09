@@ -31,50 +31,52 @@
 </style>
 </head>
 <body>
-<h1>회원관리</h1>
-<table id="customers">
-  <thead>
-	 <tr>
-      	<th>이름</th>
-	    <th>아이디</th>
-	    <th>이메일</th>
-	    <th>성별</th>
-	    <th>전화번호</th>
-	    <th>권한</th>
-	    <th>상태</th>
-	    <th>비고</th>
-	 </tr>
-  </thead>
-  <tbody>
-  	<c:forEach items="${list}" var="member">
-	  <tr>
-	  	<c:if test="${member.me_authority != 'admin'}">
-		    <td>${member.me_name}</td>
-		    <td class="me_id">${member.me_id}</td>
-		    <td>${member.me_email}</td>
-		    <td>${member.me_gender}</td>
-		    <td>${member.me_phone}</td>
-		    <td>
-			  <select class="form-control me_authority" name="me_authority">
-	 			  <option value="user" <c:if test='${member.me_authority == "user"}'>selected</c:if>>user</option>
-				  <option value="manager" <c:if test='${member.me_authority == "manager"}'>selected</c:if>>manager</option>
-			  </select>
-		    </td>
-		     <td>
-			  <select class="form-control me_state" name="me_state">
-				  <option value="이용중" <c:if test='${member.me_state == "이용중"}'>selected</c:if>>이용중</option>
-				  <option value="차단" <c:if test='${member.me_state == "차단"}'>selected</c:if>>차단</option>
-				  <option value="정지" <c:if test='${member.me_state == "정지"}'>selected</c:if>>정지</option>
-			  </select>
-		    </td>
-		    <td>
-			  <button type="button" class="btn btn-danger saveButton">저장</button>
-			</td>
-		</c:if>
-	  </tr>
-  	</c:forEach>
-  </tbody>
-</table>
+<div class="container">
+	<h1>회원관리</h1>
+	<table id="customers">
+	  <thead>
+		 <tr>
+	      	<th>이름</th>
+		    <th>아이디</th>
+		    <th>이메일</th>
+		    <th>성별</th>
+		    <th>전화번호</th>
+		    <th>권한</th>
+		    <th>상태</th>
+		    <th>비고</th>
+		 </tr>
+	  </thead>
+	  <tbody>
+	  	<c:forEach items="${list}" var="member">
+		  <tr>
+		  	<c:if test="${member.me_authority != 'admin'}">
+			    <td>${member.me_name}</td>
+			    <td class="me_id">${member.me_id}</td>
+			    <td>${member.me_email}</td>
+			    <td>${member.me_gender}</td>
+			    <td>${member.me_phone}</td>
+			    <td>
+				  <select class="form-control me_authority" name="me_authority">
+		 			  <option value="user" <c:if test='${member.me_authority == "user"}'>selected</c:if>>user</option>
+					  <option value="manager" <c:if test='${member.me_authority == "manager"}'>selected</c:if>>manager</option>
+				  </select>
+			    </td>
+			     <td>
+				  <select class="form-control me_state" name="me_state">
+					  <option value="이용중" <c:if test='${member.me_state == "이용중"}'>selected</c:if>>이용중</option>
+					  <option value="차단" <c:if test='${member.me_state == "차단"}'>selected</c:if>>차단</option>
+					  <option value="정지" <c:if test='${member.me_state == "정지"}'>selected</c:if>>정지</option>
+				  </select>
+			    </td>
+			    <td>
+				  <button type="button" class="btn btn-danger saveButton">저장</button>
+				</td>
+			</c:if>
+		  </tr>
+	  	</c:forEach>
+	  </tbody>
+	</table>
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	  // 저장 버튼 클릭 이벤트 핸들러
