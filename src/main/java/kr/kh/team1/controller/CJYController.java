@@ -313,11 +313,9 @@ public class CJYController {
 		int mNum = mGroup.getMg_num();
 		String mName = mg_title;
 		String tName = tg_title;
-		
-		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm(); 
-		System.out.println(place);
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
 		product.setPr_place(place);
-		
+
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);
@@ -384,7 +382,6 @@ public class CJYController {
 
    		// 채팅방이 없으면 생성
    		if(crv == null) {
-   			System.out.println("adasd");
    			chatService.insertChatRoom(loginUser.getMe_id(), pr_num);	// 채팅방 생성
    			crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
    			chatService.insertChatRoomState(loginUser.getMe_id(), crv.getCr_num()); // 생성된 채팅방과 로그인한 회원의 채팅 상태 추가

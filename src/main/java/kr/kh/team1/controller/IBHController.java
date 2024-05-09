@@ -23,9 +23,12 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.pagination.PageMaker_chat;
+import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
@@ -51,7 +54,7 @@ public class IBHController {
 	@ResponseBody
 	@GetMapping("/product/sigungu")
 	// 상품 등록 군/구
-	public Map<String, Object> sigungu(@RequestParam("sido") String sido, HttpSession session){
+	public Map<String, Object> sigungu(@RequestParam("sido") String sido){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		ArrayList<ZipcodeVO> sigunguList = topGroupService.getSigunguList(sido);
@@ -61,8 +64,8 @@ public class IBHController {
 	
 	@ResponseBody
 	@GetMapping("/product/dong")
-	// 상품 등록 군/구
-	public Map<String, Object> dong(@RequestParam("sido") String sido, @RequestParam("sigungu") String sigungu, HttpSession session){
+	// 상품 등록 동
+	public Map<String, Object> dong(@RequestParam("sido") String sido, @RequestParam("sigungu") String sigungu){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		ArrayList<ZipcodeVO> dongList = topGroupService.getDongList(sido, sigungu);
@@ -191,11 +194,10 @@ public class IBHController {
 			return "로그인을 하지 않았습니다.";
 		
 		// 회원 + 상품 번호 채팅방 가져옴
-		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);	// 구매자
+		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);	// 구매자 기준
 		if(crv == null)
-			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자
+			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자 기준
 		
-		System.out.println(crv);
 		SseEmitter emitter;
 
 		if(loginUser .getMe_id().equals(crv.getProduct().getPr_me_id())) {
@@ -205,17 +207,23 @@ public class IBHController {
 			emitter = sseEmitters.get(crv.getProduct().getPr_me_id());
 		}
 		
-		if(emitter == null)
-			return "상대방이 로그인을 하지 않았습니다.";
+		MessageDTO message = new MessageDTO(crv.getCr_num() ,loginUser.getMe_id(), msg);
 		
-		try { 
-			MessageDTO message = new MessageDTO(crv.getCr_num() ,loginUser.getMe_id(), msg);
+		if(emitter == null) {
+			chatService.insertChat(message);
+			chatTotalCount++;
+			return "상대방이 로그인을 하지 않았습니다.";
+		}
+		
+		try {
+			chatService.insertChat(message);
+			ChatMessageVO cm = chatService.getChatMessageRecent(message.getCm_cr_num());
+			message.setCm_time(cm.getDate_str());
 			
 			emitter.send(SseEmitter.event()
 	              .name("receive")
 	              .data(message));
-			
-			chatService.insertChat(message);
+			chatTotalCount++;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -243,5 +251,64 @@ public class IBHController {
 		
 		chatTotalCount = 2;
 		return "";
+	}
+	
+	@GetMapping("/admin/topCategoryManager")
+	// 대분류 페이지
+	public String topCategoryManager(Model model) {
+		
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+		model.addAttribute("topList", topList);
+	    return "/admin/topCategoryManager";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/topCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> topCategoryManagerPost(String topGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.insertTopGroup(topGroup);
+		if(res) {
+			map.put("msg", "추가했습니다.");
+		}else {
+			map.put("msg", "추가하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/updateTopCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.updateTopGroup(tg_num, topGroup);
+		if(res) {
+			map.put("msg", "수정했습니다.");
+		}else {
+			map.put("msg", "수정하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/deleteTopCategoryManager")
+	// 대분류 추가
+	public Map<String, Object> deleteTopCategoryManagerPost(int tg_num) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.deleteTopGroup(tg_num);
+		if(res) {
+			map.put("msg", "삭제했습니다.");
+		}else {
+			map.put("msg", "삭제하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@GetMapping("/admin/midCategoryManager")
+	public String midCategoryManager(Model model) {
+	    return "/admin/midCategoryManager";
 	}
 }

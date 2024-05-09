@@ -14,7 +14,6 @@ import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.model.vo.ProductVO;
 
-
 @Service 
 public class MemberServiceImp implements MemberService { 
 	
@@ -267,6 +266,5 @@ public class MemberServiceImp implements MemberService {
 //		}
 //		return memberDao.selectMember(id);
 //	}
-	
-	
+
 }
