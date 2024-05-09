@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -313,7 +314,7 @@ public class IBHController {
 	
 	@GetMapping("/admin/midCategoryManager")
 	// 중분류 페이지
-	public String midCategoryManager(Model model) {
+	public String midCategoryManager(Model model, Criteria cri) {
 		
 		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
 	
@@ -324,15 +325,18 @@ public class IBHController {
 	@ResponseBody
 	@PostMapping("/admin/midCategoryByTopManager")
 	// 대분류에 맞는 중분류 출력
-	public Map<String, Object> midCategoryByTopManagerPost(String topGroup, Criteria cri) {
+	public Map<String, Object> midCategoryByTopManagerPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		cri.setPerPageNum(5);
 		
-		TopGroupVO tg = topGroupService.getTopGroupByNum(topGroup);
+		cri.setPerPageNum(5);
+		System.out.println(cri);
+		TopGroupVO tg = topGroupService.getTopGroupByNum(cri.getSearch());
+		System.out.println(tg);
+		
 		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupList(tg.getTg_num(), cri);
 		
 		for(int i = 0; i < midList.size(); i++) {
-			midList.get(i).setMg_tg_title(topGroup);
+			midList.get(i).setMg_tg_title(cri.getSearch());
 		}
 		
 		int totalMidGroupByTopCount = topGroupService.getTotalMidGroupByTopCount(tg.getTg_num(), cri);
