@@ -22,5 +22,7 @@ public interface ReportDAO {
 
 	ProductVO selectRePrNum(@Param("re_pr_num") int rePrNum);
 
+	ReportVO selectReport(@Param("re_num") int reNum);
+
 
 }

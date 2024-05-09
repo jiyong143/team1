@@ -20,6 +20,8 @@ public interface ReportService {
 	boolean insertReportByIBH(ReportVO report);
 
 	ProductVO getRePrNum(int rePrNum);
+
+	ReportVO getReport(int reNum);
 	
 
 }

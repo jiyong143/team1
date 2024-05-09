@@ -47,21 +47,25 @@ public class ReportServiceImp implements ReportService{
 	System.out.println(report);
     return reportDao.insertReportProd(report);
 	}
-
 	
 	@Override
 	public boolean insertReportByIBH(ReportVO report) {
 		
 		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
-			report.getRe_name() == null || report.getRe_name().isBlank() ||
-			report.getRe_content() == null || report.getRe_content().isBlank())
-			return false;
+		   report.getRe_name() == null || report.getRe_name().isBlank() ||
+		   report.getRe_content() == null || report.getRe_content().isBlank())
+		   return false;
 		return reportDao.insertReportByIBH(report);
 	}
 
 	@Override
 	public ProductVO getRePrNum(int rePrNum) {
 		return reportDao.selectRePrNum(rePrNum);
+	}
+
+	@Override
+	public ReportVO getReport(int reNum) {
+		return reportDao.selectReport(reNum);
 	}
 
 

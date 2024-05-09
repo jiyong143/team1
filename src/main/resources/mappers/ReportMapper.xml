@@ -24,7 +24,7 @@
 	    INSERT INTO 
 	        report (re_pr_num, re_me_id, re_name, re_content) 
 	    VALUES 
-	        (#{re_pr_num}, #{re_me_id}, #{re_name}, #{re_content})
+	        (#{report.re_pr_num}, #{report.re_me_id}, #{report.re_name}, #{report.re_content})
 	</insert>
 	
 	<!-- 두 번째 insert 쿼리: 제품 번호를 포함하지 않는 보고서 추가 -->
@@ -35,18 +35,8 @@
 	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now())
 	</insert>
 	
-	 <!-- 
-	 <insert id="insertReport">
-	    INSERT INTO 
-	        report (re_pr_num, re_me_id, re_name, re_content, re_date) 
-	    VALUES 
-	        (#{report.re_pr_num}, #{report.re_me_id}, #{report.re_name}, #{report.re_content}, now())
-	</insert>
-	 -->
-	<!-- 제가 예시로 든 두 개의 쿼리에는 중복이 있습니다. 
-		  이들은 각각 보고서를 추가하는 쿼리를 정의하고 있지만, 두 번째 쿼리에서는 
-		  제품 번호를 포함하지 않는 보고서를 추가하는 것에 대한 예외가 있습니다.
-		  따라서 중복을 제거하고 코드를 개선하기 위해 두 번째 쿼리를 첫 번째 쿼리에 통합할 수 있습니다.
-		  이렇게 하면 코드의 일관성과 유지보수성이 향상됩니다. -->
+	<select id="selectReport" resultType="ReportVO">
+		select * from report where re_num = #{re_num}
+	</select>
 
 </mapper>

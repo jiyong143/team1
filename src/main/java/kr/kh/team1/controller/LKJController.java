@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -261,8 +260,9 @@ public class LKJController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = reportService.insertReportProduct(report, user);
 		if(res) {
+	        report.setReportCount(report.getReportCount() + 1); // 신고 카운트 증가
 			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/report/list");
+			model.addAttribute("url", "/product/list");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
 			model.addAttribute("url", "/product/detail");
@@ -270,8 +270,17 @@ public class LKJController {
 		return "message";
 	}
 	
+	//신고 상세내역
+	@GetMapping("/report/detailProduct")
+	public String detailProduct(Model model, int reNum) {
+		ReportVO report = reportService.getReport(reNum);
+		model.addAttribute("report", report);
+		model.addAttribute("title", "신고글 상세내역");
+		return "/report/detailProduct";
+	}
+	
 	//채팅방 신고
-	@PostMapping("/report/insetChat")
+	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
 
 		System.out.println(report);

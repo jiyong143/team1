@@ -36,7 +36,7 @@
 			<tr>
 				<td>${report.re_num}</td>
 				<td class="list-title">
-					<c:url value="/report/detail" var="url">
+					<c:url value="/report/detailProduct" var="url">
 						<c:param name="reNum" value="${report.re_num}"/>
 					</c:url>
 					<a href="${url}">${report.re_name}</a>
