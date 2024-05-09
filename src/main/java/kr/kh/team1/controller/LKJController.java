@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,8 +224,10 @@ public class LKJController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 	    // 회원의 권한을 변경하는 비즈니스 로직 수행
-	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), memberInfo.getMe_authority(), memberInfo.getMe_state());
-	    return map;
+	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), 
+	    											memberInfo.getMe_authority(),
+	    											memberInfo.getMe_state());
+    	return map;
 	}
 	//회원관리 END
 	//신고 START
@@ -242,37 +243,35 @@ public class LKJController {
 		return "/report/list";
 	}
 	
-	@GetMapping("/report/insert")
-	public String reportProductInsert(Model model) {
-		ArrayList<ProductVO> list = reportService.getProductList();
-		model.addAttribute("list", list);
-		return "";
-	}
-	
-	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
+	@GetMapping("/report/insertProduct")
+	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
+		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
+		ProductVO productList = reportService.getRePrNum(rePrNum); //거래글 리스트에서 하나의 거래글만 가져옴
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		//boolean res = reportService.insertReport(report, product, user);
-		model.addAttribute("title", "신고들 작성");
-		model.addAttribute("me_id", me_id);
-
-		return "/report/insert";
+		System.out.println(productList);
+		model.addAttribute("member", user);
+		model.addAttribute("info", productList); // 거래글 리스트를 모델에 추가
+	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
+	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
 	}
-	
-	@PostMapping("/report/insert")
-	public String reportProductInsertPost(Model model, ReportVO report, ProductVO product, HttpServletRequest request) {
-		MemberVO user = (MemberVO)request.getAttribute("user");
-		if(reportService.insertReportProduct(report, product, user)) {
-			model.addAttribute("msg", "신고글 작성을 완료하였습니다.");
+
+	@PostMapping("/report/insertProduct")
+	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
+		System.out.println(report);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reportService.insertReportProduct(report, user);
+		if(res) {
+			model.addAttribute("msg", "거래글 신고완료");
 			model.addAttribute("url", "/report/list");
 		}else {
-			model.addAttribute("msg", "신고글 작성에 실패아였습니다.");
-			model.addAttribute("url", "/report/inser");
+			model.addAttribute("msg", "거래글 신고실패");
+			model.addAttribute("url", "/product/detail");
 		}
-		System.out.println(report);
 		return "message";
-
 	}
-
+	
+	//채팅방 신고
+	@PostMapping("/report/insetChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
 
 		System.out.println(report);
@@ -282,7 +281,7 @@ public class LKJController {
 			model.addAttribute("url", "/report/list");
 		}else {
 			model.addAttribute("msg", "신고 실패!");
-			model.addAttribute("url", "/report/insert?me_id="+report.getRe_me_id());
+			model.addAttribute("url", "/report/insetChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
 	}

@@ -24,16 +24,17 @@
 			<tr>
 				<th>번호</th>
 				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
-				<th>작성자</th>
 				<th>신고 타입</th>
+				<th>작성자</th>
 				<th>신고일</th>
 				<th>처분상태</th>
+				<th>신고횟수</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${list}" var="report">
 			<tr>
-				<td>${surport.su_num}</td>
+				<td>${report.re_num}</td>
 				<td class="list-title">
 					<c:url value="/report/detail" var="url">
 						<c:param name="reNum" value="${report.re_num}"/>
@@ -45,6 +46,7 @@
 				</td>
 				<td>${report.re_date}</td>
 				<td>${report.re_state}</td>
+				<td>${report.re_count}</td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -85,7 +87,7 @@
 			</li>
 		</c:if>
 	</ul>
-		<a href="<c:url value="/report/insert"/>" class="btn btn-dark mb-4">신고하기</a>
+		<a href="<c:url value="/report/insertProduct"/>" class="btn btn-dark mb-4">신고하기</a>
 </div>
 
 </body>

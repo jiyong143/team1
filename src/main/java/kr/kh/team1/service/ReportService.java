@@ -13,10 +13,13 @@ public interface ReportService {
 
 	int getReportTotalCount(Criteria_report crir);
 
-	boolean insertReportProduct(ReportVO report, ProductVO product, MemberVO user);
-
 	ArrayList<ProductVO> getProductList();
 
+	boolean insertReportProduct(ReportVO report, MemberVO user);
+
 	boolean insertReportByIBH(ReportVO report);
+
+	ProductVO getRePrNum(int rePrNum);
+	
 
 }

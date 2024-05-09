@@ -126,7 +126,7 @@
 		let id = $(this).data('id');	// 채팅방 번호
 		
 		if(confirm("채팅방을 신고하시겠습니까?")){
-			var url = '<c:url value="/report/insert"/>' + '?me_id='+ id;
+			var url = '<c:url value="/report/insertChat"/>' + '?me_id='+ id;
 			console.log(url);
 			location.href = url;
 		}
