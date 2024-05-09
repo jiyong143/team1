@@ -315,7 +315,7 @@ public class CJYController {
 		String tName = tg_title;
 		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
 		product.setPr_place(place);
-		
+
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);

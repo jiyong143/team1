@@ -127,4 +127,5 @@ public class ChatServiceImp implements ChatService {
 	public ChatMessageVO getChatMessageRecent(int cm_cr_num) {
 		return chatDao.selectChatMessageRecent(cm_cr_num);
 	}
+  
 }
