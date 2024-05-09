@@ -22,10 +22,12 @@ import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
+import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReviewService;
+import kr.kh.team1.service.TopGroupService;
 
 @Controller
 public class PJHController {
@@ -41,6 +43,9 @@ public class PJHController {
 
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	TopGroupService topGroupService;
 
 	@GetMapping("/main/home")
 	public String home(Model model) {
@@ -53,11 +58,17 @@ public class PJHController {
 	@GetMapping("/member/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "회원가입");
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+		model.addAttribute("sidoList", sidoList);
 		return "/member/signup";
 	}
 
 	@PostMapping("/member/signup")
-	public String signupPost(Model model, MemberVO member) {
+	public String signupPost(Model model, MemberVO member, ZipcodeVO zip) {
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		member.setMe_addr(place);
+		
 		boolean res = memberService.signup(member);
 		if (res) {
 			model.addAttribute("msg", "회원가입을 성공했습니다.");
@@ -173,13 +184,13 @@ public class PJHController {
 		}
 
 		int tradeNum = -1;
-		tradeNum = memberService.getTradeNum(myUser.getMe_id());
+		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
 
 		int reviewNum = -1;
-		reviewNum = memberService.getReviewNum(myUser.getMe_id());
+		reviewNum = memberService.getReviewNum(myUser.getMe_id()); //거래후기
 
 		int tradeReviewNum = -1;
-		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id());
+		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id()); //후기작성
 
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
@@ -330,7 +341,7 @@ public class PJHController {
 	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
 		int trNum = reviewService.getTrNum(prNum);
 		boolean res = reviewService.addReview(reviewType, trNum);
-
+		
 		return "/review/write";
 	}
 

@@ -87,7 +87,7 @@ public class MemberServiceImp implements MemberService {
 		if(!checkString(me_id)) {
 			return -1;
 		}
-		return memberDao.selectReviewNum(me_id);
+		return memberDao.selectReviewNumSeller(me_id) + memberDao.selectReviewNumBuyer(me_id);
 	}
 
 	@Override

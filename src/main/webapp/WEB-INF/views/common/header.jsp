@@ -140,9 +140,6 @@ table tr th, table tr td {
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/product/insert"/>">판매하기</a>
 				</li>
 			</c:if>
-				<li class="nav-item">
-					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list"/>">채팅방</a>
-				</li>
 			<c:if test="${user.me_authority != null}">
 				<li class="nav-item">
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list?page=1"/>">채팅방</a>

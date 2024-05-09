@@ -96,7 +96,7 @@
 			success : function (data){
 				console.log(data);
 				displayMidGroup(data.data);
-			}, 
+			},
 			error : function(jqXHR, textStatus, errorThrown){
 
 			}
