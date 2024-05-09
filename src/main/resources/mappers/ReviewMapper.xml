@@ -30,4 +30,23 @@
 				(#{reviewType}, #{trNum}, 0)
 			</foreach>
 	</insert>
+	<select id="selectReviewList" resultType="String">
+		select rt_type from review_type
+	</select>
+	<select id="selectMyReviewList0" resultType="kr.kh.team1.model.vo.TradeOutcomeVO">
+		select to_rt_type , count(to_rt_type) as to_tr_type_count from trade_outcome
+		join trade_review on tr_num = to_tr_num
+		join product on pr_num = tr_pr_num
+   		where pr_me_id = #{me_id} &amp;&amp; to_type = 0
+        group by to_rt_type;
+	</select>
+	
+	<select id="selectMyReviewList1" resultType="kr.kh.team1.model.vo.TradeOutcomeVO">
+		select to_rt_type , count(to_rt_type) as to_tr_type_count from trade_outcome
+		join trade_review on tr_num = to_tr_num
+		join product on pr_num = tr_pr_num
+   		where pr_buyId = #{me_id} &amp;&amp; to_type = 1
+        group by to_rt_type;
+	</select>
+	
 </mapper>

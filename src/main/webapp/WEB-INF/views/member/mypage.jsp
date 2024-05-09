@@ -34,7 +34,7 @@
 
 #modalBody {
 	width: 500px;
-	height: 300px;
+	height: 500px;
 	padding: 30px 30px;
 	margin: 0 auto;
 	border: 1px solid #777;
@@ -234,10 +234,12 @@ li {
 							</tr>
 						</thead>
 						<tbody class="addPro1">
+						<c:forEach items="${reviewList}" var="reviewList">	
 							<tr>
-								<td>응답이 빨라요</td>
+								<td>${reviewList}</td>
 								<td>13</td>
 							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</fieldset>

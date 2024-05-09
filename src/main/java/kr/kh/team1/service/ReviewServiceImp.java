@@ -10,6 +10,7 @@ import com.mysql.cj.util.TestUtils;
 import kr.kh.team1.dao.ReviewDAO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
+import kr.kh.team1.model.vo.TradeOutcomeVO;
 
 @Service
 public class ReviewServiceImp implements ReviewService {
@@ -59,6 +60,28 @@ public class ReviewServiceImp implements ReviewService {
 		reviewDao.insertReview(reviewType, trNum);
 		
 		return true;
+	}
+
+	@Override
+	public ArrayList<String> getReviewList() {
+		
+		return reviewDao.selectReviewList();
+	}
+
+	@Override
+	public ArrayList<TradeOutcomeVO> getMyReviewList0(String me_id) {
+		if(!checkString(me_id)) {
+			return null;
+		}
+		return reviewDao.selectMyReviewList0(me_id);
+	}
+	
+	@Override
+	public ArrayList<TradeOutcomeVO> getMyReviewList1(String me_id) {
+		if(!checkString(me_id)) {
+			return null;
+		}
+		return reviewDao.selectMyReviewList1(me_id);
 	}
 
 

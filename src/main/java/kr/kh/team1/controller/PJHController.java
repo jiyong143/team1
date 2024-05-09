@@ -22,6 +22,7 @@ import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
+import kr.kh.team1.model.vo.TradeOutcomeVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
@@ -172,7 +173,7 @@ public class PJHController {
 
 	@GetMapping("/member/mypage")
 	public String mypage(Model model, HttpServletRequest request, String me_id) {
-
+		
 		MemberVO myUser;
 		if (me_id == null) {
 			myUser = (MemberVO) request.getSession().getAttribute("user");
@@ -185,12 +186,18 @@ public class PJHController {
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
-
+		
 		int reviewNum = -1;
 		reviewNum = memberService.getReviewNum(myUser.getMe_id()); //거래후기
 
 		int tradeReviewNum = -1;
 		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id()); //후기작성
+		
+		ArrayList<String> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
+		
+		reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
+		reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
+		
 
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);

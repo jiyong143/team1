@@ -66,8 +66,11 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 		if(passwordEncoder.matches(loginDto.getPw(), user.getMe_pw())) { //비밀번호 확인
+			
 			return user;
 		}
+		
+		
 		
 		return null;
 		
