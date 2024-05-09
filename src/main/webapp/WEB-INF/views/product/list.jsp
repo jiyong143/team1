@@ -685,7 +685,7 @@ li {
 							</p>
 							</div>
 							<div class="bottom-container">
-							<span class="text-sm text-gray-400 bottom-text">${pro.pr_place}</span>
+							<span class="text-sm text-gray-400 bottom-text">${pro.dong}</span>
 							<span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
 							<span class="text-sm text-gray-400 bottom-text">${pro.time}</span>
 							</div>
@@ -1155,7 +1155,7 @@ function sendPlace(place) {
 	                    </p>
 	                    </div>
 	                    <div class="bottom-container">
-	                    <span class="text-sm text-gray-400 bottom-text">\${pro.pr_place}</span>
+	                    <span class="text-sm text-gray-400 bottom-text">\${pro.dong}</span>
 	                    <span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
 	                    <span class="text-sm text-gray-400 bottom-text">\${pro.time}</span>
 	                </div>

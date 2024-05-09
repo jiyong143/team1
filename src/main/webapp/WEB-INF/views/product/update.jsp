@@ -229,7 +229,7 @@ width : 476px;
 
 .contentCount{
 position : absolute;
-left : 1108px;
+left : 1100px;
 top : 1115px;
 }
 
@@ -322,8 +322,33 @@ display : none;
 position : absolute;
 left : 700px;
 top : 1240px;
+color: red;
+font-size: 12px;
 }
 
+#nameMessage{
+position : absolute;
+left : 700px;
+top : 210px;
+color: red;
+font-size: 12px;
+}
+
+#priceMessage{
+position : absolute;
+left : 700px;
+top : 550px;
+color: red;
+font-size: 12px;
+}
+
+#contentMessage{
+position : absolute;
+left : 700px;
+top : 1120px;
+color: red;
+font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -364,6 +389,7 @@ top : 1240px;
 	  </div>
 	</div>
 	<input value="${pro.pr_name }" id="productTitle" name="productTitle" type="text" placeholder="상품명" class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md" autocomplete="off" spellcheck="false" aria-invalid="false">
+	<p id="nameMessage" style="display: none;">최대 30자까지 입력할 수 있습니다.</p>
 	<section class="category-update" style="height : 100px;">
 	<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
 	<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
@@ -409,8 +435,10 @@ top : 1240px;
 		</svg>
 		가격제안</button>
 	</div>
+	<p id="priceMessage" style="display: none;">최대 1억원까지 입력 가능합니다.</p>
 		<div class="content-update">
-		<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" maxlength="1000" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
+		<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
+		<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력 가능합니다.</p>
 		<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
 		<span class="michael">/1000</span>
 		</div>	
@@ -1040,27 +1068,31 @@ function clickMid(button){
 	});
 	
 	<!--가격 입력시 작용 -->
-	priceInput.addEventListener('keyup', function(e) {
-		  let value = e.target.value;
-		  // 입력 값이 없으면 빈문자열로 설정
-		  if (value === "" || value === null || isNaN(Number(value))) {
-		    value = "";
-		  } else {
-		    value = Number(value.replaceAll(',', ''));
-		  }
-		  const formatValue = value.toLocaleString('ko-KR');
-		  priceInput.value = formatValue; 
-		});
-	
-	
-	const textarea = document.getElementById('product-content');
-	const span = document.getElementById('contentCount');
-	
-	textarea.addEventListener('input', function() {
-        const charCount = textarea.value.length;
-        span.textContent =  charCount;
-    });
-	
+	priceInput.addEventListener('input', function() {
+	    var priceMessage = document.getElementById("priceMessage");
+	    let value = this.value;
+	    
+	    if (value === "" || value === null || isNaN(Number(value))) {
+	        // 입력 값이 없거나 숫자가 아니면 빈 문자열로 설정
+	        this.value = "";
+	        priceMessage.style.display = "none"; // 메시지 숨김
+	    } else {
+	        // 입력값을 숫자로 변환하여 최대값을 확인
+	        const numericValue = Number(value.replaceAll(',', ''));
+	        if (numericValue <= 100000000) {
+	            // 최대값 이내의 값인 경우 표시를 업데이트
+	            const formatValue = numericValue.toLocaleString('ko-KR');
+	            this.value = formatValue; 
+	            priceMessage.style.display = "none"; // 메시지 숨김
+	        } else {
+	            // 최대값을 초과하는 경우 입력을 막고 메시지를 표시
+	            this.value = value.slice(0, 8); // 100,000,000 이상의 값은 100,000,000으로 제한
+	            const formatValue = Number(this.value.replaceAll(',', '')).toLocaleString('ko-KR');
+	            this.value = formatValue; // 콤마 추가
+	            priceMessage.style.display = "block"; // 메시지 표시
+	        }
+	    }
+	});
 	
 	var iButton = document.querySelector(".iButton");
 	var rButton = document.querySelector(".rButton");
@@ -1143,7 +1175,6 @@ function clickMid(button){
 		var buyerSpan = document.querySelector(".buyer-span");
 		if(list.length==0){
 			buyerSpan.textContent ="채팅방이 존재하지 않아 구매자 아이디를 찾을 수 없습니다.";
-			console.log(1);
 			return;
 		}
 		buyerSpan.textContent ="구매자의 아이디를 선택하세요.";
@@ -1177,6 +1208,35 @@ function clickMid(button){
 	     button.querySelector('p').style.color = 'black'; 	
 	     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
 	}
+	
+	
+	<!--제약 조건들-->
+	
+	document.getElementById("productTitle").addEventListener("input", function() {
+		var nameMessage = document.getElementById("nameMessage");
+	    var inputTextLength = this.value.length;
+	    if (inputTextLength > 30) {
+	        this.value = this.value.slice(0, 30);
+	        nameMessage.style.display = "block";
+	    }else{
+	    nameMessage.style.display = "none";  
+	    }
+	});
+	
+	document.getElementById("product-content").addEventListener("input", function() {
+	    const span = document.getElementById('contentCount');
+	    var contentMessage = document.getElementById("contentMessage");
+	    var inputTextLength = this.value.length;
+	    if (inputTextLength > 1000) {
+	        this.value = this.value.slice(0, 1000);
+	        contentMessage.style.display = "block";
+	        span.textContent = 1000;
+	    } else {
+	        contentMessage.style.display = "none";  
+	        span.textContent = inputTextLength;
+	    }
+	});
+
 	
 	
 </script>

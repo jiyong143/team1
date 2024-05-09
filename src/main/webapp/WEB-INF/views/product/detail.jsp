@@ -71,6 +71,7 @@
 	    display: flex; /* 요소들을 가로로 배열 */
 	    padding: 0;
 	    list-style: none; /* 기본 목록 스타일 제거 */
+	    background-color : rgb(247 249 250);
 	}
 	
 	.jiyong-li{
