@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,490 +7,573 @@
 <meta charset="UTF-8">
 <title>상품 정보 수정</title>
 <style>
-
-.product-update{
-    position: relative;
-    top: 1000px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height : 2000px;
+.product-update {
+	position: relative;
+	top: 1000px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 2000px;
 }
 
 .file-list {
-    list-style-type: none; /* 항목 기호 없앰 */
-    display: flex;
-    justify-content: space-between; /* 각 항목 사이에 공간을 균등하게 분배 */
-    padding: 0; /* 기본 패딩 제거 */
-  }
-  
-  #productTitle {
-    padding: 0.5rem 1rem; /* 내부 여백 설정 */
-    width: 25%; /* 너비를 부모 요소에 맞게 설정 */
-    border: 1px solid #ccc; /* 테두리 설정 */
-    border-radius: 0.25rem; /* 둥근 모서리 설정 */
-    font-size: 14px; /* 폰트 크기 설정 */
-    color: #333; /* 폰트 색상 설정 */
-    transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
-    position : absolute;
-    top : 170px;
-    left : 700px;   
+	list-style-type: none; /* 항목 기호 없앰 */
+	display: flex;
+	justify-content: space-between; /* 각 항목 사이에 공간을 균등하게 분배 */
+	padding: 0; /* 기본 패딩 제거 */
 }
 
-.price-update{
-padding: 0.5rem 1rem; /* 내부 여백 설정 */
-    width: 25%; /* 너비를 부모 요소에 맞게 설정 */
-    border: 1px solid #ccc; /* 테두리 설정 */
-    border-radius: 0.25rem; /* 둥근 모서리 설정 */
-    font-size: 14px; /* 폰트 크기 설정 */
-    color: #333; /* 폰트 색상 설정 */
-    transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
-    position : absolute;
-    top : 495px;
-    left : 700px; 
+#productTitle {
+	padding: 0.5rem 1rem; /* 내부 여백 설정 */
+	width: 25%; /* 너비를 부모 요소에 맞게 설정 */
+	border: 1px solid #ccc; /* 테두리 설정 */
+	border-radius: 0.25rem; /* 둥근 모서리 설정 */
+	font-size: 14px; /* 폰트 크기 설정 */
+	color: #333; /* 폰트 색상 설정 */
+	transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
+	position: absolute;
+	top: 170px;
+	left: 700px;
+}
 
+.price-update {
+	padding: 0.5rem 1rem; /* 내부 여백 설정 */
+	width: 25%; /* 너비를 부모 요소에 맞게 설정 */
+	border: 1px solid #ccc; /* 테두리 설정 */
+	border-radius: 0.25rem; /* 둥근 모서리 설정 */
+	font-size: 14px; /* 폰트 크기 설정 */
+	color: #333; /* 폰트 색상 설정 */
+	transition: border-color 0.2s ease-in-out; /* 테두리 색상 전환 효과 설정 */
+	position: absolute;
+	top: 495px;
+	left: 700px;
 }
 
 #productTitle:focus {
-    outline: none; /* 포커스 시 기본 아웃라인 제거 */
-    border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
+	outline: none; /* 포커스 시 기본 아웃라인 제거 */
+	border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
 }
 
 #product-content:focus {
-    outline: none; /* 포커스 시 기본 아웃라인 제거 */
-    border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
+	outline: none; /* 포커스 시 기본 아웃라인 제거 */
+	border-color: #007bff; /* 포커스 시 테두리 색상 변경 */
+	box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 설정 */
 }
 
-
- img {
-  border-radius: 8px; /* 이미지 테두리의 둥글기를 설정합니다. */
+img {
+	border-radius: 8px; /* 이미지 테두리의 둥글기를 설정합니다. */
 }
 
-
-
-.jiyong{
-position : relative;
-margin-right : 5px;
+.jiyong {
+	position: relative;
+	margin-right: 5px;
 }
 
-.delete-button{
-position : absolute;
-top :0;
-right : 0;
-background: none;
-border: none;
-padding: 0;
+.delete-button { 
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: none;
+	border: none;
+	padding: 0;
 }
 
-.image-update{
-top : 40px;
-left : 700px;
-position : absolute;
+.image-update {
+	top: 40px;
+	left: 700px;
+	position: absolute;
 }
 
 .category-update {
-    position : absolute;
-    top : 250px;
-    left : 680px;
+	position: absolute;
+	top: 250px;
+	left: 680px;
 }
 
-.topGroup-li , .midGroup-li{
-list-style-type: none;
-left : 0;
+.topGroup-li, .midGroup-li {
+	list-style-type: none;
+	left: 0;
 }
 
-.topPlace-li , .midPlace-li{
-list-style-type: none;
-left : 0;
+.topPlace-li, .midPlace-li {
+	list-style-type: none;
+	left: 0;
 }
 
-.buyer-li{
-list-style-type: none;
-left : 0;
+.buyer-li {
+	list-style-type: none;
+	left: 0;
 }
 
 #topGroup button {
-    border: none; /* 버튼의 테두리를 제거합니다. */
-    background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
-   
+	border: none; /* 버튼의 테두리를 제거합니다. */
+	background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
 #midGroup button {
-    border: none; /* 버튼의 테두리를 제거합니다. */
-    background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
-   
+	border: none; /* 버튼의 테두리를 제거합니다. */
+	background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
-
-.price-update button{
-
-    border: none; /* 버튼의 테두리를 제거합니다. */
-    background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+.price-update button {
+	border: none; /* 버튼의 테두리를 제거합니다. */
+	background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
-#topGroup , #midGroup {
-    max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
-    overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
-    width : 239px;
-    
+#topGroup, #midGroup {
+	max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+	overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+	width: 239px;
 }
 
 #buyer {
-    max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
-    overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
-    width : 480px;
-    
+	max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+	overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+	width: 480px;
 }
 
-
-
-#topPlace , #midPlace, #smallPlace{
-max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
-overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
-width : 158px;
+#topPlace, #midPlace, #smallPlace {
+	max-height: 200px; /* 최대 높이를 지정하여 스크롤이 나타나도록 합니다. */
+	overflow-y: auto; /* 세로 스크롤이 필요할 때만 스크롤을 표시합니다. */
+	width: 158px;
 }
 
 #buyer::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #topPlace::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #midPlace::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #smallPlace::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
-
 #topGroup::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #midGroup::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
 #product-content::-webkit-scrollbar {
-    display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
+	display: none; /* 웹킷 브라우저에서 스크롤바를 숨깁니다. */
 }
 
-.group-list{
-display : flex;
- position : absolute;
- left : 18px;
+.group-list {
+	display: flex;
+	position: absolute;
+	left: 18px;
 }
 
-.place-list{
-display : flex;
- position : absolute;
- left : 18px;
+.place-list {
+	display: flex;
+	position: absolute;
+	left: 18px;
 }
 
-
-.category-ul{
-padding-left : 0;
+.category-ul {
+	padding-left: 0;
 }
 
-.buyer-ul{
-padding-left : 0;
+.buyer-ul {
+	padding-left: 0;
 }
 
-
-
-.place-ul{
-padding-left : 0;
+.place-ul {
+	padding-left: 0;
 }
 
-.free-button{
-left : 370px;
-position : absolute;
-color : green;
+.free-button {
+	left: 370px;
+	position: absolute;
+	color: green;
 }
 
-.suggest-button{
-left : 270px;
-position : absolute;
-color : gray;
+.suggest-button {
+	left: 270px;
+	position: absolute;
+	color: gray;
 }
 
-#product-content{
-position : absolute;
-left : 700px;
-top : 587px;
-width : 476px;
-
+#product-content {
+	position: absolute;
+	left: 700px;
+	top: 587px;
+	width: 476px;
+	resize: none;
 }
 
-.contentCount{
-position : absolute;
-left : 1100px;
-top : 1115px;
+.contentCount {
+	position: absolute;
+	left: 1100px;
+	top: 1115px;
 }
 
-.michael{
-position : absolute;
-left : 1137px;
-top : 1115px;
+.michael {
+	position: absolute;
+	left: 1137px;
+	top: 1115px;
 }
 
-.place-update{
-position : absolute;
-left : 685px;
-top : 1530px;
+.place-update {
+	position: absolute;
+	left: 685px;
+	top: 1530px;
 }
 
-.place-update button{
- border: none; /* 버튼의 테두리를 제거합니다. */
- background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+.place-update button {
+	border: none; /* 버튼의 테두리를 제거합니다. */
+	background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
-#buyer button{
-border: none; /* 버튼의 테두리를 제거합니다. */
-background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
+#buyer button {
+	border: none; /* 버튼의 테두리를 제거합니다. */
+	background-color: transparent; /* 버튼의 배경색을 투명으로 설정합니다. */
 }
 
-.font-semibold{
-position : absolute;
-left : 700px;
-top : 1140px;
+.font-semibold {
+	position: absolute;
+	left: 700px;
+	top: 1140px;
 }
 
-.state-update{
-position : absolute;
-left : 700px;
-top : 200px;
+.state-update {
+	position: absolute;
+	left: 700px;
+	top: 200px;
 }
 
-.iButton{
-position : absolute;
-left : 0;
-top : 975px;
-display: inline-block;
-line-height: 3;
-white-space: nowrap;
-text-align: center;
-vertical-align: middle;
-padding: 0 20px;
-border-radius: 20px;
-border: 1px solid black;
-font-weight : bold;
-}
-.rButton{
-position : absolute;
-left : 120px;
-top : 975px;
-display: inline-block;
-line-height: 3;
-white-space: nowrap;
-text-align: center;
-vertical-align: middle;
-padding: 0 20px;
-border-radius: 20px;
-border: 1px solid black;
-font-weight : bold;
+.iButton {
+	position: absolute;
+	left: 0;
+	top: 975px;
+	display: inline-block;
+	line-height: 3;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0 20px;
+	border-radius: 20px;
+	border: 1px solid black;
+	font-weight: bold;
 }
 
-.cButton{
-position : absolute;
-left : 240px;
-top : 975px;
-display: inline-block;
-line-height: 3;
-white-space: nowrap;
-text-align: center;
-vertical-align: middle;
-padding: 0 20px;
-border-radius: 20px;
-border: 1px solid black;
-font-weight : bold;
+.rButton {
+	position: absolute;
+	left: 120px;
+	top: 975px;
+	display: inline-block;
+	line-height: 3;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0 20px;
+	border-radius: 20px;
+	border: 1px solid black;
+	font-weight: bold;
 }
 
-#buyer{
-position : absolute;
-left : 700px;
-top : 1280px;
-display : none;
+.cButton {
+	position: absolute;
+	left: 240px;
+	top: 975px;
+	display: inline-block;
+	line-height: 3;
+	white-space: nowrap;
+	text-align: center;
+	vertical-align: middle;
+	padding: 0 20px;
+	border-radius: 20px;
+	border: 1px solid black;
+	font-weight: bold;
 }
 
-.buyer-span{
-position : absolute;
-left : 700px;
-top : 1240px;
-color: red;
-font-size: 12px;
+#buyer {
+	position: absolute;
+	left: 700px;
+	top: 1280px;
+	display: none;
 }
 
-#nameMessage{
-position : absolute;
-left : 700px;
-top : 210px;
-color: red;
-font-size: 12px;
+.buyer-span {
+	position: absolute;
+	left: 700px;
+	top: 1240px;
+	color: red;
+	font-size: 12px;
 }
 
-#priceMessage{
-position : absolute;
-left : 700px;
-top : 550px;
-color: red;
-font-size: 12px;
+#nameMessage {
+	position: absolute;
+	left: 700px;
+	top: 210px;
+	color: red;
+	font-size: 12px;
 }
 
-#contentMessage{
-position : absolute;
-left : 700px;
-top : 1120px;
-color: red;
-font-size: 12px;
+#priceMessage {
+	position: absolute;
+	left: 700px;
+	top: 550px;
+	color: red;
+	font-size: 12px;
+}
+
+#contentMessage {
+	position: absolute;
+	left: 700px;
+	top: 1120px;
+	color: red;
+	font-size: 12px;
+}
+#imageMessage {
+	position: absolute;
+	left: 700px;
+	top: 130px;
+	color: red;
+	font-size: 12px;
+}
+#categoryMessage {
+	position: absolute;
+	left: 700px;
+	top: 460px;
+	color: red;
+	font-size: 12px;
+}
+
+#update-button {
+	position: absolute;
+	left: 875px;
+	top: 1800px;
+	background-color: rgb(33, 33, 33);
+	border-radius: 10px;
+	color: rgb(255, 255, 255);
+	font-size: .875rem;
+	font-weight: 600;
 }
 </style>
 </head>
 <body>
-<div class="product-update">
-	<div class="image-update" style="display : flex; height : 100px;">
-	  <div class="image-picker">
-	    <input name="media" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
-	    <button class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="openFilePicker()">
-	      <div class="flex flex-col">
-	        <svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
-	          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
-	          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z" fill="#C2C6CE"></path>
+	<div class="product-update">
+		<div class="image-update" style="display: flex; height: 100px;">
+			<div class="image-picker">
+				<input name="media" id="fileInput" type="file"
+					accept="image/png, image/jpeg, image/jpg" class="hidden"
+					style="display: none;" multiple>
+				<button
+					class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded"
+					onclick="openFilePicker()">
+					<div class="flex flex-col">
+						<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none"
+							xmlns="http://www.w3.org/2000/svg" class="">
+	          <path fill-rule="evenodd" clip-rule="evenodd"
+								d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z"
+								fill="#C2C6CE"></path>
+	          <path fill-rule="evenodd" clip-rule="evenodd"
+								d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z"
+								fill="#C2C6CE"></path>
 	        </svg>
-	        <p id="imageCount" class="mt-1 text-xs text-jnGray-500"></p>
-	      </div>
-	    </button>
-	  </div>
-	
-	  <div class="images-container" style="margin-left : 5px;">
-	    <ul class="file-list">
-		<c:forEach items="${files}" var="file">
-		    <li class="file-item">		        
-		            <div class="jiyong flex w-full h-full overflow-hidden border border-solid border-jnGreen rounded-lg">
-		                <img alt="productImage-0" src="<c:url value="/download${file.fi_name}"/>" width="80" height="80" decoding="async" data-nimg="1" class="object-cover w-full h-full bg-gray-200 rounded-lg" loading="lazy" style="color: transparent;">
-		                <button class="delete-button" onclick="deleteFile(this)">
-		                    <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-		                        <path d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z" fill="white"></path>
-		                        <path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5V18.5C14.6944 18.5 18.5 14.6944 18.5 10H17.5ZM10 17.5C5.85786 17.5 2.5 14.1421 2.5 10H1.5C1.5 14.6944 5.30558 18.5 10 18.5V17.5ZM2.5 10C2.5 5.85786 5.85786 2.5 10 2.5V1.5C5.30558 1.5 1.5 5.30558 1.5 10H2.5ZM10 2.5C14.1421 2.5 17.5 5.85786 17.5 10H18.5C18.5 5.30558 14.6944 1.5 10 1.5V2.5Z" fill="#DADEE5"></path>
-		                        <path d="M7 7L13 13M13 7L7 13" stroke="#363C45" stroke-linecap="round"></path>
+						<p id="imageCount" class="mt-1 text-xs text-jnGray-500"></p>
+					</div>
+				</button>
+			</div>
+
+			<div class="images-container" style="margin-left: 5px;">
+				<ul class="file-list">
+					<c:forEach items="${files}" var="file">
+						<li class="file-item">
+							<div
+								class="jiyong flex w-full h-full overflow-hidden border border-solid border-jnGreen rounded-lg">
+								<img alt="productImage-0"
+									src="<c:url value="/download${file.fi_name}"/>" width="80"
+									height="80" decoding="async" data-nimg="1"
+									class="object-cover w-full h-full bg-gray-200 rounded-lg"
+									loading="lazy" style="color: transparent;">
+								<button class="delete-button" onclick="deleteFile(this)">
+									<svg width="20px" height="20px" viewBox="0 0 20 20" fill="none"
+										xmlns="http://www.w3.org/2000/svg">
+		                        <path
+											d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z"
+											fill="white"></path>
+		                        <path
+											d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5V18.5C14.6944 18.5 18.5 14.6944 18.5 10H17.5ZM10 17.5C5.85786 17.5 2.5 14.1421 2.5 10H1.5C1.5 14.6944 5.30558 18.5 10 18.5V17.5ZM2.5 10C2.5 5.85786 5.85786 2.5 10 2.5V1.5C5.30558 1.5 1.5 5.30558 1.5 10H2.5ZM10 2.5C14.1421 2.5 17.5 5.85786 17.5 10H18.5C18.5 5.30558 14.6944 1.5 10 1.5V2.5Z"
+											fill="#DADEE5"></path>
+		                        <path d="M7 7L13 13M13 7L7 13"
+											stroke="#363C45" stroke-linecap="round"></path>
 		                    </svg>
-		                </button>
-		            </div>	        
-		    </li>
-		</c:forEach>
-	       <div class="jiyong add-li" style="display : flex;">
-	       </div>
-	    </ul> 
-	  </div>
-	</div>
-	<input value="${pro.pr_name }" id="productTitle" name="productTitle" type="text" placeholder="상품명" class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md" autocomplete="off" spellcheck="false" aria-invalid="false">
-	<p id="nameMessage" style="display: none;">최대 30자까지 입력할 수 있습니다.</p>
-	<section class="category-update" style="height : 100px;">
-	<div class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
-	<div id="topGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-	<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-	<c:forEach items="${topList }" var="top">
-	<li class="false h-10 p-3 topGroup-li">
-	<button>
-	<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${top.tg_title }</p>
-	</button>
-	</li>
-	</c:forEach>
-	</ul>
-	</div>
-	<div id="midGroup" class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-	<ul class="category-ul flex flex-col border-solid border-jnGray-300">
-	<c:forEach items="${midList }" var="mid">
-	<li class="false h-10 p-3 midGroup-li">
-	<button>
-	<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${mid.mg_title }</p>
-	</button>
-	</li>
-	</c:forEach>
-	</ul>
-	</div>
-	</div>
-	</section>
-	
-	<div id="price-update" class="price-update flex items-center justify-between w-full border border-gray-300 border-solid rounded px-4  text-base scale-85 origin-top-left -mb-3  w-[117.65%] p-6  h-[60px] false">
-		<label for="search" class="flex items-center py-0.5 w-2/3">
-		<span id="won" style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if>;">₩</span>
-		<input id="price-input" name="productPrice" type="text" inputmode="numeric" class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500" placeholder="판매가격" value="${price}" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if> ; border : none; outline : none;" <c:if test="${pro.pr_price ==0 || pro.pr_price == -10 }">disabled</c:if> >
-		</label>
-		<button class="free-button flex items-center justify-center text-center text-jnGray-900">
-		<svg width="22" height="22" viewBox="0 0 22 22" fill="<c:if test="${pro.pr_price == 0 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != 0 }">#FFFFFF</c:if> " xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
-		<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+								</button>
+							</div>
+						</li>
+					</c:forEach>
+					<div class="jiyong add-li" style="display: flex;"></div>
+				</ul>
+			</div>
+		</div>
+		<p id="imageMessage" style="display: none;">상품 이미지가 최소 1장 필요합니다.</p>
+		<input value="${pro.pr_name }" id="productTitle" name="productTitle"
+			type="text" placeholder="상품명"
+			class="py-2 px-4 md:px-5 w-full appearance-none border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:border-heading h-11 md:h-12 focus:outline-none rounded-md"
+			autocomplete="off" spellcheck="false" aria-invalid="false">
+		<p id="nameMessage" style="display: none;">최대 30자까지 입력할 수 있습니다.</p>
+		<section class="category-update" style="height: 100px;">
+			<div
+				class="group-list flex-row w-full overflow-hidden text-sm font-medium h-60">
+				<div id="topGroup"
+					class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+					<ul
+						class="category-ul flex flex-col border-solid border-jnGray-300">
+						<c:forEach items="${topList }" var="top">
+							<li class="false h-10 p-3 topGroup-li">
+								<button>
+									<p class="truncate break-keep"
+										style="font-weight: normal; font-size: 15px; color: initial;">${top.tg_title }</p>
+								</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div id="midGroup"
+					class="w-1/2 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+					<ul
+						class="category-ul flex flex-col border-solid border-jnGray-300">
+						<c:forEach items="${midList }" var="mid">
+							<li class="false h-10 p-3 midGroup-li">
+								<button>
+									<p class="truncate break-keep"
+										style="font-weight: normal; font-size: 15px; color: initial;">${mid.mg_title }</p>
+								</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+		</section>
+        <p id="categoryMessage"></p>
+		<div id="price-update"
+			class="price-update flex items-center justify-between w-full border border-gray-300 border-solid rounded px-4  text-base scale-85 origin-top-left -mb-3  w-[117.65%] p-6  h-[60px] false">
+			<label for="search" class="flex items-center py-0.5 w-2/3"> <span
+				id="won"
+				style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if>;">₩</span>
+				<input id="price-input" name="productPrice" type="text"
+				inputmode="numeric"
+				class="ml-1 bg-white focus:outline-none h-11 md:h-12 placeholer-jnGray-500 w-2/3 disabled:opacity-100 placeholer-jnGray-500"
+				placeholder="판매가격" value="${price}" autocomplete="off"
+				oninput="formatNumber(this)"
+				style="color : <c:if test="${pro.pr_price == 0 }">green</c:if> <c:if test="${pro.pr_price == -10 }">gray</c:if> ; border : none; outline : none;"
+				<c:if test="${pro.pr_price ==0 || pro.pr_price == -10 }">disabled</c:if>>
+			</label>
+			<button
+				class="free-button flex items-center justify-center text-center text-jnGray-900">
+				<svg width="22" height="22" viewBox="0 0 22 22"
+					fill="<c:if test="${pro.pr_price == 0 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != 0 }">#FFFFFF</c:if> "
+					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
+		<path
+						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke-linejoin="round"></path>
+		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
-		무료나눔</button> 
-		<button class="suggest-button flex items-center justify-center text-center text-jnGray-900">
-		<svg width="22" height="22" viewBox="0 0 22 22" fill="<c:if test="${pro.pr_price == -10 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != -10 }">#FFFFFF</c:if>" xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
-		<path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				무료나눔
+			</button>
+			<button
+				class="suggest-button flex items-center justify-center text-center text-jnGray-900">
+				<svg width="22" height="22" viewBox="0 0 22 22"
+					fill="<c:if test="${pro.pr_price == -10 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != -10 }">#FFFFFF</c:if>"
+					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
+		<path
+						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke-linejoin="round"></path>
+		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
-		가격제안</button>
-	</div>
-	<p id="priceMessage" style="display: none;">최대 1억원까지 입력 가능합니다.</p>
+				가격제안
+			</button>
+		</div>
+		<p id="priceMessage" style="display: none;">최대 1억원까지 입력 가능합니다.</p>
 		<div class="content-update">
-		<textarea id="product-content" name="product-content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.pr_content }</textarea>
-		<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력 가능합니다.</p>
-		<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
-		<span class="michael">/1000</span>
-		</div>	
-	<p class="font-semibold">상품상태</p>
-	<div class="state-update flex gap-3">
-	<button class="iButton" style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};" >판매중</button>
-	<button class="rButton" style="background-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '예약중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : ''};">예약중</button>
-	<button class="cButton" style="background-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매완료' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : ''};">판매완료</button>
-	</div>
-	<span class="buyer-span"></span>
-	<div id="buyer"class="overflow-y-auto border border-solid rounded border-jnGray-300">
-	</div>
-	<section class="place-update">
-		<div class="place-list flex-row w-full overflow-hidden text-sm font-medium h-60">
-		<div id="topPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${sidoList }" var="sido">
-		<li class="false h-10 p-3 topPlace-li">
-		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${sido.sido }</p>
-		</button>
-		</li>
-		</c:forEach>
-		</ul>
+			<textarea id="product-content" name="product-content"
+				class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
+				autocomplete="off" spellcheck="false" rows="20"
+				data-gtm-form-interact-field-id="0"
+				placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.content }</textarea>
+			<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력
+				가능합니다.</p>
+			<span id="contentCount"
+				class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
+			<span class="michael">/1000</span>
 		</div>
-		<div id="midPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${guList }" var="gu">
-		<li class="false h-10 p-3 midPlace-li">
-		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${gu.sigungu }</p>
-		</button>
-		</li>
-		</c:forEach>
-		</ul>
+		<p class="font-semibold">상품상태</p>
+		<div class="state-update flex gap-3">
+			<button class="iButton"
+				style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};">판매중</button>
+			<button class="rButton"
+				style="background-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '예약중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '예약중' ? 'rgb(13 204 90)' : ''};">예약중</button>
+			<button class="cButton"
+				style="background-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매완료' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : ''};">판매완료</button>
 		</div>
-		<div id="smallPlace" class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
-		<ul class="place-ul flex flex-col border-solid border-jnGray-300">
-		<c:forEach items="${dongList }" var="dong">
-		<li class="false h-10 p-3 midPlace-li">
-		<button>
-		<p class="truncate break-keep" style="font-weight : normal; font-size : 15px; color : initial;">${dong.h_dong_nm }</p>
-		</button>
-		</li>
-		</c:forEach>
-		</ul>
+		<span class="buyer-span"></span>
+		<div id="buyer"
+			class="overflow-y-auto border border-solid rounded border-jnGray-300">
 		</div>
-		</div>
-	</section>
+		<section class="place-update">
+			<div
+				class="place-list flex-row w-full overflow-hidden text-sm font-medium h-60">
+				<div id="topPlace"
+					class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+					<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+						<c:forEach items="${sidoList }" var="sido">
+							<li class="false h-10 p-3 topPlace-li">
+								<button>
+									<p class="truncate break-keep"
+										style="font-weight: normal; font-size: 15px; color: initial;">${sido.sido }</p>
+								</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div id="midPlace"
+					class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+					<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+						<c:forEach items="${guList }" var="gu">
+							<li class="false h-10 p-3 midPlace-li">
+								<button>
+									<p class="truncate break-keep"
+										style="font-weight: normal; font-size: 15px; color: initial;">${gu.sigungu }</p>
+								</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div id="smallPlace"
+					class="w-1/3 h-full overflow-y-auto border border-solid rounded border-jnGray-300">
+					<ul class="place-ul flex flex-col border-solid border-jnGray-300">
+						<c:forEach items="${dongList }" var="dong">
+							<li class="false h-10 p-3 midPlace-li">
+								<button>
+									<p class="truncate break-keep"
+										style="font-weight: normal; font-size: 15px; color: initial;">${dong.h_dong_nm }</p>
+								</button>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<button id="update-button" data-variant="flat"
+			class="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart w-[20%] break-keep"
+			type="submit">수정</button>
 	</div>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 //이미지 갯수를 세어 화면에 표시하는 함수
 function displayImageCount() {
     // ul 요소의 자식 노드 중 li 요소의 개수를 가져옴
@@ -619,6 +702,8 @@ function displayFile(file) {
     
     // 파일 읽기 시작
     reader.readAsDataURL(file);
+    imageMessage.style.display = "none";
+    
 }
 
 
@@ -772,6 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function sendTop(button) {
+	var categoryMessage = document.getElementById("categoryMessage");
 	var pNum = '${pro.pr_num}';
 	var topName = button.querySelector('p').textContent.trim();
 	console.log(pNum);
@@ -792,6 +878,7 @@ function sendTop(button) {
         	console.log(data);
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMid(data.mids, data.mName);
+            categoryMessage.textContent = "";// 메시지 클리어
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -996,6 +1083,7 @@ function clickSmallPlace(button){
 
 function clickMid(button){
 	 var buttons1 = document.querySelectorAll('#midGroup button');
+	 var categoryMessage = document.getElementById("categoryMessage");
 	 buttons1.forEach(function(btn) {
      btn.classList.remove('selected');
      btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
@@ -1007,6 +1095,7 @@ function clickMid(button){
      button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
      button.querySelector('p').style.color = 'black'; 	
      button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+     categoryMessage.textContent = "";// 메시지 클리어
 }
 
 	const container = document.getElementById('price-update');
@@ -1217,7 +1306,8 @@ function clickMid(button){
 	    var inputTextLength = this.value.length;
 	    if (inputTextLength > 30) {
 	        this.value = this.value.slice(0, 30);
-	        nameMessage.style.display = "block";
+	        nameMessage.style.display = "block"; 
+	        nameMessage.textContent = "최대 30자까지 입력할 수 있습니다.";
 	    }else{
 	    nameMessage.style.display = "none";  
 	    }
@@ -1236,7 +1326,61 @@ function clickMid(button){
 	        span.textContent = inputTextLength;
 	    }
 	});
+	
+	
+	function formatNumber(input) {
+	    // 입력된 값에서 숫자가 아닌 것을 모두 제거합니다.
+	    input.value = input.value.replace(/[^0-9]/g, '');
 
+	    // 만약 값이 0으로 시작한다면 0을 제외하고 모두 제거합니다.
+	    if (input.value.startsWith('0')) {
+	        input.value = input.value.substring(1);
+	    }
+	}
+	
+	document.getElementById("update-button").addEventListener("click", function() {
+		var imageMessage = document.getElementById("imageMessage");
+		var nameMessage = document.getElementById("nameMessage");
+		var categoryMessage = document.getElementById("categoryMessage");
+		var productTitle = document.getElementById("productTitle");
+		let d = false;
+        // 이미지 판단 
+		var imgTags = document.getElementsByTagName("img");
+        if(imgTags.length-1==0){
+        	imageMessage.style.display = "block";
+        	d=true;
+        }   
+        // 제목 판단
+        var titleLength = productTitle.value.replace(/\s/g, "").length;
+        if(titleLength<2){
+        	nameMessage.style.display = "block";
+        	nameMessage.textContent = "상품명은 최소 2자 이상 입력해 주세요.";
+        	d=true;
+        }
+        
+        // 카테고리 판단
+        var midGroups = document.getElementsByClassName("midGroup-li");
+        var count = 0;
+        for(let i=0; i<midGroups.length; i++){
+        	var mid = midGroups[i];
+        	var computedStyle = window.getComputedStyle(mid);
+        	var backgroundColor = computedStyle.getPropertyValue('background-color');
+        	console.log(backgroundColor);
+        	if(backgroundColor === 'rgb(206, 212, 218)'){
+        		count=count +1;
+        	}
+        }
+        if(count==0){
+        	categoryMessage.textContent = "카테고리를 선택해주세요.";
+        	d = true;
+        }
+        
+        
+        
+        
+    });
+
+	
 	
 	
 </script>
