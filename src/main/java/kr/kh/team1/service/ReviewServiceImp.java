@@ -45,7 +45,7 @@ public class ReviewServiceImp implements ReviewService {
 
 	@Override
 	public int getTrNum(int prNum) {
-		return reviewDao.selectTrNum(prNum);
+		return reviewDao.selectTrNum(prNum); 
 	}
 
 	@Override
