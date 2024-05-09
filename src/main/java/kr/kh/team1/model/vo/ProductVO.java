@@ -1,9 +1,9 @@
 package kr.kh.team1.model.vo;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -54,10 +54,10 @@ public class ProductVO {
 	        elapsedText = (int)Math.floor(diff / minute) + "분 전";  
 	    } else if (diff < day) {
 	        elapsedText = (int)Math.floor(diff / hour) + "시간 전"; 
-	    } else if (diff < (day * 15)) {
+	    } else if (diff < (day * 30)) {
 	        elapsedText = (int)Math.floor(diff / day) + "일 전"; 
 	    } else {
-	        elapsedText = this.pr_date + "";
+	        elapsedText = changeDate();
 	    }
 	    
 	    return elapsedText;
@@ -70,7 +70,19 @@ public class ProductVO {
 		String formatMoney = df.format(this.pr_price);
 		return formatMoney;	
 	}
+	
+	// 날짜를 이쁘게 문자열로 바꿔서 반환하는 메서드
+	public String changeDate() { 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(pr_date);
+	}
+	
+	// 주소의 동만 반환하는 메서드 
+	public String getDong() {
+		String addr = pr_place;
+		String[] components = addr.split(" ");
+		return components[2];
+	}
 
-		
 }
 
