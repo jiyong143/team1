@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style type="text/css">
 .nav-item {
 	padding: 0.5rem 0xp;
@@ -140,9 +139,6 @@ table tr th, table tr td {
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/product/insert"/>">판매하기</a>
 				</li>
 			</c:if>
-				<li class="nav-item">
-					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list"/>">채팅방</a>
-				</li>
 			<c:if test="${user.me_authority != null}">
 				<li class="nav-item">
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/chat/list?page=1"/>">채팅방</a>

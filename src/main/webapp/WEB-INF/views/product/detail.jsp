@@ -75,6 +75,7 @@
 	    display: flex; /* 요소들을 가로로 배열 */
 	    padding: 0;
 	    list-style: none; /* 기본 목록 스타일 제거 */
+	    background-color : rgb(247 249 250);
 	}
 	
 	.jiyong-li{
@@ -224,6 +225,7 @@
 			
 			<c:if test="${loginUser.me_id eq prUser.me_id}">
 				<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
+				   <c:if test="${info.pr_ps_state ne '판매완료'  }">
 				   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
 					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
 					<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
@@ -250,6 +252,7 @@
 					</button>
 					</a>
 					</li>
+					</c:if>
 					<!-- 상품 삭제 화면으로 이동 -->
 					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
 					<button class="jiyong-button flex flex-col items-center py-[6px]">

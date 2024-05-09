@@ -56,9 +56,7 @@ public class ReportServiceImp implements ReportService{
 			report.getRe_name() == null || report.getRe_name().isBlank() ||
 			report.getRe_content() == null || report.getRe_content().isBlank())
 			return false;
-		System.out.println("1");
 		return reportDao.insertReportByIBH(report);
-
 	}
 
 	@Override
