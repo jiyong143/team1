@@ -226,22 +226,19 @@ li {
 				<!-- 모달 창 내용 -->
 				<fieldset>
 					<legend>이런점이 좋았어요</legend>
-					<table>
-						
+					<table class="table table-hover">
 						<thead>
 							<tr>
-								<td>1</td>
-								<td>2</td>
+								<th class="w-75">받은 후기</th>
+								<th class="w-25">개수</th>
 							</tr>
 						</thead>
-						
-						<tbody>
+						<tbody class="addPro1">
 							<tr>
-								<td>test1</td>
-								<td>test2</td>
+								<td>응답이 빨라요</td>
+								<td>13</td>
 							</tr>
 						</tbody>
-									
 					</table>
 				</fieldset>
 			</div>
