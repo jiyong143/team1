@@ -109,8 +109,13 @@
    		select count(*) from chat_message where cm_cr_num = #{num}
    </select>
    
+   <select id="selectChatRoomIds" resultType="kr.kh.team1.model.vo.ChatRoomVO">
+      select * from chat_room join chat_state on cs_cr_num = cr_num where cr_me_id = cs_me_id and cr_pr_num = #{pr_num} and cs_state = "이용중";
+   </select>
+  
    <!-- 마지막 채팅의 정보 가져옴 -->
    <select id="selectChatMessageRecent" resultType="kr.kh.team1.model.vo.ChatMessageVO">
    		select * from chat_message where cm_cr_num = #{num} order by cm_num desc limit 1
    </select>
+  
 </mapper>

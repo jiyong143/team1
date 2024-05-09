@@ -9,6 +9,7 @@ import kr.kh.team1.dao.TopGroupDAO;
 import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
+import kr.kh.team1.pagination.Criteria;
 
 @Service
 public class TopGroupServiceImp implements TopGroupService {
@@ -42,6 +43,12 @@ public class TopGroupServiceImp implements TopGroupService {
 
 	@Override
 	public ArrayList<ZipcodeVO> getDongList(String sido, String sigungu) {
+
+		// 세종특별자치시인 경우
+		if(sido.equals("세종특별자치시") || sigungu == null)
+			return topGroupDao.selectdongListBySido(sido);
+
+		// 위 경우 제외한 나머지
 		if(sido.isEmpty() || sido.isBlank() || sigungu.isEmpty() || sigungu.isBlank())
 			return null;
 		return topGroupDao.selectdongList(sido, sigungu);
@@ -74,5 +81,57 @@ public class TopGroupServiceImp implements TopGroupService {
 	@Override
 	public TopGroupVO getTopGroupByName(String topName) {
 		return topGroupDao.selectTopGroupByName(topName); 
+	}
+
+	@Override
+	public ArrayList<TopGroupVO> getTopGroupListByCri(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return topGroupDao.selectTopGroupListByCri(cri); 
+	}
+
+	@Override
+	public int getTopGroupTotalCount() {
+		return topGroupDao.selectTopGroupTotalCount(); 
+	}
+
+	@Override
+	public ArrayList<MidGroupVO> getMidGroupList(int topGroup, Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return topGroupDao.selectMidGroupList(topGroup, cri); 
+	}
+
+	@Override
+	public TopGroupVO getTopGroupByNum(String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return null;
+		return topGroupDao.selectTopGroupByNum(topGroup);
+	}
+
+	@Override
+	public int getTotalMidGroupByTopCount(int num, Criteria cri) {
+		return topGroupDao.selectTotalMidGroupByTopCount(num, cri);
+	}
+
+	@Override
+	public boolean insertMidGroup(String topGroup, int tg) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.insertMidGroup(topGroup, tg);
+	}
+
+	@Override
+	public boolean updateMidGroup(int tg_num, String topGroup) {
+		if(topGroup.isEmpty() || topGroup.isBlank())
+			return false;
+		return topGroupDao.updateMidGroup(tg_num, topGroup);
+	}
+
+	@Override
+	public boolean deleteMidGroup(int tg_num) {
+		return topGroupDao.deleteMidGroup(tg_num);
 	}
 }
