@@ -172,12 +172,14 @@
 	$(document).on("click", ".btn-category-insert", function(){
 		let topGroup = $("[name=topGroup]").val();
 		let tg = $(".tg").val();
+		console.log(topGroup);
+		console.log(tg);
 		$.ajax({
 			async : true,
 			url : '<c:url value="/admin/addMidCategoryManager"/>',
 			type : 'post', 
 			dataType : "json",
-			data : {topGroup : topGroup, tg : tg},	
+			data : {midGroup : topGroup, tg : tg},	
 			success : function (data){
 			    alert(data.msg);
 			    $("[name=topGroup]").val("");
@@ -191,38 +193,41 @@
 	});
 
 	<!-- 중분류 수정 -->
+	let tg_num;
 	$(document).on("click", ".updateBtn", function(){
-		let tg_num = this.value;	// 수정할 대분류 번호 => DB에 저장되 있는 번호
+		tg_num = this.value;	// 수정할 대분류 번호 => DB에 저장되 있는 번호
 		$(".btn-category-insert").addClass("btn-category-update");
 		$(".btn-category-insert").removeClass("btn-category-insert");
 		$("[name=topGroup]").attr("placeholder", "수정할 중분류 이름을 입력하세요.");
-		
-		$(".btn-category-update").click(function(){
-			let topGroup = $("[name=topGroup]").val();
-			let obj = {
-				topGroup : topGroup,
-				tg_num : tg_num
-			}
-			$.ajax({
-				async : true,
-				url : '<c:url value="/admin/updateMidCategoryManager"/>',
-				type : 'post', 
-				dataType : "json",
-				data : obj,	
-				success : function (data){
-				    console.log(data);
-				    alert(data.msg);
-					$(".btn-category-update").addClass("btn-category-insert");
-					$(".btn-category-update").removeClass("btn-category-update");
-					$("[name=topGroup]").attr("placeholder", "새로 추가할 중분류 이름을 입력하세요.");
-					let tg = $(".tg").val();
-					let cri ={page :1, search : tg}
-					ajaxMid(cri);
-				},
-				error : function(jqXHR, textStatus, errorThrown){
+	});
+	
+	$(document).on("click", ".btn-category-update", function(){
+		let topGroup = $("[name=topGroup]").val();
+		let tg = $(".tg").val();
+		let obj = {
+			midGroup : topGroup,
+			tg_num : tg_num,
+			tg : tg
+		}
+		$.ajax({
+			async : true,
+			url : '<c:url value="/admin/updateMidCategoryManager"/>',
+			type : 'post', 
+			dataType : "json",
+			data : obj,	
+			success : function (data){
+			    console.log(data);
+			    alert(data.msg);
+				$(".btn-category-update").addClass("btn-category-insert");
+				$(".btn-category-update").removeClass("btn-category-update");
+				$("[name=topGroup]").attr("placeholder", "새로 추가할 중분류 이름을 입력하세요.");
+				$("[name=topGroup]").val("");
+				let cri ={page :1, search : tg}
+				ajaxMid(cri);
+			},
+			error : function(jqXHR, textStatus, errorThrown){
 
-				}
-			});
+			}
 		});
 	});
 	

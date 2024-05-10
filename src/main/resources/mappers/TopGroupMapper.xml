@@ -71,7 +71,7 @@
 		select * from midgroup where mg_tg_num = #{tg} limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
-	<select id="selectTopGroupByNum" resultType="kr.kh.team1.model.vo.TopGroupVO">
+	<select id="selectTopGroupByTitle" resultType="kr.kh.team1.model.vo.TopGroupVO">
 		select * from topgroup where tg_title = #{tg}
 	</select>
 	
@@ -91,4 +91,8 @@
 	<delete id="deleteMidGroup">
 		delete from midgroup where mg_num = #{tg}
 	</delete>
+	
+	<select id="selectMidGroupByTitle" resultType="kr.kh.team1.model.vo.MidGroupVO">
+		select * from midgroup join topgroup on tg_num = mg_tg_num where mg_num = #{tg} and mg_title = #{topGroup}
+	</select>
 </mapper>
