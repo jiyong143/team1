@@ -74,7 +74,6 @@
   <a class="active" href="#home">사이트 정보</a>
   <a href="/team1/admin/memberManager">회원 관리</a>
   <a href="/team1/report/list">신고관리</a>
-  <a href="/team1/admin/inquityManager">카테고리 관리</a>
   <a href="/team1/admin/topCategoryManager">대분류 관리</a>
   <a href="/team1/admin/midCategoryManager">중분류 관리</a>
 
