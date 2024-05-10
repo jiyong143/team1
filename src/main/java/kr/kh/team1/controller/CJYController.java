@@ -3,6 +3,7 @@ package kr.kh.team1.controller;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -28,7 +29,6 @@ import kr.kh.team1.pagination.PageMaker;
 import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.MemberService;
-import kr.kh.team1.service.MidGroupService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.TopGroupService;
 
@@ -151,6 +151,16 @@ public class CJYController {
 	   	HashMap<String, Object> map = new HashMap<String, Object>();
 	   	map.put("chatRoomList", chatRoomList);
 	   	return map;  
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/update")
+	public String productUpdatePost(@RequestParam("media") List<MultipartFile> media  ) { 
+		System.out.println(media);
+		for (MultipartFile image : media) {   
+            System.out.println(image.getOriginalFilename()); 
+        }
+		return "message";    
 	}
 	
 	
