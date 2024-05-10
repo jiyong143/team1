@@ -19,11 +19,15 @@ public interface ReviewDAO {
 
 	int selectTrNum(@Param("prNum")int prNum);
 
-	ArrayList<String> selectReviewList();
+	ArrayList<ReviewTypeVO> selectReviewList();
 
 	ArrayList<TradeOutcomeVO> selectMyReviewList0(@Param("me_id")String me_id); //판매자일 때 구매자에게 받은 후기
 	
 	ArrayList<TradeOutcomeVO> selectMyReviewList1(@Param("me_id")String me_id); //구매자일 때 판매자에게 받은 후기
+
+	ArrayList<Integer> selectTrNumByUserId(@Param("userId")String userId);
+
+	int selectCountTradeOutcome(@Param("i")int i);
 
 	
 }

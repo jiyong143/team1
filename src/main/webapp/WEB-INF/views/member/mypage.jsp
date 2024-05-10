@@ -236,8 +236,8 @@ li {
 						<tbody class="addPro1">
 						<c:forEach items="${reviewList}" var="reviewList">	
 							<tr>
-								<td>${reviewList}</td>
-								<td>13</td>
+								<td>${reviewList.rt_type}</td>
+								<td>${reviewList.count}</td>
 							</tr>
 						</c:forEach>
 						</tbody>

@@ -35,8 +35,22 @@ public class ReviewServiceImp implements ReviewService {
 		if(!checkString(userId)) {
 			return null;
 		}
-			
+		
+		ArrayList<Integer> trNumBuyer = reviewDao.selectTrNumByUserId(userId); //구매자 입장에서 만들어진 후기테이블의 번호 (tr_num)
+		ArrayList<ProductVO> proList;
+		
+		for(int i:trNumBuyer) {
+			if(reviewDao.selectCountTradeOutcome(i)==0) { //0이 아니라는 뜻은 이미 후기가 작성되었다는 것
+				proList.add(null);
+														  //리뷰를 작성해야 할 tr_num들만 모임
+				
+			}
+		}
+		
 		return reviewDao.selectReviewProList(userId);
+		
+		
+		
 	}
 
 	@Override
@@ -63,7 +77,7 @@ public class ReviewServiceImp implements ReviewService {
 	}
 
 	@Override
-	public ArrayList<String> getReviewList() {
+	public ArrayList<ReviewTypeVO> getReviewList() {
 		
 		return reviewDao.selectReviewList();
 	}

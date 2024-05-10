@@ -193,12 +193,29 @@ public class PJHController {
 		int tradeReviewNum = -1;
 		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id()); //후기작성
 		
-		ArrayList<String> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
+		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
-		reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
-		reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
+		ArrayList<TradeOutcomeVO> reviewList0 = reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
+		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
 		
-
+		for(ReviewTypeVO i : reviewList) {
+			for(TradeOutcomeVO j : reviewList0) {
+				if(i.getRt_type().equals(j.getTo_rt_type())) {
+					i.setCount(i.getCount()+1);
+				}
+			}
+		}
+		
+		for(ReviewTypeVO i : reviewList) {
+			for(TradeOutcomeVO j : reviewList1) {
+				if(i.getRt_type().equals(j.getTo_rt_type())) {
+					i.setCount(i.getCount()+1);
+				}
+			}
+		}
+		
+		model.addAttribute("reviewList", reviewList);
+		
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum", reviewNum);
