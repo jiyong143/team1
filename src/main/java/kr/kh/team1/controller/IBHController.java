@@ -369,7 +369,7 @@ public class IBHController {
 		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
 		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
 		if(tgv != null) {
-			map.put("msg", "해당 중분류는 이미 존재하는 대분류입니다.");
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
 			return map;
 		}
 		
@@ -392,7 +392,7 @@ public class IBHController {
 		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
 		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
 		if(tgv != null) {
-			map.put("msg", "해당 중분류는 이미 존재하는 대분류입니다.");
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
 			System.out.println("asdas");
 			return map;
 		}

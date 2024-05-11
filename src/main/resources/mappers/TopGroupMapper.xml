@@ -93,6 +93,6 @@
 	</delete>
 	
 	<select id="selectMidGroupByTitle" resultType="kr.kh.team1.model.vo.MidGroupVO">
-		select * from midgroup join topgroup on tg_num = mg_tg_num where mg_num = #{tg} and mg_title = #{topGroup}
+		select midgroup.* from midgroup join topgroup on tg_num = mg_tg_num where mg_tg_num = #{tg} and mg_title = #{topGroup}
 	</select>
 </mapper>
