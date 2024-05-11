@@ -300,14 +300,18 @@ public class CJYController {
 
    	@PostMapping("/product/insert")  
    	public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip) { 
+		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip, int pr_price) { 
 	   
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
-
-		if(optradio == 0 || optradio == -10)
+		
+		// 상품 가격 설정
+		if(optradio == 0 || optradio == -10) {
 			product.setPr_price(optradio);
-	
+		}else {
+			product.setPr_price(pr_price);
+		}
+		
 		// mNum = 중분류번호, mName = 중분류 이름, tName = 대분류 이름
 		MidGroupVO mGroup = productService.getMidGroup(mg_title);
 		int mNum = mGroup.getMg_num();
@@ -315,7 +319,7 @@ public class CJYController {
 		String tName = tg_title;
 		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
 		product.setPr_place(place);
-
+		
 		if(productService.insertProduct(product, user, file, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);

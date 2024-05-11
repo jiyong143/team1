@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -272,6 +273,13 @@ public class IBHController {
 	public Map<String, Object> topCategoryManagerPost(String topGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
+		if(tg != null) {
+			map.put("msg", "해당 대분류는 이미 존재하는 대분류입니다.");
+			return map;
+		}
+		
 		boolean res = topGroupService.insertTopGroup(topGroup);
 		if(res) {
 			map.put("msg", "추가했습니다.");
@@ -287,6 +295,13 @@ public class IBHController {
 	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
+		if(tg != null) {
+			map.put("msg", "해당 대분류는 이미 존재하는 대분류입니다.");
+			return map;
+		}
+		
 		boolean res = topGroupService.updateTopGroup(tg_num, topGroup);
 		if(res) {
 			map.put("msg", "수정했습니다.");
@@ -313,7 +328,7 @@ public class IBHController {
 	
 	@GetMapping("/admin/midCategoryManager")
 	// 중분류 페이지
-	public String midCategoryManager(Model model) {
+	public String midCategoryManager(Model model, Criteria cri) {
 		
 		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
 	
@@ -324,15 +339,16 @@ public class IBHController {
 	@ResponseBody
 	@PostMapping("/admin/midCategoryByTopManager")
 	// 대분류에 맞는 중분류 출력
-	public Map<String, Object> midCategoryByTopManagerPost(String topGroup, Criteria cri) {
+	public Map<String, Object> midCategoryByTopManagerPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		cri.setPerPageNum(5);
 		
-		TopGroupVO tg = topGroupService.getTopGroupByNum(topGroup);
+		cri.setPerPageNum(5);
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(cri.getSearch());
+		
 		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupList(tg.getTg_num(), cri);
 		
 		for(int i = 0; i < midList.size(); i++) {
-			midList.get(i).setMg_tg_title(topGroup);
+			midList.get(i).setMg_tg_title(cri.getSearch());
 		}
 		
 		int totalMidGroupByTopCount = topGroupService.getTotalMidGroupByTopCount(tg.getTg_num(), cri);
@@ -345,12 +361,19 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/addMidCategoryManager")
-	// 대분류 추가
-	public Map<String, Object> addMidCategoryManagerPost(String topGroup, String tg) {
+	// 중분류 추가
+	public Map<String, Object> addMidCategoryManagerPost(String midGroup, String tg) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		TopGroupVO topg = topGroupService.getTopGroupByNum(tg);
-		boolean res = topGroupService.insertMidGroup(topGroup, topg.getTg_num());
+
+		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
+		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
+		if(tgv != null) {
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
+			return map;
+		}
+		
+		boolean res = topGroupService.insertMidGroup(midGroup, topg.getTg_num());
 		if(res) {
 			map.put("msg", "추가했습니다.");
 		}else {
@@ -361,11 +384,20 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/updateMidCategoryManager")
-	// 대분류 수정
-	public Map<String, Object> updateMidCategoryManagerPost(int tg_num, String topGroup) {
+	// 중분류 수정
+	public Map<String, Object> updateMidCategoryManagerPost(String tg, int tg_num, String midGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = topGroupService.updateMidGroup(tg_num, topGroup);
+		
+		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
+		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
+		if(tgv != null) {
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
+			System.out.println("asdas");
+			return map;
+		}
+		
+		boolean res = topGroupService.updateMidGroup(tg_num, midGroup);
 		if(res) {
 			map.put("msg", "수정했습니다.");
 		}else {
@@ -376,7 +408,7 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/deleteMidCategoryManager")
-	// 대분류 삭제
+	// 중분류 삭제
 	public Map<String, Object> deleteMidCategoryManagerPost(int tg_num) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();

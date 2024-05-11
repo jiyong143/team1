@@ -41,7 +41,7 @@ public interface TopGroupDAO {
 
 	ArrayList<MidGroupVO> selectMidGroupList(@Param("tg")int topGroup, @Param("cri")Criteria cri);
 
-	TopGroupVO selectTopGroupByNum(@Param("tg") String topGroup);
+	TopGroupVO selectTopGroupByTitle(@Param("tg") String topGroup);
 
 	int selectTotalMidGroupByTopCount(@Param("tg")int num, @Param("cri")Criteria cri);
 
@@ -50,4 +50,6 @@ public interface TopGroupDAO {
 	boolean updateMidGroup(@Param("tg")int tg_num, @Param("topGroup")String topGroup);
 
 	boolean deleteMidGroup(@Param("tg")int tg_num);
+
+	MidGroupVO selectMidGroupByTitle(@Param("tg")int tg, @Param("topGroup")String topGroup);
 }

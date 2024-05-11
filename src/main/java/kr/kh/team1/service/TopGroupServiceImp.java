@@ -105,10 +105,10 @@ public class TopGroupServiceImp implements TopGroupService {
 	}
 
 	@Override
-	public TopGroupVO getTopGroupByNum(String topGroup) {
+	public TopGroupVO getTopGroupByTitle(String topGroup) {
 		if(topGroup.isEmpty() || topGroup.isBlank())
 			return null;
-		return topGroupDao.selectTopGroupByNum(topGroup);
+		return topGroupDao.selectTopGroupByTitle(topGroup);
 	}
 
 	@Override
@@ -118,14 +118,14 @@ public class TopGroupServiceImp implements TopGroupService {
 
 	@Override
 	public boolean insertMidGroup(String topGroup, int tg) {
-		if(topGroup.isEmpty() || topGroup.isBlank())
+		if(topGroup.isEmpty() || topGroup == null)
 			return false;
 		return topGroupDao.insertMidGroup(topGroup, tg);
 	}
 
 	@Override
 	public boolean updateMidGroup(int tg_num, String topGroup) {
-		if(topGroup.isEmpty() || topGroup.isBlank())
+		if(topGroup.isEmpty() || topGroup == null)
 			return false;
 		return topGroupDao.updateMidGroup(tg_num, topGroup);
 	}
@@ -133,5 +133,12 @@ public class TopGroupServiceImp implements TopGroupService {
 	@Override
 	public boolean deleteMidGroup(int tg_num) {
 		return topGroupDao.deleteMidGroup(tg_num);
+	}
+
+	@Override
+	public MidGroupVO getMidGroupByTitle(int tg_num, String topGroup) {
+		if(topGroup.isEmpty() || topGroup == null)
+			return null;
+		return topGroupDao.selectMidGroupByTitle(tg_num, topGroup);
 	}
 }
