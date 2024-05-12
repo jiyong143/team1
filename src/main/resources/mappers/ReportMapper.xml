@@ -46,5 +46,9 @@
 	<select id="selectReport" resultType="ReportVO">
 		select * from report where re_num = #{re_num}
 	</select>
+	
+	<update id="updateState">
+		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{pr_num}
+	</update>
 
 </mapper>

@@ -19,7 +19,7 @@
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 250px;
   background-color: #C0C0C0;
   position: fixed;
   height: 100%;
@@ -60,7 +60,11 @@
   }
 }
 [class^=box]{ 
-    width: 400px; height: 300px; border: 1px solid black; margin: 10px; background-color: green;
+    width: 400px; 
+    height: 300px; 
+    border: 1px solid black; 
+    margin: 10px; 
+    background-color: green;
 }
 .box3{ display: inline-block;}
 
@@ -77,7 +81,6 @@
   <a href="/team1/admin/inquityManager">카테고리 관리</a>
   <a href="/team1/admin/topCategoryManager">대분류 관리</a>
   <a href="/team1/admin/midCategoryManager">중분류 관리</a>
-
 </div>
 <div class="Manager-container">
   <h2>메니저 명단</h2>

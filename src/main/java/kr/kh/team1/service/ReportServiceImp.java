@@ -67,8 +67,14 @@ public class ReportServiceImp implements ReportService{
 		   return false;
 		return reportDao.insertReportByIBH(report);
 	}
+	
+	@Override
+	public boolean updateState(int re_pr_num, String re_state) {
+	    if (re_pr_num <= 0 ||re_state == null || re_state.isEmpty()) {
+	        return false;
+	    }
+	    return reportDao.updateState(re_pr_num, re_state);
+	}
 
 	
-
-
 }

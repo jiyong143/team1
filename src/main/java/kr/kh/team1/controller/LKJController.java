@@ -165,7 +165,8 @@ public class LKJController {
 		map.put("pms", pms);// 페이지 정보
 		return map;
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/comment/insert")
 	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, HttpSession session) {
 		// 응답으로 전송할 데이터를 담을 Map 객체를 생성
@@ -258,9 +259,9 @@ public class LKJController {
 	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
 		System.out.println(report);
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		//reportService.reportCount(reCount);
 		boolean res = reportService.insertReportProduct(report, user);
 		if(res) {
-	        report.setReportCount(report.getReportCount() + 1); // 신고 카운트 증가
 			model.addAttribute("msg", "거래글 신고완료");
 			model.addAttribute("url", "/product/list");
 		}else {
@@ -293,6 +294,15 @@ public class LKJController {
 		model.addAttribute("report", report);
 		model.addAttribute("title", "신고글 상세내역");
 		return "/report/detailProduct";
+	}
+	
+	@ResponseBody
+	@PostMapping("/report/list")
+	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, @RequestBody ProductVO product, HttpSession session){
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		boolean res = reportService.updateState(report.getRe_pr_num(), report.getRe_state());
+		
+		return map;
 	}
 	
 	//신고 END

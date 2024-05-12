@@ -30,17 +30,4 @@ public class ReportVO {
 		this.re_content = re_content;
 	}
 
-	public int getReportCount() {
-		// TODO Auto-generated method stub
-	    return re_count;
-	}
-
-	public void setReportCount(int reportCount) {
-	    this.re_count = reportCount;
-	}
-
-
-	
-	
-
 }

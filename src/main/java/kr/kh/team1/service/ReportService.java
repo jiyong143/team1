@@ -23,7 +23,6 @@ public interface ReportService {
 
 	boolean insertReportByIBH(ReportVO report);
 
-
-	
+	boolean updateState(int re_pr_num, String re_state);
 
 }
