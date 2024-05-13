@@ -511,7 +511,7 @@ img {
 			<span class="michael">/1000</span>
 		</div>
 		<p class="font-semibold">상품상태</p>
-		<div class="state-update flex gap-3">
+		<div id="state-update" class="state-update flex gap-3">
 			<button class="iButton"
 				style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};">판매중</button>
 			<button class="rButton"
@@ -1408,6 +1408,11 @@ function clickMid(button){
         	var productTitle = document.getElementById("productTitle"); //수정할 제목
         	var priceInput = document.getElementById("price-input"); //수정할 가격
         	var productContent = document.getElementById("product-content"); //수정할 내용
+        	var stateButtons = document.querySelectorAll("#state-update button"); //수정할 상태
+        	var ids = document.querySelectorAll("#buyer li"); // 구매자
+        	var sidos = document.querySelectorAll("#topPlace li"); // 시
+        	var gus = document.querySelectorAll("#midPlace li"); // 구
+        	var dongs = document.querySelectorAll("#smallPlace li"); // 동
             var originalInputs = document.querySelectorAll('#original-input');
             var fileInputs = document.querySelectorAll('.file-input');
             var arr = []; // 배열 초기화
@@ -1468,9 +1473,62 @@ function clickMid(button){
 			
 			// 상품 내용
 			var content = productContent.value;
-			console.log(productContent.value);
 			formData.append("content",content);
+						
+			// 상품 상태
+			for (var i = 0; i < stateButtons.length; i++) {
+			    var stateButton = stateButtons[i];
+			    var computedStyle = window.getComputedStyle(stateButton);
+			    var backgroundColor = computedStyle.backgroundColor;
+			    if (backgroundColor === 'rgb(13, 204, 90)') {
+			    	var state = stateButton.textContent;
+			    	formData.append("state",state);
+			    }
+			}		
+			var buyer="";
+			if(state==="판매완료"){	
+				for (let i = 0; i < ids.length; i++) {
+				    var id = ids[i];
+				    var computedStyle = window.getComputedStyle(id);
+				    var backgroundColor = computedStyle.backgroundColor;
+				    if (backgroundColor === 'rgb(206, 212, 218)') {
+				    	buyer = id.querySelector('button').querySelector('p').textContent;
+				    }
+				}			
+			}			
+			formData.append("buyer",buyer);
 			
+			// 주소
+			var sido="";
+			var gu="";
+			var dong="";
+			for (let i = 0; i < sidos.length; i++) {
+			    var sido1 = sidos[i];
+			    var computedStyle = window.getComputedStyle(sido1);
+			    var backgroundColor = computedStyle.backgroundColor;
+			    if (backgroundColor === 'rgb(206, 212, 218)') {
+			    	sido = sido1.querySelector('button').querySelector('p').textContent;
+			    	formData.append("sido",sido);
+			    }
+			}
+			for (let i = 0; i < gus.length; i++) {
+			    var gu1 = gus[i];
+			    var computedStyle = window.getComputedStyle(gu1);
+			    var backgroundColor = computedStyle.backgroundColor;
+			    if (backgroundColor === 'rgb(206, 212, 218)') {
+			    	gu = gu1.querySelector('button').querySelector('p').textContent;
+			    	formData.append("gu",gu);
+			    }
+			}
+			for (let i = 0; i < dongs.length; i++) {
+			    var dong1 = dongs[i];
+			    var computedStyle = window.getComputedStyle(dong1);
+			    var backgroundColor = computedStyle.backgroundColor;
+			    if (backgroundColor === 'rgb(206, 212, 218)') {
+			    	dong = dong1.querySelector('button').querySelector('p').textContent;
+			    	formData.append("dong",dong);
+			    }
+			}
 			
             
         	

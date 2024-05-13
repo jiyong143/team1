@@ -156,15 +156,11 @@ public class CJYController {
 	
 	@ResponseBody
 	@PostMapping("/product/update")
-	public String productUpdatePost(@RequestParam("arr[]") ArrayList<String> arr, @RequestParam("pNum")int pNum, @RequestParam("files")List<MultipartFile> files, @RequestParam("pName") String pName, @RequestParam("mNum") int mNum , @RequestParam("price") int price, @RequestParam("content") String content) { 
+	public String productUpdatePost(@RequestParam("arr[]") ArrayList<String> arr, @RequestParam("pNum")int pNum, @RequestParam("files")List<MultipartFile> files, @RequestParam("pName") String pName, @RequestParam("mNum") int mNum , @RequestParam("price") int price,
+			@RequestParam("content") String content, @RequestParam("state")String state, @RequestParam("buyer") String buyer, @RequestParam("sido")String sido, @RequestParam("gu")String gu, @RequestParam("dong")String dong) { 
+			
+	
 		
-		/*if(files != null)
-			for(MultipartFile file : files) {
-				if(file != null)
-					System.out.println(file.getOriginalFilename());
-			}*/
-		
-		System.out.println(content);
 		return "message";      
 	}
 	
