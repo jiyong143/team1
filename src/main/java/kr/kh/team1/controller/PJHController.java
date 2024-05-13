@@ -196,8 +196,13 @@ public class PJHController {
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
 		ArrayList<TradeOutcomeVO> reviewList0 = reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
-		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
-		
+		System.out.println("1");
+		System.out.println(reviewList0);
+		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기 <-- 문제
+		System.out.println("2");
+		System.out.println(reviewList1);
+		System.out.println("3");
+		System.out.println(reviewList);
 		for(ReviewTypeVO i : reviewList) {
 			for(TradeOutcomeVO j : reviewList0) {
 				if(i.getRt_type().equals(j.getTo_rt_type())) {
@@ -213,6 +218,8 @@ public class PJHController {
 				}
 			}
 		}
+		System.out.println("4");
+		System.out.println(reviewList);
 		
 		model.addAttribute("reviewList", reviewList);
 		
@@ -367,7 +374,14 @@ public class PJHController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
 		
-		return "/review/write";
+		if(res) {
+			model.addAttribute("msg", "리뷰 작성에 성공했습니다.");
+			model.addAttribute("url", "/review/write");
+		} else {
+			model.addAttribute("msg", "리뷰 작성에 실패했습니다.");
+			model.addAttribute("url", "/review/write");
+		}
+		return "message";
 	}
 	
 	@PostMapping("/review/write/delete")

@@ -52,7 +52,7 @@
 		select to_num, to_rt_type, to_tr_num, to_type from trade_outcome
 		join trade_review on tr_num = to_tr_num
 		join product on pr_num = tr_pr_num
-   		where pr_buyId = #{me_id} &amp;&amp; to_type = 1
+   		where tr_me_id = #{me_id} &amp;&amp; to_type = 1
 	</select>
 	
 	<select id="selectTrNumByUserId" resultType="int">
