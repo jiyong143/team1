@@ -38,5 +38,9 @@ public interface ReviewDAO {
 
 	String checkTradeReview(@Param("trNum")int trNum);
 
+	void insertReviewDefault1(@Param("reviewDeleteVal")int reviewDeleteVal);
+	
+	void insertReviewDefault2(@Param("reviewDeleteVal")int reviewDeleteVal);
+
 	
 }

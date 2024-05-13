@@ -115,5 +115,16 @@ public class ReviewServiceImp implements ReviewService {
 		return reviewDao.selectMyReviewList1(me_id);
 	}
 
+	@Override
+	public void deleteReview(int reviewDeleteVal, String userId) {
+		
+		if(reviewDao.checkTradeReview(reviewDeleteVal).equals(userId)) {
+			reviewDao.insertReviewDefault1(reviewDeleteVal); //구매자
+		} else {
+			reviewDao.insertReviewDefault2(reviewDeleteVal); //판매자
+		}
+		
+	}
+
 
 }

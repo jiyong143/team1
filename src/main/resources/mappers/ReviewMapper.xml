@@ -74,4 +74,10 @@
 	<select id="checkTradeReview" resultType="string">
 		select tr_me_id from trade_review where tr_num = #{trNum}
 	</select>
+	<insert id="insertReviewDefault1">
+		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("default", #{reviewDeleteVal}, 0)
+	</insert>
+	<insert id="insertReviewDefault2">
+		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("default", #{reviewDeleteVal}, 1)
+	</insert>
 </mapper>

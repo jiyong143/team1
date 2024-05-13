@@ -133,7 +133,7 @@ li {
 								<!-- 거래횟수 -->
 								<td style="text-align: center;">${tradeNum}</td>
 								<!-- 거래후기개수 -->
-								<td id="popupBtn2" style="text-align: center; cursor: pointer;">${reviewNum}</td> <!-- 구매후기와 판매후기를 나눠서 볼 수 있음 -->
+								<td id="popupBtn2" style="text-align: center; cursor: pointer;">${reviewNum}</td>
 								<!-- 작성 가능한 후기 개수 -->
 								<c:if test="${user.me_id == myUserCheck}">
 									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">${tradeReviewNum}</a></td>

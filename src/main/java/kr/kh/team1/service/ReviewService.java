@@ -23,4 +23,6 @@ public interface ReviewService {
 	ArrayList<TradeOutcomeVO> getMyReviewList0(String me_id);
 	
 	ArrayList<TradeOutcomeVO> getMyReviewList1(String me_id);
+
+	void deleteReview(int reviewDeleteVal, String userId);
 }
