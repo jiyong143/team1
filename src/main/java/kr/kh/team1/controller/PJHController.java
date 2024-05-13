@@ -191,7 +191,7 @@ public class PJHController {
 		reviewNum = memberService.getReviewNum(myUser.getMe_id()); //거래후기
 
 		int tradeReviewNum = -1;
-		tradeReviewNum = reviewService.getReviewProList(myUser.getMe_id()).size();
+		tradeReviewNum = reviewService.getReviewProList(myUser.getMe_id()).size(); //후기작성
 		
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
