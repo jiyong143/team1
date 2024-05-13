@@ -18,9 +18,12 @@ public interface ReportDAO {
 
 	boolean insertReportProd(@Param("report") ReportVO report);
 
+	ProductVO selectRePrNum(@Param("re_pr_num") int rePrNum);
+	
+	ReportVO selectReport(@Param("re_num") int reNum);
+
 	boolean insertReportByIBH(@Param("report") ReportVO report);
 
-	ProductVO selectRePrNum(@Param("re_pr_num") int rePrNum);
-
+	boolean updateState(@Param("pr_num") int re_pr_num, @Param("re_state") String re_state);
 
 }

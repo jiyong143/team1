@@ -30,8 +30,4 @@ public class ReportVO {
 		this.re_content = re_content;
 	}
 
-
-	
-	
-
 }

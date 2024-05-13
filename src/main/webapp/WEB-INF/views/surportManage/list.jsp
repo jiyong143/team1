@@ -5,87 +5,93 @@
 <head>
 <meta charset="UTF-8">
 <title>고정문의</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
- <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<style>
-	.tbody{
-		display: table-header-group;
-	}
-	.h2{
-		display: mt-4;
-	}
+<style type="text/css">
+.page-title{
+	font-size: 28px; 
+	font-weight:800;
+	margin-top:10px; 
+}
+.list-title{
+	color: red;
+}
 </style>
+</head>
 <body>
-  <div class="container">
-  <h2>고객관리</h2>
-  <hr>           
-  <h3>자주 묻는 질문</h3>
-  <hr>
-  <table class="table">
-      <tr>
-        <p>
-        <li data=""/>
-        	<a href="/team1/surportManage/QnA/QnApage1">거래금지 물품</a>
-    	</p>
-      </tr>
-      <tr>
-        <p>
-        <li data=""/>
-        	<a href="/team1/surportManage/QnA/QnApage2">거래 매너</a>
-        </p>
-      </tr>
-      <tr>
-         <p>
-         	<li data=""/>
-        	<a href="/surportManage/userQnA">회원탈퇴</a>
-        </p>
-      </tr>
-      <tr>
-         <p>
-         	<li data=""/>
-        	<a href="/surportManage/userQnA">매너평가</a>
-        </p>
-      </tr>
-  </table>
-  
-  <hr>
-  <h3>운영정책</h3>
-  <hr>
-  <table class="table">
-      <tr>
-        <p>
-        <li data=""/>
-        	<a href="/team1/surportManage/userQnA">부적절한 의도와 목적의 서비스 이용</a>
-    	</p>
-      </tr>
-      <tr>
-        <p>
-        <li data=""/>
-        	<a href="/team1/surportManage/userQnA2">불법 ・ 유해 콘텐츠와 거래금지물품</a>
-        </p>
-      </tr>
-      <tr>
-         <p>
-         	<li data=""/>
-        	<a href="/surportManage/userQnA">폭력적이고 혐오감을 유발하는 정보</a>
-        </p>
-      </tr>
-      <tr>
-         <p>
-         	<li data=""/>
-        	<a href="/surportManage/userQnA">개인정보 및 사생활 침해 행위</a>
-        </p>
-      </tr>
-      <tr>
-         <p>
-         	<li data=""/>
-        	<a href="/surportManage/userQnA">서비스 이용 제한 정책</a>
-        </p>
-      </tr>
-  </table>
+<div class="container">
+<h1 class="page-title">고정문의 리스트</h1>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${list}" var="surport">
+			<tr>
+				<td>${surport.su_num}</td>
+				<td class="list-title">
+					<c:url value="/surport/detail" var="url">
+						<c:param name="suNum" value="${surport.su_num}"/>
+					</c:url>
+					<a href="${url}">${surport.su_title}</a>
+				</td>
+				<td>
+					<c:url value="/surpotr/list" var="aurl">
+						<c:param name="type" value="writer"/>
+						<c:param name="search" value="${surport.su_num}"/>
+					</c:url>
+					<a href="${aurl}">${surport.su_me_id}</a>
+				</td>
+				<td>${surport.su_date}</td>
+				<td>${surport.su_view}</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<ul class="pagination justify-content-center">
+		<c:if test="${pms.prev}">
+			<li class="page-item">
+				<c:url var="url" value="/surport/list">
+					<c:param name="page" value="${pms.startPage - 1}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
+				</c:url>
+				<a class="page-link" href="${url}">이전</a>
+			</li>
+		</c:if>
+		<c:forEach begin="${pms.startPage}" end="${pms.endPage}" var="i">
+			<c:set var="active" value="${pm.cris.page == i ?'active':'' }"/>
+			<li class="page-item ${active}">
+				<c:url var="url" value="/surport/list">
+					<c:param name="page" value="${i}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
+				</c:url>
+				<a class="page-link" href="${url}">${i}</a>
+			</li>
+		</c:forEach>
+		<c:if test="${pms.next}">
+			<li class="page-item">
+				<c:url var="url" value="/surport/list">
+					<c:param name="page" value="${pms.endPage + 1}"/>
+					<c:param name="search" value="${pms.cris.search}"/>
+					<c:param name="type" value="${pms.cris.type}"/>
+					<c:param name="order" value="${pms.cris.order}"/>
+				</c:url>
+				<a class="page-link" href="${url}">다음</a>
+			</li>
+		</c:if>
+	</ul>
+		<a href="<c:url value="/surport/insert"/>" class="btn btn-dark mb-4">문의하기</a>
+		<a href="<c:url value="/surportManage/list"/>" class="btn btn-dark mb-4">고정문의</a>	
+</div>
 
 </body>
 </html>

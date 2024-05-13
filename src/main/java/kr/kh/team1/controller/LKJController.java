@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -166,7 +165,8 @@ public class LKJController {
 		map.put("pms", pms);// 페이지 정보
 		return map;
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/comment/insert")
 	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, HttpSession session) {
 		// 응답으로 전송할 데이터를 담을 Map 객체를 생성
@@ -259,10 +259,11 @@ public class LKJController {
 	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
 		System.out.println(report);
 		MemberVO user = (MemberVO) session.getAttribute("user");
+		//reportService.reportCount(reCount);
 		boolean res = reportService.insertReportProduct(report, user);
 		if(res) {
 			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/report/list");
+			model.addAttribute("url", "/product/list");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
 			model.addAttribute("url", "/product/detail");
@@ -271,7 +272,7 @@ public class LKJController {
 	}
 	
 	//채팅방 신고
-	@PostMapping("/report/insetChat")
+	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
 
 		System.out.println(report);
@@ -284,6 +285,24 @@ public class LKJController {
 			model.addAttribute("url", "/report/insetChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
+	}
+	
+	//신고 상세내역
+	@GetMapping("/report/detailProduct")
+	public String detailProduct(Model model, int reNum) {
+		ReportVO report = reportService.getReport(reNum);
+		model.addAttribute("report", report);
+		model.addAttribute("title", "신고글 상세내역");
+		return "/report/detailProduct";
+	}
+	
+	@ResponseBody
+	@PostMapping("/report/list")
+	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, @RequestBody ProductVO product, HttpSession session){
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		boolean res = reportService.updateState(report.getRe_pr_num(), report.getRe_state());
+		
+		return map;
 	}
 	
 	//신고 END

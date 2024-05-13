@@ -203,7 +203,7 @@ public class MemberServiceImp implements MemberService {
 	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
 	    return memberDao.updateAuthority(me_id, me_authority, me_state);
 	}
-  //관리자 -> 회원관리에 필요한 코드 끝
+	//관리자 -> 회원관리에 필요한 코드 끝
 
 	@Override
 	public boolean updateMember(MemberVO member) {
@@ -242,8 +242,6 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDao.selectMemberEmail(email);
 		return user != null;
 	}
-
-
 
 //	@Override
 //	public boolean signupSns(String sns, String id, String email) {

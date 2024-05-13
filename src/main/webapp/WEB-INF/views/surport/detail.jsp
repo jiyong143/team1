@@ -43,7 +43,10 @@
 	box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
 	padding: 10px;
 }
-.comment-title{font-size: 22px; margin-bottom: 5px;}
+.comment-title{
+	font-size: 22px; 
+	margin-bottom: 5px;
+}
 </style>
 </head>
 <body>
