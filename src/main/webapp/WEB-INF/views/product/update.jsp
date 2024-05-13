@@ -69,7 +69,7 @@ img {
 	margin-right: 5px;
 }
 
-.delete-button { 
+.delete-button {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -333,6 +333,7 @@ img {
 	color: red;
 	font-size: 12px;
 }
+
 #imageMessage {
 	position: absolute;
 	left: 700px;
@@ -340,6 +341,7 @@ img {
 	color: red;
 	font-size: 12px;
 }
+
 #categoryMessage {
 	position: absolute;
 	left: 700px;
@@ -381,7 +383,7 @@ img {
 					</div>
 				</button>
 			</div>
-			
+
 
 			<div class="images-container" style="margin-left: 5px;">
 				<ul class="file-list">
@@ -393,8 +395,8 @@ img {
 									src="<c:url value="/download${file.fi_name}"/>" width="80"
 									height="80" decoding="async" data-nimg="1"
 									class="object-cover w-full h-full bg-gray-200 rounded-lg"
-									loading="lazy" style="color: transparent;">
-								<input id="original-input" value="${file }" type="hidden">
+									loading="lazy" style="color: transparent;"> <input
+									id="original-input" value="${file }" type="hidden">
 								<button class="delete-button" onclick="deleteFile(this)">
 									<svg width="20px" height="20px" viewBox="0 0 20 20" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
@@ -443,7 +445,8 @@ img {
 					<ul
 						class="category-ul flex flex-col border-solid border-jnGray-300">
 						<c:forEach items="${midList }" var="mid">
-							<li class="false h-10 p-3 midGroup-li" data-value="${mid.mg_num }">
+							<li class="false h-10 p-3 midGroup-li"
+								data-value="${mid.mg_num }">
 								<button>
 									<p class="truncate break-keep"
 										style="font-weight: normal; font-size: 15px; color: initial;">${mid.mg_title }</p>
@@ -454,7 +457,7 @@ img {
 				</div>
 			</div>
 		</section>
-        <p id="categoryMessage"></p>
+		<p id="categoryMessage"></p>
 		<div id="price-update"
 			class="price-update flex items-center justify-between w-full border border-gray-300 border-solid rounded px-4  text-base scale-85 origin-top-left -mb-3  w-[117.65%] p-6  h-[60px] false">
 			<label for="search" class="flex items-center py-0.5 w-2/3"> <span
@@ -497,15 +500,14 @@ img {
 				가격제안
 			</button>
 		</div>
-		<p id="priceMessage" style="display: none;">최대 1억원까지 입력 가능합니다.</p>
+		<p id="priceMessage"></p>
 		<div class="content-update">
 			<textarea id="product-content" name="product-content"
 				class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
 				autocomplete="off" spellcheck="false" rows="20"
 				data-gtm-form-interact-field-id="0"
 				placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.content }</textarea>
-			<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력
-				가능합니다.</p>
+			<p id="contentMessage"></p>
 			<span id="contentCount"
 				class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
 			<span class="michael">/1000</span>
@@ -519,7 +521,7 @@ img {
 			<button class="cButton"
 				style="background-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매완료' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매완료' ? 'rgb(13 204 90)' : ''};">판매완료</button>
 		</div>
-		<span class="buyer-span"></span>
+		<span id="buyer-span" class="buyer-span"></span>
 		<div id="buyer"
 			class="overflow-y-auto border border-solid rounded border-jnGray-300">
 		</div>
@@ -1200,7 +1202,8 @@ function clickMid(button){
 	            this.value = value.slice(0, 8); // 100,000,000 이상의 값은 100,000,000으로 제한
 	            const formatValue = Number(this.value.replaceAll(',', '')).toLocaleString('ko-KR');
 	            this.value = formatValue; // 콤마 추가
-	            priceMessage.style.display = "block"; // 메시지 표시
+	            priceMessage.style.display = "block"; 
+	            priceMessage.textContent = "최대 1억원까지 입력 가능합니다."; // 메시지 표시
 	        }
 	    }
 	});
@@ -1244,6 +1247,7 @@ function clickMid(button){
 	});
 	
 	cButton.addEventListener('click', function() {
+		var buyerSpan = document.getElementById("buyer-span");
 		var stateButtons = document.querySelectorAll('.state-update button');
 		    stateButtons.forEach(function(btn) {
 		    btn.style.backgroundColor = 'transparent'; // 버튼의 배경색을 기본으로 
@@ -1288,7 +1292,7 @@ function clickMid(button){
 			buyerSpan.textContent ="채팅방이 존재하지 않아 구매자 아이디를 찾을 수 없습니다.";
 			return;
 		}
-		buyerSpan.textContent ="구매자의 아이디를 선택하세요.";
+		buyerSpan.textContent ="구매자 아이디를 선택해주세요.";
 		var buyer = document.getElementById("buyer");
 		buyer.style.display = "block";
 		let str = '';
@@ -1306,6 +1310,7 @@ function clickMid(button){
 	}
 	
 	function clickBuyer(button){
+		var buyerSpan = document.getElementById("buyer-span");
 		var buyerButton = document.querySelectorAll('#buyer button');
 		 buyerButton.forEach(function(btn) {
 	     btn.classList.remove('selected');
@@ -1318,6 +1323,7 @@ function clickMid(button){
 	     button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
 	     button.querySelector('p').style.color = 'black'; 	
 	     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+	     buyerSpan.textContent = ""// 메시지 클리어
 	}
 	
 	
@@ -1362,9 +1368,18 @@ function clickMid(button){
 	
 	document.getElementById("update-button").addEventListener("click", function() {
 		var imageMessage = document.getElementById("imageMessage");
+		var priceInput = document.getElementById("price-input");
+		var productContent = document.getElementById("product-content");
 		var nameMessage = document.getElementById("nameMessage");
+		var buyerSpan = document.getElementById("buyer-span");
+		var priceMessage = document.getElementById("priceMessage");
 		var categoryMessage = document.getElementById("categoryMessage");
+		var buyerSpan = document.getElementById("buyer-span");
+		var contentMessage = document.getElementById("contentMessage");
 		var productTitle = document.getElementById("productTitle");
+		var midPlaces = document.querySelectorAll("#midPlace li");
+		var smallPlaces = document.querySelectorAll("#smallPlace li");
+		
 		let d = false;
         // 이미지 판단 
 		var imgTags = document.getElementsByTagName("img");
@@ -1395,6 +1410,61 @@ function clickMid(button){
         	categoryMessage.textContent = "카테고리를 선택해주세요.";
         	d = true;
         }
+        
+        // 가격 판단 
+        var price = Number(priceInput.value.replace(/,/g, ""));
+        if(price==0||price<1000){
+        	priceMessage.style.display='block';
+        	priceMessage.textContent = "상품 가격은 1000원 이상이여야 합니다.";
+        	d=true;
+        }
+        
+        // 상품 설명 판단
+        var contentLength = productContent.value.replace(/\s+/g, '').length;
+        if(contentLength<10){
+        	contentMessage.style.display ="block";
+        	contentMessage.textContent = "상품 설명은 공백 제외 최소 10자 필요합니다.";
+        	d= true;
+        }
+        // 상태 판단
+        
+        var stateContent = buyerSpan.textContent.length;
+        if(stateContent!=0){
+        	buyerSpan.textContent = "구매자 아이디를 선택해주세요.";
+        	d = true;
+        }
+        
+        // 주소 판단
+        var midCount = midPlaces.length;
+        var smallCount =smallPlaces.length;
+        var midCounts=0;
+        var smallCounts=0;
+        for(let i=0; i<midCount; i++){
+        	var midPlace = midPlaces[i];
+        	var computedStyle = window.getComputedStyle(midPlace);
+        	var backgroundColor = computedStyle.getPropertyValue('background-color');
+        	if(backgroundColor === 'rgb(206, 212, 218)'){
+        		midCounts++;
+        	}
+        }
+        
+        for(let i=0; i<smallCount; i++){
+        	var smallPlace = smallPlaces[i];
+        	var computedStyle = window.getComputedStyle(smallPlace);
+        	var backgroundColor = computedStyle.getPropertyValue('background-color');
+        	if(backgroundColor === 'rgb(206, 212, 218)'){
+        		smallCounts++;
+        	}
+        }
+        
+        if(midCount>1){
+        	if(midCounts==0){
+        		console.log("mid");
+        	}else if(smallCounts==0){
+        		console.log("small");
+        	}
+        }
+        
         
         if(!d){
         	update();
@@ -1530,8 +1600,6 @@ function clickMid(button){
 			    }
 			}
 			
-            
-        	
             $.ajax({
     	    	async : false,
     	        type: "post",
@@ -1548,10 +1616,7 @@ function clickMid(button){
     	            // 요청이 실패했을 때 실행할 코드
     	            console.log(xhr);
     	        }
-    	    });
-            
-            
-            
+    	    });     
         }
 
         
