@@ -8,7 +8,7 @@
 						   values(#{member.me_id}, #{member.me_pw}, #{member.me_email}, #{member.me_gender}, #{member.me_name}, #{member.me_birth}, #{member.me_phone}, #{member.me_addr})
 	</insert>
 	<select id="selectMember" resultType="kr.kh.team1.model.vo.MemberVO">
-		select * from member where me_id = #{me_id}
+		select * from member where me_id = #{me_id} &amp;&amp; me_state = "이용중"
 	</select>
 	<select id="selectMemberEmail" resultType="kr.kh.team1.model.vo.MemberVO">
 		select * from member where me_email = #{email}

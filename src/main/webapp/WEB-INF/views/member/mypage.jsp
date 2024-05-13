@@ -34,7 +34,7 @@
 
 #modalBody {
 	width: 500px;
-	height: 300px;
+	height: 500px;
 	padding: 30px 30px;
 	margin: 0 auto;
 	border: 1px solid #777;
@@ -226,22 +226,21 @@ li {
 				<!-- 모달 창 내용 -->
 				<fieldset>
 					<legend>이런점이 좋았어요</legend>
-					<table>
-						
+					<table class="table table-hover">
 						<thead>
 							<tr>
-								<td>1</td>
-								<td>2</td>
+								<th class="w-75">받은 후기</th>
+								<th class="w-25">개수</th>
 							</tr>
 						</thead>
-						
-						<tbody>
+						<tbody class="addPro1">
+						<c:forEach items="${reviewList}" var="reviewList">	
 							<tr>
-								<td>test1</td>
-								<td>test2</td>
+								<td>${reviewList.rt_type}</td>
+								<td>${reviewList.count}</td>
 							</tr>
+						</c:forEach>
 						</tbody>
-									
 					</table>
 				</fieldset>
 			</div>

@@ -22,6 +22,7 @@ import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
+import kr.kh.team1.model.vo.TradeOutcomeVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.PaymentService;
@@ -172,7 +173,7 @@ public class PJHController {
 
 	@GetMapping("/member/mypage")
 	public String mypage(Model model, HttpServletRequest request, String me_id) {
-
+		
 		MemberVO myUser;
 		if (me_id == null) {
 			myUser = (MemberVO) request.getSession().getAttribute("user");
@@ -185,13 +186,36 @@ public class PJHController {
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
-
+		
 		int reviewNum = -1;
 		reviewNum = memberService.getReviewNum(myUser.getMe_id()); //거래후기
 
 		int tradeReviewNum = -1;
-		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id()); //후기작성
-
+		tradeReviewNum = reviewService.getReviewProList(myUser.getMe_id()).size();
+		
+		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
+		
+		ArrayList<TradeOutcomeVO> reviewList0 = reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
+		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
+		
+		for(ReviewTypeVO i : reviewList) {
+			for(TradeOutcomeVO j : reviewList0) {
+				if(i.getRt_type().equals(j.getTo_rt_type())) {
+					i.setCount(i.getCount()+1);
+				}
+			}
+		}
+		
+		for(ReviewTypeVO i : reviewList) {
+			for(TradeOutcomeVO j : reviewList1) {
+				if(i.getRt_type().equals(j.getTo_rt_type())) {
+					i.setCount(i.getCount()+1);
+				}
+			}
+		}
+		
+		model.addAttribute("reviewList", reviewList);
+		
 		model.addAttribute("myUser", myUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum", reviewNum);
@@ -338,9 +362,10 @@ public class PJHController {
 	}
 
 	@PostMapping("/review/write")
-	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
+	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session ) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
 		int trNum = reviewService.getTrNum(prNum);
-		boolean res = reviewService.addReview(reviewType, trNum);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
 		
 		return "/review/write";
 	}

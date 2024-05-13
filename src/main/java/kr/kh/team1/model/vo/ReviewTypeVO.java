@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewTypeVO {
 	String rt_type;
+	int count;
 	int rt_point;
 }

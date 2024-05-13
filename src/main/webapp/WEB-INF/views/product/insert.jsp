@@ -8,6 +8,15 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<style type="text/css">
+#product-content{
+	width: 100%;
+}
+
+.count{
+	float: right;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -16,7 +25,7 @@
 			<div class="form-group">
 				<label for="tg_title" style="display: block">카테고리</label>
 				<select name="tg_title" class="form-control" style="width: 50%; display: inline;">
-					<option id="title" value="">대분류를 선택하세요.</option>
+					<option id="title" value="x">대분류를 선택하세요.</option>
 					<c:forEach items="${topGroupList}" var="tg">
 						<option id="tg_title" value="${tg.tg_title}">${tg.tg_title}</option>
 					</c:forEach>
@@ -29,8 +38,8 @@
 			</div>
 			<div class="form-group">
 				<label for="sido" style="display: block">주소</label>
-				<select name="sido" class="form-control" style="width: 33%; display: inline;">
-					<option id="sido" value="">시/도를 선택하세요.</option>
+				<select name="sido" class="form-control sido" style="width: 33%; display: inline;">
+					<option id="sido" value="x">시/도를 선택하세요.</option>
 					<c:forEach items="${sidoList}" var="sido">
 						<option id="sido check" value="${sido.sido}">${sido.sido}</option>
 					</c:forEach>
@@ -40,7 +49,14 @@
 			</div>
 			<div class="form-group">
 				<label for="pr_content">내용</label>
-				<textarea class="form-control" id="pr_content" name="pr_content"></textarea>
+				<div class="content-update">
+					<textarea id="product-content" name="pr_content" class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm" autocomplete="off" spellcheck="false" rows="20" data-gtm-form-interact-field-id="0"  placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다."></textarea>
+					<p id="contentMessage" style="display: none;">상품설명은 최대 1000자까지 입력 가능합니다.</p>
+					<div class="count">
+						<span id="contentCount" class="contentCount absolute right-0 text-sm leading-5 text-gray-400">${count }</span>
+						<span class="michael">/1000</span>
+					</div>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="pr_price">가격</label>
@@ -154,7 +170,7 @@
 	})
 	
 	function displaysigungu(list){
-		let str = `<option id="sigungu" value="">시/군/구를 선택하세요.</option>`;
+		let str = `<option id="sigungu" value="x">시/군/구를 선택하세요.</option>`;
 		for(item of list){
 			str += `<option value="\${item.sigungu}">\${item.sigungu}</option>`;
 		}
@@ -211,12 +227,6 @@
 			$("[name=pr_price]").prop('disabled',true);
 		}
 	});
-	
-	$("[name=pr_price]").change(function(){
-		let a = $(this).val();
-		$(".priceTag").val(a);
-		let b = $(".priceTag").val();
-	});
 </script>
 
 <!-- 최소 글자 제한 + summernote -->
@@ -236,30 +246,21 @@
 	
 	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
 	$("#productForm").submit(function(e){
-		let res = false;
-
-		if($(".h_dong_nm").val() == 'x'){
+		
+		let a = $("[name=pr_price]").val();
+		let maxPrice1 = a.replace(/,/g, '');
+		a = parseInt(maxPrice1);
+		$("[name=pr_price]").val(a);
+		$(".priceTag").val(a);
+		
+		if($(".sido").val() == 'x' || $(".h_dong_nm").val() == 'x' ||
+			($(".sido").val() != '세종특별자치시' && $(".sigungu").val() == 'x' )){
 			alert("주소를 입력해야 합니다.");
 			$(".h_dong_nm").focus();
 			return false;
 		}
 		
-		for(let i = 0; i < 5; i++){
-			let fileTag = document.getElementsByName("file")[i];
-			if(fileTag.value.length != 0){
-				res = true
-				return;
-			}
-		}
-		
-		if(res = true){
-			alert("파일은 1개 이상 등록해야합니다.");
-			return false;
-		}else{
-			return true;
-		}
-		
-		if(!$(".check").checked){
+		if($("[name = tg_title]").val() == 'x'){
 			alert("대분류를 선택해야합니다.");
 			$("[name = tg_title]").focus();
 			return false;
@@ -279,14 +280,34 @@
 			return false;
 		}
 		
-		$(".priceTag").value = $("#pr_price").val();
-		
+		let res = false;
+		for(let i = 0; i < 5; i++){
+			let fileTag = document.getElementsByName("file")[i];
+			if(fileTag.value.length != 0){
+				res = true;
+				return;
+			}
+		}
+		if(res == false){
+			alert("파일은 1개 이상 등록해야합니다.");
+			return false;
+		}
+		return true;
 	});
+
 	
-	$('[name = pr_content]').summernote({
-		placeholder: '내용을 입력하세요',
-		tabsize: 2,
-		height: 400
+	document.getElementById("product-content").addEventListener("input", function() {
+	    const span = document.getElementById('contentCount');
+	    var contentMessage = document.getElementById("contentMessage");
+	    var inputTextLength = this.value.length;
+	    if (inputTextLength > 1000) {
+	        this.value = this.value.slice(0, 1000);
+	        contentMessage.style.display = "block";
+	        span.textContent = 1000;
+	    } else {
+	        contentMessage.style.display = "none";  
+	        span.textContent = inputTextLength;
+	    }
 	});
 </script>
 </body>

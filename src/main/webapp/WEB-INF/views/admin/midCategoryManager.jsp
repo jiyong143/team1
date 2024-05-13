@@ -50,18 +50,22 @@
 			</tr>
 		</tbody>
 	</table>
-	<div class="box-category-pagination">
-		
+	<div class="box-pagination">
+		<ul class="category-pagination pagination justify-content-center"></ul>
 	</div>
 </div>
 <!-- 화면 출력 -->
 <script type="text/javascript">
+	let b = {
+		page : 1
+	}
+	
 	$(document).on("change", ".tg", function(){
 		let a = $(".tg").val();
 		let cri = {
-			page : 1
+			page : 1,
+			search : a
 		}
-		console.log(a);
 		if(a == "대분류를 선택하세요."){
 			let str = 
 				`
@@ -72,13 +76,17 @@
 			$('.midGroupList').html(str);
 			return;
 		}
-		
+		ajaxMid(cri);
+	})
+	
+	function ajaxMid(cri){
 		$.ajax({
 			async : true,
 			url : '<c:url value="/admin/midCategoryByTopManager"/>',
 			type : 'post', 
 			dataType : "json",
-			data : {topGroup : a, cri : cri},
+			data : JSON.stringify(cri),
+			contentType : "application/json; charset=utf-8",
 			success : function (data){
 				console.log(data);
 				displayMid(data.midList);
@@ -88,7 +96,7 @@
 
 			}
 		});
-	})
+	}
 	
 	function displayMid(list){
 		let str = '';
@@ -121,38 +129,41 @@
 	}
 	
 	function displayPagination(pm){
+		let a = pm.cri.search;
 		str = '';
-		str += 
-			`
-			<ul class="pagination justify-content-center">
-				<c:if test="${pm.prev}">
-					<c:url value="/admin/midCategoryManager" var="url">
-						<c:param name="page" value="${pm.startPage - 1}"/>
-					</c:url>
-					<li class="page-item">
-						<a class="page-link" href="${url}">이전</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:url value="/admin/midCategoryManager" var="url">
-						<c:param name="page" value="${i}"/>
-					</c:url>
-					<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-						<a class="page-link" href="${url}">${i}</a>
-					</li>
-				</c:forEach>
-				<c:if test="${pm.next}">
-					<c:url value="/admin/midCategoryManager" var="url">
-						<c:param name="page" value="${pm.endPage + 1}"/>
-					</c:url>
-					<li class="page-item">
-						<a class="page-link" href="${url}">다음</a>
-					</li>
-				</c:if>
-			</ul>
-			`;
-			$(".box-category-pagination").html(str);
+		if(pm.prev){
+			str += 
+				`
+				<li class="page-item">
+					<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+				</li>
+				`;
+		}
+		for(let i = pm.startPage; i <= pm.endPage; i++){
+			let active = pm.cri.page == i ? 'active' : '';
+			str += 
+				`
+				<li class="page-item \${active}">
+					<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+				</li>
+				`;
+		}
+		if(pm.next){
+			str += 
+				`
+				<li class="page-item">
+					<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage + 1}">다음</a>
+				</li>
+				`;
+		}
+		$(".box-pagination>ul").html(str);
 	}
+	
+	$(document).on('click', '.box-pagination .page-link', function(){
+		b.page = $(this).data("page");
+		b.search = $(".tg").val();
+		ajaxMid(b);
+	});
 </script>
 
 <!-- 중분류 추가,수정,삭제 -->
@@ -161,17 +172,19 @@
 	$(document).on("click", ".btn-category-insert", function(){
 		let topGroup = $("[name=topGroup]").val();
 		let tg = $(".tg").val();
+		console.log(topGroup);
+		console.log(tg);
 		$.ajax({
 			async : true,
 			url : '<c:url value="/admin/addMidCategoryManager"/>',
 			type : 'post', 
 			dataType : "json",
-			data : {topGroup : topGroup, tg : tg},	
+			data : {midGroup : topGroup, tg : tg},	
 			success : function (data){
 			    alert(data.msg);
 			    $("[name=topGroup]").val("");
-			    var url = '<c:url value="/admin/midCategoryManager"/>' + '?page=1';
-				location.href = url;
+				let cri ={page :1, search : tg}
+				ajaxMid(cri);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 
@@ -180,37 +193,41 @@
 	});
 
 	<!-- 중분류 수정 -->
+	let tg_num;
 	$(document).on("click", ".updateBtn", function(){
-		let tg_num = this.value;	// 수정할 대분류 번호 => DB에 저장되 있는 번호
+		tg_num = this.value;	// 수정할 대분류 번호 => DB에 저장되 있는 번호
 		$(".btn-category-insert").addClass("btn-category-update");
 		$(".btn-category-insert").removeClass("btn-category-insert");
 		$("[name=topGroup]").attr("placeholder", "수정할 중분류 이름을 입력하세요.");
-		
-		$(".btn-category-update").click(function(){
-			let topGroup = $("[name=topGroup]").val();
-			let obj = {
-				topGroup : topGroup,
-				tg_num : tg_num
-			}
-			$.ajax({
-				async : true,
-				url : '<c:url value="/admin/updateMidCategoryManager"/>',
-				type : 'post', 
-				dataType : "json",
-				data : obj,	
-				success : function (data){
-				    console.log(data);
-				    alert(data.msg);
-					$(".btn-category-update").addClass("btn-category-insert");
-					$(".btn-category-update").removeClass("btn-category-update");
-					$("[name=topGroup]").attr("placeholder", "새로 추가할 중분류 이름을 입력하세요.");
-					var url = '<c:url value="/admin/midCategoryManager"/>' + '?page=1';
-					location.href = url;
-				},
-				error : function(jqXHR, textStatus, errorThrown){
+	});
+	
+	$(document).on("click", ".btn-category-update", function(){
+		let topGroup = $("[name=topGroup]").val();
+		let tg = $(".tg").val();
+		let obj = {
+			midGroup : topGroup,
+			tg_num : tg_num,
+			tg : tg
+		}
+		$.ajax({
+			async : true,
+			url : '<c:url value="/admin/updateMidCategoryManager"/>',
+			type : 'post', 
+			dataType : "json",
+			data : obj,	
+			success : function (data){
+			    console.log(data);
+			    alert(data.msg);
+				$(".btn-category-update").addClass("btn-category-insert");
+				$(".btn-category-update").removeClass("btn-category-update");
+				$("[name=topGroup]").attr("placeholder", "새로 추가할 중분류 이름을 입력하세요.");
+				$("[name=topGroup]").val("");
+				let cri ={page :1, search : tg}
+				ajaxMid(cri);
+			},
+			error : function(jqXHR, textStatus, errorThrown){
 
-				}
-			});
+			}
 		});
 	});
 	
@@ -225,8 +242,9 @@
 			data : {tg_num : tg_num},	
 			success : function (data){
 			    alert(data.msg);
-			    var url = '<c:url value="/admin/midCategoryManager"/>' + '?page=1';
-				location.href = url;
+			    let tg = $(".tg").val();
+			    let cri ={page :1, search : tg}
+				ajaxMid(cri);
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 
