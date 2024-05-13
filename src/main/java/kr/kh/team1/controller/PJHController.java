@@ -183,6 +183,9 @@ public class PJHController {
 			myUser = memberService.getMember(me_id);
 			model.addAttribute("myUserCheck", me_id);
 		}
+		
+		//int mannerScore = 0;
+		//mannerScore = memberService.getMannerScore(myUser.getMe_id());
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
@@ -362,6 +365,7 @@ public class PJHController {
 		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); // 리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우)
 																			      // 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼
 																				  // 수 있음)
+		System.out.println(reviewList);
 		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewType", reviewType);
@@ -372,7 +376,11 @@ public class PJHController {
 	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session) {
 		int trNum = reviewService.getTrNum(prNum);
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
+		int mannerScore = 0;
+		for(String i:reviewType) {
+			mannerScore += reviewService.getReviewScore(i);
+		}
+		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id(), mannerScore);
 		
 		if(res) {
 			model.addAttribute("msg", "리뷰 작성에 성공했습니다.");

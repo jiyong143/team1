@@ -42,5 +42,11 @@ public interface ReviewDAO {
 	
 	void insertReviewDefault2(@Param("reviewDeleteVal")int reviewDeleteVal);
 
+	int selectReviewScore(@Param("i")String i);
+
+	void updateMannerScore(@Param("mannerScore")int mannerScore);
+
+	void updateReviewScore(@Param("trNum")int trNum, @Param("mannerScore")int mannerScore);
+
 	
 }
