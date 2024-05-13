@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
+import kr.kh.team1.model.vo.TradeOutcomeVO;
 
 public interface ReviewService {
 	
@@ -15,5 +16,11 @@ public interface ReviewService {
 
 	int getTrNum(int prNum);
 
-	boolean addReview(ArrayList<String> reviewType, int trNum);
+	boolean addReview(ArrayList<String> reviewType, int trNum, String me_id);
+
+	ArrayList<ReviewTypeVO> getReviewList();
+
+	ArrayList<TradeOutcomeVO> getMyReviewList0(String me_id);
+	
+	ArrayList<TradeOutcomeVO> getMyReviewList1(String me_id);
 }
