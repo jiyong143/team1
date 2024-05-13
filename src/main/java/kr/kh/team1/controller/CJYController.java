@@ -153,14 +153,19 @@ public class CJYController {
 	   	return map;  
 	}
 	
+	
 	@ResponseBody
 	@PostMapping("/product/update")
-	public String productUpdatePost(@RequestParam("media") List<MultipartFile> media  ) { 
-		System.out.println(media);
-		for (MultipartFile image : media) {   
-            System.out.println(image.getOriginalFilename()); 
-        }
-		return "message";    
+	public String productUpdatePost(@RequestParam("arr[]") ArrayList<String> arr, @RequestParam("pNum")int pNum, @RequestParam("files")List<MultipartFile> files, @RequestParam("pName") String pName, @RequestParam("mNum") int mNum , @RequestParam("price") int price, @RequestParam("content") String content) { 
+		
+		/*if(files != null)
+			for(MultipartFile file : files) {
+				if(file != null)
+					System.out.println(file.getOriginalFilename());
+			}*/
+		
+		System.out.println(content);
+		return "message";      
 	}
 	
 	

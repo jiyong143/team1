@@ -363,10 +363,7 @@ img {
 <body>
 	<div class="product-update">
 		<div class="image-update" style="display: flex; height: 100px;">
-			<div class="image-picker">
-				<input name="media" id="fileInput" type="file"
-					accept="image/png, image/jpeg, image/jpg" class="hidden"
-					style="display: none;" multiple>
+			<div id="image-picker" class="image-picker">
 				<button
 					class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded"
 					onclick="openFilePicker()">
@@ -384,6 +381,7 @@ img {
 					</div>
 				</button>
 			</div>
+			
 
 			<div class="images-container" style="margin-left: 5px;">
 				<ul class="file-list">
@@ -396,6 +394,7 @@ img {
 									height="80" decoding="async" data-nimg="1"
 									class="object-cover w-full h-full bg-gray-200 rounded-lg"
 									loading="lazy" style="color: transparent;">
+								<input id="original-input" value="${file }" type="hidden">
 								<button class="delete-button" onclick="deleteFile(this)">
 									<svg width="20px" height="20px" viewBox="0 0 20 20" fill="none"
 										xmlns="http://www.w3.org/2000/svg">
@@ -444,7 +443,7 @@ img {
 					<ul
 						class="category-ul flex flex-col border-solid border-jnGray-300">
 						<c:forEach items="${midList }" var="mid">
-							<li class="false h-10 p-3 midGroup-li">
+							<li class="false h-10 p-3 midGroup-li" data-value="${mid.mg_num }">
 								<button>
 									<p class="truncate break-keep"
 										style="font-weight: normal; font-size: 15px; color: initial;">${mid.mg_title }</p>
@@ -594,39 +593,56 @@ function displayImageCount() {
 window.addEventListener('load', displayImageCount);
 
 
+
+
 //이미지 삭제 버튼 클릭 시 실행될 함수
 function deleteFile(button) {
     // 삭제 버튼이 속한 부모 요소의 부모 요소를 찾아서 제거 (즉, li 태그 제거)
     button.parentNode.parentNode.remove();
     // 이때, 개수 다시 리뉴얼
     displayImageCount(); 
+    
+    button.parentNode.remove();// input에서 제거
 }
 
 
 function openFilePicker(){
-    document.getElementById('fileInput').click();
-}
+    // type 이 file인 새로운 input 요소 만들고  그거  클릭
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.classList.add('file-input');
+    fileInput.setAttribute('name', 'file'); // name 속성을 "file"로 설정
+    fileInput.style.display = 'none'; 
+    fileInput.addEventListener('change', function(event) {
+        handleFileSelect(event, fileInput); // handleFileSelect 함수 호출 시 fileInput 변수를 전달
+    }, false); // 파일 입력(input) 요소에 이벤트 리스너 추가 
+    fileInput.addEventListener('input', function(event) {
+    	 fileInput.remove();// fileInput 없애기
+    }, false);
+    fileInput.click();
+} 
 
-document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
-
-function handleFileSelect(event) {
+function handleFileSelect(event, fileInput) {
     const files = event.target.files; // 선택된 파일들의 배열
     
-    // 파일을 하나씩 반복하여 처리
+    // 파일을 화면에 보이게 하기
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        displayFile(file);
+        displayFile(file,fileInput);
     }
+    
+    
 }
 
-function displayFile(file) {
-	
+
+function displayFile(file,fileInput) {
 	const countElement = document.getElementById('imageCount');
 	const value1 = countElement.textContent.trim();
 	const value = value1.split('/')[0];
 
 	if(value==5){
 		alert("최대 5장까지 가능합니다.");
+		 fileInput.remove();// fileInput 없애기 
 		return;
 	}
 	
@@ -690,9 +706,14 @@ function displayFile(file) {
         buttonContainer.style.right = '0'; // 이미지의 오른쪽에 위치
         buttonContainer.appendChild(button); // 버튼을 div에 추가
         
+        // input 담는 div 요소 생성
+        const inputContainer = document.createElement('div');
+        inputContainer.appendChild(fileInput);
+        
         // 이미지와 버튼을 담는 컨테이너에 이미지와 버튼 컨테이너 추가
         container.appendChild(imgContainer); 
         container.appendChild(buttonContainer);
+        container.appendChild(inputContainer);
 
         // 선택한 요소에 컨테이너 추가
         const addLiElement = document.querySelector('.add-li');
@@ -705,6 +726,7 @@ function displayFile(file) {
     imageMessage.style.display = "none";
     
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -952,13 +974,13 @@ function addMid(mids,mName){
 	for(let i=0; i<mids.length; i++){
 		const mid = mids[i];
 		if(mName === mid.mg_title){
-			str+=`<li class="false h-10 p-3 midGroup-li" style="background-color : #ced4da; ">
+			str+=`<li class="false h-10 p-3 midGroup-li" style="background-color : #ced4da; " data-value="\${mid.mg_num }">
 			      <button onClick="clickMid(this)">
 			      <p class="truncate break-keep" style="font-weight : bold; color : black; font-size : 15px;">\${mid.mg_title }</p>
 			      </button>
 				  </li>`;
 		}else{
-			str+=`<li class="false h-10 p-3 midGroup-li">
+			str+=`<li class="false h-10 p-3 midGroup-li" data-value="\${mid.mg_num }">
 			      <button onClick="clickMid(this)">
 			      <p class="truncate break-keep" style="font-weight : normal; color : initial; font-size : 15px; ">\${mid.mg_title }</p>
 			      </button>
@@ -1365,7 +1387,6 @@ function clickMid(button){
         	var mid = midGroups[i];
         	var computedStyle = window.getComputedStyle(mid);
         	var backgroundColor = computedStyle.getPropertyValue('background-color');
-        	console.log(backgroundColor);
         	if(backgroundColor === 'rgb(206, 212, 218)'){
         		count=count +1;
         	}
@@ -1375,13 +1396,111 @@ function clickMid(button){
         	d = true;
         }
         
+        if(!d){
+        	update();
+        }
         
+	 });
+	
+	
         
-        
-    });
+        function update() {
+        	var productTitle = document.getElementById("productTitle"); //수정할 제목
+        	var priceInput = document.getElementById("price-input"); //수정할 가격
+        	var productContent = document.getElementById("product-content"); //수정할 내용
+            var originalInputs = document.querySelectorAll('#original-input');
+            var fileInputs = document.querySelectorAll('.file-input');
+            var arr = []; // 배열 초기화
+            
+            for (let i = 0; i < originalInputs.length; i++) {
+                arr.push(originalInputs[i].value); // 배열에 값 추가
+            }
+            
+            // FormData 객체 생성
+            var formData = new FormData();
 
-	
-	
+            // 새로 추가한 이미지 파일들 
+            fileInputs.forEach(function(fileInput) { 
+                var files = fileInput.files;
+                for (var i = 0; i < files.length; i++) {  
+                    formData.append('files', files[i]);
+                }
+            });
+            
+            // 기존 이미지 파일들
+            arr.forEach(function(value) {
+                formData.append('arr[]', value);
+            });
+             
+            // 상품 번호 
+            formData.append('pNum','${pro.pr_num}' );
+            
+            // 상품 이름
+            var Title = productTitle.value;
+            formData.append('pName',Title);
+                       
+            
+            // 카테고리
+            var liElements = document.querySelectorAll('#midGroup li');
+			for (var i = 0; i < liElements.length; i++) {
+			    var liElement = liElements[i];
+			    var computedStyle = window.getComputedStyle(liElement);
+			    var backgroundColor = computedStyle.backgroundColor;
+			    if (backgroundColor === 'rgb(206, 212, 218)') {
+			    	var dataValue = liElement.getAttribute('data-value');	
+			    	formData.append('mNum', dataValue);
+			    }
+			}
+			
+			// 가격 
+			var strPrice = priceInput.value;
+			var price;
+			
+			if(strPrice==="무료나눔"){
+				price = 0;
+			}else if(strPrice==="가격제안"){
+				price=-10;
+			}else{
+				// , 제외한 문자열을 숫자로 바꿈
+				price = Number(strPrice.replace(/,/g, ""));
+			}			
+			formData.append("price",price);
+			
+			// 상품 내용
+			var content = productContent.value;
+			console.log(productContent.value);
+			formData.append("content",content);
+			
+			
+            
+        	
+            $.ajax({
+    	    	async : false,
+    	        type: "post",
+    	        url: '<c:url value="/product/update"/>', 
+    	        data: formData, // 보낼 데이터 입력
+    	        cache : false,
+    	        contentType : false,	
+    	        processData : false,
+    	        success: function(data) {
+    	            // 성공적으로 응답을 받았을 때 실행할 코드
+    	            
+    	        },
+    	        error: function(xhr, status, error) {
+    	            // 요청이 실패했을 때 실행할 코드
+    	            console.log(xhr);
+    	        }
+    	    });
+            
+            
+            
+        }
+
+        
+        
+   
+
+
 	
 </script>
 </body>
