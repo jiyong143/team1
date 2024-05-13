@@ -353,8 +353,8 @@ public class PJHController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		String userId = user.getMe_id();
 		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); // 리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우)
-																					// 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼
-																					// 수 있음)
+																			      // 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼
+																				  // 수 있음)
 		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewType", reviewType);
@@ -362,10 +362,18 @@ public class PJHController {
 	}
 
 	@PostMapping("/review/write")
-	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session ) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
+	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session) {
 		int trNum = reviewService.getTrNum(prNum);
 		MemberVO user = (MemberVO) session.getAttribute("user");
 		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
+		
+		return "/review/write";
+	}
+	
+	@PostMapping("/review/write/delete")
+	public String reviewDelete(Model model, @RequestParam("reviewDeleteVal")int reviewDeleteVal, HttpSession session) {
+		String userId = ((MemberVO)session.getAttribute("user")).getMe_id();
+		reviewService.deleteReview(reviewDeleteVal, userId);
 		
 		return "/review/write";
 	}
