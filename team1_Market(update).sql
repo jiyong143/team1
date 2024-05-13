@@ -6,19 +6,20 @@ use market;
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
-   `me_id`   varchar(15)   NOT NULL primary key,
-   `me_pw`   varchar(200) not NULL,
-   `me_email`   varchar(30) not   NULL,
-   `me_gender`   varchar(10)   not   NULL,
-   `me_name`   varchar(15)   not   NULL,
-   `me_birth`   Datetime    not NULL,
-   `me_phone`   varchar(13)   not   NULL,
-   `me_addr`   varchar(25)   not   NULL,
-   `me_authority`   varchar(15)   not   NULL default 'user',
-   `me_state`   varchar(4)   not   NULL default '이용중',
-   `me_manner`   double   not   NULL default 36.5,
-   `me_point` int not null default 0,
-   `me_fi_num` int
+   `me_id`   			varchar(15)   	NOT NULL primary key,
+   `me_pw`   			varchar(200) 	NOT NULL,
+   `me_email`   		varchar(30) 	NOT NULL,
+   `me_gender`   		varchar(10)   	NOT NULL,
+   `me_name`   			varchar(15)   	NOT NULL,
+   `me_birth`   		Datetime    	NOT NULL,
+   `me_phone`   		varchar(13)   	NOT NULL,
+   `me_addr`   			varchar(25)   	NOT NULL,
+   `me_authority`   	varchar(15)   	NOT NULL default 'user',
+   `me_state`   		varchar(4)   	NOT NULL default '이용중',
+   `me_manner`   		double   		NOT NULL default 36.5,
+   `me_point` 			int 			NOT NULL default 0,
+   `me_fi_num` 			int,
+	`me_stop_date`		Datetime		NULL
 );
 
 DROP TABLE IF EXISTS `topGroup`;
