@@ -86,19 +86,21 @@ public class IBHController {
 		
 		ArrayList<ChatStateVO> cs = chatService.getChatState(cr_num);
 		
-		if (cs.isEmpty()) {
-		    model.addAttribute("error", "없는 채팅방입니다.");
-		}else {
-			ChatStateVO cs0 = cs.get(0);
-			ChatStateVO cs1 = cs.get(1);
-			if(!cs0.getCs_me_id().equals(loginUser.getMe_id()) && !cs1.getCs_me_id().equals(loginUser.getMe_id())) {
-				model.addAttribute("error", "들어갈 수 없는 채팅방입니다.");
-			}else if((cs0.getCs_me_id().equals(loginUser.getMe_id()) && cs0.getCs_state().equals("나감")) ||
-					(cs1.getCs_me_id().equals(loginUser.getMe_id()) && cs1.getCs_state().equals("나감"))){
-				model.addAttribute("error", "나간 채팅방입니다.");
+		if(loginUser.getMe_authority().equals("user")) {
+			if (cs.isEmpty()) {
+			    model.addAttribute("error", "없는 채팅방입니다.");
+			}else {
+				ChatStateVO cs0 = cs.get(0);
+				ChatStateVO cs1 = cs.get(1);
+				if(!cs0.getCs_me_id().equals(loginUser.getMe_id()) && !cs1.getCs_me_id().equals(loginUser.getMe_id())) {
+					model.addAttribute("error", "들어갈 수 없는 채팅방입니다.");
+				}else if((cs0.getCs_me_id().equals(loginUser.getMe_id()) && cs0.getCs_state().equals("나감")) ||
+						(cs1.getCs_me_id().equals(loginUser.getMe_id()) && cs1.getCs_state().equals("나감"))){
+					model.addAttribute("error", "나간 채팅방입니다.");
+				}
 			}
 		}
-
+		
 		int totalMsgCount = chatService.getTotalMsgCount(cr_num);
 		model.addAttribute("totalMsgCount", totalMsgCount);
 		model.addAttribute("chatTotalCount", chatTotalCount);
@@ -132,7 +134,7 @@ public class IBHController {
     // 채팅방 리스트
    	public String chatRoomList(Model model, HttpSession session, int page) {
     	Criteria cri = new Criteria();
-    	cri.setPerPageNum(5);	// 한 페이지에 게시글 5개 지정
+    	cri.setPerPageNum(2);	// 한 페이지에 게시글 5개 지정
     	cri.setPage(page);
     	
     	MemberVO loginUser = (MemberVO)session.getAttribute("user");
@@ -142,7 +144,7 @@ public class IBHController {
     	
     	int totalListCount = chatService.getChatRoomTotalCount(loginUser.getMe_id(), cri);
     	
-    	PageMaker_chat pm = new PageMaker_chat(3, cri, totalListCount);
+    	PageMaker_chat pm = new PageMaker_chat(2, cri, totalListCount);
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);
