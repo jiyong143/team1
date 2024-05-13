@@ -214,15 +214,19 @@
 			</div>
 			<div class="btnContainer btnBox">
 				<c:choose>
-					<c:when test="${!empty user && pick.pi_num != 0}">
-						<i class="bi bi-heart-fill btn-pick"></i>
+					<c:when test="${!empty user}">
+						<c:if test="${loginUser.me_id ne prUser.me_id}">
+							<c:if test="${pick.pi_num != 0}">
+								<i class="bi bi-heart-fill btn-pick"></i>
+							</c:if>
+							<c:if test="${pick.pi_num == 0}">
+								<i class="bi bi-heart btn-pick"></i>
+							</c:if>
+							<button class="btn btn-outline-success btn-sse">채팅하기</button>
+							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+						</c:if>
 					</c:when>
-					<c:otherwise>
-						<i class="bi bi-heart btn-pick"></i>
-					</c:otherwise>
 				</c:choose>
-				<button class="btn btn-outline-success btn-sse">채팅하기</button>
-				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>				
 			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
 			
