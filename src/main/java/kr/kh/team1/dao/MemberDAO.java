@@ -22,20 +22,22 @@ public interface MemberDAO {
 	
 	void updatePoint(@Param("paymentPrice")int paymentPrice, @Param("userId")String userId);
 
-	//관리자 -> 회원관리에 필요한 코드 
+	//관리자 -> 회원관리에 필요한 코드 START
 	ArrayList<MemberVO> selectMemberList(Criteria_member crim);
 
 	int selectTotalCountMember(@Param("crim") Criteria_member crim);
 
-	boolean updateAuthority(@Param("me_id") String me_id, @Param("me_authority") String me_authority, @Param("me_state")String me_state);
-
+	boolean updateAuthority(@Param("me_id") String me_id, @Param("me_authority") String me_authority, @Param("me_state") String me_state);
+	//관리자 -> 회원관리에 필요한 코드 END
+	
+	void updateMemberState(@Param("me_id") String me_id);
+	
 	void updateMember(@Param("member")MemberVO member);
-
-	void updateMemberState(@Param("me_id")String me_id);
 
 	int selectReviewNumSeller(@Param("me_id")String me_id);
 
 	int selectReviewNumBuyer(@Param("me_id")String me_id);
+
 	
 }
 

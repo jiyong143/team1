@@ -83,7 +83,7 @@
 				</select>
 				<select name="sigungu" class="form-control sigungu" style="width: 33%; display: inline;" required></select>
 				<select name="h_dong_nm" class="form-control h_dong_nm" style="width: 33%; display: inline;" required></select>
-				<p class="text-danger d-none" id="addr_id">주소를 입력해주세요.</p>
+<!-- 				<p class="text-danger d-none" id="addr_id">주소를 입력해주세요.</p> -->
 			</div>
 			<button type="submit" class="btn btn-outline-success col-12 mb-5">회원가입</button>
 		</form>

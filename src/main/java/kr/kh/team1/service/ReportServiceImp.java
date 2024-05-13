@@ -28,7 +28,7 @@ public class ReportServiceImp implements ReportService{
 	public int getReportTotalCount(Criteria_report crir) {
 		return reportDao.selectReportTotalCount(crir);
 	}
-	//신고 리스트 출력 완료
+	
 	//신고글 작성 
 	@Override
 	public ArrayList<ProductVO> getProductList() {
@@ -47,23 +47,34 @@ public class ReportServiceImp implements ReportService{
 	System.out.println(report);
     return reportDao.insertReportProd(report);
 	}
-
 	
-	@Override
-	public boolean insertReportByIBH(ReportVO report) {
-		
-		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
-			report.getRe_name() == null || report.getRe_name().isBlank() ||
-			report.getRe_content() == null || report.getRe_content().isBlank())
-			return false;
-		return reportDao.insertReportByIBH(report);
-	}
-
 	@Override
 	public ProductVO getRePrNum(int rePrNum) {
 		return reportDao.selectRePrNum(rePrNum);
 	}
 
+	@Override
+	public ReportVO getReport(int reNum) {
+		return reportDao.selectReport(reNum);
+	}
+	
+	@Override
+	public boolean insertReportByIBH(ReportVO report) {
+		
+		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
+		   report.getRe_name() == null || report.getRe_name().isBlank() ||
+		   report.getRe_content() == null || report.getRe_content().isBlank())
+		   return false;
+		return reportDao.insertReportByIBH(report);
+	}
+	
+	@Override
+	public boolean updateState(int re_pr_num, String re_state) {
+	    if (re_pr_num <= 0 ||re_state == null || re_state.isEmpty()) {
+	        return false;
+	    }
+	    return reportDao.updateState(re_pr_num, re_state);
+	}
 
-
+	
 }

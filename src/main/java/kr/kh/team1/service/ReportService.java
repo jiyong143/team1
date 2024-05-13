@@ -15,11 +15,14 @@ public interface ReportService {
 
 	ArrayList<ProductVO> getProductList();
 
+	ProductVO getRePrNum(int rePrNum);
+	
+	ReportVO getReport(int reNum);
+	
 	boolean insertReportProduct(ReportVO report, MemberVO user);
 
 	boolean insertReportByIBH(ReportVO report);
 
-	ProductVO getRePrNum(int rePrNum);
-	
+	boolean updateState(int re_pr_num, String re_state);
 
 }
