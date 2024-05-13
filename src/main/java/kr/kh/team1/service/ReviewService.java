@@ -16,7 +16,7 @@ public interface ReviewService {
 
 	int getTrNum(int prNum);
 
-	boolean addReview(ArrayList<String> reviewType, int trNum);
+	boolean addReview(ArrayList<String> reviewType, int trNum, String me_id);
 
 	ArrayList<ReviewTypeVO> getReviewList();
 

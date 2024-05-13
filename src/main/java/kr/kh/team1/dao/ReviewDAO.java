@@ -9,13 +9,14 @@ import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.model.vo.TradeOutcomeVO;
 
 public interface ReviewDAO {
-	ArrayList<ProductVO> selectReviewProList(@Param("id")String userId);
 	
 	int selectTradeReviewNum(@Param("me_id")String me_id);
 	
 	ArrayList<ReviewTypeVO> selectReviewType();
 
 	void insertReview(@Param("reviewType")ArrayList<String> reviewType, @Param("trNum")int trNum);
+	
+	void insertReview2(@Param("reviewType")ArrayList<String> reviewType, @Param("trNum")int trNum);
 
 	int selectTrNum(@Param("prNum")int prNum);
 
@@ -28,6 +29,14 @@ public interface ReviewDAO {
 	ArrayList<Integer> selectTrNumByUserId(@Param("userId")String userId);
 
 	int selectCountTradeOutcome(@Param("i")int i);
+
+	ProductVO selectReviewProList(@Param("i")int i);
+
+	ArrayList<Integer> selectTrNumByUserIdSeller(@Param("userId")String userId);
+
+	int selectCountTradeOutcome2(@Param("i")int i);
+
+	String checkTradeReview(@Param("trNum")int trNum);
 
 	
 }

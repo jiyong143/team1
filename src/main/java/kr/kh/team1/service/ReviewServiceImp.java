@@ -35,21 +35,34 @@ public class ReviewServiceImp implements ReviewService {
 		if(!checkString(userId)) {
 			return null;
 		}
-		
+		ArrayList<ProductVO> proList = new ArrayList<ProductVO>();
+		//구매자
 		ArrayList<Integer> trNumBuyer = reviewDao.selectTrNumByUserId(userId); //구매자 입장에서 만들어진 후기테이블의 번호 (tr_num)
-		ArrayList<ProductVO> proList;
-		
+		ArrayList<Integer> trNumBuyer2 = new ArrayList<Integer>(); //위의 리스트에서 trade_outcome의 개수가 0인 tr_num
 		for(int i:trNumBuyer) {
-			if(reviewDao.selectCountTradeOutcome(i)==0) { //0이 아니라는 뜻은 이미 후기가 작성되었다는 것
-				proList.add(null);
-														  //리뷰를 작성해야 할 tr_num들만 모임
-				
+			if(reviewDao.selectCountTradeOutcome(i)==0) { //0이 아니라는 뜻은 이미 후기가 작성되었다는 것 
+				trNumBuyer2.add(i); //리뷰를 작성해야 할 tr_num들만 모임
+			}
+		}		
+		for(int i:trNumBuyer2) {
+			proList.add(reviewDao.selectReviewProList(i));
+		}
+		//구매자
+		
+		//판매자
+		ArrayList<Integer> trNumSeller = reviewDao.selectTrNumByUserIdSeller(userId); //판매자 입장에서 만들어진 후기테이블의 번호 tr_num
+		ArrayList<Integer> trNumSeller2 = new ArrayList<Integer>();
+		for(int i:trNumSeller) {
+			if(reviewDao.selectCountTradeOutcome2(i)==0) { 
+				trNumSeller2.add(i);
 			}
 		}
+		for(int i:trNumSeller2) {
+			proList.add(reviewDao.selectReviewProList(i));
+		}
+		//판매자
 		
-		return reviewDao.selectReviewProList(userId);
-		
-		
+		return proList;
 		
 	}
 
@@ -64,14 +77,18 @@ public class ReviewServiceImp implements ReviewService {
 	}
 
 	@Override
-	public boolean addReview(ArrayList<String> reviewType, int trNum) {
+	public boolean addReview(ArrayList<String> reviewType, int trNum, String me_id) {
 		for(String i:reviewType) {
 			if(!checkString(i)) {
 				return false;
 			}
 		}
 		
-		reviewDao.insertReview(reviewType, trNum);
+		if(reviewDao.checkTradeReview(trNum).equals(me_id)) {
+			reviewDao.insertReview(reviewType, trNum); //구매자
+		} else {
+			reviewDao.insertReview2(reviewType, trNum); //판매자
+		}
 		
 		return true;
 	}

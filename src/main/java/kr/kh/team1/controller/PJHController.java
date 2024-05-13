@@ -191,7 +191,7 @@ public class PJHController {
 		reviewNum = memberService.getReviewNum(myUser.getMe_id()); //거래후기
 
 		int tradeReviewNum = -1;
-		tradeReviewNum = reviewService.getTradeReviewNum(myUser.getMe_id()); //후기작성
+		tradeReviewNum = reviewService.getReviewProList(myUser.getMe_id()).size();
 		
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
@@ -362,9 +362,10 @@ public class PJHController {
 	}
 
 	@PostMapping("/review/write")
-	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
+	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session ) { // 마이페이지에서 후기를 작성하는 경우 무조건 구매자
 		int trNum = reviewService.getTrNum(prNum);
-		boolean res = reviewService.addReview(reviewType, trNum);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
 		
 		return "/review/write";
 	}

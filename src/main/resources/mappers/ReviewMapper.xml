@@ -4,9 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.ReviewDAO">
 	<select id="selectReviewProList" resultType="kr.kh.team1.model.vo.ProductVO">
-		select * from product join trade_review on pr_num = tr_pr_num
-					  join trade_outcome on tr_num = to_tr_num
-                      where tr_me_id = #{id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
+		select * from product join trade_review on pr_num = tr_pr_num where tr_num = #{i}
 	</select>
 	
 	<select id="selectReviewType" resultType="kr.kh.team1.model.vo.ReviewTypeVO">
@@ -28,6 +26,14 @@
 			values
 			<foreach collection="reviewType" item="reviewType" separator=",">
 				(#{reviewType}, #{trNum}, 0)
+			</foreach>
+	</insert>
+	
+	<insert id="insertReview2">
+			insert into trade_outcome(to_rt_type, to_tr_num, to_type) 
+			values
+			<foreach collection="reviewType" item="reviewType" separator=",">
+				(#{reviewType}, #{trNum}, 1)
 			</foreach>
 	</insert>
 	
@@ -54,7 +60,18 @@
 	</select>
 	
 	<select id="selectCountTradeOutcome" resultType="int">
-		select count(*) from trade_outcome where to_tr_num = #{i};
+		select count(*) from trade_outcome where to_tr_num = #{i} &amp;&amp; to_type = 0;
 	</select>
 	
+	<select id="selectTrNumByUserIdSeller" resultType="int">
+		select tr_num from trade_review join product on pr_num = tr_pr_num where pr_me_id = #{userId}
+	</select>
+	
+	<select id="selectCountTradeOutcome2"  resultType="int">
+		select count(*) from trade_outcome where to_tr_num = #{i} &amp;&amp; to_type = 1;
+	</select>
+	
+	<select id="checkTradeReview" resultType="string">
+		select tr_me_id from trade_review where tr_num = #{trNum}
+	</select>
 </mapper>
