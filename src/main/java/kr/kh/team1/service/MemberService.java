@@ -48,7 +48,7 @@ public interface MemberService {
 	boolean addReportCount(MemberVO user, int meReportCount);
 
 	int getMannerScore(String me_id);
-	
+
 	//관리자 -> 회원관리에 필요한 코드 END 
 
 //	boolean signupSns(String sns, String id, String email);
