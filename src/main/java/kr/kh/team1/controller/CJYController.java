@@ -221,12 +221,15 @@ public class CJYController {
 			}
 		}
 		
-		if (productService.updateProduct(pro, user, resultList,files)) {
+		if (productService.updateProduct(pro, user, resultList,files)==1) {
 			model.addAttribute("msg", "상품을 수정했습니다.");
 			model.addAttribute("url", "/product/detail?pNum=" + pNum); 
-		} else {
+		} else if(productService.updateProduct(pro, user, resultList,files)==0) {
 			model.addAttribute("msg", "상품을 수정하지 못했습니다.");
 			model.addAttribute("url", "/product/update?num=" + pNum);
+		}else {
+			model.addAttribute("msg", "로그인 해주세요.");
+			model.addAttribute("url", "/member/login");
 		}
 		
 		return "message";

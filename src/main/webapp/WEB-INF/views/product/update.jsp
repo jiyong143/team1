@@ -1628,8 +1628,6 @@ function clickMid(button){
 			    }
 			}
 			
-			var writer = '${pro.pr_me_id}';
-			formData.append("writer",writer); // 상품 작성자 아이디
 			
 			 var tName;
 			 var topGroups = document.getElementsByClassName("topGroup-li");// 대분류 이름
