@@ -498,9 +498,9 @@ img {
 					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
 		<path
 						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke="<c:if test="${pro.pr_price == 0 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != 0 }">#9CA3AF</c:if>" stroke-width="1.5" stroke-linecap="round"
 						stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+		<path d="M16 9L10.5 14.5L8 12" stroke="<c:if test="${pro.pr_price == 0 }">white</c:if> <c:if test="${pro.pr_price != 0 }">#C2C6CE</c:if>" stroke-width="1.5"
 						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 				무료나눔
@@ -512,9 +512,9 @@ img {
 					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
 		<path
 						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke="<c:if test="${pro.pr_price == -10 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != -10 }">#9CA3AF</c:if>" stroke-width="1.5" stroke-linecap="round"
 						stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+		<path d="M16 9L10.5 14.5L8 12" stroke="<c:if test="${pro.pr_price == -10 }">white</c:if> <c:if test="${pro.pr_price != -10 }">#C2C6CE</c:if>" stroke-width="1.5"
 						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 				가격제안
@@ -1175,9 +1175,15 @@ function clickMid(button){
 	const won = document.getElementById("won");
 	
 	freeButton.addEventListener('click', function() {
+		var freePath1 = freeButton.querySelector('path:first-of-type');
+		var freePath2 = freeButton.querySelector('path:nth-of-type(2)');
+		var suggestPath1 = suggestButton.querySelector('path:first-of-type');
+		var suggestPath2 = suggestButton.querySelector('path:nth-of-type(2)');
 		const freeValue = freeIcon.getAttribute('fill');
 		if(freeValue === 'rgb(13, 204, 90)'){
 			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			freePath1.style.stroke="#9CA3AF";
+			freePath2.style.stroke="#C2C6CE";
 			won.style.color=""; // 색 기본으로
 			priceInput.style.color="";
 			priceInput.value = ""; // 가격입력창 비우기
@@ -1188,16 +1194,26 @@ function clickMid(button){
 			priceInput.disabled= true;
 			priceInput.style.color = "green"; // 색은 초록색으로
 			won.style.color="green"; // 마찬가지로 초록색으로
+			freePath1.style.stroke="rgb(13, 204, 90)";
+			freePath2.style.stroke="white";
 			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			suggestPath1.style.stroke="#9CA3AF";
+			suggestPath2.style.stroke="#C2C6CE";
 		}    
 	});
 	
 	suggestButton.addEventListener('click', function() {
+		var freePath1 = freeButton.querySelector('path:first-of-type');
+		var freePath2 = freeButton.querySelector('path:nth-of-type(2)');
+		var suggestPath1 = suggestButton.querySelector('path:first-of-type');
+		var suggestPath2 = suggestButton.querySelector('path:nth-of-type(2)');
 		const suggestValue = suggestIcon.getAttribute('fill');
 		if(suggestValue === 'rgb(13, 204, 90)'){
 			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
 			priceInput.value = ""; // 가격입력창 비우기
 			won.style.color=""; // 색 기본으로
+			suggestPath1.style.stroke="#9CA3AF";
+			suggestPath2.style.stroke="#C2C6CE";
 			priceInput.style.color="";
 			priceInput.disabled= false;
 		}else{
@@ -1205,7 +1221,11 @@ function clickMid(button){
 			priceInput.value = "가격제안"; // 가격입력창에 무료나눔이라고 뜨게 하기
 			priceInput.style.color = "gray"; // 색은 회색으로
 			won.style.color="gray"; // 마찬가지로 회색으로
+			suggestPath1.style.stroke="rgb(13, 204, 90)";
+			suggestPath2.style.stroke="white";
 			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			freePath1.style.stroke="#9CA3AF";
+			freePath2.style.stroke="#C2C6CE";
 			priceInput.disabled= true;
 		}   
 	});
