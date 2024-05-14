@@ -28,7 +28,7 @@ public class ProductServiceImp implements ProductService{
 	@Resource
 	private String uploadPath;
 	
-	private boolean checkString(String str) {
+	private boolean checkString(String str) { 
 		return str != null && str.length() != 0; 
 	}
 	
@@ -135,7 +135,7 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public ArrayList<FileVO> getFileBypNum(int pNum) {
-		return productDao.selectFileBypNum(pNum);
+		return productDao.selectFileBypNum(pNum); 
 	}
 
 	@Override
@@ -222,6 +222,13 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public int getTopNum(int num) {
 		return productDao.selectTopNum(num); 
+	}
+
+
+	@Override
+	public void deleteFile(Integer integer) {
+		productDao.deleteFile(integer);
+		
 	}
 
 }

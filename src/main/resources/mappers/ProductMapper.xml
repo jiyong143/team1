@@ -252,5 +252,10 @@
 	<select id="selectTopNum" resultType="int">
 	  select tg_num from product join midgroup on pr_mg_num = mg_num join topgroup on mg_tg_num = tg_num where pr_num = #{pr_num}
 	</select>
+	
+	
+	<delete id="deleteFile">
+	  delete from file where fi_num = #{fi_num}
+	</delete>
 
 </mapper>
