@@ -153,9 +153,9 @@ public class CJYController {
 		return map;
 	}
 
-	@ResponseBody
-	@PostMapping("/product/update")
-	public String productUpdatePost(Model model, HttpSession session, @RequestParam("arr[]") ArrayList<String> arr,
+	@ResponseBody 
+	@PostMapping("/product/update") 
+	public Map<String, Object> productUpdatePost(Model model, HttpSession session, @RequestParam("arr[]") ArrayList<String> arr,
 			@RequestParam("pNum") int pNum, @RequestParam("files") List<MultipartFile> files,
 			@RequestParam("pName") String pName, @RequestParam("mNum") int mNum, @RequestParam("price") int price,
 			@RequestParam("content") String content, @RequestParam("state") String state,
@@ -220,19 +220,18 @@ public class CJYController {
 				resultList.add(a);
 			}
 		}
-		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		if (productService.updateProduct(pro, user, resultList,files)==1) {
-			model.addAttribute("msg", "상품을 수정했습니다.");
-			model.addAttribute("url", "/product/detail?pNum=" + pNum); 
+			map.put("msg", "상품을 수정했습니다." );
+			map.put("url", "/product/detail");
 		} else if(productService.updateProduct(pro, user, resultList,files)==0) {
-			model.addAttribute("msg", "상품을 수정하지 못했습니다.");
-			model.addAttribute("url", "/product/update?num=" + pNum);
+			map.put("msg", "상품을 수정하지 못했습니다.");
+			map.put("url", "/product/update");
 		}else {
-			model.addAttribute("msg", "로그인 해주세요.");
-			model.addAttribute("url", "/member/login");
+			map.put("msg", "로그인 해주세요.");
+			map.put("url", "/member/login");
 		}
-		
-		return "message";
+		return map;
 	}
 
 	@GetMapping("/product/list")

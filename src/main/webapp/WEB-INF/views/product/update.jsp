@@ -380,6 +380,9 @@ img {
 </style>
 </head>
 <body>
+    <a id="success" href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>"></a> 
+    <a id="login" href="<c:url value="/member/login"/>"></a>
+    <a id="fail" href="<c:url value="/product/update?num=${pro.pr_num }"/>"></a>
 	<div class="product-update">
 		<div class="image-update" style="display: flex; height: 100px;">
 			<div id="image-picker" class="image-picker">
@@ -1651,6 +1654,8 @@ function clickMid(button){
     	        processData : false,
     	        success: function(data) {
     	            // 성공적으로 응답을 받았을 때 실행할 코드
+    	            alert(data.msg);
+    	            move(data.url);// 화면이동 함수
     	            
     	        },
     	        error: function(xhr, status, error) {
@@ -1658,7 +1663,20 @@ function clickMid(button){
     	            console.log(xhr);
     	        }
     	    });     
-        }      	
+        }
+        
+        function move(url){
+        	var success = document.getElementById("success"); // 수정 성공 
+        	var login = document.getElementById("login"); // 로그인 문제
+        	var fail = document.getElementById("fail"); // 수정 실패
+        	if(url==="/product/detail"){
+        		success.click();
+        	}else if(url==="/member/login"){
+        		login.click();
+        	}else{
+        		fail.click();
+        	}
+        }
 </script>
 </body>
 </html>
