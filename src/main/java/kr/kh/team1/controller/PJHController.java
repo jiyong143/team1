@@ -2,6 +2,7 @@ package kr.kh.team1.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.PaymentVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.model.vo.TradeOutcomeVO;
@@ -182,9 +184,8 @@ public class PJHController {
 			myUser = memberService.getMember(me_id);
 			model.addAttribute("myUserCheck", me_id);
 		}
-		
-		//int mannerScore = 0;
-		//mannerScore = memberService.getMannerScore(myUser.getMe_id());
+		ArrayList<PaymentVO> paymentList = memberService.getPaymentList(myUser.getMe_id());
+		model.addAttribute("paymentList", paymentList);
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
@@ -271,11 +272,10 @@ public class PJHController {
 	@ResponseBody
 	@PostMapping("/member/payment")
 	public String payment(Model model, @RequestParam("orderUid") String orderUid,
-			@RequestParam("paymentPrice") int paymentPrice, @RequestParam("userId") String userId,
+			@RequestParam("paymentPrice") int paymentPrice, @RequestParam("userId") String userId, @RequestParam("now")Date now,
 			HttpSession session) {
-
 		memberService.addPoint(paymentPrice, userId);
-		paymentService.addPayment(orderUid, paymentPrice, userId);
+		paymentService.addPayment(orderUid, paymentPrice, userId, now);
 		MemberVO user = memberService.getMember(userId);
 		session.removeAttribute("user");
 		session.setAttribute("user", user);

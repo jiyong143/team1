@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.PaymentVO;
 import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberDAO {
@@ -41,6 +42,8 @@ public interface MemberDAO {
 	int selectReviewNumSeller(@Param("me_id")String me_id);
 
 	int selectReviewNumBuyer(@Param("me_id")String me_id);
+
+	ArrayList<PaymentVO> selectPaymentList(@Param("me_id")String myUser);
 
 	
 

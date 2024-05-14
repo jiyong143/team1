@@ -73,4 +73,7 @@
 										   join product on pr_num = tr_pr_num 
 										   where pr_buyId = #{me_id} and to_type = 1 and to_rt_type != "default";
 	</select>
+	<select id="selectPaymentList" resultType="kr.kh.team1.model.vo.PaymentVO">
+		select * from payment_detail where pd_me_id = #{me_id}
+	</select>
 </mapper>

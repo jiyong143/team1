@@ -19,7 +19,7 @@
 	margin: 100px auto;
 }
 
-#modalWrap {
+#modalWrap, #paymentList {
 	position: fixed; /* 화면에 고정 */
 	z-index: 1; /* 상위에 위치 */
 	padding-top: 100px;
@@ -41,7 +41,7 @@
 	background-color: #fff;
 }
 
-#closeBtn {
+#closeBtn, #closeBtn2 {
 	float: right;
 	font-weight: bold;
 	color: #777;
@@ -153,6 +153,9 @@ li {
 								value=0 />
 							<a type="button" onclick="requestPayCheck()" class="w-25 ml-3 mt-3"
 								style="text-decoration: none;">포인트 충전</a>
+							<a type="button" id="paymentCheck" class="w-25 ml-3 mt-3" 
+								style="text-decoration: none;">결제내역확인</a>
+							
 						</div>
 					</c:if>
 				</div>
@@ -244,13 +247,43 @@ li {
 					</table>
 				</fieldset>
 			</div>
-		</div>	
+		</div>
+		
+		<div id="paymentList">
+			<!-- payment 모달창 -->
+			<div id="modalBody">
+				<!-- 모달을 닫는 X 버튼 -->
+				<span id="closeBtn2">&times;</span>
+				<!-- 모달 창 내용 -->
+				<fieldset>
+					<legend>결제내역</legend>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="w-75">결제일</th>
+								<th class="w-25">결제금액</th>
+							</tr>
+						</thead>
+						<tbody class="addPro1">
+						<c:forEach items="${paymentList}" var="paymentList">	
+							<tr>
+								<td>${paymentList.pd_date}</td>
+								<td>${paymentList.pd_price}</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+		
 	</div>
 	
 	
 	
 	<script type="text/javascript">
 		const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
+		const paymentList = document.getElementById("paymentList");
 		
 		$("#popupBtn1, #popupBtn2").click(function() {
 			modal.style.display = "block"; // 버튼을 클릭하면 모달을 보이게 함
@@ -261,10 +294,22 @@ li {
 		});
 
 		window.onclick = function(event) {
-			if (event.target == modal) {
+			if (event.target == modal || event.target == paymentList) {
 				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
+				paymentList.style.display = "none";
 			}
 		};
+
+		
+		
+		$("#paymentCheck").click(function() {
+			paymentList.style.display = "block";
+		});
+		
+		$("#closeBtn2").click(function() {
+			paymentList.style.display = "none"; // 모달을 닫는 버튼(X)을 클릭하면 모달을 숨김
+		});
+		
 		$("#memberDelete").click(function() {
 			if(confirm("탈퇴하시겠습니까?")){
 				$.ajax({
@@ -336,6 +381,8 @@ li {
             var buyerEmail = '${user.me_email}'; //구매자 이메일
             var buyerAddress = '${user.me_addr}'; //구매자 주소
             var userId = '${user.me_id}';
+            var userPhone = '${user.me_phone}';
+            var now = new Date();
             let obj = {
             	orderUid,
             	userId,
@@ -343,7 +390,9 @@ li {
             	paymentPrice,
             	buyerName,
             	buyerEmail,
-            	buyerAddress
+            	buyerAddress,
+            	userPhone,
+            	now
             }
             
             IMP.request_pay({
@@ -354,12 +403,12 @@ li {
                     amount : paymentPrice, // 상품 가격
                     buyer_email : buyerEmail, // 구매자 이메일
                     buyer_name : buyerName, // 구매자 이름
-                    buyer_tel : '010-1234-5678', // 임의의 값
+                    buyer_tel : userPhone, // 임의의 값
                     buyer_addr : buyerAddress, // 구매자 주소
                     buyer_postcode : '123-456', // 임의의 값
                 },
                 function(rsp) {
-                    if (rsp.success) { //테스트시에는 결제 취소되도 성공으로 처리되게
+                    if (/*rsp.success*/true) { //테스트시에는 결제 취소되도 성공으로 처리되게
                         alert('결제 성공! : ' + JSON.stringify(rsp));
                         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                         // jQuery로 HTTP 요청
@@ -382,6 +431,11 @@ li {
                     }
                 });
         }
+        
+       function payListCheck() {
+    	   
+       }
+        
     </script>
 
 
