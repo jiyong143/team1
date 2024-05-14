@@ -28,6 +28,10 @@ public interface MemberDAO {
 	int selectTotalCountMember(@Param("crim") Criteria_member crim);
 
 	boolean updateAuthority(@Param("me_id") String me_id, @Param("me_authority") String me_authority, @Param("me_state") String me_state);
+	
+	boolean updateReportCount(@Param("me_report_count") int meReportCount);
+	
+	MemberVO getMemberById(@Param("me_id") MemberVO user);
 	//관리자 -> 회원관리에 필요한 코드 END
 	
 	void updateMemberState(@Param("me_id") String me_id);
@@ -37,6 +41,9 @@ public interface MemberDAO {
 	int selectReviewNumSeller(@Param("me_id")String me_id);
 
 	int selectReviewNumBuyer(@Param("me_id")String me_id);
+
+	
+
 
 	
 }

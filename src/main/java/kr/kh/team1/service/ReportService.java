@@ -8,7 +8,7 @@ import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria_report;
 
 public interface ReportService {
-
+	//거래글 리스트에서 하나의 거래글만 가져옴
 	ArrayList<ReportVO> getReportList(Criteria_report crir);
 
 	int getReportTotalCount(Criteria_report crir);
@@ -19,10 +19,13 @@ public interface ReportService {
 	
 	ReportVO getReport(int reNum);
 	
-	boolean insertReportProduct(ReportVO report, MemberVO user);
+	//boolean insertReportProduct(ReportVO report, MemberVO user);
 
+	boolean insertReportProd(ReportVO report, MemberVO user);
+	
 	boolean insertReportByIBH(ReportVO report);
 
-	boolean updateState(int re_pr_num, String re_state);
+	boolean updateState(int re_pr_num);
+
 
 }
