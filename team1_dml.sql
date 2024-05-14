@@ -1,3 +1,5 @@
+use market;
+
 insert into `topgroup` values
 (1,"옷"),
 (2,"가전제품"); 
@@ -81,7 +83,6 @@ values (1, 2, "cjy0896", "데이터베이스 테스트", "테스트 입니다");
 load data local infile "D:\qqq.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
 */
 
-
 ALTER TABLE `market`.`chat_state` 
 DROP FOREIGN KEY `FK_chat_room_TO_chat_state_1`;
 ALTER TABLE `market`.`chat_state` 
@@ -91,4 +92,19 @@ ADD CONSTRAINT `FK_chat_room_TO_chat_state_1`
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 
+insert into `report` (re_pr_num, re_me_id, re_name, re_content, re_date)
+values (1, 'asd123', '비매너 사용자예요.', '테스트 입니다', now());
+insert into `report` (re_pr_num, re_me_id, re_name, re_content, re_date)
+values (4, 'asd123', '거래 중 분쟁이 발생했어요.', '테스트 입니다', now());
+insert into `report` (re_pr_num, re_me_id, re_name, re_content, re_date)
+values (2, 'asd123', '거래 중 분쟁이 발생했어요.', '테스트 테스트', now());
+insert into `report` (re_pr_num, re_me_id, re_name, re_content)
+values (2, 'asd123', '거래 중 분쟁이 발생했어요.', '테스트 테스트 테스트');
+insert into `report` (re_pr_num, re_me_id, re_name, re_content)
+values (2, 'asd123', '거래 중 분쟁이 발생했어요.', '테스트 테스트 테스트');
+insert into `report` (re_pr_num, re_me_id, re_name, re_content)
+values (2, 'asd123', '거래 중 분쟁이 발생했어요.', '테스트 테스트 테스트');
 
+select * from product where pr_num=1;
+
+select * from report;

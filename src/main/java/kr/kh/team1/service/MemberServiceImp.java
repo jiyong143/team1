@@ -66,8 +66,11 @@ public class MemberServiceImp implements MemberService {
 		}
 		
 		if(passwordEncoder.matches(loginDto.getPw(), user.getMe_pw())) { //비밀번호 확인
+			
 			return user;
 		}
+		
+		
 		
 		return null;
 		
@@ -87,7 +90,7 @@ public class MemberServiceImp implements MemberService {
 		if(!checkString(me_id)) {
 			return -1;
 		}
-		return memberDao.selectReviewNum(me_id);
+		return memberDao.selectReviewNumSeller(me_id) + memberDao.selectReviewNumBuyer(me_id);
 	}
 
 	@Override
@@ -200,7 +203,23 @@ public class MemberServiceImp implements MemberService {
 	    // 회원의 권한을 업데이트하고 결과를 받아옵니다.
 	    return memberDao.updateAuthority(me_id, me_authority, me_state);
 	}
-  //관리자 -> 회원관리에 필요한 코드 끝
+	
+	@Override
+	public boolean addReportCount(MemberVO user, int meReportCount) {
+		if(user == null)
+			return false;
+		
+		return memberDao.updateReportCount(meReportCount);
+		
+	}
+	
+	@Override
+	public MemberVO getMemberById(MemberVO user) {
+		// TODO Auto-generated method stub
+		return memberDao.getMemberById(user);
+	}
+
+	//관리자 -> 회원관리에 필요한 코드 끝
 
 	@Override
 	public boolean updateMember(MemberVO member) {
@@ -240,6 +259,11 @@ public class MemberServiceImp implements MemberService {
 		return user != null;
 	}
 
+	@Override
+	public int getMannerScore(String me_id) {
+		
+		return 0;
+	}
 
 
 //	@Override

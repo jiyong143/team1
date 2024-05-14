@@ -6,19 +6,22 @@ use market;
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
-   `me_id`   varchar(15)   NOT NULL primary key,
-   `me_pw`   varchar(200) not NULL,
-   `me_email`   varchar(30) not   NULL,
-   `me_gender`   varchar(10)   not   NULL,
-   `me_name`   varchar(15)   not   NULL,
-   `me_birth`   Datetime    not NULL,
-   `me_phone`   varchar(13)   not   NULL,
-   `me_addr`   varchar(25)   not   NULL,
-   `me_authority`   varchar(15)   not   NULL default 'user',
-   `me_state`   varchar(4)   not   NULL default '이용중',
-   `me_manner`   double   not   NULL default 36.5,
-   `me_point` int not null default 0,
-   `me_fi_num` int
+   `me_id`   			varchar(15)   	NOT NULL primary key,
+   `me_pw`   			varchar(200) 	NOT NULL,
+   `me_email`   		varchar(30) 	NOT NULL,
+   `me_gender`   		varchar(10)   	NOT NULL,
+   `me_name`   			varchar(15)   	NOT NULL,
+   `me_birth`   		datetime    	NOT NULL,
+   `me_phone`   		varchar(13)   	NOT NULL,
+   `me_addr`   			varchar(25)   	NOT NULL,
+   `me_authority`   		varchar(15)   	NOT NULL default 'user',
+   `me_state`   		varchar(20)   	NOT NULL default '이용중',
+   `me_manner`   		double   	NOT NULL default 36.5,
+   `me_point` 			int 		NOT NULL default 0,
+   `me_fi_num` 			int,
+   `me_payment`			int		NULL,
+   `me_report_count`		int		NOT NULL default 0,
+   `me_stop_date`		datetime	NULL
 );
 
 DROP TABLE IF EXISTS `topGroup`;
@@ -39,18 +42,18 @@ CREATE TABLE `midGroup` (
 DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
-   `pr_num`   int   NOT NULL primary key auto_increment,
-   `pr_mg_num`   int   NOT NULL,
-   `pr_me_id`   varchar(15)   NOT NULL,
-   `pr_name`   varchar(30)   not   NULL,
-   `pr_place`   varchar(30)   not   NULL,
-   `pr_content` text not NULL,
-   `pr_price`   int   not   NULL,
-   `pr_ps_state` varchar(20) NOT NULL default "판매중",
-   `pr_basket`   int   not   NULL default 0,
-   `pr_view`   int   not   NULL default 0,
-   `pr_date`   datetime not NULL default now(),
-   `pr_buyId`   varchar(20)
+   `pr_num`   		int   			NOT NULL primary key auto_increment,
+   `pr_mg_num`   	int   			NOT NULL,
+   `pr_me_id`   	varchar(15)   	  	NOT NULL,
+   `pr_name`   		varchar(30)   		NOT NULL,
+   `pr_place`   	varchar(30)   		NOT NULL,
+   `pr_content` 	text 			NOT NULL,
+   `pr_price`   	int   			NOT NULL,
+   `pr_ps_state` 	varchar(20) 		NOT NULL default "판매중",
+   `pr_basket`   	int   			NOT NULL default 0,
+   `pr_view`   		int   			NOT NULL default 0,
+   `pr_date`   		datetime 		NOT NULL default now(),
+   `pr_buyId`   	varchar(20)
 );
 
 DROP TABLE IF EXISTS `file`;
@@ -65,14 +68,13 @@ CREATE TABLE `file` (
 DROP TABLE IF EXISTS `report`;
 
 CREATE TABLE `report` (
-   `re_num`   int   NOT NULL primary key auto_increment,
-   `re_pr_num`   int   NULL,
-   `re_me_id`   varchar(15)   NOT NULL,
-   `re_name`   varchar(10)   not   NULL,
-   `re_content` text not NULL,
-   `re_date`   dateTime not NULL default now(),
-   `re_state`   varchar(20)   not   NULL default "신고접수",
-   `re_cr_num`	int	NULL
+   `re_num`  	 int   		  	NOT NULL primary key auto_increment,
+   `re_pr_num`   int   		  	NULL,
+   `re_me_id`    varchar(15) 	  	NOT NULL,
+   `re_name`   	 varchar(20)   		NOT NULL,
+   `re_content`  text 		  	NOT NULL,
+   `re_date`   	 dateTime 	  	NOT NULL default now(),
+   `re_cr_num`	 int			NULL
 );
 
 DROP TABLE IF EXISTS `pick`;

@@ -14,6 +14,14 @@
 	    select * from topgroup
 	</select>
 	
+	<select id="selectTopGroupListByCri" resultMap ="TopGroupMap">
+		select * from topgroup limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectTopGroupTotalCount" resultType="int">
+		select count(*) from topgroup
+	</select>
+	
 	<select id="selectMidGroup" resultType="kr.kh.team1.model.vo.MidGroupVO">
 		select * from midgroup where mg_tg_num = #{tg_num}
 	</select>
@@ -32,12 +40,16 @@
 	
 	<select id="selectdongList" resultType="kr.kh.team1.model.vo.ZipcodeVO">
 		select distinct H_DONG_NM from addr where sido = #{sido} and sigungu = #{sigungu}
-
+	</select>
+	
+	<select id="selectdongListBySido" resultType="kr.kh.team1.model.vo.ZipcodeVO">
+		select distinct H_DONG_NM from addr where sido = #{sido}
 	</select>
 	
 	<select id="selectTopGroup" resultMap="TopGroupMap">
 	   select * from topgroup where tg_num = #{num}
 	</select>
+	
 	<select id="selectTopGroupByName" resultMap="TopGroupMap">
 	   select * from topgroup where tg_title = #{name}
 	</select>
@@ -54,4 +66,33 @@
 	<update id="updateTopGroup">
 		update topgroup set tg_title = #{topGroup} where tg_num = #{tg_num}
 	</update>
+	
+	<select id="selectMidGroupList" resultType="kr.kh.team1.model.vo.MidGroupVO">
+		select * from midgroup where mg_tg_num = #{tg} limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectTopGroupByTitle" resultType="kr.kh.team1.model.vo.TopGroupVO">
+		select * from topgroup where tg_title = #{tg}
+	</select>
+	
+	<select id="selectTotalMidGroupByTopCount" resultType="int">
+		select count(*) from midgroup where mg_tg_num = #{tg}
+	</select>
+	
+	<insert id="insertMidGroup">
+		insert into midgroup(mg_tg_num, mg_title)
+		values(#{tg}, #{topGroup})
+	</insert>
+	
+	<update id="updateMidGroup">
+		update midgroup set mg_title = #{topGroup} where mg_num = #{tg}
+	</update>
+	
+	<delete id="deleteMidGroup">
+		delete from midgroup where mg_num = #{tg}
+	</delete>
+	
+	<select id="selectMidGroupByTitle" resultType="kr.kh.team1.model.vo.MidGroupVO">
+		select midgroup.* from midgroup join topgroup on tg_num = mg_tg_num where mg_tg_num = #{tg} and mg_title = #{topGroup}
+	</select>
 </mapper>

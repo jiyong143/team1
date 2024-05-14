@@ -4,21 +4,51 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.ReportDAO">
 	<select id="selectReportList" resultType="ReportVO">
-		select * from report
+		SELECT * FROM report
+		<if test='crir.type == "writer"'>
+            WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
+        </if>
+        ORDER BY ${crir.order} DESC
+	    LIMIT #{crir.pageStart}, #{crir.perPageNum}
 	</select>
 
 	<select id="selectReportTotalCount" resultType="int">
-		SELECT COUNT(*) FROM surport
+		SELECT COUNT(*) FROM report
+		<if test='crir.type == "writer"'>
+            WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
+        </if>
 	</select>
-
+	<!-- 거래글 리스트에서 하나의 거래글만 가져옴 -->
 	<select id="selectProductList" resultType="ProductVO">
-		select * from product
+		SELECT * FROM product
+	</select>
+	
+	<select id="selectRePrNum" resultType="ProductVO">
+		select * from product where pr_num = #{re_pr_num}	
 	</select>
 
-	<insert id="insertReportByIBH">
-		insert into report(re_me_id, re_name, re_content,
-		re_date)
-		values(#{report.},#{report.},#{report.},now())
+	<!-- 첫 번째 insert 쿼리: report에 새로운 레코드 추가 -->
+	<insert id="insertReportProd">    
+	    INSERT INTO 
+	        report (re_pr_num, re_me_id, re_name, re_content) 
+	    VALUES 
+	        (#{report.re_pr_num}, #{report.re_me_id}, #{report.re_name}, #{report.re_content})
 	</insert>
+	
+	<!-- 두 번째 insert 쿼리: 제품 번호를 포함하지 않는 보고서 추가 -->
+	<insert id="insertReportByIBH">
+	    INSERT INTO 
+	        report (re_me_id, re_name, re_content, re_date)
+	    VALUES 
+	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now())
+	</insert>
+	
+	<select id="selectReport" resultType="ReportVO">
+		select * from report where re_num = #{re_num}
+	</select>
+	
+	<update id="updateState">
+		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{re_pr_num}
+	</update>
 
 </mapper>

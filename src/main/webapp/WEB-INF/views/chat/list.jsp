@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.container{
-		margin-top: 200px;
+		margin-top: 80px;
 	}
 </style>
 </head>
@@ -42,14 +42,14 @@
 								<td onClick="location.href='${url}'">${crv.chatMessage.date_str}</td>
 								<td>
 									<c:if test="${loginUser.me_id eq crv.cr_me_id}">
-										<button class="declarationBtn" data-id="${crv.product.pr_me_id}">신고하기</button>
+										<button class="declarationBtn btn btn-outline-danger" data-id="${crv.product.pr_me_id}">신고하기</button>
 									</c:if>
 									<c:if test="${loginUser.me_id ne crv.cr_me_id}">
-										<button class="declarationBtn" data-id="${crv.cr_me_id}">신고하기</button>
+										<button class="declarationBtn btn btn-outline-danger" data-id="${crv.cr_me_id}">신고하기</button>
 									</c:if>
 								</td>
 								<td>
-									<button class="outBtn" data-num="${crv.cr_num}">나가기</button>
+									<button class="outBtn btn btn-outline-success" data-num="${crv.cr_num}">나가기</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -126,7 +126,7 @@
 		let id = $(this).data('id');	// 채팅방 번호
 		
 		if(confirm("채팅방을 신고하시겠습니까?")){
-			var url = '<c:url value="/report/insert"/>' + '?me_id='+ id;
+			var url = '<c:url value="/report/insertChat"/>' + '?me_id='+ id;
 			console.log(url);
 			location.href = url;
 		}

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mysql.cj.Session;
 
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
@@ -167,7 +169,8 @@ public class LKJController {
 		map.put("pms", pms);// 페이지 정보
 		return map;
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/comment/insert")
 	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, HttpSession session) {
 		// 응답으로 전송할 데이터를 담을 Map 객체를 생성
@@ -225,8 +228,10 @@ public class LKJController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 	    // 회원의 권한을 변경하는 비즈니스 로직 수행
-	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), memberInfo.getMe_authority(), memberInfo.getMe_state());
-	    return map;
+	    boolean res = memberService.updateAuthority(memberInfo.getMe_id(), 
+	    											memberInfo.getMe_authority(),
+	    											memberInfo.getMe_state());
+    	return map;
 	}
 	//회원관리 END
 	//신고 START
@@ -241,38 +246,85 @@ public class LKJController {
 		model.addAttribute("list", reportList);
 		return "/report/list";
 	}
-	
-	@GetMapping("/report/insert")
-	public String reportProductInsert(Model model) {
-		ArrayList<ProductVO> list = reportService.getProductList();
-		model.addAttribute("list", list);
-		return "";
-	}
-	
-	public String reportInsert(Model model, ReportVO report, ProductVO product, String me_id, HttpSession session) {
+	/*
+	@GetMapping("/report/insertProduct")
+	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
+		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
+		ProductVO productList = reportService.getRePrNum(rePrNum); //거래글 리스트에서 하나의 거래글만 가져옴
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		//boolean res = reportService.insertReport(report, product, user);
-		model.addAttribute("title", "신고들 작성");
-		model.addAttribute("me_id", me_id);
-
-		return "/report/insert";
+		System.out.println(productList);
+		model.addAttribute("member", user);
+		model.addAttribute("info", productList); // 거래글 리스트를 모델에 추가
+	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
+	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
+	}
+	*/
+	@GetMapping("/report/insertProduct")
+	public String reportInsertProd(Model model, int rePrNum) {
+		//거래글 리스트에서 하나의 거래글만 가져옴
+		ProductVO productList = reportService.getRePrNum(rePrNum);
+		model.addAttribute("info", productList);
+		model.addAttribute("title", "거래글 신고");
+		return "/report/insertProduct";
+	}
+	/*
+	@PostMapping("/report/insertProduct")
+	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
+		System.out.println(report);
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reportService.insertReportProduct(report, user);
+		if(res) {
+			model.addAttribute("msg", "거래글 신고완료");
+			model.addAttribute("url", "/product/list");
+		}else {
+			model.addAttribute("msg", "거래글 신고실패");
+			model.addAttribute("url", "/product/detail");
+		}
+		return "message";
+	}
+	*/
+	@PostMapping("/report/insertProduct")
+	public String reportInsertProdPost(Model model, ReportVO report, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reportService.insertReportProd(report, user);
+		if(res) {
+			model.addAttribute("msg", "거래글 신고완료");
+			model.addAttribute("url", "/product/list");
+		}else {
+			model.addAttribute("msg", "거래글 신고실패");
+			model.addAttribute("url", "/product/detail");
+		}
+		return "message";
 	}
 	
-	@PostMapping("/report/insert")
-	public String reportProductInsertPost(Model model, ReportVO report, ProductVO product, HttpServletRequest request) {
-		MemberVO user = (MemberVO)request.getAttribute("user");
-		if(reportService.insertReportProduct(report, product, user)) {
-			model.addAttribute("msg", "신고글 작성을 완료하였습니다.");
-			model.addAttribute("url", "/report/list");
-		}else {
-			model.addAttribute("msg", "신고글 작성에 실패아였습니다.");
-			model.addAttribute("url", "/report/inser");
-		}
-		System.out.println(report);
-		return "message";
-
+	@PostMapping("/reportCount")
+	public String reportCount(Model model, MemberVO user, HttpSession session) {
+		 // 요청에서 사용자 ID와 신고 횟수를 가져옴
+		int userId = (int) session.getAttribute("userId");
+		int meReportCount = (int) session.getAttribute("meReportCount");
+	    
+	    // 사용자의 신고 횟수를 증가시킴
+	    memberService.addReportCount(user, meReportCount);
+	    
+	    // 업데이트된 신고 횟수를 가진 사용자 정보를 가져옴
+	    MemberVO member = memberService.getMemberById(user);
+	    
+	    // 뷰로 전달할 데이터를 모델에 추가
+	    model.addAttribute("member", member);
+	    
+	    // 신고 작업 후 사용자에게 표시할 페이지의 이름 반환
+	    return "/report/list";
 	}
-
+	
+	@GetMapping("/report/insertChat")
+	public String reportInsert(Model model, String me_id) {
+		model.addAttribute("me_id", me_id);
+	    model.addAttribute("title", "거래글 신고");
+	    return "/report/insertChat";
+	}
+	
+	//채팅방 신고
+	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
 
 		System.out.println(report);
@@ -282,9 +334,27 @@ public class LKJController {
 			model.addAttribute("url", "/report/list");
 		}else {
 			model.addAttribute("msg", "신고 실패!");
-			model.addAttribute("url", "/report/insert?me_id="+report.getRe_me_id());
+			model.addAttribute("url", "/report/insertChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
+	}
+	
+	//신고 상세내역
+	@GetMapping("/report/detailProduct")
+	public String detailProduct(Model model, int reNum) {
+		ReportVO report = reportService.getReport(reNum);
+		model.addAttribute("report", report);
+		model.addAttribute("title", "신고글 상세내역");
+		return "/report/detailProduct";
+	}
+	
+	@ResponseBody
+	@PostMapping("/report/list")
+	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, HttpSession session){
+		Map<Integer, Object> map = new HashMap<Integer, Object>();
+		boolean res = reportService.updateState(report.getRe_pr_num());
+		
+		return map;
 	}
 	
 	//신고 END

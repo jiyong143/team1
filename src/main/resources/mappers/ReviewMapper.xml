@@ -4,9 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team1.dao.ReviewDAO">
 	<select id="selectReviewProList" resultType="kr.kh.team1.model.vo.ProductVO">
-		select * from product join trade_review on pr_num = tr_pr_num
-					  join trade_outcome on tr_num = to_tr_num
-                      where tr_me_id = #{id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
+		select * from product join trade_review on pr_num = tr_pr_num where tr_num = #{i}
 	</select>
 	
 	<select id="selectReviewType" resultType="kr.kh.team1.model.vo.ReviewTypeVO">
@@ -15,8 +13,8 @@
 	
 	<select id="selectTradeReviewNum" resultType="int">
 		select count(*) from product join trade_review on pr_num = tr_pr_num
-					  join trade_outcome on tr_num = to_tr_num
-                      where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
+					  				 join trade_outcome on tr_num = to_tr_num
+					  				 where tr_me_id = #{me_id} &amp;&amp; (select count(*) from trade_outcome where tr_num = to_tr_num &amp;&amp; to_type = 0) = 0
 	</select>
 	
 	<select id="selectTrNum" resultType="int">
@@ -29,5 +27,69 @@
 			<foreach collection="reviewType" item="reviewType" separator=",">
 				(#{reviewType}, #{trNum}, 0)
 			</foreach>
+			
 	</insert>
+	
+	<insert id="insertReview2">
+			insert into trade_outcome(to_rt_type, to_tr_num, to_type) 
+			values
+			<foreach collection="reviewType" item="reviewType" separator=",">
+				(#{reviewType}, #{trNum}, 1)
+			</foreach>
+	</insert>
+	
+	<select id="selectReviewList" resultType="kr.kh.team1.model.vo.ReviewTypeVO">
+		select * from review_type
+	</select>
+	
+	<select id="selectMyReviewList0" resultType="kr.kh.team1.model.vo.TradeOutcomeVO">
+		select to_num, to_rt_type, to_tr_num, to_type from trade_outcome
+		join trade_review on tr_num = to_tr_num
+		join product on pr_num = tr_pr_num
+   		where pr_me_id = #{me_id} &amp;&amp; to_type = 0
+	</select>
+	
+	<select id="selectMyReviewList1" resultType="kr.kh.team1.model.vo.TradeOutcomeVO">
+		select to_num, to_rt_type, to_tr_num, to_type from trade_outcome
+		join trade_review on tr_num = to_tr_num
+		join product on pr_num = tr_pr_num
+   		where tr_me_id = #{me_id} &amp;&amp; to_type = 1
+	</select>
+	
+	<select id="selectTrNumByUserId" resultType="int">
+		select tr_num from trade_review where tr_me_id = #{userId};
+	</select>
+	
+	<select id="selectCountTradeOutcome" resultType="int">
+		select count(*) from trade_outcome where to_tr_num = #{i} &amp;&amp; to_type = 0;
+	</select>
+	
+	<select id="selectTrNumByUserIdSeller" resultType="int">
+		select tr_num from trade_review join product on pr_num = tr_pr_num where pr_me_id = #{userId}
+	</select>
+	
+	<select id="selectCountTradeOutcome2"  resultType="int">
+		select count(*) from trade_outcome where to_tr_num = #{i} &amp;&amp; to_type = 1;
+	</select>
+	
+	<select id="checkTradeReview" resultType="string">
+		select tr_me_id from trade_review where tr_num = #{trNum}
+	</select>
+	<insert id="insertReviewDefault1">
+		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("default", #{reviewDeleteVal}, 0)
+	</insert>
+	<insert id="insertReviewDefault2">
+		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("default", #{reviewDeleteVal}, 1)
+	</insert>
+	<select id="selectReviewScore" resultType="int">
+		select rt_point from review_type where rt_type = #{i} 
+	</select>
+	<update id="updateReviewScore">
+		update member set me_manner = ((select me_manner where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum});
+	</update>
+	<update id="updateReviewScore2">
+		update member set me_manner = ((select me_manner where me_id = (select tr_me_id from trade_review where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select tr_me_id from trade_review where tr_num = #{trNum})
+	</update>
 </mapper>

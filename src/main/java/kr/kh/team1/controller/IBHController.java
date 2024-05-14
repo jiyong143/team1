@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -23,12 +24,11 @@ import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.MidGroupVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
-import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.pagination.PageMaker_chat;
-import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
@@ -86,19 +86,21 @@ public class IBHController {
 		
 		ArrayList<ChatStateVO> cs = chatService.getChatState(cr_num);
 		
-		if (cs.isEmpty()) {
-		    model.addAttribute("error", "없는 채팅방입니다.");
-		}else {
-			ChatStateVO cs0 = cs.get(0);
-			ChatStateVO cs1 = cs.get(1);
-			if(!cs0.getCs_me_id().equals(loginUser.getMe_id()) && !cs1.getCs_me_id().equals(loginUser.getMe_id())) {
-				model.addAttribute("error", "들어갈 수 없는 채팅방입니다.");
-			}else if((cs0.getCs_me_id().equals(loginUser.getMe_id()) && cs0.getCs_state().equals("나감")) ||
-					(cs1.getCs_me_id().equals(loginUser.getMe_id()) && cs1.getCs_state().equals("나감"))){
-				model.addAttribute("error", "나간 채팅방입니다.");
+		if(loginUser.getMe_authority().equals("user")) {
+			if (cs.isEmpty()) {
+			    model.addAttribute("error", "없는 채팅방입니다.");
+			}else {
+				ChatStateVO cs0 = cs.get(0);
+				ChatStateVO cs1 = cs.get(1);
+				if(!cs0.getCs_me_id().equals(loginUser.getMe_id()) && !cs1.getCs_me_id().equals(loginUser.getMe_id())) {
+					model.addAttribute("error", "들어갈 수 없는 채팅방입니다.");
+				}else if((cs0.getCs_me_id().equals(loginUser.getMe_id()) && cs0.getCs_state().equals("나감")) ||
+						(cs1.getCs_me_id().equals(loginUser.getMe_id()) && cs1.getCs_state().equals("나감"))){
+					model.addAttribute("error", "나간 채팅방입니다.");
+				}
 			}
 		}
-
+		
 		int totalMsgCount = chatService.getTotalMsgCount(cr_num);
 		model.addAttribute("totalMsgCount", totalMsgCount);
 		model.addAttribute("chatTotalCount", chatTotalCount);
@@ -116,7 +118,7 @@ public class IBHController {
 
 		chatService.updateChatRoomStateById(num, loginUser.getMe_id());	// 로그인 유저의 채팅방 상태 변경
 		
-		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태 
+		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태
 		
 		if(cs.get(0).getCs_state().equals("나감") && !cs.get(0).getCs_me_id().equals(loginUser.getMe_id())) {
 			chatService.deleteChatRoomAndStateByNum(num);		// 채팅방 번호에 맞는 채팅방 삭제
@@ -132,7 +134,7 @@ public class IBHController {
     // 채팅방 리스트
    	public String chatRoomList(Model model, HttpSession session, int page) {
     	Criteria cri = new Criteria();
-    	cri.setPerPageNum(5);	// 한 페이지에 게시글 5개 지정
+    	cri.setPerPageNum(2);	// 한 페이지에 게시글 5개 지정
     	cri.setPage(page);
     	
     	MemberVO loginUser = (MemberVO)session.getAttribute("user");
@@ -142,7 +144,7 @@ public class IBHController {
     	
     	int totalListCount = chatService.getChatRoomTotalCount(loginUser.getMe_id(), cri);
     	
-    	PageMaker_chat pm = new PageMaker_chat(3, cri, totalListCount);
+    	PageMaker_chat pm = new PageMaker_chat(2, cri, totalListCount);
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);
@@ -255,10 +257,15 @@ public class IBHController {
 	
 	@GetMapping("/admin/topCategoryManager")
 	// 대분류 페이지
-	public String topCategoryManager(Model model) {
+	public String topCategoryManager(Model model, Criteria cri) {
 		
-		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+		cri.setPerPageNum(5);
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupListByCri(cri);
+		int totalTopGroupCount = topGroupService.getTopGroupTotalCount();
+		PageMaker_chat pm = new PageMaker_chat(5, cri, totalTopGroupCount);
+		
 		model.addAttribute("topList", topList);
+		model.addAttribute("pm", pm);
 	    return "/admin/topCategoryManager";
 	}
 	
@@ -268,6 +275,13 @@ public class IBHController {
 	public Map<String, Object> topCategoryManagerPost(String topGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
+		if(tg != null) {
+			map.put("msg", "해당 대분류는 이미 존재하는 대분류입니다.");
+			return map;
+		}
+		
 		boolean res = topGroupService.insertTopGroup(topGroup);
 		if(res) {
 			map.put("msg", "추가했습니다.");
@@ -279,10 +293,17 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/updateTopCategoryManager")
-	// 대분류 추가
+	// 대분류 수정
 	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
+		if(tg != null) {
+			map.put("msg", "해당 대분류는 이미 존재하는 대분류입니다.");
+			return map;
+		}
+		
 		boolean res = topGroupService.updateTopGroup(tg_num, topGroup);
 		if(res) {
 			map.put("msg", "수정했습니다.");
@@ -294,7 +315,7 @@ public class IBHController {
 	
 	@ResponseBody
 	@PostMapping("/admin/deleteTopCategoryManager")
-	// 대분류 추가
+	// 대분류 삭제
 	public Map<String, Object> deleteTopCategoryManagerPost(int tg_num) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -308,7 +329,97 @@ public class IBHController {
 	}
 	
 	@GetMapping("/admin/midCategoryManager")
-	public String midCategoryManager(Model model) {
+	// 중분류 페이지
+	public String midCategoryManager(Model model, Criteria cri) {
+		
+		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
+	
+		model.addAttribute("list", topList);
 	    return "/admin/midCategoryManager";
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/midCategoryByTopManager")
+	// 대분류에 맞는 중분류 출력
+	public Map<String, Object> midCategoryByTopManagerPost(@RequestBody Criteria cri) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		cri.setPerPageNum(5);
+		TopGroupVO tg = topGroupService.getTopGroupByTitle(cri.getSearch());
+		
+		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupList(tg.getTg_num(), cri);
+		
+		for(int i = 0; i < midList.size(); i++) {
+			midList.get(i).setMg_tg_title(cri.getSearch());
+		}
+		
+		int totalMidGroupByTopCount = topGroupService.getTotalMidGroupByTopCount(tg.getTg_num(), cri);
+		PageMaker_chat pm = new PageMaker_chat(5, cri, totalMidGroupByTopCount);
+		
+		map.put("pm", pm);
+		map.put("midList", midList);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/addMidCategoryManager")
+	// 중분류 추가
+	public Map<String, Object> addMidCategoryManagerPost(String midGroup, String tg) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
+		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
+		if(tgv != null) {
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
+			return map;
+		}
+		
+		boolean res = topGroupService.insertMidGroup(midGroup, topg.getTg_num());
+		if(res) {
+			map.put("msg", "추가했습니다.");
+		}else {
+			map.put("msg", "추가하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/updateMidCategoryManager")
+	// 중분류 수정
+	public Map<String, Object> updateMidCategoryManagerPost(String tg, int tg_num, String midGroup) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
+		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
+		if(tgv != null) {
+			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
+			System.out.println("asdas");
+			return map;
+		}
+		
+		boolean res = topGroupService.updateMidGroup(tg_num, midGroup);
+		if(res) {
+			map.put("msg", "수정했습니다.");
+		}else {
+			map.put("msg", "수정하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/admin/deleteMidCategoryManager")
+	// 중분류 삭제
+	public Map<String, Object> deleteMidCategoryManagerPost(int tg_num) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = topGroupService.deleteMidGroup(tg_num);
+		if(res) {
+			map.put("msg", "삭제했습니다.");
+		}else {
+			map.put("msg", "삭제하지 못했습니다.");
+		}
+		return map;
 	}
 }

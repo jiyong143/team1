@@ -64,13 +64,13 @@
 </style>
 </head>
 <body>
+	<div class="container text-center mt-3">
 	<h1>리뷰 가능한 판매글 목록</h1>
-	<div>
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
 					<td>제목</td>
-					<td>작성자</td>
+					<td>판매자</td>
 					<td>후기작성</td>
 					<td>비고</td>
 				</tr>
@@ -82,7 +82,7 @@
 							<td>${reviewList.pr_name}</td>
 							<td>${reviewList.pr_me_id}</td>
 							<td><button class="popupBtn" value="${reviewList.pr_num}">작성</button></td>
-							<td><button class="close w-100"></button></td>
+							<td><button type="button" class="reviewDelete close w-100" id="reviewDelete" value="${reviewList.tr_num}"></button></td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -133,6 +133,25 @@
 				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
 			}
 		};
+		
+		$(".reviewDelete").click(function() {
+			if(confirm("후기를 작성하지 않으시겠습니까?")){
+				let obj = {reviewDeleteVal : this.value}
+				$.ajax({
+					async : false,
+					url : '<c:url value="/review/write/delete"/>',
+					type : 'post',
+					data : obj,
+					dataType : "json",
+					success : function (data){
+						
+					}, 
+					error : function(jqXHR, textStatus, errorThrown){
+						
+					}
+				});
+			}
+		});
 		
 	</script>
 </body>

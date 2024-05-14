@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>manager_page</title>
+<title>manage_page</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
 .body {
   margin: 0;
   font-family: "Lato", sans-serif;
@@ -19,7 +18,7 @@
 .sidebar {
   margin: 0;
   padding: 0;
-  width: 200px;
+  width: 250px;
   background-color: #C0C0C0;
   position: fixed;
   height: 100%;
@@ -60,26 +59,36 @@
   }
 }
 [class^=box]{ 
-    width: 400px; height: 300px; border: 1px solid black; margin: 10px; background-color: green;
+    width: 400px; 
+    height: 300px; 
+    border: 1px solid black; 
+    margin: 10px; 
+    background-color: green;
 }
-.box3{ display: inline-block;}
 
-.Manager-container{width: 600px; height:auto; margin-left: 220px;}
+.box3{display: inline-block;}
 
-.myChart{width: 200px; height: 200px; margin-left: 1000px;}
+.manager-table{
+	width: 600px; 
+	height:auto; 
+	margin-left: 500px;
+}
 </style>
 </head>
 <body>
 <div class="sidebar">
   <a class="active" href="#home">사이트 정보</a>
-  <a href="/team1/admin/memberManager">회원 관리</a>
+  <c:if test="${user.me_authority != null}">
+  	<a href="/team1/admin/memberManager">회원 관리</a>
+  </c:if>
   <a href="/team1/report/list">신고관리</a>
-  <a href="/team1/admin/inquityManager">고객센터 관리</a>
+  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
+  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
 </div>
 <div class="Manager-container">
   <h2>메니저 명단</h2>
   <p><a href="/team1/admin/memberManagement">회원 관리 바로가기</a></p>           
-  <table class="table">
+  <table class="manager-table">
     <thead>
       <tr>
         <th>번호</th>
@@ -138,34 +147,5 @@
     </tbody>
   </table>
 </div>
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-<script>
-const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-const yValues = [55, 49, 44, 24, 15];
-const barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
-
-new Chart("myChart", {
-  type: "doughnut",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "World Wide Wine Production 2018"
-    }
-  }
-});
-</script>
 </body>
 </html>

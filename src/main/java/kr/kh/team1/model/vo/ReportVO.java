@@ -14,9 +14,16 @@ public class ReportVO {
 	private String re_name; 
 	private String re_content; 
 	private Date re_date; 
-	private String re_state;
+	private int re_cr_num;
 	
 	public ReportVO(String re_me_id, String re_name, String re_content) {
+		this.re_me_id = re_me_id;
+		this.re_name = re_name;
+		this.re_content = re_content;
+	}
+
+	public ReportVO(int pr_num, String re_me_id, String re_name, String re_content) {
+		this.re_pr_num = pr_num;
 		this.re_me_id = re_me_id;
 		this.re_name = re_name;
 		this.re_content = re_content;
