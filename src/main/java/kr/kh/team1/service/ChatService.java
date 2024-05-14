@@ -37,7 +37,7 @@ public interface ChatService {
 	int getTotalMsgCount(int cm_cr_num);
 
 	ArrayList<ChatRoomVO> getChatRoomIds(int pNum);
-
+	
 	ChatMessageVO getChatMessageRecent(int cm_cr_num);
 
 }

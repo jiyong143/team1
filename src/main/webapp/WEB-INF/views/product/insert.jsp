@@ -246,7 +246,6 @@
 	
 	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
 	$("#productForm").submit(function(e){
-		
 		let a = $("[name=pr_price]").val();
 		let maxPrice1 = a.replace(/,/g, '');
 		a = parseInt(maxPrice1);

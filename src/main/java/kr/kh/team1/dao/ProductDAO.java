@@ -54,4 +54,6 @@ public interface ProductDAO {
 
 	int selectTopNum(@Param("pr_num")int num);
 
+	void deleteFile(@Param("fi_num")Integer integer);
+
 }
