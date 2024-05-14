@@ -18,7 +18,7 @@
             WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
         </if>
 	</select>
-
+	<!-- 거래글 리스트에서 하나의 거래글만 가져옴 -->
 	<select id="selectProductList" resultType="ProductVO">
 		SELECT * FROM product
 	</select>
@@ -48,7 +48,7 @@
 	</select>
 	
 	<update id="updateState">
-		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{pr_num}
+		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{re_pr_num}
 	</update>
 
 </mapper>

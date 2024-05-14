@@ -54,4 +54,6 @@ public interface ProductService {
 
 	int getTopNum(int num);
 
+	void deleteFile(Integer integer);
+
 }

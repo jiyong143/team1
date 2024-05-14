@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mysql.cj.Session;
+
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -242,7 +246,7 @@ public class LKJController {
 		model.addAttribute("list", reportList);
 		return "/report/list";
 	}
-	
+	/*
 	@GetMapping("/report/insertProduct")
 	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
 		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
@@ -254,12 +258,20 @@ public class LKJController {
 	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
 	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
 	}
-
+	*/
+	@GetMapping("/report/insertProduct")
+	public String reportInsertProd(Model model, int rePrNum) {
+		//거래글 리스트에서 하나의 거래글만 가져옴
+		ProductVO productList = reportService.getRePrNum(rePrNum);
+		model.addAttribute("info", productList);
+		model.addAttribute("title", "거래글 신고");
+		return "/report/insertProduct";
+	}
+	/*
 	@PostMapping("/report/insertProduct")
 	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
 		System.out.println(report);
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		//reportService.reportCount(reCount);
 		boolean res = reportService.insertReportProduct(report, user);
 		if(res) {
 			model.addAttribute("msg", "거래글 신고완료");
@@ -269,6 +281,39 @@ public class LKJController {
 			model.addAttribute("url", "/product/detail");
 		}
 		return "message";
+	}
+	*/
+	@PostMapping("/report/insertProduct")
+	public String reportInsertProdPost(Model model, ReportVO report, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = reportService.insertReportProd(report, user);
+		if(res) {
+			model.addAttribute("msg", "거래글 신고완료");
+			model.addAttribute("url", "/product/list");
+		}else {
+			model.addAttribute("msg", "거래글 신고실패");
+			model.addAttribute("url", "/product/detail");
+		}
+		return "message";
+	}
+	
+	@PostMapping("/reportCount")
+	public String reportCount(Model model, MemberVO user, HttpSession session) {
+		 // 요청에서 사용자 ID와 신고 횟수를 가져옴
+		int userId = (int) session.getAttribute("userId");
+		int meReportCount = (int) session.getAttribute("meReportCount");
+	    
+	    // 사용자의 신고 횟수를 증가시킴
+	    memberService.addReportCount(user, meReportCount);
+	    
+	    // 업데이트된 신고 횟수를 가진 사용자 정보를 가져옴
+	    MemberVO member = memberService.getMemberById(user);
+	    
+	    // 뷰로 전달할 데이터를 모델에 추가
+	    model.addAttribute("member", member);
+	    
+	    // 신고 작업 후 사용자에게 표시할 페이지의 이름 반환
+	    return "/report/list";
 	}
 	
 	@GetMapping("/report/insertChat")
@@ -305,9 +350,9 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, @RequestBody ProductVO product, HttpSession session){
+	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, HttpSession session){
 		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		boolean res = reportService.updateState(report.getRe_pr_num(), report.getRe_state());
+		boolean res = reportService.updateState(report.getRe_pr_num());
 		
 		return map;
 	}

@@ -35,10 +35,12 @@
 				<th>번호</th>
 				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
 				<th>신고 타입</th>
-				<th>작성자</th>
+				<th>신고 신청자</th>
+				<th>신고 대상자</th>
 				<th>신고일</th>
+				<th>정지일</th>
 				<th>신고횟수</th>
-				<th>처분상태</th>
+				<th>회원상태</th>
 				<th>비고</th>
 			</tr>
 		</thead>
@@ -55,13 +57,20 @@
 				<td>
 					<a href="${url}">${report.re_me_id}</a>
 				</td>
-				<td>${report.re_date}</td>
-				<td>${report.re_count}</td>
 				<td>
-				  <select class="form-control re_state" name="re_state">
-					  <option value="신고접수" <c:if test='${report.re_state == "신고접수"}'>selected</c:if>>신고접수</option>
-					  <option value="차단" <c:if test='${report.re_state == "차단"}'>selected</c:if>>차단</option>
-					  <option value="정지" <c:if test='${report.re_state == "정지"}'>selected</c:if>>정지</option>
+					<a href="${url}">${report.re_pr_num}</a>
+				</td>
+				<td>${report.re_date}</td>
+				<td>${member.me_stop_date}</td>
+				<td>${member.me_report_count}</td>
+				<td>
+				  <select class="form-control me_state" name="me_state">
+					  <option value="신고접수" <c:if test='${member.me_state == "신고접수"}'>selected</c:if>>이용 중</option>
+					  <option value="회원차단" <c:if test='${member.me_state == "회원차단"}'>selected</c:if>>회원차단</option>
+					  <option value="기간정지 : 3일" <c:if test='${member.me_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
+					  <option value="기간정지 : 7일" <c:if test='${member.me_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
+					  <option value="기간정지 : 14일" <c:if test='${member.me_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
+					  <option value="기간정지 :21일" <c:if test='${member.me_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
 				  </select>
 			  	</td>
 			  	<td>
@@ -116,12 +125,12 @@ $(document).ready(function() {
         // 현재 행에서 데이터를 가져와 배열에 추가
         var $row = $(this).closest("tr");
         var re_pr_num = $row.find(".re_pr_num").val(); // 아이디 가져오기
-        var re_state = $row.find(".re_state").val(); // 상태 가져오기
+        var re_state = $row.find(".me_state").val(); // 상태 가져오기
         
         // 서버에 전송할 데이터 객체 생성
         var obj = {
             re_pr_num: re_pr_num,
-            re_state: re_state
+            me_state: me_state
         };
         
         console.log(data);
