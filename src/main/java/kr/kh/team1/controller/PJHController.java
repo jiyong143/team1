@@ -51,7 +51,6 @@ public class PJHController {
 	@GetMapping("/main/home")
 	public String home(Model model) {
 		MemberVO dateTest = memberService.getMemberDate();
-		System.out.println("test" + dateTest.getMe_birth());
 		model.addAttribute("test1", dateTest);
 		return "/main/home";
 	}
@@ -183,6 +182,9 @@ public class PJHController {
 			myUser = memberService.getMember(me_id);
 			model.addAttribute("myUserCheck", me_id);
 		}
+		
+		//int mannerScore = 0;
+		//mannerScore = memberService.getMannerScore(myUser.getMe_id());
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
@@ -196,8 +198,7 @@ public class PJHController {
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
 		ArrayList<TradeOutcomeVO> reviewList0 = reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
-		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기
-		
+		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기 <-- 문제
 		for(ReviewTypeVO i : reviewList) {
 			for(TradeOutcomeVO j : reviewList0) {
 				if(i.getRt_type().equals(j.getTo_rt_type())) {
@@ -365,9 +366,20 @@ public class PJHController {
 	public String reviewWritePost(Model model, @RequestParam("rt_type") ArrayList<String> reviewType, @RequestParam("prNum") int prNum, HttpSession session) {
 		int trNum = reviewService.getTrNum(prNum);
 		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id());
+		int mannerScore = 0;
+		for(String i:reviewType) {
+			mannerScore += reviewService.getReviewScore(i);
+		}
+		boolean res = reviewService.addReview(reviewType, trNum, user.getMe_id(), mannerScore);
 		
-		return "/review/write";
+		if(res) {
+			model.addAttribute("msg", "리뷰 작성에 성공했습니다.");
+			model.addAttribute("url", "/review/write");
+		} else {
+			model.addAttribute("msg", "리뷰 작성에 실패했습니다.");
+			model.addAttribute("url", "/review/write");
+		}
+		return "message";
 	}
 	
 	@PostMapping("/review/write/delete")

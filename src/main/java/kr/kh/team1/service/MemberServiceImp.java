@@ -243,6 +243,12 @@ public class MemberServiceImp implements MemberService {
 		return user != null;
 	}
 
+	@Override
+	public int getMannerScore(String me_id) {
+		
+		return 0;
+	}
+
 //	@Override
 //	public boolean signupSns(String sns, String id, String email) {
 //		try {

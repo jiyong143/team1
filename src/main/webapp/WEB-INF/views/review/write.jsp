@@ -70,7 +70,7 @@
 			<thead>
 				<tr>
 					<td>제목</td>
-					<td>작성자</td>
+					<td>판매자</td>
 					<td>후기작성</td>
 					<td>비고</td>
 				</tr>
@@ -147,7 +147,7 @@
 						
 					}, 
 					error : function(jqXHR, textStatus, errorThrown){
-			
+						
 					}
 				});
 			}

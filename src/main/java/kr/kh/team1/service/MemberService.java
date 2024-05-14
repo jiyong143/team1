@@ -42,6 +42,8 @@ public interface MemberService {
 	int getTotalCountMember(Criteria_member crim);
 
 	boolean updateAuthority(String me_id, String me_authority, String me_state);
+
+	int getMannerScore(String me_id);
 	
 	//관리자 -> 회원관리에 필요한 코드 END 
 
