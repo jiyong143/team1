@@ -38,9 +38,9 @@
 	<!-- 두 번째 insert 쿼리: 제품 번호를 포함하지 않는 보고서 추가 -->
 	<insert id="insertReportByIBH">
 	    INSERT INTO 
-	        report (re_me_id, re_name, re_content, re_date)
-	    VALUES 
-	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now())
+	        report (re_me_id, re_name, re_content, re_date, re_cr_num)
+	    VALUES
+	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now(), #{cr_num})
 	</insert>
 	
 	<select id="selectReport" resultType="ReportVO">
@@ -50,5 +50,4 @@
 	<update id="updateState">
 		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{pr_num}
 	</update>
-
 </mapper>

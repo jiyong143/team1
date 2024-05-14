@@ -69,7 +69,7 @@ CREATE TABLE `report` (
    `re_num`  	 int   		  	NOT NULL primary key auto_increment,
    `re_pr_num`   int   		  	NULL,
    `re_me_id`    varchar(15)   	NOT NULL,
-   `re_name`   	 varchar(10)    NOT NULL,
+   `re_name`   	 varchar(20)    NOT NULL,
    `re_content`  text 		  	NOT NULL,
    `re_date`   	 dateTime 	  	NOT NULL default now(),
    `re_state`    varchar(20)   	NOT NULL default "신고접수",

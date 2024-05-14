@@ -21,7 +21,7 @@ public interface ReportService {
 	
 	boolean insertReportProduct(ReportVO report, MemberVO user);
 
-	boolean insertReportByIBH(ReportVO report);
+	boolean insertReportByIBH(ReportVO report, int cr_num);
 
 	boolean updateState(int re_pr_num, String re_state);
 

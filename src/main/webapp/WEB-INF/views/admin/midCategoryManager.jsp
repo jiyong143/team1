@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.card-1 {
+		margin-left: 33%;
 		background-color:white;
 		padding: 30px;
+		text-align : center;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	}
@@ -18,40 +20,46 @@
 	.category-list-table {
 		margin-top: 20px
 	}
+	.jum{
+		min-height: 800px;
+		background-color: white;
+	}
 </style>
 </head>
 <body>
-<div class="container mt-3 col-6 card-1">
-	<h2 style="font-weight: bold">중분류 관리</h2>
-	<div class="input-group mb-3" style="margin-top: 30px; width: 100%">
-		<select class="tg" style="width: 100%">
-			<option>대분류를 선택하세요.</option>
-			<c:forEach items="${list}" var="list">
-				<option value="${list.tg_title}">${list.tg_title}</option>
-			</c:forEach>
-		</select>
-	</div>	
-	<div class="input-group mb-3" style="margin-top: 30px;">
-		<input type="text" name="topGroup" class="form-control category-content" placeholder="새로 등록할 중분류 이름을 입력하세요.">
-		<button class="btn btn-success btn-category-insert" type="button">등록</button>
-	</div>
-	<table class="table table-hover category-list-table">
-		<thead class="box-category-list">
-			<tr class="box-category">
-				<td class="col-2">대분류 제목</td>
-				<td class="col-5">중분류 제목</td>
-				<td class="col-2"></td>
-				<td class="col-2"></td>
-			</tr>
-		</thead>
-		<tbody class="midGroupList">
-			<tr>
-				<td colspan=4><h3>대분류를 선택하세요.</h3></td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="box-pagination">
-		<ul class="category-pagination pagination justify-content-center"></ul>
+<div class="jumbotron jum">
+	<div class="container mt-3 col-6 card-1">
+		<h2 style="font-weight: bold">중분류 관리</h2>
+		<div class="form-group mb-3" style="margin-top: 30px; width: 100%">
+			<select class="tg form-control" style="width: 100%">
+				<option>대분류를 선택하세요.</option>
+				<c:forEach items="${list}" var="list">
+					<option value="${list.tg_title}">${list.tg_title}</option>
+				</c:forEach>
+			</select>
+		</div>	
+		<div class="input-group mb-3" style="margin-top: 30px;">
+			<input type="text" name="topGroup" class="form-control category-content" placeholder="새로 등록할 중분류 이름을 입력하세요.">
+			<button class="btn btn-success btn-category-insert" type="button">등록</button>
+		</div>
+		<table class="table table-hover category-list-table">
+			<thead class="box-category-list">
+				<tr class="box-category">
+					<td class="col-2">대분류 제목</td>
+					<td class="col-5">중분류 제목</td>
+					<td class="col-2"></td>
+					<td class="col-2"></td>
+				</tr>
+			</thead>
+			<tbody class="midGroupList">
+				<tr>
+					<td colspan=4><h3>대분류를 선택하세요.</h3></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="box-pagination">
+			<ul class="category-pagination pagination justify-content-center"></ul>
+		</div>
 	</div>
 </div>
 <!-- 화면 출력 -->
