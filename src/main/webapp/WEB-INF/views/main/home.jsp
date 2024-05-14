@@ -49,7 +49,7 @@ body {
 <title>Home</title>
 </head>
 <body>
-
+<!-- 
 <div class="sidenav">
 
 <div class="container">
@@ -69,6 +69,7 @@ body {
   <a href="#clients">Clients</a>
   <a href="#contact">Contact</a>
 </div>   
+-->
 
 </body>
 </html>

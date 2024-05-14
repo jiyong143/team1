@@ -23,6 +23,7 @@
 	     float: left;
 	     height: auto;
 	     overflow: auto;
+	     margin-bottom :10px;
 	     background-color: violet;
 	     grid-template-columns: repeat(3, 130px);
 	     grid-template-rows: repeat(3, 30px);
@@ -52,6 +53,7 @@
         float: right;
         text-align : right;
         background-color: #ced4da;
+        margin-bottom :10px;
         height:auto;
         width:auto;
         overflow: auto;
@@ -73,6 +75,13 @@
 	}
 	.more{
 		text-align: center;
+		margin-bottom: 10px;
+	}
+	.msg-list{
+		min-height: 600px;
+	}
+	.input-box{
+		margin-bottom: 10px;
 	}
    </style>
 </head>

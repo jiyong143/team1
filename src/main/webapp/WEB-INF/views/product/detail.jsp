@@ -110,6 +110,9 @@
 	    stroke: #000; /* 아이콘 색상 변경 */
 	}
 	
+	.sellerA, .sellerA:hover{
+		text-decoration: none; color: black;	
+	}
 </style>
 </head>
 <body>
@@ -173,7 +176,7 @@
 							<h2 style="font-size: 20px; color: #808080; font-weight: bold;">가격 제안</h2>	
 						</c:when>
 						<c:otherwise>
-							<h2>${info.pr_price}원</h2>
+							<h2>${info.price}원</h2>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -211,58 +214,62 @@
 			</div>
 			<div class="btnContainer btnBox">
 				<c:choose>
-					<c:when test="${!empty user && pick.pi_num != 0}">
-						<i class="bi bi-heart-fill btn-pick"></i>
+					<c:when test="${!empty user}">
+						<c:if test="${loginUser.me_id ne prUser.me_id}">
+							<c:if test="${pick.pi_num != 0}">
+								<i class="bi bi-heart-fill btn-pick"></i>
+							</c:if>
+							<c:if test="${pick.pi_num == 0}">
+								<i class="bi bi-heart btn-pick"></i>
+							</c:if>
+							<button class="btn btn-outline-success btn-sse">채팅하기</button>
+							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+						</c:if>
 					</c:when>
-					<c:otherwise>
-						<i class="bi bi-heart btn-pick"></i>
-					</c:otherwise>
 				</c:choose>
-				<button class="btn btn-outline-success btn-sse">채팅하기</button>
-				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>				
 			</div>
 			<input type="hidden" id="pickValue" value="${pick}">
 			
 			<c:if test="${loginUser.me_id eq prUser.me_id}">
 				<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
 				   <c:if test="${info.pr_ps_state ne '판매완료'  }">
-				   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
-					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-					<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
-					<button class="jiyong-button flex flex-col items-center py-[6px]">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<rect x="4.25" y="4" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
-					<rect x="4.25" y="6" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
-					<path d="M15 7L18 4L21 7" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
-					<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
-					</button>
-					</form>
-					</li>
-					<!-- 상품 수정 화면으로 이동 -->
-					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-					<a href="<c:url value="/product/update?num=${info.pr_num }"/>" method="get">
-					<button class="jiyong-button flex flex-col items-center py-[6px]">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<path d="M7.91993 19.7931C8.05181 19.7601 8.17224 19.6919 8.26836 19.5958L19.9497 7.91448C20.2034 7.66076 20.4047 7.35954 20.542 7.02803C20.6793 6.69652 20.75 6.34121 20.75 5.98239C20.75 5.62357 20.6793 5.26826 20.542 4.93675C20.4047 4.60524 20.2034 4.30402 19.9497 4.0503C19.696 3.79657 19.3948 3.59531 19.0633 3.45799C18.7317 3.32068 18.3764 3.25 18.0176 3.25C17.2929 3.25 16.5979 3.53788 16.0855 4.0503L4.40418 15.7316C4.30806 15.8278 4.23987 15.9482 4.2069 16.0801L3.27239 19.8181C3.2085 20.0737 3.28338 20.344 3.46967 20.5303C3.65596 20.7166 3.92632 20.7915 4.1819 20.7276L7.91993 19.7931Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
-					<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
-					</button>
-					</a>
-					</li>
+					   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
+						<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+							<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
+								<button class="jiyong-button flex flex-col items-center py-[6px]">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										<rect x="4.25" y="4" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+										<rect x="4.25" y="6" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+										<path d="M15 7L18 4L21 7" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+									<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
+								</button>
+							</form>
+						</li>
+						<!-- 상품 수정 화면으로 이동 -->
+						<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+							<a href="<c:url value="/product/update?num=${info.pr_num }"/>" method="get">
+								<button class="jiyong-button flex flex-col items-center py-[6px]">
+									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										<path d="M7.91993 19.7931C8.05181 19.7601 8.17224 19.6919 8.26836 19.5958L19.9497 7.91448C20.2034 7.66076 20.4047 7.35954 20.542 7.02803C20.6793 6.69652 20.75 6.34121 20.75 5.98239C20.75 5.62357 20.6793 5.26826 20.542 4.93675C20.4047 4.60524 20.2034 4.30402 19.9497 4.0503C19.696 3.79657 19.3948 3.59531 19.0633 3.45799C18.7317 3.32068 18.3764 3.25 18.0176 3.25C17.2929 3.25 16.5979 3.53788 16.0855 4.0503L4.40418 15.7316C4.30806 15.8278 4.23987 15.9482 4.2069 16.0801L3.27239 19.8181C3.2085 20.0737 3.28338 20.344 3.46967 20.5303C3.65596 20.7166 3.92632 20.7915 4.1819 20.7276L7.91993 19.7931Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+									<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
+								</button>
+							</a>
+						</li>
 					</c:if>
 					<!-- 상품 삭제 화면으로 이동 -->
 					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-					<button class="jiyong-button flex flex-col items-center py-[6px]">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					<path d="M10 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-					</svg>
-					<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품삭제</p>
-					</button>
+						<button class="jiyong-button flex flex-col items-center py-[6px]">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+								<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+								<path d="M10 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+							<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품삭제</p>
+						</button>
 					</li>
 				</ul>
 			</c:if>
@@ -273,7 +280,7 @@
 			${info.pr_content}
 		</div>
 		<div class="sellerContainer">
-			<a href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
+			<a class="sellerA" href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
 				<!-- 판매자 신상 -->
 				<h3>판매자</h3>
 				<hr>
@@ -306,7 +313,7 @@
 	</div><!-- end container -->
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
-	$(".btn-sse").click(function(){
+	$(document).on("click", ".btn-sse", function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
 			url : '<c:url value="/product/chat"/>', 
@@ -366,12 +373,14 @@
 				`
 				<i class="bi bi-heart btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
 				`;
 		}else{
 			str += 
 				`
 				<i class="bi bi-heart-fill btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
+				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
 				`;
 		}
 		$(".btnBox").html(str);

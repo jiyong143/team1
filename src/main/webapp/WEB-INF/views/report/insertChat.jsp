@@ -36,7 +36,7 @@
 <body>
 <div class="container">
    <h1 class="page-title">신고글 작성</h1>
-   <form action="<c:url value="/report/insert"/>" method="post" enctype="multipart/form-data">
+   <form action="<c:url value="/report/insertChat"/>" method="post" enctype="multipart/form-data">
 		<div class="container-box">
 			<div class="select-box col-12 mt-3">
 				<label for="suport_manage">신고유형</label>
@@ -52,7 +52,7 @@
 			</div>
 			<div class="form-group col-12 mt-3">
 			   <label for="re_me_id">신고작성자</label>
-			   <input type="text" class="form-control" id="re_me_id" name="re_me_id" readonly placeholder="${member.me_id}" value="${member.me_id}">
+			   <input type="text" class="form-control" id="re_me_id" name="re_me_id" readonly placeholder="${me_id}" value="${me_id}">
 			</div>
 		</div>   
 		<div class="form-group mb-2">
