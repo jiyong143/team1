@@ -360,6 +360,23 @@ img {
 	font-size: .875rem;
 	font-weight: 600;
 }
+
+#smallPlaceMessage {
+	position: absolute;
+	left: 1020px;
+	top:1750px;
+	color: red;
+	font-size: 12px;
+}
+#midPlaceMessage {
+	position: absolute;
+	left: 860px;
+	top:1750px;
+	color: red;
+	font-size: 12px;
+}
+
+
 </style>
 </head>
 <body>
@@ -513,6 +530,8 @@ img {
 			<span class="michael">/1000</span>
 		</div>
 		<p class="font-semibold">상품상태</p>
+		<p id="midPlaceMessage"></p>
+		<p id="smallPlaceMessage"></p>
 		<div id="state-update" class="state-update flex gap-3">
 			<button class="iButton"
 				style="background-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : 'transparent'}; color :  ${pro.pr_ps_state eq '판매중' ? 'rgb(255 255 255)' : ''}; border-color : ${pro.pr_ps_state eq '판매중' ? 'rgb(13 204 90)' : ''};">판매중</button>
@@ -884,7 +903,6 @@ function sendTop(button) {
 	var categoryMessage = document.getElementById("categoryMessage");
 	var pNum = '${pro.pr_num}';
 	var topName = button.querySelector('p').textContent.trim();
-	console.log(pNum);
     var data = {
        "topName" : topName,
        "pNum" : pNum
@@ -899,7 +917,6 @@ function sendTop(button) {
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(data) {
-        	console.log(data);
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMid(data.mids, data.mName);
             categoryMessage.textContent = "";// 메시지 클리어
@@ -913,6 +930,8 @@ function sendTop(button) {
 
 
 function sendTopPlace(button) {
+	var midPlaceMessage = document.getElementById('midPlaceMessage');
+	var smallPlaceMessage = document.getElementById('smallPlaceMessage');
 	var pNum = '${pro.pr_num}';
 	var topPlace = button.querySelector('p').textContent.trim();
     var data = {
@@ -930,6 +949,8 @@ function sendTopPlace(button) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMidPlace(data.guList, data.gu);
             removeSmallPlace();// 동 공간을 리셋하는 작업
+            midPlaceMessage.textContent = "";// 메시지 클리어
+            smallPlaceMessage.textContent = "";// 메시지 클리어
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1044,6 +1065,8 @@ function addSmallPlace(smalls, dong){
 
 
 function clickMidPlace(button){
+	 var midPlaceMessage = document.getElementById('midPlaceMessage');
+	 var smallPlaceMessage = document.getElementById('smallPlaceMessage');
 	 var buttons1 = document.querySelectorAll('#midPlace button');
 	 buttons1.forEach(function(btn) {
     btn.classList.remove('selected');
@@ -1056,6 +1079,8 @@ function clickMidPlace(button){
     button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
     button.querySelector('p').style.color = 'black'; 	
     button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+    midPlaceMessage.textContent = "";// 시군구 메시지 클리어
+    smallPlaceMessage.textContent = ""; // 동 메시지 클리어
     sendMidAddr(button);
 }
 
@@ -1091,7 +1116,8 @@ function sendMidAddr(button) {
 
 
 function clickSmallPlace(button){
-	 var buttons2 = document.querySelectorAll('#smallPlace button');
+	var smallPlaceMessage = document.getElementById('smallPlaceMessage');
+	var buttons2 = document.querySelectorAll('#smallPlace button');
 	 buttons2.forEach(function(btn) {
    btn.classList.remove('selected');
    btn.querySelector('p').style.fontWeight = 'normal'; // 모든 버튼 스타일 초기화                
@@ -1103,6 +1129,7 @@ function clickSmallPlace(button){
    button.querySelector('p').style.fontWeight = 'bold'; // 클릭한 버튼 스타일 변경          
    button.querySelector('p').style.color = 'black'; 	
    button.closest('li').style.backgroundColor = '#ced4da'; // 버튼 포함하는 li의 배경색을 회색으로
+   smallPlaceMessage.textContent = ""; // 동 메시지 클리어
 }
 
 function clickMid(button){
@@ -1367,6 +1394,8 @@ function clickMid(button){
 	}
 	
 	document.getElementById("update-button").addEventListener("click", function() {
+		var midPlaceMessage = document.getElementById("midPlaceMessage");
+		var smallPlaceMessage = document.getElementById("smallPlaceMessage");
 		var imageMessage = document.getElementById("imageMessage");
 		var priceInput = document.getElementById("price-input");
 		var productContent = document.getElementById("product-content");
@@ -1459,21 +1488,18 @@ function clickMid(button){
         
         if(midCount>1){
         	if(midCounts==0){
-        		console.log("mid");
+        		midPlaceMessage.textContent="시군구 주소를 선택해주세요";
+        		d = true;
         	}else if(smallCounts==0){
-        		console.log("small");
+        		smallPlaceMessage.textContent="동 주소를 선택해주세요";
+        		d= true;
         	}
         }
-        
-        
         if(!d){
         	update();
         }
-        
 	 });
-	
-	
-        
+	     
         function update() {
         	var productTitle = document.getElementById("productTitle"); //수정할 제목
         	var priceInput = document.getElementById("price-input"); //수정할 가격
@@ -1617,14 +1643,7 @@ function clickMid(button){
     	            console.log(xhr);
     	        }
     	    });     
-        }
-
-        
-        
-   
-
-
-	
+        }      	
 </script>
 </body>
 </html>
