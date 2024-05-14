@@ -316,6 +316,13 @@ public class LKJController {
 	    return "/report/list";
 	}
 	
+	@GetMapping("/report/insertChat")
+	public String reportInsert(Model model, String me_id) {
+		model.addAttribute("me_id", me_id);
+	    model.addAttribute("title", "거래글 신고");
+	    return "/report/insertChat";
+	}
+	
 	//채팅방 신고
 	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session) {
@@ -327,7 +334,7 @@ public class LKJController {
 			model.addAttribute("url", "/report/list");
 		}else {
 			model.addAttribute("msg", "신고 실패!");
-			model.addAttribute("url", "/report/insetChat?me_id="+report.getRe_me_id());
+			model.addAttribute("url", "/report/insertChat?me_id="+report.getRe_me_id());
 		}
 		return "message";
 	}

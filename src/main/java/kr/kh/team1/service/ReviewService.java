@@ -16,7 +16,7 @@ public interface ReviewService {
 
 	int getTrNum(int prNum);
 
-	boolean addReview(ArrayList<String> reviewType, int trNum, String me_id);
+	boolean addReview(ArrayList<String> reviewType, int trNum, String me_id, int mannerScore);
 
 	ArrayList<ReviewTypeVO> getReviewList();
 
@@ -25,4 +25,7 @@ public interface ReviewService {
 	ArrayList<TradeOutcomeVO> getMyReviewList1(String me_id);
 
 	void deleteReview(int reviewDeleteVal, String userId);
+
+	int getReviewScore(String i);
+
 }

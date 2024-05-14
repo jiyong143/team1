@@ -102,7 +102,7 @@ li {
 							<h2>${myUser.me_id}</h2> 
 							<c:if test="${user.me_id == myUserCheck}"> 
 								<a href="<c:url value='/member/update'/>">회원정보수정</a>
-								<a href="<c:url value='/member/delete'/>">회원탈퇴</a>
+								<a href="<c:url value='/'/>" id="memberDelete">회원탈퇴</a>
 							</c:if>
 						</div>
 						<!-- 프로필 이미지 -->
@@ -264,7 +264,23 @@ li {
 			if (event.target == modal) {
 				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
 			}
-		};	
+		};
+		$("#memberDelete").click(function() {
+			if(confirm("탈퇴하시겠습니까?")){
+				$.ajax({
+					async : false,
+					url : '<c:url value="/member/delete"/>', 
+					type : 'get',
+					dataType : "json",
+					success : function (){
+						
+					}, 
+					error : function(jqXHR, textStatus, errorThrown){
+			
+					}
+				});
+			}
+		})
 	</script>
 	
 	<!-- 결제 api 스크립트 -->
