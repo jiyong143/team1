@@ -40,6 +40,16 @@
 	<update id="updateAuthority">
    		 UPDATE member SET me_authority = #{me_authority}, me_state = #{me_state} WHERE me_id = #{me_id}
 	</update>
+	
+	<select id="getMemberById" resultType="MemberVO">
+		select * from member where me_report_count = #{me_report_count}
+	</select>
+	
+	<update id="updateReportCount" parameterType="map">
+	    UPDATE member
+	   		SET me_report_count = me_report_count + 1
+	    WHERE re_num = #{re_num}
+	</update>
   	<!-- 관리자 권한으로 회원관리에 필요한 코드 -->
 
 	<update id="updateMember">

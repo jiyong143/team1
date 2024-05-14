@@ -34,6 +34,8 @@ public interface MemberService {
 	int getTradeNum(String me_id);
 
 	int getReviewNum(String me_id);
+	
+	MemberVO getMemberById(MemberVO user);
 
 	//관리자 -> 회원관리에 필요한 코드 START
 	
@@ -42,6 +44,10 @@ public interface MemberService {
 	int getTotalCountMember(Criteria_member crim);
 
 	boolean updateAuthority(String me_id, String me_authority, String me_state);
+
+	boolean addReportCount(MemberVO user, int meReportCount);
+
+	
 	
 	//관리자 -> 회원관리에 필요한 코드 END 
 

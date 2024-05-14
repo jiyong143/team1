@@ -31,10 +31,13 @@
     margin-bottom : 5px;
     padding: 2px;
 }
+.container-reportTable{
+	margin-left: 350px;
+}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container-reportTable">
    <h1 class="page-title">신고글 작성</h1>
    <form action="<c:url value="/report/insertProduct"/>" method="post" enctype="multipart/form-data">
 		<div class="container-box">
@@ -65,57 +68,37 @@
 		</div>   
 		<div class="form-group mb-2">
 			<label for="re_content">내용</label>
-		  	<textarea class="content-box" id="re_content" name="re_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
+		  	<textarea class="form-control" id="re_content" name="re_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
 		</div>
-		<button class="btn btn-dark col-12 mb-4">등록</button>
+		<button class="reportBtn btn-dark col-12 mb-4">등록</button>
    </form>
 </div>
 
 <script type="text/javascript">	
-	$("form").submit(function() {
-		let name = $("[name=re_name]").val();
-		if(title.length == 0){
-			alert("신고 유형을 선택해주세요.");
-			$("[name=re_name]").focus();
-			return false;
-		}
-		let content = $("[name=re_content]").val();
-		if(content.length = 0){
-			alert("내용은 공백으로 남길 수 없습니다.")
-			$("[name-su_content]").focus();
-			return false;
-		}
-		
-	});
-	
-	$('[name = re_content]').summernote({
-		   placeholder: '내용을 입력하세요',
-		   tabsize: 2,
-		   height: 400
-		});
-
-<script type="text/javascript">   
-   $("form").submit(function() {
-      let name = $("[name=re_name]").val();
-      if(title.length == 0){
-         alert("신고 유형을 선택해주세요.");
-         $("[name=re_name]").focus();
-         return false;
-      }
-      let content = $("[name=re_content]").val();
-      if(content.length = 0){
-         alert("내용은 공백으로 남길 수 없습니다.")
-         $("[name-su_content]").focus();
-         return false;
-      }
-      
-   });
    
-   $('[name = re_content]').summernote({
-         placeholder: '내용을 입력하세요',
-         tabsize: 2,
-         height: 400
-      });
+   $(document).ready(function(){
+	   $("#reportBtn").click(function(){
+		   var userId = $(this).data("re_me_id");
+		   incrementReportCount(userId);
+	   })
+   })
+   
+   function reportCount(userId){
+	   $.ajax({
+		   type: "POST",
+		   url: "/reportCount",
+		   data: {
+			   userId: userId
+		   },
+		   success: function(response){
+			   alert("신고가 성공적으로 처리되었습니다.");
+		   },
+		   error: function(xhr, status, error){
+			   alert("오류가 발생하였습니다." + error);
+		   }
+	   });
+   }
+   
 </script>
 </body>
 </html>
