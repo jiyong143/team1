@@ -363,7 +363,7 @@ public class CJYController {
 	public Map<String, Object> idCheckDup(@RequestParam("tg_title") String tg_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		System.out.println(tg_title);
+		
 		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupListByTopGroup(tg_title);
 
 		map.put("data", midList);
@@ -372,11 +372,23 @@ public class CJYController {
 
    	@PostMapping("/product/insert")  
    	public String productListPost(Model model, HttpSession session, 
-		   ProductVO product, MultipartFile[] file, String mg_title, String tg_title, int optradio, ZipcodeVO zip, int pr_price) { 
-	   
+		   ProductVO product, MultipartFile[] media, String mg_title, String tg_title, int optradio, ZipcodeVO zip, int pr_price) { 
+   		
+   		// 파일 배열이 비어있는지 확인
+   	    if (media != null) {
+   	     System.out.println("file 배열의 길이: " + media.length);
+   	        for (int a = 0; a < media.length; a++) {
+   	        	System.out.println(a);
+   	            // 파일의 이름, 크기, 타입을 출력
+   	            System.out.println("파일 이름: " + media[a].getOriginalFilename());
+   	            System.out.println("파일 크기: " + media[a].getSize() + " bytes");
+   	            System.out.println("파일 타입: " + media[a].getContentType());
+   	        }
+   	    } else {
+   	        System.out.println("파일이 업로드되지 않았습니다.");
+   	    }
 	    // 회원 정보 가져옴
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		
 		// 상품 가격 설정
 		if(optradio == 0 || optradio == -10) {
 			product.setPr_price(optradio);
@@ -391,9 +403,8 @@ public class CJYController {
 		String tName = tg_title;
 		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
 		product.setPr_place(place);
-
-	
-		if(productService.insertProduct(product, user, file, mg_title)) {
+		
+		if(productService.insertProduct(product, user, media, mg_title)) {
 			model.addAttribute("msg", "게시글을 등록했습니다.");
 			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);
 		} else {
