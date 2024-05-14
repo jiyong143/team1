@@ -64,8 +64,8 @@
 </style>
 </head>
 <body>
+	<div class="container text-center mt-3">
 	<h1>리뷰 가능한 판매글 목록</h1>
-	<div>
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
