@@ -9,11 +9,12 @@ import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria_report;
 
 public interface ReportDAO {
-
+	
 	ArrayList<ReportVO> selectReportList(@Param("crir") Criteria_report crir);
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
-
+	
+	//거래글 리스트에서 하나의 거래글만 가져옴
 	ArrayList<ProductVO> selectProductList();
 
 	boolean insertReportProd(@Param("report") ReportVO report);
@@ -24,6 +25,6 @@ public interface ReportDAO {
 
 	boolean insertReportByIBH(@Param("report") ReportVO report, @Param("cr_num") int cr_num);
 
-	boolean updateState(@Param("pr_num") int re_pr_num, @Param("re_state") String re_state);
+	boolean updateState(@Param("re_pr_num") int re_pr_num);
 
 }

@@ -1,5 +1,7 @@
 package kr.kh.team1.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.PaymentDAO;
@@ -15,11 +17,10 @@ public class PaymentServiceImp implements PaymentService {
 	}
 	
 	@Override
-	public void addPayment(String orderUid, int paymentPrice, String userId) {
-		System.out.println( "************* " + orderUid +   "  "  + userId);
+	public void addPayment(String orderUid, int paymentPrice, String userId, Date now) {
 		if(checkString(orderUid) &&
 		   checkString(userId)) {
-			paymentDao.insertPayment(orderUid, paymentPrice, userId);
+			paymentDao.insertPayment(orderUid, paymentPrice, userId, now);
 		}
 		
 	}

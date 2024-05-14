@@ -32,14 +32,15 @@ public class ReportServiceImp implements ReportService{
 	//신고글 작성 
 	@Override
 	public ArrayList<ProductVO> getProductList() {
+		//거래글 리스트에서 하나의 거래글만 가져옴
 		return reportDao.selectProductList();
 	}
 	
 	@Override
-	public boolean insertReportProduct(ReportVO report, MemberVO user) {
-	  if(report.getRe_me_id() == null || 
-	     report.getRe_name() == null || 
-		 report.getRe_content() == null) // getRe_content() == null 조건 추가
+	public boolean insertReportProd(ReportVO report, MemberVO user) {
+	  if(report.getRe_me_id() == null || //신고 신청자, 예외처리 
+	     report.getRe_name() == null ||  //신고 유형, 예외처리
+		 report.getRe_content() == null) //신고 내용, 예외처리
 		  return false;
 	  
 	  if(user == null)
@@ -69,11 +70,11 @@ public class ReportServiceImp implements ReportService{
 	}
 	
 	@Override
-	public boolean updateState(int re_pr_num, String re_state) {
-	    if (re_pr_num <= 0 ||re_state == null || re_state.isEmpty()) {
+	public boolean updateState(int re_pr_num) {
+	    if (re_pr_num <= 0) {
 	        return false;
 	    }
-	    return reportDao.updateState(re_pr_num, re_state);
+	    return reportDao.updateState(re_pr_num);
 	}
 
 	

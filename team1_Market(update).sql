@@ -11,15 +11,17 @@ CREATE TABLE `member` (
    `me_email`   		varchar(30) 	NOT NULL,
    `me_gender`   		varchar(10)   	NOT NULL,
    `me_name`   			varchar(15)   	NOT NULL,
-   `me_birth`   		Datetime    	NOT NULL,
+   `me_birth`   		datetime    	NOT NULL,
    `me_phone`   		varchar(13)   	NOT NULL,
    `me_addr`   			varchar(25)   	NOT NULL,
-   `me_authority`   	varchar(15)   	NOT NULL default 'user',
-   `me_state`   		varchar(4)   	NOT NULL default '이용중',
-   `me_manner`   		double   		NOT NULL default 36.5,
-   `me_point` 			int 			NOT NULL default 0,
+   `me_authority`   		varchar(15)   	NOT NULL default 'user',
+   `me_state`   		varchar(20)   	NOT NULL default '이용중',
+   `me_manner`   		double   	NOT NULL default 36.5,
+   `me_point` 			int 		NOT NULL default 0,
    `me_fi_num` 			int,
-	`me_stop_date`		Datetime		NULL
+   `me_payment`			int		NULL,
+   `me_report_count`		int		NOT NULL default 0,
+   `me_stop_date`		datetime	NULL
 );
 
 DROP TABLE IF EXISTS `topGroup`;
@@ -42,12 +44,12 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
    `pr_num`   		int   			NOT NULL primary key auto_increment,
    `pr_mg_num`   	int   			NOT NULL,
-   `pr_me_id`   	varchar(15)   	NOT NULL,
-   `pr_name`   		varchar(30)   	NOT NULL,
-   `pr_place`   	varchar(30)   	NOT NULL,
+   `pr_me_id`   	varchar(15)   	  	NOT NULL,
+   `pr_name`   		varchar(30)   		NOT NULL,
+   `pr_place`   	varchar(30)   		NOT NULL,
    `pr_content` 	text 			NOT NULL,
    `pr_price`   	int   			NOT NULL,
-   `pr_ps_state` 	varchar(20) 	NOT NULL default "판매중",
+   `pr_ps_state` 	varchar(20) 		NOT NULL default "판매중",
    `pr_basket`   	int   			NOT NULL default 0,
    `pr_view`   		int   			NOT NULL default 0,
    `pr_date`   		datetime 		NOT NULL default now(),
@@ -72,9 +74,7 @@ CREATE TABLE `report` (
    `re_name`   	 varchar(20)    NOT NULL,
    `re_content`  text 		  	NOT NULL,
    `re_date`   	 dateTime 	  	NOT NULL default now(),
-   `re_state`    varchar(20)   	NOT NULL default "신고접수",
-   `re_cr_num`	 int			NULL,
-   `re_count`	int				NOT NULL default 0
+   `re_cr_num`	 int			NULL
 );
 
 DROP TABLE IF EXISTS `pick`;

@@ -84,6 +84,15 @@ public class ProductVO {
 		String[] components = addr.split(" ");
 		return components[2];
 	}
+	
+	// 상품 설명에 있는 태그들 지워서 반환하는 메서드 
+	public  String getContent() {
+        // HTML 태그를 제외한 모든 문자를 가져오는 정규식
+        String regex = "\\<[^>]*>";
+        
+        // 정규식을 사용하여 HTML 태그를 제거하고 문자열을 반환
+        return pr_content.replaceAll(regex, "");
+    }
 
 }
 

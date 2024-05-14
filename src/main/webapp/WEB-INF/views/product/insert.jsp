@@ -274,7 +274,7 @@
 		}
 		
 		addFilesToForm();
-		
+
 		if($(".sido").val() == 'x' || $(".h_dong_nm").val() == 'x' ||
 			($(".sido").val() != '세종특별자치시' && $(".sigungu").val() == 'x' )){
 			alert("주소를 입력해야 합니다.");
