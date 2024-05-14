@@ -1549,7 +1549,9 @@ function clickMid(button){
 			    var backgroundColor = computedStyle.backgroundColor;
 			    if (backgroundColor === 'rgb(206, 212, 218)') {
 			    	var dataValue = liElement.getAttribute('data-value');	
+			    	var midName = liElement.querySelector('button').querySelector('p').textContent;
 			    	formData.append('mNum', dataValue);
+			    	formData.append('mName', midName);
 			    }
 			}
 			
@@ -1625,6 +1627,21 @@ function clickMid(button){
 			    	formData.append("dong",dong);
 			    }
 			}
+			
+			var writer = '${pro.pr_me_id}';
+			formData.append("writer",writer); // 상품 작성자 아이디
+			
+			 var tName;
+			 var topGroups = document.getElementsByClassName("topGroup-li");// 대분류 이름
+			 for(let i=0; i<topGroups.length; i++){
+		        	var top = topGroups[i];
+		        	var computedStyle = window.getComputedStyle(top);
+		        	var backgroundColor = computedStyle.getPropertyValue('background-color');
+		        	if(backgroundColor === 'rgb(206, 212, 218)'){
+		        		tName = top.querySelector('button').querySelector('p').textContent;
+		        	}
+		        }
+			 formData.append("tName",tName);
 			
             $.ajax({
     	    	async : false,

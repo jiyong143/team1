@@ -156,19 +156,48 @@ public class CJYController {
 	
 	@ResponseBody
 	@PostMapping("/product/update")
-	public String productUpdatePost(@RequestParam("arr[]") ArrayList<String> arr, @RequestParam("pNum")int pNum, @RequestParam("files")List<MultipartFile> files, @RequestParam("pName") String pName, @RequestParam("mNum") int mNum , @RequestParam("price") int price,
-			@RequestParam("content") String content, @RequestParam("state")String state, @RequestParam("buyer") String buyer, @RequestParam("sido")String sido, @RequestParam("gu")String gu, @RequestParam("dong")String dong) { 
-			
-	
+	public String productUpdatePost(Model model, HttpSession session, @RequestParam("arr[]") ArrayList<String> arr, @RequestParam("pNum")int pNum, @RequestParam("files")List<MultipartFile> files, @RequestParam("pName") String pName, @RequestParam("mNum") int mNum , @RequestParam("price") int price,
+			@RequestParam("content") String content, @RequestParam("state")String state, @RequestParam("buyer") String buyer, @RequestParam("sido")String sido, @RequestParam("gu")String gu, @RequestParam("dong")String dong, @RequestParam("writer") String writer, @RequestParam("mName") String mName,@RequestParam("tName") String tName) { 	
+		// 수정하는 제품 가져오기 
+		ProductVO pro = productService.getProductInfo(pNum);	
+		// midGroup 바꾸기
+		pro.setPr_mg_num(mNum);
+		// 중분류 이름 바꾸기
+		pro.setPr_mg_name(mName);
+		// 대분류 이름 바꾸기
+		pro.setPr_tg_name(tName);
+	    // 제목 바꾸기
+		pro.setPr_name(pName);
+		// 주소 바꾸기
+		String newAddr = sido + " " + gu + " " + dong;
+		pro.setPr_place(newAddr);
+		// 내용 바꾸기
+		pro.setPr_content(content);
+		// 가격 바꾸기
+		pro.setPr_price(price);
+		// 상태 바꾸기
+		pro.setPr_ps_state(state);
+		// 판매완료인 경우 구매자 아이디 넣기
+		if(state.equals("판매완료")) {
+			pro.setPr_buyId(buyer);
+		}
+		System.out.println(pro);
+		// 회원 정보 가져옴
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		/*if(productService.insertProduct(pro, user, file, mg_title)) {
+			model.addAttribute("msg", "게시글을 등록했습니다.");
+			model.addAttribute("url", "/product/list?mNum=" + mNum + "&mName=" + mName + "&tName=" + tName);
+		}else {
+			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
+			model.addAttribute("url", "/product/insert");
+		}*/
+		
+		
 		
 		return "message";      
 	}
 	
-	
-	
-	
-
-
 	@GetMapping("/product/list")  
    	public String productList(Model model, int mNum, ProductCriteria cri, String mName, String tName, HttpSession session) {
 	   	String maxPrice = productService.getMaxPrice(mNum,cri);
