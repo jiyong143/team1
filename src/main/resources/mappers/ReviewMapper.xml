@@ -27,6 +27,7 @@
 			<foreach collection="reviewType" item="reviewType" separator=",">
 				(#{reviewType}, #{trNum}, 0)
 			</foreach>
+			
 	</insert>
 	
 	<insert id="insertReview2">
@@ -52,7 +53,7 @@
 		select to_num, to_rt_type, to_tr_num, to_type from trade_outcome
 		join trade_review on tr_num = to_tr_num
 		join product on pr_num = tr_pr_num
-   		where pr_buyId = #{me_id} &amp;&amp; to_type = 1
+   		where tr_me_id = #{me_id} &amp;&amp; to_type = 1
 	</select>
 	
 	<select id="selectTrNumByUserId" resultType="int">
@@ -80,4 +81,15 @@
 	<insert id="insertReviewDefault2">
 		insert into trade_outcome(to_rt_type, to_tr_num, to_type) values("default", #{reviewDeleteVal}, 1)
 	</insert>
+	<select id="selectReviewScore" resultType="int">
+		select rt_point from review_type where rt_type = #{i} 
+	</select>
+	<update id="updateReviewScore">
+		update member set me_manner = ((select me_manner where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum});
+	</update>
+	<update id="updateReviewScore2">
+		update member set me_manner = ((select me_manner where me_id = (select tr_me_id from trade_review where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select tr_me_id from trade_review where tr_num = #{trNum})
+	</update>
 </mapper>

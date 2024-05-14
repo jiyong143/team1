@@ -77,7 +77,7 @@ public class ReviewServiceImp implements ReviewService {
 	}
 
 	@Override
-	public boolean addReview(ArrayList<String> reviewType, int trNum, String me_id) {
+	public boolean addReview(ArrayList<String> reviewType, int trNum, String me_id, int mannerScore) {
 		for(String i:reviewType) {
 			if(!checkString(i)) {
 				return false;
@@ -85,9 +85,11 @@ public class ReviewServiceImp implements ReviewService {
 		}
 		
 		if(reviewDao.checkTradeReview(trNum).equals(me_id)) {
-			reviewDao.insertReview(reviewType, trNum); //구매자
+			reviewDao.insertReview(reviewType, trNum); //구매자의 매너점수 수정
+			reviewDao.updateReviewScore(trNum, mannerScore);
 		} else {
-			reviewDao.insertReview2(reviewType, trNum); //판매자
+			reviewDao.insertReview2(reviewType, trNum); //판매자의 매너점수 수정
+			reviewDao.updateReviewScore2(trNum, mannerScore);
 		}
 		
 		return true;
@@ -124,6 +126,11 @@ public class ReviewServiceImp implements ReviewService {
 			reviewDao.insertReviewDefault2(reviewDeleteVal); //판매자
 		}
 		
+	}
+
+	@Override
+	public int getReviewScore(String i) {
+		return reviewDao.selectReviewScore(i);
 	}
 
 

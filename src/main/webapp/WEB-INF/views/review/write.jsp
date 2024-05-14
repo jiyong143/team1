@@ -64,13 +64,13 @@
 </style>
 </head>
 <body>
+	<div class="container text-center mt-3">
 	<h1>리뷰 가능한 판매글 목록</h1>
-	<div>
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
 					<td>제목</td>
-					<td>작성자</td>
+					<td>판매자</td>
 					<td>후기작성</td>
 					<td>비고</td>
 				</tr>
@@ -147,7 +147,7 @@
 						
 					}, 
 					error : function(jqXHR, textStatus, errorThrown){
-			
+						
 					}
 				});
 			}
