@@ -48,5 +48,7 @@ public interface ReviewDAO {
 
 	void updateReviewScore(@Param("trNum")int trNum, @Param("mannerScore")int mannerScore);
 
+	void updateReviewScore2(@Param("trNum")int trNum, @Param("mannerScore")int mannerScore);
+
 	
 }

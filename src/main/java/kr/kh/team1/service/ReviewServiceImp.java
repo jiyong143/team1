@@ -85,11 +85,11 @@ public class ReviewServiceImp implements ReviewService {
 		}
 		
 		if(reviewDao.checkTradeReview(trNum).equals(me_id)) {
-			reviewDao.insertReview(reviewType, trNum); //구매자
+			reviewDao.insertReview(reviewType, trNum); //구매자의 매너점수 수정
 			reviewDao.updateReviewScore(trNum, mannerScore);
 		} else {
-			reviewDao.insertReview2(reviewType, trNum); //판매자
-			
+			reviewDao.insertReview2(reviewType, trNum); //판매자의 매너점수 수정
+			reviewDao.updateReviewScore2(trNum, mannerScore);
 		}
 		
 		return true;

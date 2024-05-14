@@ -51,7 +51,6 @@ public class PJHController {
 	@GetMapping("/main/home")
 	public String home(Model model) {
 		MemberVO dateTest = memberService.getMemberDate();
-		System.out.println("test" + dateTest.getMe_birth());
 		model.addAttribute("test1", dateTest);
 		return "/main/home";
 	}
@@ -199,13 +198,7 @@ public class PJHController {
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
 		ArrayList<TradeOutcomeVO> reviewList0 = reviewService.getMyReviewList0(myUser.getMe_id()); //판매자일 때 구매자에게 받은 후기
-		System.out.println("1");
-		System.out.println(reviewList0);
 		ArrayList<TradeOutcomeVO> reviewList1 = reviewService.getMyReviewList1(myUser.getMe_id()); //구매자일 떄 판매자에게 받은 후기 <-- 문제
-		System.out.println("2");
-		System.out.println(reviewList1);
-		System.out.println("3");
-		System.out.println(reviewList);
 		for(ReviewTypeVO i : reviewList) {
 			for(TradeOutcomeVO j : reviewList0) {
 				if(i.getRt_type().equals(j.getTo_rt_type())) {
@@ -221,8 +214,6 @@ public class PJHController {
 				}
 			}
 		}
-		System.out.println("4");
-		System.out.println(reviewList);
 		
 		model.addAttribute("reviewList", reviewList);
 		
@@ -365,7 +356,6 @@ public class PJHController {
 		ArrayList<ProductVO> reviewList = reviewService.getReviewProList(userId); // 리뷰가능한(판매자가 판매완료로 바꾸고 구매자를 특정한경우)
 																			      // 판매글 리스트를 가져옴 (이미 리뷰한 글들은 다른 곳에서 볼
 																				  // 수 있음)
-		System.out.println(reviewList);
 		ArrayList<ReviewTypeVO> reviewType = reviewService.getReviewType();
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewType", reviewType);

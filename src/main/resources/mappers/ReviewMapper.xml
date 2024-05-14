@@ -85,7 +85,11 @@
 		select rt_point from review_type where rt_type = #{i} 
 	</select>
 	<update id="updateReviewScore">
-		update member set me_manner = ((select me_manner where me_id = (select tr_me_id from trade_review where tr_num = #{trNum}))+#{mannerScore}) where me_id = (select tr_me_id from trade_review where tr_num = #{trNum});
-		select * from member where me_id = (select tr_me_id from trade_review where tr_num = #{trNum});
+		update member set me_manner = ((select me_manner where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select pr_me_id from product join trade_review on pr_num = tr_pr_num where tr_num = #{trNum});
+	</update>
+	<update id="updateReviewScore2">
+		update member set me_manner = ((select me_manner where me_id = (select tr_me_id from trade_review where tr_num = #{trNum}))+#{mannerScore}) 
+		where me_id = (select tr_me_id from trade_review where tr_num = #{trNum})
 	</update>
 </mapper>
