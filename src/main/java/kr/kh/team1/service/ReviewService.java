@@ -28,4 +28,6 @@ public interface ReviewService {
 
 	int getReviewScore(String i);
 
+	void addTradeReview(int pNum, String buyer);
+
 }

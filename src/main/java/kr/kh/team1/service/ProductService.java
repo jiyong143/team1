@@ -1,6 +1,7 @@
 package kr.kh.team1.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,5 +56,7 @@ public interface ProductService {
 	int getTopNum(int num);
 
 	void deleteFile(Integer integer);
+
+	int updateProduct(ProductVO pro, MemberVO user, List<Integer> resultList, List<MultipartFile> files);
 
 }

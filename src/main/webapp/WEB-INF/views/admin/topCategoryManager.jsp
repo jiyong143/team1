@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.card-1 {
+		margin-left: 33%;
 		background-color:white;
 		padding: 30px;
+		text-align : center;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	}
@@ -18,10 +20,15 @@
 	.category-list-table {
 		margin-top: 20px
 	}
+	.jum{
+		min-height: 800px;
+		background-color: white;
+	}
 </style>
 </head>
 <body>
-<div class="container mt-3 col-6 card-1">
+<div class="jumbotron jum">
+<div class="mt-3 container col-6 card-1">
 	<h2 style="font-weight: bold">대분류 관리</h2>
 	<div class="input-group mb-3" style="margin-top: 30px;">
 		<input type="text" name="topGroup" class="form-control category-content" placeholder="새로 등록할 대분류 이름을 입력하세요.">
@@ -79,6 +86,7 @@
 			</c:if>
 		</ul>
 	</div>
+</div>
 </div>
 <script type="text/javascript">
 	<!-- 대분류 추가 -->
