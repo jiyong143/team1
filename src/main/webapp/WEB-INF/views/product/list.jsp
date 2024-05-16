@@ -507,7 +507,7 @@ li {
 
 .place-container {
 	position: absolute;
-	left: 750px;
+	left: 760px;
 	top: 285px;
 }
 
@@ -631,7 +631,7 @@ li {
 							<div class="minPrice-box">
 								<input type="text" id="minPrice"
 									class="minPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-									placeholder="최소 금액" data-idx="0" name="minPrice"
+									placeholder="최소 가격" data-idx="0" name="minPrice"
 									value="${min }"
 									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
 									autocomplete="off">
@@ -648,7 +648,7 @@ li {
 							<div class="maxPrice-box">
 								<input type="text" id="maxPrice"
 									class="maxPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-									placeholder="최대 금액" data-idx="1" name="maxPrice"
+									placeholder="최대 가격" data-idx="1" name="maxPrice"
 									value="${max }"
 									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
 									autocomplete="off">
@@ -740,22 +740,22 @@ li {
 			<ul class="float-right" style="width: 50%">
 				<li><button id="pr_num" class="float-left order-list-item"
 						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_num' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_num' }">gray;</c:if>">최신순</button></li>
-				<li style="color: gray;">|</li>
+				<li class="float-left" style="color: gray;">|</li>
 				<li><button id="pr_view" class="float-left order-list-item"
 						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_view' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_view' }">gray;</c:if>">조회수순</button></li>
-				<li style="color: gray;">|</li>
+				<li class="float-left" style="color: gray;">|</li>
 				<li><button id="pr_basket" class="float-left order-list-item"
 						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_basket' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_basket' }">gray;</c:if>">찜순</button></li>
-				<li style="color: gray;">|</li>
+				<li class="float-left" style="color: gray;">|</li>
 				<li><button id="asc" class="float-left order-list-item"
 						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'asc' }">black;</c:if> <c:if test="${pm.cri.order != 'asc' }">gray;</c:if>">낮은가격순</button></li>
-				<li style="color: gray;">|</li>
+				<li class="float-left" style="color: gray;">|</li>
 				<li><button id="desc" class="float-left order-list-item"
 						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'desc' }">black;</c:if> <c:if test="${pm.cri.order != 'desc' }">gray;</c:if>">높은가격순</button></li>
 			</ul>
 		</div>
 
-		<h1>상품 목록</h1>
+		<h4 class="productTotalCount">총${totalCount }개</h4>
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
 				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>"
@@ -948,6 +948,7 @@ function sendPrice(minPrice, maxPrice){
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
             addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
+            addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1054,6 +1055,7 @@ function sendSearch(search) {
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
             addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
+            addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1132,6 +1134,7 @@ function sendPlace(place) {
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
             addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search ,data.min, data.max );
+            addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1394,6 +1397,7 @@ function sendCheckboxData() {
             addMethod(response.pList);
             addPrice(response.avgPrice, response.maxPrice, response.minPrice);
             addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana, response.place, response.search, response.min, response.max);
+            addTotalCount(response.totalCount);
         },
         error: function(xhr, status, error) {
             // 요청이 실패했을 때 실행할 코드
@@ -1410,19 +1414,25 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
         <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }원</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }<span style="font-size : 20px;">원</span></span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
         <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }원</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }<span style="font-size : 20px;">원</span></span>
     </div>
     <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
         <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
-        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }원</span>
+        <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }<span style="font-size : 20px;">원</span></span>
     </div>
   </div>`
   
 	$(".product-price-container").html(str);	
+}
+
+function addTotalCount(count){
+	let str='';
+	str += `<span>총\${count}개</span>`
+	$(".productTotalCount").html(str);
 }
 
 </script>

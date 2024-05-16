@@ -250,10 +250,11 @@ public class CJYController {
 		String avgPrice = productService.getAvgPrice(mNum, cri);
 		model.addAttribute("maxPrice", maxPrice);
 		model.addAttribute("minPrice", minPrice);
-		model.addAttribute("avgPrice", avgPrice);
+		model.addAttribute("avgPrice", avgPrice); 
 		ArrayList<ProductVO> productList = productService.getProductList(mNum, cri);
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
 		model.addAttribute("search", cri.getSearch());
 		model.addAttribute("place", cri.getPlace());
 		model.addAttribute("minimum", cri.getMinPrice());
@@ -297,6 +298,7 @@ public class CJYController {
 		ArrayList<ProductVO> productList = productService.getProductList(mNum, cri);
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
 		model.addAttribute("search", cri.getSearch());
 		model.addAttribute("place", cri.getPlace());
 		model.addAttribute("pm", pm);
@@ -321,6 +323,7 @@ public class CJYController {
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
 		map.put("place", cri.getPlace());
 		map.put("search", cri.getSearch());
 		map.put("order", cri.getOrder());
