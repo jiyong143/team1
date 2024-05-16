@@ -92,7 +92,7 @@
 			</div>
 			<div class="form-group">
 				<div class="image-picker">
-				    <input name="media" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
+				    <input name="file" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
 					<button type="button" class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="openFilePicker()">
 						<div class="flex flex-col">
 							<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
@@ -353,25 +353,36 @@ function deleteFile(button) {
     button.parentNode.parentNode.remove();
     // 이때, 개수 다시 리뉴얼
     displayImageCount(); 
+    button.parentNode.remove();// input에서 제거
 }
 
 function openFilePicker(){
-    document.getElementById('fileInput').click();
+	 // type 이 file인 새로운 input 요소 만들고  그거  클릭
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.classList.add('file-input');
+    fileInput.setAttribute('name', 'file'); // name 속성을 "file"로 설정
+    fileInput.style.display = 'none'; 
+    fileInput.addEventListener('change', function(event) {
+        handleFileSelect(event, fileInput); // handleFileSelect 함수 호출 시 fileInput 변수를 전달
+    }, false); // 파일 입력(input) 요소에 이벤트 리스너 추가 
+    fileInput.addEventListener('input', function(event) {
+    	 fileInput.remove();// fileInput 없애기
+    }, false);
+    fileInput.click();
 }
 
-document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
-
-function handleFileSelect(event) {
+function handleFileSelect(event, fileInput) {
     const files = event.target.files; // 선택된 파일들의 배열
     
     // 파일을 하나씩 반복하여 처리
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        displayFile(file);
+        displayFile(file, fileInput);
     }
 }
 
-function displayFile(file) {
+function displayFile(file, fileInput) {
 	
 	const countElement = document.getElementById('imageCount');
 	const value1 = countElement.textContent.trim();
@@ -406,7 +417,6 @@ function displayFile(file) {
         // 이미지를 담는 div 요소 생성
         const imgContainer = document.createElement('div');
         imgContainer.appendChild(img); 	 // 이미지를 div에 추가
-        imgContainer.appendChild(input); // input을 div에 추가
         
         // 버튼 요소 생성 및 설정
         const button = document.createElement('button');
@@ -449,9 +459,14 @@ function displayFile(file) {
         buttonContainer.style.right = '0'; // 이미지의 오른쪽에 위치
         buttonContainer.appendChild(button); // 버튼을 div에 추가
         
+     	// input 담는 div 요소 생성
+        const inputContainer = document.createElement('div');
+        inputContainer.appendChild(fileInput);
+        
         // 이미지와 버튼을 담는 컨테이너에 이미지와 버튼 컨테이너 추가
         container.appendChild(imgContainer); 
         container.appendChild(buttonContainer);
+        container.appendChild(inputContainer);
 
         // 선택한 요소에 컨테이너 추가
         const addLiElement = document.querySelector('.add-li');
