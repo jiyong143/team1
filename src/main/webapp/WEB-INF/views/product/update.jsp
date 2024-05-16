@@ -380,6 +380,9 @@ img {
 </style>
 </head>
 <body>
+    <a id="success" href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>"></a> 
+    <a id="login" href="<c:url value="/member/login"/>"></a>
+    <a id="fail" href="<c:url value="/product/update?num=${pro.pr_num }"/>"></a>
 	<div class="product-update">
 		<div class="image-update" style="display: flex; height: 100px;">
 			<div id="image-picker" class="image-picker">
@@ -495,9 +498,9 @@ img {
 					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
 		<path
 						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke="<c:if test="${pro.pr_price == 0 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != 0 }">#9CA3AF</c:if>" stroke-width="1.5" stroke-linecap="round"
 						stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+		<path d="M16 9L10.5 14.5L8 12" stroke="<c:if test="${pro.pr_price == 0 }">white</c:if> <c:if test="${pro.pr_price != 0 }">#C2C6CE</c:if>" stroke-width="1.5"
 						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 				무료나눔
@@ -509,9 +512,9 @@ img {
 					xmlns="http://www.w3.org/2000/svg" class="mr-1 ">
 		<path
 						d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-						stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"
+						stroke="<c:if test="${pro.pr_price == -10 }">rgb(13, 204, 90)</c:if> <c:if test="${pro.pr_price != -10 }">#9CA3AF</c:if>" stroke-width="1.5" stroke-linecap="round"
 						stroke-linejoin="round"></path>
-		<path d="M16 9L10.5 14.5L8 12" stroke="#C2C6CE" stroke-width="1.5"
+		<path d="M16 9L10.5 14.5L8 12" stroke="<c:if test="${pro.pr_price == -10 }">white</c:if> <c:if test="${pro.pr_price != -10 }">#C2C6CE</c:if>" stroke-width="1.5"
 						stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 				가격제안
@@ -1172,9 +1175,15 @@ function clickMid(button){
 	const won = document.getElementById("won");
 	
 	freeButton.addEventListener('click', function() {
+		var freePath1 = freeButton.querySelector('path:first-of-type');
+		var freePath2 = freeButton.querySelector('path:nth-of-type(2)');
+		var suggestPath1 = suggestButton.querySelector('path:first-of-type');
+		var suggestPath2 = suggestButton.querySelector('path:nth-of-type(2)');
 		const freeValue = freeIcon.getAttribute('fill');
 		if(freeValue === 'rgb(13, 204, 90)'){
 			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			freePath1.style.stroke="#9CA3AF";
+			freePath2.style.stroke="#C2C6CE";
 			won.style.color=""; // 색 기본으로
 			priceInput.style.color="";
 			priceInput.value = ""; // 가격입력창 비우기
@@ -1185,16 +1194,26 @@ function clickMid(button){
 			priceInput.disabled= true;
 			priceInput.style.color = "green"; // 색은 초록색으로
 			won.style.color="green"; // 마찬가지로 초록색으로
+			freePath1.style.stroke="rgb(13, 204, 90)";
+			freePath2.style.stroke="white";
 			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			suggestPath1.style.stroke="#9CA3AF";
+			suggestPath2.style.stroke="#C2C6CE";
 		}    
 	});
 	
 	suggestButton.addEventListener('click', function() {
+		var freePath1 = freeButton.querySelector('path:first-of-type');
+		var freePath2 = freeButton.querySelector('path:nth-of-type(2)');
+		var suggestPath1 = suggestButton.querySelector('path:first-of-type');
+		var suggestPath2 = suggestButton.querySelector('path:nth-of-type(2)');
 		const suggestValue = suggestIcon.getAttribute('fill');
 		if(suggestValue === 'rgb(13, 204, 90)'){
 			suggestIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
 			priceInput.value = ""; // 가격입력창 비우기
 			won.style.color=""; // 색 기본으로
+			suggestPath1.style.stroke="#9CA3AF";
+			suggestPath2.style.stroke="#C2C6CE";
 			priceInput.style.color="";
 			priceInput.disabled= false;
 		}else{
@@ -1202,7 +1221,11 @@ function clickMid(button){
 			priceInput.value = "가격제안"; // 가격입력창에 무료나눔이라고 뜨게 하기
 			priceInput.style.color = "gray"; // 색은 회색으로
 			won.style.color="gray"; // 마찬가지로 회색으로
+			suggestPath1.style.stroke="rgb(13, 204, 90)";
+			suggestPath2.style.stroke="white";
 			freeIcon.setAttribute('fill', '#FFFFFF'); // 아이콘의 색상을 기본으로 변경
+			freePath1.style.stroke="#9CA3AF";
+			freePath2.style.stroke="#C2C6CE";
 			priceInput.disabled= true;
 		}   
 	});
@@ -1516,7 +1539,6 @@ function clickMid(button){
             for (let i = 0; i < originalInputs.length; i++) {
                 arr.push(originalInputs[i].value); // 배열에 값 추가
             }
-            
             // FormData 객체 생성
             var formData = new FormData();
 
@@ -1528,10 +1550,14 @@ function clickMid(button){
                 }
             });
             
-            // 기존 이미지 파일들
+            // 기존 이미지 파일들(arr 의 크기가 0 일때는 안보냄)
+            if(arr.length!=0){
             arr.forEach(function(value) {
                 formData.append('arr[]', value);
             });
+        }else{
+        	formData.append('arr[]', "남은 것 없음");
+        }
              
             // 상품 번호 
             formData.append('pNum','${pro.pr_num}' );
@@ -1628,8 +1654,6 @@ function clickMid(button){
 			    }
 			}
 			
-			var writer = '${pro.pr_me_id}';
-			formData.append("writer",writer); // 상품 작성자 아이디
 			
 			 var tName;
 			 var topGroups = document.getElementsByClassName("topGroup-li");// 대분류 이름
@@ -1653,6 +1677,8 @@ function clickMid(button){
     	        processData : false,
     	        success: function(data) {
     	            // 성공적으로 응답을 받았을 때 실행할 코드
+    	            alert(data.msg);
+    	            move(data.url);// 화면이동 함수
     	            
     	        },
     	        error: function(xhr, status, error) {
@@ -1660,7 +1686,20 @@ function clickMid(button){
     	            console.log(xhr);
     	        }
     	    });     
-        }      	
+        }
+        
+        function move(url){
+        	var success = document.getElementById("success"); // 수정 성공 
+        	var login = document.getElementById("login"); // 로그인 문제
+        	var fail = document.getElementById("fail"); // 수정 실패
+        	if(url==="/product/detail"){
+        		success.click();
+        	}else if(url==="/member/login"){
+        		login.click();
+        	}else{
+        		fail.click();
+        	}
+        }
 </script>
 </body>
 </html>

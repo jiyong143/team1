@@ -92,4 +92,7 @@
 		update member set me_manner = ((select me_manner where me_id = (select tr_me_id from trade_review where tr_num = #{trNum}))+#{mannerScore}) 
 		where me_id = (select tr_me_id from trade_review where tr_num = #{trNum})
 	</update>
+	<insert id="insertTradeReview">
+	  insert into trade_review(tr_pr_num,tr_me_id) values (#{pr_num},#{pr_buyId})
+	</insert>
 </mapper>
