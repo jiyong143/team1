@@ -48,6 +48,11 @@
 		width: calc(100% - 50px);
 		float: right;
 	}
+	.btn-liquidate{
+		margin-top : 11px;
+		width: calc(100% - 50px);
+		float: right;
+	}
 	.infoBox{
 		float: left; display: inline-block;
 		width:65%; margin-top: 50px;
@@ -224,6 +229,7 @@
 							</c:if>
 							<button class="btn btn-outline-success btn-sse">채팅하기</button>
 							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+							<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
 						</c:if>
 					</c:when>
 				</c:choose>
@@ -341,6 +347,32 @@
 		});
 	});
 </script>
+
+<!-- 포인트 결제 관련 ajax -->
+<script type="text/javascript">	
+	$(document).on("click", ".btn-liquidate", function(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/product/liquidate"/>', 
+			type : 'post', 
+			data : {pr_num : ${pNum}},
+			dataType : "json",
+			success : function (data){
+				console.log(data);
+				
+				console.log(data.msg);
+				if(data.msg != null){
+					alert(data.msg);
+					return;
+				}
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+	});
+</script>
+
 
 <!-- 찜하기 관련 ajax -->
 <script type="text/javascript">

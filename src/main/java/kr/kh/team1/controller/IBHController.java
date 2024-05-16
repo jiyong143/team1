@@ -422,4 +422,20 @@ public class IBHController {
 		}
 		return map;
 	}
+	
+	
+	@ResponseBody
+	@PostMapping("/product/liquidate")
+	// 중분류 삭제
+	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+		
+		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+		if(crv == null) {
+			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
+		}
+		return map;
+	}
 }
