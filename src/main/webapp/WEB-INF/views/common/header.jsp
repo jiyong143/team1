@@ -249,6 +249,7 @@ table tr th, table tr td {
 	  <a href="/team1/report/list">신고관리</a>
 	  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
 	  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
+  	  <a href="/team1/fixed/list">고정문의 관리</a>
 	</div>
 </nav>
 <script type="text/javascript">

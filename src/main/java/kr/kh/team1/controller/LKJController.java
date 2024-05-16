@@ -56,6 +56,15 @@ public class LKJController {
 	
 	@Autowired
 	FixedService fixedService;
+	
+	@GetMapping("/admin/adminPage")
+	public String adminPage(Model model) {
+		return "/admin/adminPage";
+	}
+	@GetMapping("/admin/managerPage")
+	public String managerPage(Model model) {
+		return "/admin/managerPage";
+	}
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -409,31 +418,20 @@ public class LKJController {
 		model.addAttribute("title", "고정문의 상세내역");
 		return "/fixed/detail";//웹페이지 구성해야 함
 	}
-
-	@GetMapping("/surportManage/adminList")
-	// 관리자 고정문의 타입 관리
-	public String surportAdminLis(Model model) {
-		return "/surportManage/adminList";
+	
+	@GetMapping("/fixed/delete")
+	public String fixedDelete(Model model, int fixNum, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = fixedService.fixedDelete(fixNum, user);
+		if(res) {
+			model.addAttribute("url", "/fixed/list");
+			model.addAttribute("msg", "삭제 처리되었습니다.");
+		}else {
+			model.addAttribute("url", "/fixed/detail?fixNum="+fixNum);
+			model.addAttribute("msg", "삭제 처리 중 오류가 발생하였습니다.");
+		}
+		return "message";
 	}
 
-	// 고정문의 페이지 모음 -> 시작
-	@GetMapping("/surportManage/QnA/QnApage1")
-	public String userQnA(Model model) {
-		return "/surportManage/QnA/QnApage1";
-	}
 
-	@GetMapping("/surportManage/QnA/QnApage2")
-	public String userQnA2(Model model) {
-		return "/surportManage/QnA/QnApage2";
-	}
-
-	@GetMapping("/admin/adminPage")
-	// 관리자 페이지
-	public String adminPage(Model model) {
-		return "/admin/adminPage";
-	}
-	@GetMapping("/admin/managerPage")
-	public String managePage(Model model) {
-		return "/admin/managerPage";
-	}
 }

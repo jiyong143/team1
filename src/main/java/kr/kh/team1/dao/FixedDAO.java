@@ -17,6 +17,8 @@ public interface FixedDAO {
 
 	void fixUpdateView(@Param("fix_num") int fixNum);
 
-	FixedVO selectFixed(@Param("fix_num") int fixNum);	
+	FixedVO selectFixed(@Param("fix_num") int fixNum);
+
+	boolean fixedDelete(@Param("fix_num") int fixNum);	
 
 }

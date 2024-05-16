@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.team1.model.vo.FixedVO;
 import kr.kh.team1.model.vo.MemberVO;
-import kr.kh.team1.model.vo.SurportManageVO;
-import kr.kh.team1.model.vo.SurportVO;
-import kr.kh.team1.model.vo.UpHeadVO;
+
 import kr.kh.team1.pagination.Criteria_supot;
 
 public interface FixedService {
@@ -20,6 +18,9 @@ public interface FixedService {
 	void fixUpdateView(int fixNum);
 
 	FixedVO getFixed(int fixNum);
+
+	boolean fixedDelete(int fixNum, MemberVO user);
+
 
 
 

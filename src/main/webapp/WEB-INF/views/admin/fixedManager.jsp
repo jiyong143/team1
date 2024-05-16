@@ -11,8 +11,8 @@
 	font-weight:800;
 	margin-top:10px; 
 }
-.container{
-	margin-left: 300px;
+.list-title{
+	color: red;
 }
 </style>
 </head>
@@ -47,7 +47,7 @@
 					${fixed.fix_me_id}
 				</td>
 				<td>${fixed.fix_date}</td>
-				<td>${fixed.fix_view}</td>	
+				<td>${fixed.fix_view}</td>
 			</tr>
 			</c:forEach>
 		</tbody>

@@ -23,4 +23,7 @@
 	<select id="selectFixed" resultType="FixedVO">
 		select * from fixed where fix_num = #{fix_num}
 	</select>
+	<delete id="fixedDelete">
+		delete from fixed where fix_num = #{fix_num}
+	</delete>
 </mapper>

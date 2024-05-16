@@ -47,6 +47,9 @@
 	font-size: 22px; 
 	margin-bottom: 5px;
 }
+.container{
+	margin-left: 300px;
+}
 </style>
 </head>
 <body>
@@ -73,13 +76,14 @@
 			<label for="fix_content">내용</label>
 			<div class="content-box" id="fix_content" name="fix_content">${fixed.fix_content}</div>
 		</div>
-		<a href="/team1/fixed/list" class="btn btn-outline-dark mb-4 mt-2">목록으로</a>
-		<c:if test="${user.me_id == fixes.fix_me_id}">
+	
+		<c:if test="${user.me_id == fixed.fix_me_id}">
 			<a href="<c:url value="/fixed/delete?fixNum=${fixed.fix_num}"/>"
 				class="btn btn-outline-success mb-3">삭제</a>
 			<a href="<c:url value="/fixed/update?fixNum=${fixed.fix_num}"/>"
 				class="btn btn-outline-warning mb-3">수정</a>
 		</c:if>
+		<a href="/team1/fixed/list" class="btn btn-outline-dark mb-4 mt-2">목록으로</a>
 	</div>
 </body>
 </html>
