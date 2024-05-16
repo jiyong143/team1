@@ -260,15 +260,17 @@ li {
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="w-75">결제일</th>
+								<th class="w-50">결제일</th>
 								<th class="w-25">결제금액</th>
+								<th class="w-25">환불</th>
 							</tr>
 						</thead>
 						<tbody class="addPro1">
 						<c:forEach items="${paymentList}" var="paymentList">	
-							<tr>
+							<tr style="font-size: 15px;">
 								<td>${paymentList.pd_date}</td>
 								<td>${paymentList.pd_price}</td>
+								<td><span id="refund" style="font-size:30px; cursor:pointer;"><input id="pd_num" type="hidden" value="${paymentList.pd_num}">&times;</span></td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -326,6 +328,12 @@ li {
 				});
 			}
 		})
+		$("#refund").click(function() {
+			let test = $("#pd_num").val();
+			//<--
+		});
+		
+		
 	</script>
 	
 	<!-- 결제 api 스크립트 -->
