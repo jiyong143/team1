@@ -206,17 +206,6 @@ CREATE TABLE `fixed` (
 	`fix_view`	int	NOT NULL default 0
 );
 
-DROP TABLE IF EXISTS `policy`;
-
-CREATE TABLE `policy` (
-	`po_num`	int	NOT NULL primary key auto_increment,
-	`po_me_id`	varchar(15)	NOT NULL,
-	`po_title`	varchar(30)	NOT NULL,
-	`po_content`	text	NOT NULL,
-	`po_date`	dateTime	NOT NULL default now(),
-	`po_view`	int	NOT NULL default 0
-);
-
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
    `mg_tg_num`
 )
@@ -408,13 +397,6 @@ REFERENCES `member` (
 
 ALTER TABLE `fixed` ADD CONSTRAINT `FK_member_TO_fixed_1` FOREIGN KEY (
 	`fix_me_id`
-)
-REFERENCES `member` (
-	`me_id`
-);
-
-ALTER TABLE `policy` ADD CONSTRAINT `FK_member_TO_policy_1` FOREIGN KEY (
-	`po_me_id`
 )
 REFERENCES `member` (
 	`me_id`
