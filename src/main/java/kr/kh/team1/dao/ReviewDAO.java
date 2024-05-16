@@ -50,5 +50,7 @@ public interface ReviewDAO {
 
 	void updateReviewScore2(@Param("trNum")int trNum, @Param("mannerScore")int mannerScore);
 
+	void insertTradeReview(@Param("pr_num")int pNum, @Param("pr_buyId")String buyer);
+
 	
 }

@@ -34,6 +34,7 @@ import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.ProductService;
+import kr.kh.team1.service.ReviewService;
 import kr.kh.team1.service.TopGroupService;
 
 @Controller
@@ -51,6 +52,10 @@ public class CJYController {
 	@Autowired
 	ChatService chatService;
 
+	@Autowired
+	ReviewService reviewService; 
+	
+	
 	@GetMapping("/product/update")
 	public String productUpdate(Model model, int num) {
 		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
@@ -206,7 +211,6 @@ public class CJYController {
 				Arr[i] = fiNum;
 			}
 		}
-
 		// 제거한 기존 파일의 번호를 리스트로 가져옴
 		Set<Integer> setB = new HashSet<>();
 		for (int b : Arr) {
@@ -224,6 +228,10 @@ public class CJYController {
 		if (productService.updateProduct(pro, user, resultList,files)==1) {
 			map.put("msg", "상품을 수정했습니다." );
 			map.put("url", "/product/detail");
+			// 거래 후기 테이블에 데이터 추가
+			if(state.equals("판매완료")) {
+				reviewService.addTradeReview(pNum,buyer);
+			}
 		} else if(productService.updateProduct(pro, user, resultList,files)==0) {
 			map.put("msg", "상품을 수정하지 못했습니다.");
 			map.put("url", "/product/update");

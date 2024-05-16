@@ -1539,7 +1539,6 @@ function clickMid(button){
             for (let i = 0; i < originalInputs.length; i++) {
                 arr.push(originalInputs[i].value); // 배열에 값 추가
             }
-            
             // FormData 객체 생성
             var formData = new FormData();
 
@@ -1551,10 +1550,14 @@ function clickMid(button){
                 }
             });
             
-            // 기존 이미지 파일들
+            // 기존 이미지 파일들(arr 의 크기가 0 일때는 안보냄)
+            if(arr.length!=0){
             arr.forEach(function(value) {
                 formData.append('arr[]', value);
             });
+        }else{
+        	formData.append('arr[]', "남은 것 없음");
+        }
              
             // 상품 번호 
             formData.append('pNum','${pro.pr_num}' );

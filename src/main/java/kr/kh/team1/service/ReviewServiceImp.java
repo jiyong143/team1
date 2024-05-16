@@ -133,5 +133,11 @@ public class ReviewServiceImp implements ReviewService {
 		return reviewDao.selectReviewScore(i);
 	}
 
+	@Override
+	public void addTradeReview(int pNum, String buyer) {
+		reviewDao.insertTradeReview(pNum,buyer);
+		
+	}
+
 
 }
