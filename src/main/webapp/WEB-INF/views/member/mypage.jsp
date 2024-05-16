@@ -260,15 +260,18 @@ li {
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="w-75">결제일</th>
+								<th class="w-50">결제일</th>
 								<th class="w-25">결제금액</th>
+								<th class="w-25">환불</th>
 							</tr>
 						</thead>
 						<tbody class="addPro1">
 						<c:forEach items="${paymentList}" var="paymentList">	
-							<tr>
+							<tr style="font-size: 15px;">
 								<td>${paymentList.pd_date}</td>
 								<td>${paymentList.pd_price}</td>
+								<td><span id="refund" style="font-size:30px; cursor:pointer;"><input id="pd_num" type="hidden" value="${paymentList.pd_num}">
+																							  <input id="pd_price" type="hidden" value="${paymentList.pd_price}">&times;</span></td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -326,6 +329,32 @@ li {
 				});
 			}
 		})
+		$("#refund").click(function() {
+			let pdNum = $("#pd_num").val();
+			let pdPrice = $("#pd_price").val();
+			let obj = {
+				pdNum, pdPrice
+			};
+			$.ajax({
+				async : false,
+				url : '<c:url value="/payment/refund"/>', 
+				type : 'post',
+				dataType : "json",
+				data : obj,
+				success : function (res){
+					if(res=="fail") {
+						alert("이미 사용하신 포인트는 환불될 수 없습니다.");
+					} else {
+						
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+					
+				}
+			});
+		});
+		
+		
 	</script>
 	
 	<!-- 결제 api 스크립트 -->
@@ -427,15 +456,9 @@ li {
                 		});
                     } else {
                         alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
-                        //alert('결제 실패!' + rsp);
                     }
                 });
-        }
-        
-       function payListCheck() {
-    	   
-       }
-        
+        }    
     </script>
 
 

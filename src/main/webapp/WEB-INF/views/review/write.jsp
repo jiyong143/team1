@@ -105,7 +105,7 @@
 							<c:if test="${reviewType.rt_type!='default'}">
 								<div>
 									<input type="checkbox" id="${reviewType.rt_type}" value="${reviewType.rt_type}"
-										name="rt_type" /> <label
+										name="rt_type"/> <label
 										for="${reviewType.rt_type}">${reviewType.rt_type}</label>
 								</div>
 							</c:if>

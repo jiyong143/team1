@@ -229,7 +229,9 @@
 							</c:if>
 							<button class="btn btn-outline-success btn-sse">채팅하기</button>
 							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
-							<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+							<c:if test="${info.pr_buyId == loginUser.me_id}">
+								<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+							</c:if>
 						</c:if>
 					</c:when>
 				</c:choose>
@@ -352,25 +354,24 @@
 <!-- 포인트 결제 관련 ajax -->
 <script type="text/javascript">	
 	$(document).on("click", ".btn-liquidate", function(){
-		$.ajax({
-			async : true, //비동기 : true(비동기), false(동기)
-			url : '<c:url value="/product/liquidate"/>', 
-			type : 'post', 
-			data : {pr_num : ${pNum}},
-			dataType : "json",
-			success : function (data){
-				console.log(data);
-				
-				console.log(data.msg);
-				if(data.msg != null){
-					alert(data.msg);
-					return;
-				}
-			}, 
-			error : function(jqXHR, textStatus, errorThrown){
+		if(confirm("${info.pr_name} 을(를) 결제하시겠습니까?")) {
+			$.ajax({
+				async : true, //비동기 : true(비동기), false(동기)
+				url : '<c:url value="/product/liquidate"/>', 
+				type : 'post',
+				data : {pr_num : ${pNum}},
+				dataType : "json",
+				success : function (res){
+					if(res != null){
+						alert(res.msg);
+						return;
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
 
-			}
-		});
+				}
+			});	
+		}
 	});
 </script>
 
