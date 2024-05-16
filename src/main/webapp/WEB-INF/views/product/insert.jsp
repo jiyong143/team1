@@ -9,27 +9,33 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style type="text/css">
-#product-content{
-	width: 100%;
-}
-.count{
-	float: right;
-}
-.jiyong{
-	position : relative;
-	margin-right : 5px;
-}
-.delete-button{
-	position : absolute;
-	top :0;
-	right : 0;
-	background: none;
-	border: none;
-	padding: 0;
-}
+	.jum{
+		margin-left : 12%;
+		min-height: 800px;
+		background-color: white;
+	}
+	#product-content{
+		width: 100%;
+	}
+	.count{
+		float: right;
+	}
+	.jiyong{
+		position : relative;
+		margin-right : 5px;
+	}
+	.delete-button{
+		position : absolute;
+		top :0;
+		right : 0;
+		background: none;
+		border: none;
+		padding: 0;
+	}
 </style>
 </head>
 <body>
+<div class="jum">
 	<div class="container">
 		<form action="<c:url value="/product/insert"/>" method="post" enctype="multipart/form-data" id="productForm">
 			<h1>상품 등록</h1>
@@ -112,6 +118,7 @@
 			<button class="btn btn-outline-success">상품 등록</button>
 		</form>
 	</div>
+</div>
 <!-- 대분류 변경시 ajax로 중분류 실시간 변경 -->
 <script type="text/javascript">
 	$("[name=mg_title]").hide();
