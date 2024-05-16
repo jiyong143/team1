@@ -10,7 +10,7 @@ import kr.kh.team1.pagination.Criteria_report;
 
 public interface ReportDAO {
 	
-	ArrayList<ReportVO> selectReportList(@Param("crir") Criteria_report crir);
+	ArrayList<ReportVO> selectReportList(@Param("me_id") String me_id, @Param("crir") Criteria_report crir);
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
 	

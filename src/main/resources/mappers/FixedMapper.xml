@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team1.dao.FixedDAO">
+	<select id="selectFixList" resultType="FixedVO">
+		select * from fixed
+	</select>
+	<select id="selectFixTotalCount" resultType="int">
+		select count(*) from fixed
+	</select>
+	<insert id="insertFixPost">
+		insert into 
+			fixed (fix_me_id, fix_title, fix_content) 
+		values
+			(#{fixed.fix_me_id}, #{fixed.fix_title}, #{fixed.fix_content})
+	</insert>
+	<update id="fixUpdateView">
+		UPDATE fixed 
+			SET fix_view = fix_view + 1 
+		WHERE fix_num = #{fix_num}
+	</update>
+	<select id="selectFixed" resultType="FixedVO">
+		select * from fixed where fix_num = #{fix_num}
+	</select>
+</mapper>

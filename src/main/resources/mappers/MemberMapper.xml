@@ -46,9 +46,9 @@
 	</select>
 	
 	<update id="updateReportCount" parameterType="map">
-	    UPDATE member
-	   		SET me_report_count = me_report_count + 1
-	    WHERE re_num = #{re_num}
+	  	UPDATE member
+			SET me_report_count = me_report_count + 1
+		WHERE me_id = #{me_id}
 	</update>
   	<!-- 관리자 권한으로 회원관리에 필요한 코드 -->
 

@@ -28,8 +28,4 @@ public interface SurportService {
 
 	boolean deleteSurport(int suNum, MemberVO user);
 
-
-
-
-
 }
