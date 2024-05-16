@@ -398,7 +398,23 @@ public class PJHController {
 			return "fail";
 		}
 		
-		return "";
+		return "message";
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/liquidate")
+	public  Map<String, Object> pointLiquidate(Model model, @RequestParam("pr_num")int pr_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String myUser = ((MemberVO)session.getAttribute("user")).getMe_id();
+		int myPoint = memberService.getPoint(myUser);
+		ProductVO product = productService.getProductInfo(pr_num);
+		if(product.getPr_price() > myPoint) {
+			map.put("msg", "포인트가 부족합니다.");
+		} else {
+			memberService.payment(product.getPr_me_id(), myUser, product.getPr_price());
+			map.put("msg", "포인트 결제 완료.");
+		}
+		return map;
 	}
 
 //	@ResponseBody

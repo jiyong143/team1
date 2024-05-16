@@ -276,6 +276,12 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectPoint(userId);
 	}
 
+	@Override
+	public void payment(String pr_me_id, String myUser, int pr_price) {
+		memberDao.addPoint(pr_me_id, pr_price);
+		memberDao.subtractPoint(myUser, pr_price);
+	}
+
 //	@Override
 //	public boolean signupSns(String sns, String id, String email) {
 //		try {

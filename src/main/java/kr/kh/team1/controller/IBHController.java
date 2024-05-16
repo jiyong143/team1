@@ -30,12 +30,13 @@ import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.PageMaker_chat;
 import kr.kh.team1.service.ChatService;
+import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
 
 @Controller
 public class IBHController {
-
+	
 	@Autowired
 	ChatService chatService;
 	
@@ -423,9 +424,6 @@ public class IBHController {
 		return map;
 	}
 	
-	
-	@ResponseBody
-	@PostMapping("/product/liquidate")
 	// 중분류 삭제
 	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
 		Map<String, Object> map = new HashMap<String, Object>();

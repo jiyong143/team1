@@ -79,4 +79,10 @@
 	<select id="selectPoint" resultType="int">
 		select me_point from member where me_id = #{me_id}
 	</select>
+	<update id="addPoint">
+		update member set me_point = me_point + #{price} where me_id = #{me_id}
+	</update>
+	<update id="subtractPoint">
+		update member set me_point = me_point - #{price} where me_id = #{me_id}
+	</update>
 </mapper>
