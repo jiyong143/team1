@@ -15,30 +15,44 @@
 
 @media ( min-width : 1024px) .lg\:px-8 {
 	padding-left
+	
 	 
+	
 	:
+	
 	 
+	
 	2rem
+	
 	 
+	
 	;
 	padding-right
+	
 	 
+	
 	:
+	
 	 
+	
 	2rem
+	
+	
 	;
-	
-	
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
 	height
+	
 	 
+	
 	:
+	
+	
 	5rem
+	
+	
 	;
-	
-	
 }
 
 .px-0 {
@@ -81,42 +95,58 @@
 
 @media ( min-width : 1280px) .xl\:h-24 {
 	height
-	 
-	:
-	6rem
-	;
 	
-
+	 
+	
+	:
+	
+	
+	6rem
+	
+	
+	;
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
 	padding-left
+	
 	 
+	
 	:
+	
 	 
+	
 	2rem
+	
+	
 	;
-	
-	
 	padding-right
-	 
-	:
-	 
-	2rem
-	;
 	
-
+	 
+	
+	:
+	
+	 
+	
+	2rem
+	
+	
+	;
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
 	height
-	 
-	:
-	 
-	5rem
-	;
 	
-
+	 
+	
+	:
+	
+	 
+	
+	5rem
+	
+	
+	;
 }
 
 *, :after, :before {
@@ -321,7 +351,7 @@ h5 {
 .product-image img {
 	display: block; /* 선택 사항: 블록 요소로 표시 */
 	width: 200px; /* 원하는 너비로 설정 */
-    height: 200px; /* 원하는 높이로 설정 */ 
+	height: 200px; /* 원하는 높이로 설정 */
 	transition: transform 0.5s ease; /* 이미지 변환에 애니메이션 효과 추가 */
 }
 
@@ -330,14 +360,12 @@ h5 {
 	transform: scale(1.2); /* 이미지 확대 */
 }
 
-
-.product-image{
-width: 200px; /* 원하는 너비로 설정 */
-height: 200px; /* 원하는 높이로 설정 */
-overflow: hidden; /* 이미지가 div 밖으로 넘치지 않도록 설정 */
-border: 5px solid white; /* 선택 사항: 이미지 테두리 */
-border-radius: 15px;
-
+.product-image {
+	width: 200px; /* 원하는 너비로 설정 */
+	height: 200px; /* 원하는 높이로 설정 */
+	overflow: hidden; /* 이미지가 div 밖으로 넘치지 않도록 설정 */
+	border: 5px solid white; /* 선택 사항: 이미지 테두리 */
+	border-radius: 15px;
 }
 
 .static {
@@ -348,8 +376,7 @@ border-radius: 15px;
 
 /* 제품 가격 정보 컨테이너 스타일 */
 .product-price-container {
-	background: linear-gradient(to bottom, #FFFFFF, #F5F5F5);
-	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	background: rgb(247 249 250);
 	border-radius: 8px;
 	padding: 20px;
 }
@@ -454,7 +481,7 @@ li {
 
 .anfruf {
 	position: absolute;
-	left: 990px;
+	left: 992px;
 }
 
 .maxPrice-box {
@@ -495,16 +522,17 @@ li {
 	left: 760px;
 	top: 350px;
 }
-.float-right{
-display: flex;
-justify-content: space-around;
-width: 100%;
+
+.float-right {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
 }
-.order-list-item {       
-border: none;
-background-color: transparent;
-       
-        }
+
+.order-list-item {
+	border: none;
+	background-color: transparent;
+}
 
 </style>
 </head>
@@ -687,7 +715,7 @@ background-color: transparent;
 					<span id="product-item-price-title-1"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">평균
 						가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }원</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
 					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
@@ -695,7 +723,7 @@ background-color: transparent;
 					<span id="product-item-price-title-2"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
 						높은 가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }원</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
 					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
@@ -703,24 +731,27 @@ background-color: transparent;
 					<span id="product-item-price-title-3"
 						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
 						낮은 가격</span> <span tabindex="0"
-						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }원</span>
+						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 			</div>
 		</div>
 
 		<div class="mt-3">
-			<p class="list-size"></p>
 			<ul class="float-right" style="width: 50%">
-				<li><button id="pr_num"
-						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_num' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_num' }">gray;</c:if>">최신순</button></li>
-				<li><button id="pr_view"
-						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_view' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_view' }">gray;</c:if>">조회수순</button></li>
-				<li><button id="pr_basket"
-						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_basket' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_basket' }">gray;</c:if>">찜순</button></li>
-				<li><button id="asc"
-						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'asc' }">black;</c:if> <c:if test="${pm.cri.order != 'asc' }">gray;</c:if>">낮은가격순</button></li>
-				<li><button id="desc"
-						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'desc' }">black;</c:if> <c:if test="${pm.cri.order != 'desc' }">gray;</c:if>">높은가격순</button></li>
+				<li><button id="pr_num" class="float-left order-list-item"
+						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_num' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_num' }">gray;</c:if>">최신순</button></li>
+				<li style="color: gray;">|</li>
+				<li><button id="pr_view" class="float-left order-list-item"
+						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_view' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_view' }">gray;</c:if>">조회수순</button></li>
+				<li style="color: gray;">|</li>
+				<li><button id="pr_basket" class="float-left order-list-item"
+						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_basket' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_basket' }">gray;</c:if>">찜순</button></li>
+				<li style="color: gray;">|</li>
+				<li><button id="asc" class="float-left order-list-item"
+						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'asc' }">black;</c:if> <c:if test="${pm.cri.order != 'asc' }">gray;</c:if>">낮은가격순</button></li>
+				<li style="color: gray;">|</li>
+				<li><button id="desc" class="float-left order-list-item"
+						style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'desc' }">black;</c:if> <c:if test="${pm.cri.order != 'desc' }">gray;</c:if>">높은가격순</button></li>
 			</ul>
 		</div>
 
