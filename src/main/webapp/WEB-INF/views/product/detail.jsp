@@ -407,6 +407,7 @@
 				<i class="bi bi-heart btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
 				`;
 		}else{
 			str += 
@@ -414,6 +415,7 @@
 				<i class="bi bi-heart-fill btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
 				`;
 		}
 		$(".btnBox").html(str);

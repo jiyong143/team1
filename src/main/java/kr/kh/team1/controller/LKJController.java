@@ -68,11 +68,14 @@ public class LKJController {
 	}
 
 	@GetMapping("/surport/insert")
-	public String surportInsert(Model model) {
+	public String surportInsert(Model model, HttpSession session) {
 		// 고객지원타입 리스트를 화면에 전송 -> 1.공지사항 , 2.문의사항
 		// 글머리 리스트를 화면에 전송 -> 1.필독 , 2.공지 , 3.문의
+		MemberVO loginUser = (MemberVO) session.getAttribute("user");
 		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
 		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
+		
+		model.addAttribute("loginUser", loginUser);// 회원정보
 		model.addAttribute("surportManageList", surportManageList);// 지원타입
 		model.addAttribute("upHeadList", upHeadList);// 글머리
 		model.addAttribute("title", "고객문의 등록");
