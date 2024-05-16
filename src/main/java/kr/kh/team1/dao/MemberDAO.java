@@ -45,6 +45,8 @@ public interface MemberDAO {
 
 	ArrayList<PaymentVO> selectPaymentList(@Param("me_id")String myUser);
 
+	int selectPoint(@Param("me_id")String userId);
+
 	
 
 

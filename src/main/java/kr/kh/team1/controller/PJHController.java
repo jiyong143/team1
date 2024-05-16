@@ -389,6 +389,17 @@ public class PJHController {
 		
 		return "/review/write";
 	}
+	
+	@PostMapping("/payment/refund")
+	public String paymentRefund(Model model, HttpSession session, @RequestParam("pdNum")int pdNum, @RequestParam("pdPrice")int pdPrice) {
+		String userId = ((MemberVO)session.getAttribute("user")).getMe_id();
+		int myPoint = memberService.getPoint(userId);
+		if(myPoint<pdPrice) {//환불하려는 금액이 저장되어 있는 포인트보다 큰 경우
+			return "fail";
+		}
+		
+		return "";
+	}
 
 //	@ResponseBody
 //	@PostMapping("/sns/{sns}/signup")

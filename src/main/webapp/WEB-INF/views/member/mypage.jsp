@@ -270,7 +270,8 @@ li {
 							<tr style="font-size: 15px;">
 								<td>${paymentList.pd_date}</td>
 								<td>${paymentList.pd_price}</td>
-								<td><span id="refund" style="font-size:30px; cursor:pointer;"><input id="pd_num" type="hidden" value="${paymentList.pd_num}">&times;</span></td>
+								<td><span id="refund" style="font-size:30px; cursor:pointer;"><input id="pd_num" type="hidden" value="${paymentList.pd_num}">
+																							  <input id="pd_price" type="hidden" value="${paymentList.pd_price}">&times;</span></td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -329,8 +330,28 @@ li {
 			}
 		})
 		$("#refund").click(function() {
-			let test = $("#pd_num").val();
-			//<--
+			let pdNum = $("#pd_num").val();
+			let pdPrice = $("#pd_price").val();
+			let obj = {
+				pdNum, pdPrice
+			};
+			$.ajax({
+				async : false,
+				url : '<c:url value="/payment/refund"/>', 
+				type : 'post',
+				dataType : "json",
+				data : obj,
+				success : function (res){
+					if(res=="fail") {
+						alert("이미 사용하신 포인트는 환불될 수 없습니다.");
+					} else {
+						
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+					
+				}
+			});
 		});
 		
 		
@@ -435,15 +456,9 @@ li {
                 		});
                     } else {
                         alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
-                        //alert('결제 실패!' + rsp);
                     }
                 });
-        }
-        
-       function payListCheck() {
-    	   
-       }
-        
+        }    
     </script>
 
 
