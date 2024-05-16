@@ -9,7 +9,7 @@
 <style type="text/css">
 	.container{
 		margin-top: 80px;
-		margin-left: 23%;
+		margin-left: 25%;
 	}
 </style>
 </head>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.card-1 {
-		margin-left: 33%;
+		margin-left: 30%;
 		background-color:white;
 		padding: 30px;
 		text-align : center;
