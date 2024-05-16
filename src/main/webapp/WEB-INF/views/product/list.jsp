@@ -7,19 +7,39 @@
 <style>
 .container {
 	overflow: auto;
-} 
+}
 
 .xl\:h-24 {
 	height: 6rem;
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
-	padding-left : 2rem ;
-	padding-right : 2rem;
-	}
+	padding-left
+	 
+	:
+	 
+	2rem
+	 
+	;
+	padding-right
+	 
+	:
+	 
+	2rem
+	;
+	
+	
+}
+
 @media ( min-width : 1024px) .lg\:h-20 {
-	height :5rem;
-	}
+	height
+	 
+	:
+	5rem
+	;
+	
+	
+}
 
 .px-0 {
 	padding-left: 0;
@@ -60,18 +80,44 @@
 }
 
 @media ( min-width : 1280px) .xl\:h-24 {
-	height :6rem;
+	height
+	 
+	:
+	6rem
+	;
+	
+
 }
 
 @media ( min-width : 1024px) .lg\:px-8 {
-	padding-left : 2rem;
-	padding-right : 2rem;
+	padding-left
+	 
+	:
+	 
+	2rem
+	;
+	
+	
+	padding-right
+	 
+	:
+	 
+	2rem
+	;
+	
+
 }
 
 @media ( min-width : 1024px) .lg\:h-20 {
-	height : 5rem;
-}
+	height
+	 
+	:
+	 
+	5rem
+	;
+	
 
+}
 
 *, :after, :before {
 	box-sizing: border-box;
@@ -112,8 +158,6 @@ body {
 	line-height: inherit;
 }
 
-
-
 html {
 	line-height: 1.5;
 	-webkit-text-size-adjust: 100%;
@@ -147,20 +191,15 @@ html {
 	position: absolute;
 }
 
-
 *, :after, :before {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
 
-
-
 *, :after, :before {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
-
-
 
 :not(.scrollbar-show)::-webkit-scrollbar {
 	display: none;
@@ -169,8 +208,6 @@ html {
 .relative {
 	position: relative;
 }
-
-
 
 *, :after, :before {
 	box-sizing: border-box;
@@ -201,7 +238,6 @@ body {
 	line-height: inherit;
 }
 
-
 html {
 	-webkit-tap-highlight-color: transparent;
 }
@@ -218,13 +254,10 @@ html {
 	font-feature-settings: normal;
 }
 
-
 *, :after, :before {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
-
-
 
 :after, :before { -
 	-tw-content: "";
@@ -234,8 +267,6 @@ html {
 	box-sizing: border-box;
 	border: 0 solid #f9f9f9;
 }
-
-
 
 :not(.scrollbar-show)::-webkit-scrollbar {
 	display: none;
@@ -282,14 +313,31 @@ h5 {
 }
 
 .product-box {
-	width: 100%; /* 부모 요소의 너비에 맞게 설정 */
-	border: 1px solid #ccc; /* 테두리 설정 */
-	border-radius: 5px; /* 모서리를 둥글게 설정 */
+	width: 200px; /* 원하는 너비로 설정 */
+	height: 200px; /* 원하는 높이로 설정 */
+	border: 5px solid white; /* 테두리 설정 */
 }
 
 .product-image img {
-	width: 100%; /* 이미지를 부모 요소의 너비에 맞게 설정 */
-	height: auto; /* 가로 비율을 유지하면서 세로 크기 자동 조정 */
+	display: block; /* 선택 사항: 블록 요소로 표시 */
+	width: 200px; /* 원하는 너비로 설정 */
+    height: 200px; /* 원하는 높이로 설정 */ 
+	transition: transform 0.5s ease; /* 이미지 변환에 애니메이션 효과 추가 */
+}
+
+/* 호버 시 이미지 확대 효과 */
+.product-image:hover img {
+	transform: scale(1.2); /* 이미지 확대 */
+}
+
+
+.product-image{
+width: 200px; /* 원하는 너비로 설정 */
+height: 200px; /* 원하는 높이로 설정 */
+overflow: hidden; /* 이미지가 div 밖으로 넘치지 않도록 설정 */
+border: 5px solid white; /* 선택 사항: 이미지 테두리 */
+border-radius: 15px;
+
 }
 
 .static {
@@ -369,18 +417,6 @@ li {
 	list-style: none;
 }
 
-.product-image img {
-	transition: transform 0.5s ease; /* 이미지 확대/축소 트랜지션 */
-}
-
-.product-image img:hover {
-	transform: scale(1.2); /* 이미지를 1.2배로 확대 */
-}
-
-.product-image img:not(:hover) {
-	transition: transform 0.3s ease; /* 마우스를 뗐을 때 이미지 축소 트랜지션 */
-}
-
 .pagination {
 	width: 100%;
 }
@@ -400,21 +436,76 @@ li {
 }
 
 .product-information {
-    display: flex;
+	display: flex;
 }
 
 .price {
-    margin-right: 10px; 
+	margin-right: 10px;
 }
 
 .bottom-container {
-    font-size: 14px; /* 원하는 크기로 설정 */
-    font-weight:bold;
+	font-size: 14px; /* 원하는 크기로 설정 */
+	font-weight: bold;
 }
 
 .bottom-text {
-    color: #A0AEC0; /* 회색으로 설정 */
+	color: #A0AEC0; /* 회색으로 설정 */
 }
+
+.anfruf {
+	position: absolute;
+	left: 990px;
+}
+
+.maxPrice-box {
+	position: absolute;
+	left: 1010px;
+}
+
+.price-button {
+	position: absolute;
+	left: 1243px;
+	top: 234px;
+}
+
+.search {
+	position: absolute;
+	left: 250px;
+	top: 30px;
+}
+
+.product-table {
+	margin-top: 80px;
+}
+
+.place-container {
+	position: absolute;
+	left: 750px;
+	top: 285px;
+}
+
+.checkbox1 {
+	position: absolute;
+	left: 950px;
+	top: 350px;
+}
+
+.checkbox2 {
+	position: absolute;
+	left: 760px;
+	top: 350px;
+}
+.float-right{
+display: flex;
+justify-content: space-around;
+width: 100%;
+}
+.order-list-item {       
+border: none;
+background-color: transparent;
+       
+        }
+
 </style>
 </head>
 <body>
@@ -423,7 +514,7 @@ li {
 			class="h-full lg:h-20 xl:h-24 px-0 lg:px-8 2xl:px-16 max-w-[1024px] min-[1600px]:max-w-[1280px] flex items-center mx-auto box-content justify-between relative before:absolute before:w-screen before:bg-[#F1F1F1] before:bottom-0">
 			<div class="relative hidden ms-7 me-7 xl:ms-9 lg:block flex-1">
 				<div
-					class="relative flex items-center justify-between w-full rounded-md bg-borderBottom">
+					class="search relative flex items-center justify-between w-full rounded-md bg-borderBottom">
 					<label for="search" class="flex items-center justify-between">
 						<span
 						class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg
@@ -492,7 +583,7 @@ li {
 			</div>
 		</div>
 
-		<table class="hidden lg:table filterTable">
+		<table class="product-table hidden lg:table filterTable">
 			<tbody>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">카테고리</td>
@@ -507,30 +598,32 @@ li {
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">가격</td>
 					<td class="price-filter" style="text-align: left">
-						<div class="price-container" style="display: flex; align-items : center;">
+						<div class="price-container"
+							style="display: flex; align-items: center;">
 							<div class="minPrice-box">
 								<input type="text" id="minPrice"
 									class="minPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
 									placeholder="최소 금액" data-idx="0" name="minPrice"
 									value="${min }"
-									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" autocomplete="off">
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
+									autocomplete="off">
 							</div>
-							
-							<span class="mx-[6px]">
-							      <svg
+
+							<span class="mx-[6px] anfruf"> <svg
 									xmlns="http://www.w3.org/2000/svg" width="10" height="4"
 									fill="none" class="inline">
                                   <path fill="#5A616B"
 										d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
                                   </svg>
-                            </span>
-                                  
+							</span>
+
 							<div class="maxPrice-box">
 								<input type="text" id="maxPrice"
 									class="maxPrice-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
 									placeholder="최대 금액" data-idx="1" name="maxPrice"
 									value="${max }"
-									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')" autocomplete="off">
+									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
+									autocomplete="off">
 							</div>
 							<button type="submit"
 								class="price-button w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
@@ -540,14 +633,17 @@ li {
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">주소</td>
-					<td class="price-filter" style="text-align: left"><input
-						type="text"
-						class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-						placeholder="장소를 입력하세요" data-idx="0" name="place"
-						value="${place }" autocomplete="off">
-						<button
-							class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
-							style="background-color: black">적용</button></td>
+					<td class="price-filter" style="text-align: left">
+						<div class="place-container">
+							<input type="text"
+								class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
+								placeholder="장소를 입력하세요" data-idx="0" name="place"
+								value="${place }" autocomplete="off">
+							<button
+								class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								style="background-color: black">적용</button>
+						</div>
+					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">옵션</td>
@@ -555,19 +651,21 @@ li {
 						<ul class="flex undefined">
 							<li class="mr-5">
 								<div class="state-option">
-									<div class="checkbox-group">
-										<label for="saleYn" class="checkbox-label"> <span
-											class="checkbox-text">예약 중 상품 포함</span>
-										</label> <input id="saleYn" name="apple" type="checkbox"
+									<div class="checkbox-group checkbox1">
+										<input id="saleYn" name="apple" type="checkbox"
 											<c:if test="${pm.cri.apple == 'yes' }">checked</c:if>
-											value="yes">
+											value="yes"> <label for="saleYn"
+											class="checkbox-label"> <span class="checkbox-text">예약중
+												상품 포함</span>
+										</label>
 									</div>
-									<div class="checkbox-group">
-										<label for="saleZn" class="checkbox-label"> <span
-											class="checkbox-text">판매완료 상품 포함</span>
-										</label> <input id="saleZn" name="banana" type="checkbox"
+									<div class="checkbox-group checkbox2">
+										<input id="saleZn" name="banana" type="checkbox"
 											<c:if test="${pm.cri.banana == 'yes' }">checked</c:if>
-											value="yes">
+											value="yes"> <label for="saleZn"
+											class="checkbox-label"> <span class="checkbox-text">판매완료
+												상품 포함</span>
+										</label>
 									</div>
 								</div>
 							</li>
@@ -614,23 +712,23 @@ li {
 			<p class="list-size"></p>
 			<ul class="float-right" style="width: 50%">
 				<li><button id="pr_num"
-						class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_num' }">bg-info</c:if>">최신순</button></li>
+						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_num' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_num' }">gray;</c:if>">최신순</button></li>
 				<li><button id="pr_view"
-						class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_view' }">bg-info</c:if>">조회수순</button></li>
+						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_view' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_view' }">gray;</c:if>">조회수순</button></li>
 				<li><button id="pr_basket"
-						class="float-left order-list-item <c:if test="${pm.cri.order == 'pr_basket' }">bg-info</c:if>">찜순</button></li>
+						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'pr_basket' }">black;</c:if> <c:if test="${pm.cri.order != 'pr_basket' }">gray;</c:if>">찜순</button></li>
 				<li><button id="asc"
-						class="float-left order-list-item <c:if test="${pm.cri.order == 'asc' }">bg-info</c:if>">낮은가격순</button></li>
+						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'asc' }">black;</c:if> <c:if test="${pm.cri.order != 'asc' }">gray;</c:if>">낮은가격순</button></li>
 				<li><button id="desc"
-						class="float-left order-list-item <c:if test="${pm.cri.order == 'desc' }">bg-info</c:if>">높은가격순</button></li>
+						class="float-left order-list-item" style=" font-size : 13px; font-weight : bold;  color : <c:if test="${pm.cri.order == 'desc' }">black;</c:if> <c:if test="${pm.cri.order != 'desc' }">gray;</c:if>">높은가격순</button></li>
 			</ul>
 		</div>
-
 
 		<h1>상품 목록</h1>
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
-				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>" style="color : black;">
+				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>"
+					style="color: black;">
 					<div class="product-container">
 						<!-- 이미지 추가 -->
 						<div class="product-image">
@@ -642,61 +740,62 @@ li {
 						</div>
 						<div class="product-box">
 							<h7 class="product-name">${pro.pr_name}</h7>
-						<div class="product-information">
-							<p class="price">
-								<c:choose>
-									<c:when test="${pro.pr_price == 0}">
-										<span style="font-weight: bold; font-size: 18px;">무료
-											나눔🧡</span>
-									</c:when>
-									<c:when test="${pro.pr_price < 0}">
-										<span
-											style="font-size: 17px; color: #808080; font-weight: bold;">가격
-											제안</span>
-									</c:when>
-									<c:otherwise>
-										<span style="font-weight: bold; font-size: 20px;">${pro.price}원</span>
-									</c:otherwise>
-								</c:choose>
-							</p>							
-							<p class="state">
-								<c:choose>
-									<c:when test="${pro.pr_ps_state eq '판매완료'}">
-										<svg width="50" height="30" viewBox="0 0 40 20"
-											xmlns="http://www.w3.org/2000/svg">
+							<div class="product-information">
+								<p class="price">
+									<c:choose>
+										<c:when test="${pro.pr_price == 0}">
+											<span style="font-weight: bold; font-size: 18px;">무료
+												나눔🧡</span>
+										</c:when>
+										<c:when test="${pro.pr_price < 0}">
+											<span
+												style="font-size: 17px; color: #808080; font-weight: bold;">가격
+												제안</span>
+										</c:when>
+										<c:otherwise>
+											<span style="font-weight: bold; font-size: 20px;">${pro.price}원</span>
+										</c:otherwise>
+									</c:choose>
+								</p>
+								<p class="state">
+									<c:choose>
+										<c:when test="${pro.pr_ps_state eq '판매완료'}">
+											<svg width="50" height="30" viewBox="0 0 40 20"
+												xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0" y="0" width="40"
-												height="20" rx="4" fill="#708090"></rect>
+													height="20" rx="4" fill="#708090"></rect>
                                     <text x="50%" y="50%"
-												alignment-baseline="middle" text-anchor="middle"
-												fill="white" font-size="10">판매완료</text>
+													alignment-baseline="middle" text-anchor="middle"
+													fill="white" font-size="10">판매완료</text>
                                 </svg>
-									</c:when>
-									<c:when test="${pro.pr_ps_state eq '예약중'}">
-										<svg width="50" height="30" viewBox="0 0 40 20"
-											xmlns="http://www.w3.org/2000/svg">
+										</c:when>
+										<c:when test="${pro.pr_ps_state eq '예약중'}">
+											<svg width="50" height="30" viewBox="0 0 40 20"
+												xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0" y="0" width="40"
-												height="20" rx="4" fill="#0DCC5A"></rect>
+													height="20" rx="4" fill="#0DCC5A"></rect>
                                     <text x="50%" y="50%"
-												alignment-baseline="middle" text-anchor="middle"
-												fill="white" font-size="12">예약중</text>
+													alignment-baseline="middle" text-anchor="middle"
+													fill="white" font-size="12">예약중</text>
                                 </svg>
-									</c:when>
-								</c:choose>
-							</p>
+										</c:when>
+									</c:choose>
+								</p>
 							</div>
 							<div class="bottom-container">
-							<span class="text-sm text-gray-400 bottom-text">${pro.dong}</span>
-							<span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
-							<span class="text-sm text-gray-400 bottom-text">${pro.time}</span>
+								<span class="text-sm text-gray-400 bottom-text">${pro.dong}</span>
+								<span class="text-sm text-gray-400 mx-1 bottom-text">|</span> <span
+									class="text-sm text-gray-400 bottom-text">${pro.time}</span>
 							</div>
 						</div>
 					</div>
-					</a>
-					<c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
-					 <br>
-				    </c:if>
-				</c:forEach>
-			</div>
+				</a>
+				<c:if test="${loop.index % 5 == 4}">
+					<!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
+					<br>
+				</c:if>
+			</c:forEach>
+		</div>
 
 		<!-- 페이지네이션 -->
 
@@ -1013,35 +1112,35 @@ function sendPlace(place) {
 
 
 	$(".order-list-item").click(function(){
-		$(".order-list-item").removeClass("bg-info");
+		$(".order-list-item").css("color", "gray");
 	})
 	
 	$("#pr_num").click(function(){
-		$("#pr_num").addClass("bg-info");
+		$("#pr_num").css("color", "black");
 		clickOrder("pr_num");
 		
 	})
 	
 	$("#pr_view").click(function(){
-		$("#pr_view").addClass("bg-info");
+		$("#pr_view").css("color", "black");
 		clickOrder("pr_view");
 		
 	})
 	
 	$("#pr_basket").click(function(){
-		$("#pr_basket").addClass("bg-info");
+		$("#pr_basket").css("color", "black");
 		clickOrder("pr_basket");
 		
 	})
 	
 	$("#asc").click(function(){
-		$("#asc").addClass("bg-info");
+		$("#asc").css("color", "black");
 		clickOrder("asc");
 		
 	})
 	
 	$("#desc").click(function(){
-		$("#desc").addClass("bg-info");
+		$("#desc").css("color", "black");
 		clickOrder("desc");
 		
 	})
