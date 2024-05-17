@@ -303,7 +303,7 @@ public class LKJController {
 			model.addAttribute("url", "/product/list");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
+			model.addAttribute("url", "/");
 		}
 		return "message";
 	}

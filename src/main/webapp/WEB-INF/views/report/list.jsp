@@ -14,10 +14,14 @@
 .list-title{
 	color: red;
 }
+.container-report-list{
+	margin-left:300px;
+
+}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container-report-list">
 <h1 class="page-title">신고 게시판</h1>
 
 	<form action="<c:url value="/report/list"/>" method="get">
@@ -61,16 +65,16 @@
 					<a href="${url}">${report.re_pr_num}</a>
 				</td>
 				<td>${report.re_date}</td>
-				<td>${report.me_stop_date}</td>
-				<td>${report.me_report_count}</td>
+				<td>${report.member.me_stop_date}</td>
+				<td>${report.member.me_report_count}</td>
 				<td>
 				  <select class="form-control me_state" name="me_state">
-					  <option value="신고접수" <c:if test='${member.me_state == "신고접수"}'>selected</c:if>>이용 중</option>
-					  <option value="회원차단" <c:if test='${member.me_state == "회원차단"}'>selected</c:if>>회원차단</option>
-					  <option value="기간정지 : 3일" <c:if test='${member.me_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
-					  <option value="기간정지 : 7일" <c:if test='${member.me_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
-					  <option value="기간정지 : 14일" <c:if test='${member.me_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
-					  <option value="기간정지 :21일" <c:if test='${member.me_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
+					  <option value="신고접수" <c:if test='${report.re_state}'>selected</c:if>>${report.re_state}</option>
+					  <option value="회원차단" <c:if test='${report.re_state == "회원차단"}'>selected</c:if>>회원차단</option>
+					  <option value="기간정지 : 3일" <c:if test='${report.re_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
+					  <option value="기간정지 : 7일" <c:if test='${report.re_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
+					  <option value="기간정지 : 14일" <c:if test='${report.re_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
+					  <option value="기간정지 :21일" <c:if test='${report.re_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
 				  </select>
 			  	</td>
 			  	<td>

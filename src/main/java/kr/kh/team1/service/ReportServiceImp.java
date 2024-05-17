@@ -24,9 +24,6 @@ public class ReportServiceImp implements ReportService{
 		return reportDao.selectReportList(me_id, crir);
 	}
 	
-
-	
-
 	@Override
 	public int getReportTotalCount(Criteria_report crir) {
 		return reportDao.selectReportTotalCount(crir);

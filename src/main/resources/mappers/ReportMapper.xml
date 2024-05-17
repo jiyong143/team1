@@ -48,8 +48,7 @@
 	</insert>
 	
 	<select id="selectReport" resultType="ReportVO">
-		select report.*, 
-			(select #{member.me_report_count} from member where #{me_id} = 'user') as #{me_report_count} from report
+		select * from report
 	</select>
 	
 	<update id="updateState">
