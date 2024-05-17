@@ -63,13 +63,13 @@ public class ReportServiceImp implements ReportService{
 	}
 	
 	@Override
-	public boolean insertReportByIBH(ReportVO report) {
+	public boolean insertReportByIBH(ReportVO report, int cr_num) {
 		
 		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
 		   report.getRe_name() == null || report.getRe_name().isBlank() ||
 		   report.getRe_content() == null || report.getRe_content().isBlank())
 		   return false;
-		return reportDao.insertReportByIBH(report);
+		return reportDao.insertReportByIBH(report, cr_num);
 	}
 	
 	@Override

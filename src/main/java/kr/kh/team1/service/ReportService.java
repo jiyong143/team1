@@ -18,11 +18,9 @@ public interface ReportService {
 	
 	ReportVO getReport(int reNum);
 	
-	//boolean insertReportProduct(ReportVO report, MemberVO user);
+	boolean insertReportByIBH(ReportVO report, int cr_num);
 
 	boolean insertReportProd(ReportVO report, MemberVO user);
-	
-	boolean insertReportByIBH(ReportVO report);
 
 	boolean updateState(int re_pr_num);
 
@@ -30,3 +28,4 @@ public interface ReportService {
 
 
 }
+

@@ -213,7 +213,7 @@
 				(select count(*) from pick 
 				 JOIN product ON pr_num = pi_pr_num where pi_pr_num = #{pr_num}) AS pr_pickCount,
 				 (select count(*) from chat_room left join product on pr_num = cr_pr_num
-				  join chat_message on cr_num = cm_cr_num where cr_pr_num = 9) as pr_chatCount from product
+				  join chat_message on cr_num = cm_cr_num where cr_pr_num = #{pr_num}) as pr_chatCount from product
 			right join midgroup on pr_mg_num = mg_num
 			right join topgroup on mg_tg_num = tg_num
 		where pr_num = #{pr_num}
@@ -252,5 +252,13 @@
 	<select id="selectTopNum" resultType="int">
 	  select tg_num from product join midgroup on pr_mg_num = mg_num join topgroup on mg_tg_num = tg_num where pr_num = #{pr_num}
 	</select>
+	
+	<delete id="deleteFile">
+	  delete from file where fi_num = #{fi_num}
+	</delete>
+	
+	<update id="updateProduct">
+	  update product set pr_mg_num = #{pro.pr_mg_num} , pr_name=#{pro.pr_name}, pr_place =#{pro.pr_place}, pr_content =#{pro.pr_content}, pr_price=#{pro.pr_price}, pr_ps_state = #{pro.pr_ps_state}, pr_buyId = #{pro.pr_buyId} where pr_num=#{pro.pr_num}
+	</update>
 
 </mapper>

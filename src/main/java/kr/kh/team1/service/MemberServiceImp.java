@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.PaymentVO;
 import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.model.vo.ProductVO;
 
@@ -263,6 +264,22 @@ public class MemberServiceImp implements MemberService {
 	public int getMannerScore(String me_id) {
 		
 		return 0;
+	}
+  
+	@Override
+	public ArrayList<PaymentVO> getPaymentList(String myUser) {
+		return memberDao.selectPaymentList(myUser);
+	}
+
+	@Override
+	public int getPoint(String userId) {
+		return memberDao.selectPoint(userId);
+	}
+
+	@Override
+	public void payment(String pr_me_id, String myUser, int pr_price) {
+		memberDao.addPoint(pr_me_id, pr_price);
+		memberDao.subtractPoint(myUser, pr_price);
 	}
 
 //	@Override

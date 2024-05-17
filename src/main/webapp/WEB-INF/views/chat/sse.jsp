@@ -229,7 +229,6 @@
 	});
 	
 	function displayReceive(obj){
-		console.log("asda");
 		let str =
 			`
 			<div class="y-container">

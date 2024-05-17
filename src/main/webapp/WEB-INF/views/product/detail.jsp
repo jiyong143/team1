@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
+	.jum{
+		margin-left : 12%;
+		min-height: 800px;
+		background-color: white;
+	}
 	.container{
 		margin-top : 60px;
 		margin-bottom : 50px;
@@ -48,6 +53,11 @@
 		width: calc(100% - 50px);
 		float: right;
 	}
+	.btn-liquidate{
+		margin-top : 11px;
+		width: calc(100% - 50px);
+		float: right;
+	}
 	.infoBox{
 		float: left; display: inline-block;
 		width:65%; margin-top: 50px;
@@ -70,19 +80,16 @@
 		width:35%; margin-top: 50px;
 	}
 	hr{ background : gray; margin-top: 30px; }
-	
 	.jiyong-ul{
 	    display: flex; /* 요소들을 가로로 배열 */
 	    padding: 0;
 	    list-style: none; /* 기본 목록 스타일 제거 */
 	    background-color : rgb(247 249 250);
 	}
-	
 	.jiyong-li{
 	    flex: 1; /* 각각의 li 요소가 동일한 너비를 가지도록 함 */
 	    position: relative; /* 상대 위치 설정 */
 	}
-	
 	.jiyong-li:not(:first-child)::after {
 	    content: ''; /* 가상 요소 생성 */
 	    position: absolute; /* 절대 위치 설정 */
@@ -93,7 +100,6 @@
 	    background-color: #D1D5DB; /* 회색 경계선 색상 */
 	    
 	}
-	
 	.jiyong-button{
 	    display: flex; /* 버튼 내부 요소들을 세로로 배치 */
 	    flex-direction: column; /* 버튼 내부 요소들을 세로로 배치 */
@@ -105,17 +111,16 @@
 	    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 모양으로 변경 */
 	    outline: none; /* 포커스시 테두리 제거 */
 	}
-	
 	.jiyong-button:hover svg path { /* 버튼에 마우스를 올렸을 때 아이콘 색상 변경 */
 	    stroke: #000; /* 아이콘 색상 변경 */
 	}
-	
 	.sellerA, .sellerA:hover{
 		text-decoration: none; color: black;	
 	}
 </style>
 </head>
 <body>
+<div class="jum">
 	<div class="container">
 		<div class="imgContainer">
 			<div id="demo" class="carousel slide" data-ride="carousel">
@@ -224,6 +229,9 @@
 							</c:if>
 							<button class="btn btn-outline-success btn-sse">채팅하기</button>
 							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+							<c:if test="${info.pr_buyId == loginUser.me_id}">
+								<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+							</c:if>
 						</c:if>
 					</c:when>
 				</c:choose>
@@ -301,8 +309,8 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td style="text-align: center;"><a href="#">${tradeNum}</a></td><!-- 거래횟수 -->
-									<td style="text-align: center;"><a href="#">${reviewNum}</a></td><!-- 거래후기갯수 -->
+									<td style="text-align: center;">${tradeNum}</td><!-- 거래횟수 -->
+									<td style="text-align: center;">${reviewNum}</td><!-- 거래후기갯수 -->
 								</tr>
 							</tbody>
 						</table>
@@ -311,6 +319,7 @@
 			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
+</div><!-- end jum -->
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 	$(document).on("click", ".btn-sse", function(){
@@ -341,6 +350,31 @@
 		});
 	});
 </script>
+
+<!-- 포인트 결제 관련 ajax -->
+<script type="text/javascript">	
+	$(document).on("click", ".btn-liquidate", function(){
+		if(confirm("${info.pr_name} 을(를) 결제하시겠습니까?")) {
+			$.ajax({
+				async : true, //비동기 : true(비동기), false(동기)
+				url : '<c:url value="/product/liquidate"/>', 
+				type : 'post',
+				data : {pr_num : ${pNum}},
+				dataType : "json",
+				success : function (res){
+					if(res != null){
+						alert(res.msg);
+						return;
+					}
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
+				}
+			});	
+		}
+	});
+</script>
+
 
 <!-- 찜하기 관련 ajax -->
 <script type="text/javascript">

@@ -29,6 +29,7 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 
 select * from product;
 
+
 insert into `suport_manage`(sm_name) value ("공지사항");
 insert into `suport_manage`(sm_name) value ("문의사항");
 
@@ -40,13 +41,13 @@ insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
 values (2, 3, "cjy0896", "문의사항 테스트", "테스트 입니다");
 
 insert into `surport` (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
-values (1, 2, "qwe123", "문의사항 테스트", "테스트 입니다");
+values (1, 2, "cjy0896", "문의사항 테스트", "테스트 입니다");
 
 
 
 show global variables like 'local_infile';
 set global local_infile=true;
-load data local infile "D:\address/addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+load data local infile "D:\addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
 
 /*
 show global variables like 'local_infile';

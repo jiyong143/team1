@@ -1,8 +1,10 @@
 package kr.kh.team1.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team1.model.vo.FileVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -53,5 +55,9 @@ public interface ProductDAO {
 	boolean updateTime(@Param("pr_num")int num);
 
 	int selectTopNum(@Param("pr_num")int num);
+
+	void deleteFile(@Param("fi_num")Integer integer);
+
+	boolean updateProduct(@Param("pro")ProductVO pro); 
 
 }

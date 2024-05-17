@@ -23,7 +23,7 @@ public interface ReportDAO {
 	
 	ReportVO selectReport(@Param("re_num") int reNum);
 
-	boolean insertReportByIBH(@Param("report") ReportVO report);
+	boolean insertReportByIBH(@Param("report") ReportVO report, @Param("cr_num") int cr_num);
 
 	boolean updateState(@Param("re_pr_num") int re_pr_num);
 
