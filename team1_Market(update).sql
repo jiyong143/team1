@@ -74,7 +74,8 @@ CREATE TABLE `report` (
    `re_name`   	 varchar(20)    NOT NULL,
    `re_content`  text 		  	NOT NULL,
    `re_date`   	 dateTime 	  	NOT NULL default now(),
-   `re_cr_num`	 int			NULL
+   `re_cr_num`	 int			NULL,
+   `re_state`	 varchar(30)    NOT NULL default '신고접수'
 );
 
 DROP TABLE IF EXISTS `pick`;
