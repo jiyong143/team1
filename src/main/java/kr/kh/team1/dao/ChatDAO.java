@@ -8,6 +8,8 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.model.vo.FileVO;
+import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria;
 
@@ -49,8 +51,15 @@ public interface ChatDAO {
 
 	ArrayList<ReportVO> selectReportByProduct(@Param("num")int pr_num);
 
-	ArrayList<ChatRoomVO> selectReportByChat(@Param("num")int cr_num);
-
+	ArrayList<ReportVO> selectReportByChat(@Param("num")int pr_num);
+	
 	void updateProductState(@Param("num")int pr_num);
 
+	ProductVO selectProductByNum(@Param("num")int pr_num);
+
+	ArrayList<FileVO> selectFileListByNum(@Param("num")int pr_num);
+
+	boolean deleteProduct(@Param("num")int pr_num);
+
+	void deleteFile(@Param("num")int fi_num);
 }

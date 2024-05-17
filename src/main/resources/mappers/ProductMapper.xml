@@ -44,7 +44,7 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
-          
+          	  and pr_ps_state != "삭제중"
           <if test='cri.order == "desc"'>
               order by pr_price desc
           </if>
@@ -91,6 +91,7 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
+          and pr_ps_state != "삭제중"
 	</select>
   
   <select id="selectMaxPrice" resultType="int">
@@ -113,6 +114,7 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
   </select>
 
@@ -136,6 +138,7 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
   </select>
 
@@ -159,6 +162,7 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
 	</select>
 
@@ -260,5 +264,4 @@
 	<update id="updateProduct">
 	  update product set pr_mg_num = #{pro.pr_mg_num} , pr_name=#{pro.pr_name}, pr_place =#{pro.pr_place}, pr_content =#{pro.pr_content}, pr_price=#{pro.pr_price}, pr_ps_state = #{pro.pr_ps_state}, pr_buyId = #{pro.pr_buyId} where pr_num=#{pro.pr_num}
 	</update>
-
 </mapper>

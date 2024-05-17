@@ -82,21 +82,19 @@ public class IBHController {
 
 		// 제품 번호 주고 해당 제품에 신고 확인
 		ArrayList<ReportVO> rpProList = chatService.getReportByProduct(pr_num);
-		// 제품 번호 주고 채팅방 가져오기
-		ArrayList<ChatRoomVO> ChatList = chatService.getChatRoomIds(pr_num);
-		System.out.println(ChatList);
-		// 채팅방 번호 주고 신고 확인
-		ArrayList<ChatRoomVO> rpChatList = null;
-		for(int a = 0; a < ChatList.size(); a ++) {
-			rpChatList = chatService.getReportByChat(ChatList.get(a).getCr_num());
-		}
-		if(rpChatList != null) {
-			chatService.updateProduct(pr_num);
-			return map;
-		}
-		chatService.deleteProduct(pr_num);
-		System.out.println(rpChatList);
 		
+		// 제품 번호 주고 채팅방 가져오기
+		ArrayList<ReportVO> rpChat = chatService.getReportByChat(pr_num);
+		
+		System.out.println(rpChat);
+		System.out.println(rpProList);
+		
+		if(rpChat.size() == 0 && rpProList.size() == 0) {
+			chatService.deleteProduct(pr_num);	// 파일 및 내용 다 삭제
+		}else {
+			chatService.updateProduct(pr_num);	// 유저들이 보이지 않게 삭제중으로 변경 후 (신고 제제 후 삭제 : 추가 예정)
+		}
+		map.put("msg", "삭제했습니다.");
 		return map;
 	}
 	

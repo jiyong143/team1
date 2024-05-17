@@ -467,6 +467,8 @@
 			dataType : "json",
 			success : function (data){
 	            console.log(data);
+	            alert(data.msg);
+	            let url = 
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 		

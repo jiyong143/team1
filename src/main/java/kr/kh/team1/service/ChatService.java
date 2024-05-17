@@ -43,9 +43,9 @@ public interface ChatService {
 
 	ArrayList<ReportVO> getReportByProduct(int pr_num);
 
-	ArrayList<ChatRoomVO> getReportByChat(int cr_num);
+	ArrayList<ReportVO> getReportByChat(int pr_num);
 
 	void updateProduct(int pr_num);
 
-	void deleteProduct(int pr_num);
+	boolean deleteProduct(int pr_num);
 }
