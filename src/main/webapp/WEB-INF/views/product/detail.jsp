@@ -469,7 +469,13 @@
 			success : function (data){
 	            console.log(data);
 	            alert(data.msg);
-	            let url = 
+	            
+	            var url = '<c:url value="/product/list"/>' 
+	            			+ '?mNum='+ ${info.pr_mg_num} 
+	            			+ '&mName=' + encodeURIComponent('${info.pr_mg_name}') 
+	             			+ '&tName=' + encodeURIComponent('${info.pr_tg_name}');
+				console.log(url);
+				location.href = url;
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 		

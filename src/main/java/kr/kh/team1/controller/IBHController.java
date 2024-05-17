@@ -99,20 +99,6 @@ public class IBHController {
 		return map;
 	}
 	
-	@ResponseBody
-	@PostMapping("/product/liquidate")
-	// 포인트 결제 제약조건
-	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
-		if(crv == null) {
-			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
-		}
-		return map;
-	}
-	
 	@GetMapping("/chat/sse")
 	// 채팅방에 해당하지 않는 사람들 막기
 	public String sse(Model model, int cr_num, HttpSession session) {
