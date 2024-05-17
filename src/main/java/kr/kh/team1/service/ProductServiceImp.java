@@ -2,6 +2,7 @@ package kr.kh.team1.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -28,7 +29,7 @@ public class ProductServiceImp implements ProductService{
 	@Resource
 	private String uploadPath;
 	
-	private boolean checkString(String str) {
+	private boolean checkString(String str) { 
 		return str != null && str.length() != 0; 
 	}
 	
@@ -135,7 +136,7 @@ public class ProductServiceImp implements ProductService{
 
 	@Override
 	public ArrayList<FileVO> getFileBypNum(int pNum) {
-		return productDao.selectFileBypNum(pNum);
+		return productDao.selectFileBypNum(pNum); 
 	}
 
 	@Override
@@ -222,6 +223,48 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public int getTopNum(int num) {
 		return productDao.selectTopNum(num); 
+	}
+
+
+	@Override
+	public void deleteFile(Integer integer) {
+		productDao.deleteFile(integer);
+		
+	}
+
+	@Override
+	public int updateProduct(ProductVO pro, MemberVO user, List<Integer> resultList, List<MultipartFile> files) {
+		// 로그인 문제인 경우
+		if(user==null||!user.getMe_id().equals(pro.getPr_me_id())) {
+			return -1; 
+		}
+		//상품 먼저 수정
+		boolean res = productDao.updateProduct(pro);
+		if(!res) {
+			return 0; 
+		}
+		// 상품 수정 성공 후 파일 수정 
+		// 파일이 하나도 없는 경우
+		ArrayList <FileVO> file = getFileBypNum(pro.getPr_num());
+		System.out.println((file.size()-resultList.size())+files.size());
+		if((file.size()-resultList.size())+files.size()==0) {
+			return 0;
+		}
+		// 파일 db 에서 제거하기
+		if(resultList.size()>0) {
+		for (int i = 0; i < resultList.size(); i++) {
+			deleteFile(resultList.get(i));
+		}
+		}
+		
+		if(files.size()>0) {
+		for(MultipartFile image : files) {
+			// 첨부파일을 서버에 업로드하고 DB에 추가하는 메서드
+			uploadFile(pro.getPr_num(), image); 
+		}
+		}
+		
+		return 1;
 	}
 
 }

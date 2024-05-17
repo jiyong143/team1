@@ -30,12 +30,13 @@ import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
 import kr.kh.team1.pagination.PageMaker_chat;
 import kr.kh.team1.service.ChatService;
+import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.TopGroupService;
 import kr.kh.team1.utils.SseEmitters;
 
 @Controller
 public class IBHController {
-
+	
 	@Autowired
 	ChatService chatService;
 	
@@ -419,6 +420,19 @@ public class IBHController {
 			map.put("msg", "삭제했습니다.");
 		}else {
 			map.put("msg", "삭제하지 못했습니다.");
+		}
+		return map;
+	}
+	
+	// 중분류 삭제
+	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+		
+		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+		if(crv == null) {
+			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
 		}
 		return map;
 	}

@@ -1,5 +1,8 @@
 package kr.kh.team1.model.vo;
 
+
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,4 +13,5 @@ public class PaymentVO {
 	String pd_oriNum; //유니크
 	int pd_price;
 	String pd_me_id;
+	Date pd_date;
 }
