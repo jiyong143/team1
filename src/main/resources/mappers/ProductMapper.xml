@@ -62,6 +62,7 @@
           <if test='cri.order == "pr_basket"'>
               order by pr_basket desc
           </if>
+          and pr_ps_state != "삭제중"
         limit #{cri.pageStart} , #{cri.perPageNum}
     </select>
     
@@ -91,6 +92,7 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
+          and pr_ps_state != "삭제중"
 	</select>
   
   <select id="selectMaxPrice" resultType="int">
@@ -114,6 +116,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
   </select>
 
 	<select id="selectMinPrice" resultType="int">
@@ -137,6 +140,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
   </select>
 
   <select id="selectAvgPrice" resultType="int">
@@ -160,6 +164,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
 	</select>
 
 	<select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
@@ -275,6 +280,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
 	</select>
 	
 	<select id="selectSearchMinPrice" resultType="int">
@@ -291,6 +297,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
 	</select>
 	
 	<select id="selectSearchAvgPrice" resultType="int">
@@ -307,6 +314,7 @@
             and pr_ps_state != "판매완료"
         </if>
         and pr_price > 0
+        and pr_ps_state != "삭제중"
 	</select>
 	
 	<select id="selectSearchList" resultMap="ProductMap">
@@ -342,6 +350,7 @@
           <if test='cri.order == "pr_basket"'>
               order by pr_basket desc
           </if>
+          and pr_ps_state != "삭제중"
         limit #{cri.pageStart} , #{cri.perPageNum}
 	</select>
 	
@@ -359,6 +368,7 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
+          and pr_ps_state != "삭제중"
 	</select>
 
 </mapper>

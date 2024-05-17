@@ -333,6 +333,49 @@ public class CJYController {
 		session.setAttribute("TName", tName);
 		return "/product/list";
 	}
+	
+	@GetMapping("/product/search3")
+	public String productSearch3(Model model , ProductCriteria cri) {
+		String min = null;
+		String max = null;
+		if (cri.getMinPrice() == -100) {
+			min = "";
+		} else if (cri.getMinPrice() == 0) {
+			min = "0";
+		} else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			min = formatter.format(cri.getMinPrice());
+		}
+
+		if (cri.getMaxPrice() == 1000000000) {
+			max = "";
+		} else if (cri.getMaxPrice() == 0) {
+			max = "0";
+		} else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			max = formatter.format(cri.getMaxPrice());
+		}
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("avgPrice", avgPrice);
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
+		model.addAttribute("search", cri.getSearch());
+		model.addAttribute("place", cri.getPlace());
+		model.addAttribute("pm", pm);
+		model.addAttribute("pList", productList);
+		model.addAttribute("min", min);
+		model.addAttribute("max", max);
+		model.addAttribute("minimum", cri.getMinPrice());
+		model.addAttribute("maximum", cri.getMaxPrice());
+		return "/product/search";
+	}
+
 
 	@ResponseBody
 	@GetMapping("/product/list2")
@@ -381,11 +424,8 @@ public class CJYController {
 		map.put("banana", cri.getBanana());
 		map.put("min", cri.getMinPrice());
 		map.put("max", cri.getMaxPrice());
-		map.put("TName", tName);
-		map.put("MName", mName);
-		map.put("num", mNum);
 		map.put("pm", pm);
-		map.put("pList", productList);
+		map.put("pList", productList); 
 		map.put("maxPrice", maxPrice);
 		map.put("minPrice", minPrice);
 		map.put("avgPrice", avgPrice);
