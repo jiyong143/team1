@@ -214,6 +214,9 @@ table tr th, table tr td {
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
 				</li>
 			</c:if>	
+				<li class="nav-item">
+					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/fixed/list"/>">고정문의</a>
+				</li>
 		</ul>
 			<!-- Toggle button -->
 			<button class="navbar-toggler px-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExampleOnHover"
@@ -246,6 +249,7 @@ table tr th, table tr td {
 	  <a href="/team1/report/list">신고관리</a>
 	  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
 	  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
+  	  <a href="/team1/fixed/list">고정문의 관리</a>
 	</div>
 </nav>
 <script type="text/javascript">

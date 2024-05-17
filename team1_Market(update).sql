@@ -195,6 +195,17 @@ SIGUNGU VARCHAR(20) NULL COMMENT '시군구명',
 h_dong_nm VARCHAR(20) NULL COMMENT '읍면동명'
 );
 
+DROP TABLE IF EXISTS `fixed`;
+
+CREATE TABLE `fixed` (
+	`fix_num`	int	NOT NULL primary key auto_increment,
+	`fix_me_id`	varchar(15)	NOT NULL,
+	`fix_title`	varchar(30)	NOT NULL,
+	`fix_content`	text	NOT NULL,
+	`fix_date`	dateTime	NOT NULL default now(),
+	`fix_view`	int	NOT NULL default 0
+);
+
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
    `mg_tg_num`
 )
@@ -379,6 +390,13 @@ REFERENCES `member` (
 
 ALTER TABLE `payment_detail` ADD CONSTRAINT `FK_member_TO_payment_detail_1` FOREIGN KEY (
 	`pd_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `fixed` ADD CONSTRAINT `FK_member_TO_fixed_1` FOREIGN KEY (
+	`fix_me_id`
 )
 REFERENCES `member` (
 	`me_id`

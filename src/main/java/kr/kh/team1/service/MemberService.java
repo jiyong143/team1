@@ -52,6 +52,10 @@ public interface MemberService {
 
 	ArrayList<PaymentVO> getPaymentList(String myUser);
 
+	int getPoint(String userId);
+
+	void payment(String pr_me_id, String myUser, int pr_price);
+
 	//관리자 -> 회원관리에 필요한 코드 END 
 
 //	boolean signupSns(String sns, String id, String email);

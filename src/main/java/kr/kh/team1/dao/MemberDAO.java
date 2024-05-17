@@ -45,6 +45,12 @@ public interface MemberDAO {
 
 	ArrayList<PaymentVO> selectPaymentList(@Param("me_id")String myUser);
 
+	int selectPoint(@Param("me_id")String userId);
+
+	void addPoint(@Param("me_id") String pr_me_id, @Param("price")int pr_price);
+
+	void subtractPoint(@Param("me_id")String myUser, @Param("price")int pr_price);
+
 	
 
 

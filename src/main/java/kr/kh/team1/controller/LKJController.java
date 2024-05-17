@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.Session;
-
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
+import kr.kh.team1.model.vo.FixedVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReportVO;
@@ -32,6 +30,7 @@ import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
+import kr.kh.team1.service.FixedService;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReportService;
@@ -54,6 +53,18 @@ public class LKJController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	FixedService fixedService;
+	
+	@GetMapping("/admin/adminPage")
+	public String adminPage(Model model) {
+		return "/admin/adminPage";
+	}
+	@GetMapping("/admin/managerPage")
+	public String managerPage(Model model) {
+		return "/admin/managerPage";
+	}
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -239,9 +250,9 @@ public class LKJController {
 	//회원관리 END
 	//신고 START
 	@GetMapping("/report/list")
-	public String reportList(Model model, Criteria_report crir) {
+	public String reportList(Model model, Criteria_report crir, String me_id) {
 		crir.setPerPageNum(10);
-		ArrayList<ReportVO> reportList = reportService.getReportList(crir);
+		ArrayList<ReportVO> reportList = reportService.getReportList(me_id, crir);
 		int totalCount = reportService.getReportTotalCount(crir);
 		PageMaker_report pmr = new PageMaker_report(5, crir, totalCount);
 		model.addAttribute(pmr);
@@ -367,36 +378,64 @@ public class LKJController {
 		return "/admin/inquityManager";
 	}
 
-	@GetMapping("/surportManage/list")
+	@GetMapping("/fixed/list")
 	// 고정 문의글 리스트
-	public String surportManageList(Model model) {
-		return "/surportManage/list";
-	}	
-
-	@GetMapping("/surportManage/adminList")
-	// 관리자 고정문의 타입 관리
-	public String surportAdminLis(Model model) {
-		return "/surportManage/adminList";
+	public String surportManageList(Model model, Criteria_supot cris) {
+		cris.setPerPageNum(10);
+		ArrayList<FixedVO> fixList = fixedService.getFixList(cris);
+		int totalCount = fixedService.getFixTotalCount(cris);
+		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
+		model.addAttribute("pms", pms);
+		model.addAttribute("title", "고정문의");
+		model.addAttribute("list", fixList);
+		return "/fixed/list";
+	}
+	
+	@GetMapping("/fixed/insert")
+	//고정 문으글 추가 
+	//고정 문의글은 admin, manager만 작성 가능하며 user는 조회만 가능하다 
+	public String fixedInsert(Model model) {
+		model.addAttribute("title", "고정문의 작성");
+		return "/fixed/insert";
+	}
+	
+	@PostMapping("/fixed/insert")
+	public String fixedInsertPost(Model model, FixedVO fixed, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = fixedService.insertFixPost(fixed, user);
+		System.out.println(fixed);
+		if(res) {
+			model.addAttribute("msg", "고정문의글 작성이 완료되었습니다.");
+			model.addAttribute("url", "/fixed/list");
+		}else {
+			model.addAttribute("msg", "고정문의글 작성이 실패하였습니다.");
+			model.addAttribute("url", "/fixed/insert");
+		}
+		return "message";
+	}
+	
+	@GetMapping("/fixed/detail")
+	public String fixDetail(Model model, int fixNum) {
+		fixedService.fixUpdateView(fixNum);
+		FixedVO fixed = fixedService.getFixed(fixNum);
+		model.addAttribute("fixed", fixed);
+		model.addAttribute("title", "고정문의 상세내역");
+		return "/fixed/detail";//웹페이지 구성해야 함
+	}
+	
+	@GetMapping("/fixed/delete")
+	public String fixedDelete(Model model, int fixNum, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = fixedService.fixedDelete(fixNum, user);
+		if(res) {
+			model.addAttribute("url", "/fixed/list");
+			model.addAttribute("msg", "삭제 처리되었습니다.");
+		}else {
+			model.addAttribute("url", "/fixed/detail?fixNum="+fixNum);
+			model.addAttribute("msg", "삭제 처리 중 오류가 발생하였습니다.");
+		}
+		return "message";
 	}
 
-	// 고정문의 페이지 모음 -> 시작
-	@GetMapping("/surportManage/QnA/QnApage1")
-	public String userQnA(Model model) {
-		return "/surportManage/QnA/QnApage1";
-	}
 
-	@GetMapping("/surportManage/QnA/QnApage2")
-	public String userQnA2(Model model) {
-		return "/surportManage/QnA/QnApage2";
-	}
-
-	@GetMapping("/admin/adminPage")
-	// 관리자 페이지
-	public String adminPage(Model model) {
-		return "/admin/adminPage";
-	}
-	@GetMapping("/admin/managerPage")
-	public String managePage(Model model) {
-		return "/admin/managerPage";
-	}
 }
