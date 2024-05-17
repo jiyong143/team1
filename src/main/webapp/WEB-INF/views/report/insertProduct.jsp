@@ -79,7 +79,7 @@
    $(document).ready(function(){
 	   $("#reportBtn").click(function(){
 		   var userId = $(this).data("re_me_id");
-		   incrementReportCount(userId);
+		   reportCount(userId);
 	   })
    })
    
