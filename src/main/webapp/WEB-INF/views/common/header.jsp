@@ -153,6 +153,23 @@ table tr th, table tr td {
 	height:100%; 
 	margin-left: 800px;
 }
+.search-container input[type="text"] {
+    padding: 10px;
+    border: 3px solid #6a1b9a; /* 가지색 */
+    border-radius: 10px;
+    outline: none;
+    width: 300px;
+}
+
+.search-container button {
+    padding: 10px;
+    border: 2px solid #6a1b9a; /* 가지색 */
+    background-color: #6a1b9a; /* 가지색 */
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+    
 </style>
 </head>
 <body>
@@ -230,6 +247,12 @@ table tr th, table tr td {
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
 				</li>
 			</c:if>	
+			<li class="search-container">
+			  <form action="<c:url value="/product/search"/>" method="get">
+               <input type="text" placeholder="찾으시는 상품이 있으신가요?" name="search" autocomplete="off" value="${search }">
+               <button type="submit">검색</button>
+              </form>
+            </li>
 		</ul>
 		<!-- Left links -->
 		</div>

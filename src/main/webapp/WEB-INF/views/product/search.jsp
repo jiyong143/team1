@@ -541,26 +541,6 @@ li {
 		<div
 			class="h-full lg:h-20 xl:h-24 px-0 lg:px-8 2xl:px-16 max-w-[1024px] min-[1600px]:max-w-[1280px] flex items-center mx-auto box-content justify-between relative before:absolute before:w-screen before:bg-[#F1F1F1] before:bottom-0">
 			<div class="relative hidden ms-7 me-7 xl:ms-9 lg:block flex-1">
-				<div
-					class="search relative flex items-center justify-between w-full rounded-md bg-borderBottom">
-					<label for="search" class="flex items-center justify-between">
-						<span
-						class="absolute top-0 left-0 flex items-center justify-center flex-shrink-0 w-12 h-full cursor-pointer md:w-14 focus:outline-none"><svg
-								width="24" height="24" viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-								class="w-[16px] h-[16px] text-heading">
-								<path
-									d="M10.0278 19.0556C14.3233 19.0556 17.8056 15.5733 17.8056 11.2778C17.8056 6.98223 14.3233 3.5 10.0278 3.5C5.73223 3.5 2.25 6.98223 2.25 11.2778C2.25 15.5733 5.73223 19.0556 10.0278 19.0556Z"
-									stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round" fill="transparent"></path>
-								<path d="M21 21.8999L15.5 16.8999" stroke="currentColor"
-									stroke-width="1.5" stroke-linecap="round"
-									stroke-linejoin="round"></path></svg> </span> <input type="search"
-						id="search-header" class="search-input"
-						placeholder="${MName}에 관련해 검색해보세요." aria-label="search-header"
-						autocomplete="off" name="search" value="${search }">
-					</label>
-				</div>
 
 				<div
 					class="bg-white flex flex-col h-full max-h-64vh lg:max-h-[550px] w-full z-10 absolute h-auto shadow-header hidden mt-4">
@@ -613,16 +593,6 @@ li {
 
 		<table class="product-table hidden lg:table filterTable">
 			<tbody>
-				<tr>
-					<td style="font-size: 20px; font-weight: bold;">카테고리</td>
-					<td>
-						<div class="flex items-center w-full chawkbazarBreadcrumb">
-							<span style="font-size: 20px; font-weight: bold;">${TName}</span>
-							&gt; <span style="font-size: 20px; font-weight: bold;">
-								${MName}</span>
-						</div>
-					</td>
-				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">가격</td>
 					<td class="price-filter" style="text-align: left">
@@ -755,7 +725,8 @@ li {
 			</ul>
 		</div>
 
-		<h4 class="productTotalCount">총${totalCount }개</h4>
+        <h2>'${pm.cri.search }'검색 결과<h4 class="productTotalCount">총${totalCount }개</h4></h2>
+        
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
 				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>"
@@ -832,14 +803,11 @@ li {
 
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
-				<li class="page-item"><c:url var="url" value="/product/list3">
+				<li class="page-item"><c:url var="url" value="/product/search">
 						<c:param name="page" value="${pm.startPage - 1}" />
-						<c:param name="mNum" value="${num}" />
-						<c:param name="mName" value="${MName}" />
-						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${minimum}" />
-						<c:param name="maxPrice" value="${maximum}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -849,14 +817,11 @@ li {
 			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 				<c:set var="active" value="${pm.cri.page == i ?'active':'' }" />
 				<li class="page-item ${active}"><c:url var="url"
-						value="/product/list3">
+						value="/product/search">
 						<c:param name="page" value="${i}" />
-						<c:param name="mNum" value="${num}" />
-						<c:param name="mName" value="${MName}" />
-						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${minimum}" />
-						<c:param name="maxPrice" value="${maximum}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -864,14 +829,11 @@ li {
 					</c:url> <a class="page-link" href="${url}">${i}</a></li>
 			</c:forEach>
 			<c:if test="${pm.next}">
-				<li class="page-item"><c:url var="url" value="/product/list3">
+				<li class="page-item"><c:url var="url" value="/product/search">
 						<c:param name="page" value="${pm.endPage + 1}" />
-						<c:param name="mNum" value="${num}" />
-						<c:param name="mName" value="${MName}" />
-						<c:param name="tName" value="${TName}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${minimum}" />
-						<c:param name="maxPrice" value="${maximum}" />
+						<c:param name="minPrice" value="${pm.cri.minPrice}" />
+						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -908,12 +870,9 @@ priceButton.addEventListener('click', function() {
 function sendPrice(minPrice, maxPrice){
 	let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
-	let mNum = '${num}';
 	let place = $(".place-input").val();
-	let tName='${TName}';
-	let mName = '${MName}';
 	let order;
-	let search = $(".search-input").val();
+	let search = '${pm.cri.search}';
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
 	let activeButton = document.querySelector(".order-list-item.bg-info");
@@ -926,28 +885,25 @@ function sendPrice(minPrice, maxPrice){
     var data = {
         "apple" : apple,
         "banana" : banana,
-        "mNum" : mNum,
         "search" : search,
         "place" : place,
         "minPrice" : minPrice,
         "maxPrice" : maxPrice,
-        "order"  : order,
-        "tName" : tName,
-		"mName" : mName
+        "order"  : order
     };
 
     // AJAX 요청
     $.ajax({
     	async : false,
         type: "get",
-        url: '<c:url value="/product/list2"/>', 
+        url: '<c:url value="/product/search2"/>', 
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(data) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
+            addPagination(data.pm,data.order,data.apple, data.banana, data.place, data.search, data.min, data.max );
             addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
@@ -996,12 +952,9 @@ $(".search-input").change(function(){
 function sendSearch(search) {
     let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
-	let mNum = '${num}';
-	let place = $(".place-input").val();
+	let place = '${pm.cri.search}';
 	let minPrice = $(".minPrice-input").val();
 	let maxPrice = $(".maxPrice-input").val(); 
-	let tName='${TName}';
-	let mName = '${MName}';
 	let order;
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
@@ -1033,28 +986,25 @@ function sendSearch(search) {
     var data = {
         "apple" : apple,
         "banana" : banana,
-        "mNum" : mNum,
         "search" : search,
         "place" : place,
         "minPrice" : minPrice,
         "maxPrice" : maxPrice,
         "order"  : order,
-        "tName" : tName,
-		"mName" : mName
     };
 
     // AJAX 요청
     $.ajax({
     	async : false,
         type: "get",
-        url: '<c:url value="/product/list2"/>', 
+        url: '<c:url value="/product/search2"/>', 
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(data) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
+            addPagination(data.pm, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max );
             addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
@@ -1075,12 +1025,9 @@ $(".place-input").change(function(){
 function sendPlace(place) {
     let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
-	let mNum = '${num}';
 	let minPrice = $(".minPrice-input").val();
 	let maxPrice = $(".maxPrice-input").val();
-	let tName='${TName}';
-	let mName = '${MName}';
-	let search = $(".search-input").val();
+	let search = '${pm.cri.search}';
 	let order;
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
@@ -1112,28 +1059,25 @@ function sendPlace(place) {
     var data = {
         "apple" : apple,
         "banana" : banana,
-        "mNum" : mNum,
         "search" : search,
         "place" : place,
         "minPrice" : minPrice,
         "maxPrice" : maxPrice,
         "order"  : order,
-        "tName" : tName,
-		"mName" : mName
     };
 
     // AJAX 요청
     $.ajax({
     	async : false,
         type: "get",
-        url: '<c:url value="/product/list2"/>', 
+        url: '<c:url value="/product/search2"/>', 
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(data) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.num,data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search ,data.min, data.max );
+            addPagination(data.pm,data.order, data.apple, data.banana, data.place, data.search ,data.min, data.max );
             addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
@@ -1182,14 +1126,11 @@ function sendPlace(place) {
 	function clickOrder(str1) {
 		let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 		let banana = document.getElementById("saleZn").checked ? "yes" : "no";
-		let mNum = '${num}';
-		let search = $(".search-input").val();
+		let search = '${pm.cri.search}';
 		let place = $(".place-input").val();
 		let minPrice = $(".minPrice-input").val();
 		let maxPrice = $(".maxPrice-input").val();
 		let page = '${pm.cri.page}';
-		let tName='${TName}';
-		let mName = '${MName}';
 				
 		if(minPrice=="" || minPrice == null){
 			minPrice =-100;
@@ -1212,25 +1153,22 @@ function sendPlace(place) {
 			"order" : str1,
 			"apple" : apple,
 			"banana" : banana,
-			"mNum" : mNum,
 			"search" : search,
 			"place" : place,
 			"minPrice" : minPrice,
 			"maxPrice" : maxPrice,
-			"page" : page,
-			"tName" : tName,
-			"mName" : mName
+			"page" : page
 		};
-		console.log(obj);
+		
 		$.ajax({
 			async : false,
-			url : '<c:url value="/product/list2"/>', 
+			url : '<c:url value="/product/search2"/>', 
 			type : 'get',
 			data : obj,
 			dataType : "json", 
 			success : function (data){
 				addMethod(data.pList);
-				addPagination(data.pm, data.num, data.TName, data.MName, data.order, data.apple, data.banana, data.place, data.search, data.min, data.max);
+				addPagination(data.pm , data.order, data.apple, data.banana, data.place, data.search, data.min, data.max);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
@@ -1303,23 +1241,23 @@ function sendPlace(place) {
 		$(".product-list").html(str);
 	}
 	
-	function addPagination(pm,num,TName, MName, order, apple, banana, place, search, min, max){
+	function addPagination(pm, order, apple, banana, place, search, min, max){
 		let str = '';
 		if(pm.prev == true){
 			str += `<li class="page-item">
-			<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${pm.cri.startPage-1}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
+			<a class="page-link" href="<c:url value="/product/search3?page=\${pm.cri.startPage-1}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">이전</a>
 		</li>`;
 		}
 		 for(let i=pm.startPage; i<=pm.endPage; i++){
 			 var active = pm.cri.page == i ? 'active' : '';
 			str +=`<li class="page-item \${active}">
-				<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${i}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
+				<a class="page-link" href="<c:url value="/product/search3?page=\${i}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">\${i}</a>
 		     </li>`;
 		 }
 		 
 		 if(pm.next == true){
 				str += `<li class="page-item">
-				<a class="page-link" href="<c:url value="/product/list3?tName=\${TName}&mName=\${MName}&page=\${pm.endPage+1}&mNum=\${num}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
+				<a class="page-link" href="<c:url value="/product/search3?page=\${pm.endPage+1}&search=\${search}&minPrice=\${min}&maxPrice=\${max}&order=\${order}&place=\${place}&apple=\${apple}&banana=\${banana}"/>">다음</a>
 			</li>`;
 			}		 
 		 $(".pagination").html(str);
@@ -1334,14 +1272,11 @@ function sendCheckboxData() {
     // 체크박스의 상태를 확인하여 데이터 객체에 저장
     let apple = document.getElementById("saleYn").checked ? "yes" : "no";
 	let banana = document.getElementById("saleZn").checked ? "yes" : "no";
-	let mNum = '${num}';
-	let search = $(".search-input").val();
+	let search = '${pm.cri.search}';
 	let place = $(".place-input").val();
 	let minPrice = $(".minPrice-input").val();
 	let maxPrice = $(".maxPrice-input").val();
 	let page = '${pm.cri.page}';
-	let tName='${TName}';
-	let mName = '${MName}';
 	let order;
 
 	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
@@ -1373,30 +1308,27 @@ function sendCheckboxData() {
     var data = {
         "apple" : apple,
         "banana" : banana,
-        "mNum" : mNum,
         "search" : search,
         "place" : place,
         "order" : order,
         "minPrice" : minPrice,
         "maxPrice" : maxPrice,
         "order"  : order,
-        "page" : page,
-        "tName" : tName,
-		"mName" : mName
+        "page" : page      
     };
 
     // AJAX 요청
     $.ajax({
     	async : false,
         type: "get",
-        url: '<c:url value="/product/list2"/>', 
+        url: '<c:url value="/product/search2"/>', 
         data: data, // 보낼 데이터 입력
         dataType : "json",
         success: function(response) {
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMethod(response.pList);
             addPrice(response.avgPrice, response.maxPrice, response.minPrice);
-            addPagination(response.pm,response.num,response.TName, response.MName, response.order, response.apple, response.banana, response.place, response.search, response.min, response.max);
+            addPagination(response.pm,response.order, response.apple, response.banana, response.place, response.search, response.min, response.max);
             addTotalCount(response.totalCount);
         },
         error: function(xhr, status, error) {

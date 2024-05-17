@@ -266,6 +266,27 @@ public class CJYController {
 		session.setAttribute("TName", tName);
 		return "/product/list";
 	}
+	
+	@GetMapping("/product/search")
+	public String productSearch(Model model, ProductCriteria cri,HttpSession session) {
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("avgPrice", avgPrice); 
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);  
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount);
+		session.setAttribute("search",cri.getSearch());
+		model.addAttribute("place", cri.getPlace());
+		model.addAttribute("minimum", cri.getMinPrice());
+		model.addAttribute("maximum", cri.getMaxPrice());
+		model.addAttribute("pm", pm);
+		model.addAttribute("pList", productList);
+		return "/product/search"; 
+	}
 
 	@GetMapping("/product/list3")
 	public String productList3(Model model, int mNum, ProductCriteria cri, String mName, String tName,
@@ -321,6 +342,35 @@ public class CJYController {
 		String avgPrice = productService.getAvgPrice(mNum, cri);
 		ArrayList<ProductVO> productList = productService.getProductList(mNum, cri);
 		int totalCount = productService.getProductTotalCount(mNum, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
+		map.put("place", cri.getPlace());
+		map.put("search", cri.getSearch());
+		map.put("order", cri.getOrder());
+		map.put("apple", cri.getApple());
+		map.put("banana", cri.getBanana());
+		map.put("min", cri.getMinPrice());
+		map.put("max", cri.getMaxPrice());
+		map.put("TName", tName);
+		map.put("MName", mName);
+		map.put("num", mNum);
+		map.put("pm", pm);
+		map.put("pList", productList);
+		map.put("maxPrice", maxPrice);
+		map.put("minPrice", minPrice);
+		map.put("avgPrice", avgPrice);
+		return map;
+	}
+	
+	@ResponseBody
+	@GetMapping("/product/search2")
+	public Map<String, Object> productSearch2(ProductCriteria cri) {
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("totalCount", totalCount);
