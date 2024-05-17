@@ -180,6 +180,7 @@
 	    <if test='clickData == "saleCompleted"'>
 	      and pr_ps_state = "판매완료"
 	    </if>
+	      and pr_ps_state != "삭제중"
 	    <if test='type == "latest"'>
 	    	order by pr_date desc
 	    </if>
