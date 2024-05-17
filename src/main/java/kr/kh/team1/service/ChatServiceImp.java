@@ -10,6 +10,7 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria;
 
 @Service
@@ -123,9 +124,29 @@ public class ChatServiceImp implements ChatService {
 		return chatDao.selectChatRoomIds(pNum); 
 	}
 
-  @Override
+	@Override
 	public ChatMessageVO getChatMessageRecent(int cm_cr_num) {
 		return chatDao.selectChatMessageRecent(cm_cr_num);
+	}
+
+	@Override
+	public ArrayList<ReportVO> getReportByProduct(int pr_num) {
+		return chatDao.selectReportByProduct(pr_num);
+	}
+
+	@Override
+	public ArrayList<ChatRoomVO> getReportByChat(int cr_num) {
+		return chatDao.selectReportByChat(cr_num);
+	}
+
+	@Override
+	public void updateProduct(int pr_num) {
+		chatDao.updateProductState(pr_num);
+	}
+
+	@Override
+	public void deleteProduct(int pr_num) {
+		
 	}
   
 }

@@ -119,5 +119,16 @@
    <select id="selectChatMessageRecent" resultType="kr.kh.team1.model.vo.ChatMessageVO">
    		select * from chat_message where cm_cr_num = #{num} order by cm_num desc limit 1
    </select>
+   
+   <select id="selectReportByProduct" resultType="kr.kh.team1.model.vo.ReportVO">
+   		select * from report join product on pr_num = re_pr_num where pr_num = #{num}
+   </select>
   
+   <select id="selectReportByChat" resultType="kr.kh.team1.model.vo.ReportVO">
+  		select * from report join product on pr_num = re_pr_num join chat_room on cr_pr_num = pr_num where cr_num = #{num}
+   </select>
+   
+   <update id="updateProductState">
+   		update product set pr_ps_state = "삭제중" where pr_num = #{num}
+   </update>
 </mapper>

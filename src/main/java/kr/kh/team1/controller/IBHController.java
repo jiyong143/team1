@@ -25,6 +25,7 @@ import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
@@ -70,6 +71,46 @@ public class IBHController {
 
 		ArrayList<ZipcodeVO> dongList = topGroupService.getDongList(sido, sigungu);
 		map.put("dongList", dongList);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/delete")
+	// 상품 삭제
+	public Map<String, Object> productDeletePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		// 제품 번호 주고 해당 제품에 신고 확인
+		ArrayList<ReportVO> rpProList = chatService.getReportByProduct(pr_num);
+		// 제품 번호 주고 채팅방 가져오기
+		ArrayList<ChatRoomVO> ChatList = chatService.getChatRoomIds(pr_num);
+		System.out.println(ChatList);
+		// 채팅방 번호 주고 신고 확인
+		ArrayList<ChatRoomVO> rpChatList = null;
+		for(int a = 0; a < ChatList.size(); a ++) {
+			rpChatList = chatService.getReportByChat(ChatList.get(a).getCr_num());
+		}
+		if(rpChatList != null) {
+			chatService.updateProduct(pr_num);
+			return map;
+		}
+		chatService.deleteProduct(pr_num);
+		System.out.println(rpChatList);
+		
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/liquidate")
+	// 포인트 결제 제약조건
+	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+		if(crv == null) {
+			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
+		}
 		return map;
 	}
 	
@@ -409,21 +450,6 @@ public class IBHController {
 			map.put("msg", "삭제했습니다.");
 		}else {
 			map.put("msg", "삭제하지 못했습니다.");
-		}
-		return map;
-	}
-	
-	
-	@ResponseBody
-	@PostMapping("/product/liquidate")
-	// 중분류 삭제
-	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
-		if(crv == null) {
-			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
 		}
 		return map;
 	}
