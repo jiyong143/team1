@@ -481,18 +481,18 @@ li {
 
 .anfruf {
 	position: absolute;
-	left: 992px;
+	left: 900px;
 }
 
 .maxPrice-box {
 	position: absolute;
-	left: 1010px;
+	left: 915px;
 }
 
 .price-button {
 	position: absolute;
-	left: 1243px;
-	top: 234px;
+	left: 1150px;
+	top: 183px;
 }
 
 .search {
@@ -507,20 +507,20 @@ li {
 
 .place-container {
 	position: absolute;
-	left: 760px;
-	top: 285px;
+	left: 670px;
+	top: 235px;
 }
 
 .checkbox1 {
 	position: absolute;
-	left: 950px;
-	top: 350px;
+	left: 860px;
+	top: 300px;
 }
 
 .checkbox2 {
 	position: absolute;
-	left: 760px;
-	top: 350px;
+	left: 670px;
+	top: 300px;
 }
 
 .float-right {
@@ -638,7 +638,7 @@ li {
 								placeholder="장소를 입력하세요" data-idx="0" name="place"
 								value="${place }" autocomplete="off">
 							<button
-								class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								class="place-button w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
 								style="background-color: black">적용</button>
 						</div>
 					</td>
@@ -803,11 +803,11 @@ li {
 
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
-				<li class="page-item"><c:url var="url" value="/product/search">
+				<li class="page-item"><c:url var="url" value="/product/search3">
 						<c:param name="page" value="${pm.startPage - 1}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -817,11 +817,11 @@ li {
 			<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
 				<c:set var="active" value="${pm.cri.page == i ?'active':'' }" />
 				<li class="page-item ${active}"><c:url var="url"
-						value="/product/search">
+						value="/product/search3">
 						<c:param name="page" value="${i}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -829,11 +829,11 @@ li {
 					</c:url> <a class="page-link" href="${url}">${i}</a></li>
 			</c:forEach>
 			<c:if test="${pm.next}">
-				<li class="page-item"><c:url var="url" value="/product/search">
+				<li class="page-item"><c:url var="url" value="/product/search3">
 						<c:param name="page" value="${pm.endPage + 1}" />
 						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="minPrice" value="${pm.cri.minPrice}" />
-						<c:param name="maxPrice" value="${pm.cri.maxPrice}" />
+						<c:param name="minPrice" value="${minimum}" />
+						<c:param name="maxPrice" value="${maximum}" />
 						<c:param name="order" value="${pm.cri.order}" />
 						<c:param name="place" value="${pm.cri.place }" />
 						<c:param name="apple" value="${pm.cri.apple }" />
@@ -874,13 +874,15 @@ function sendPrice(minPrice, maxPrice){
 	let order;
 	let search = '${pm.cri.search}';
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id; 
-	}	
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+   	var orderItem = orderItems[i];
+   	var computedStyle = window.getComputedStyle(orderItem);
+   	var backgroundColor = computedStyle.getPropertyValue('color');
+   	if(backgroundColor === 'rgb(0, 0, 0)'){
+   		order=orderItem.id;
+   	}
+   }
 	
     var data = {
         "apple" : apple,
@@ -903,7 +905,7 @@ function sendPrice(minPrice, maxPrice){
             // 성공적으로 응답을 받았을 때 실행할 코드
             addMethod(data.pList);
             addPrice(data.avgPrice, data.maxPrice, data.minPrice);
-            addPagination(data.pm,data.order,data.apple, data.banana, data.place, data.search, data.min, data.max );
+            addPagination(data.pm, data.order,data.apple, data.banana, data.place, data.search, data.min, data.max );
             addTotalCount(data.totalCount);
         },
         error: function(xhr, status, error) {
@@ -957,13 +959,15 @@ function sendSearch(search) {
 	let maxPrice = $(".maxPrice-input").val(); 
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+   	var orderItem = orderItems[i];
+   	var computedStyle = window.getComputedStyle(orderItem);
+   	var backgroundColor = computedStyle.getPropertyValue('color');
+   	if(backgroundColor === 'rgb(0, 0, 0)'){
+   		order=orderItem.id;
+   	}
+   }
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;
@@ -1030,13 +1034,15 @@ function sendPlace(place) {
 	let search = '${pm.cri.search}';
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+   	var orderItem = orderItems[i];
+   	var computedStyle = window.getComputedStyle(orderItem);
+   	var backgroundColor = computedStyle.getPropertyValue('color');
+   	if(backgroundColor === 'rgb(0, 0, 0)'){
+   		order=orderItem.id;
+   	}
+   }
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;
@@ -1279,13 +1285,15 @@ function sendCheckboxData() {
 	let page = '${pm.cri.page}';
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+   	var orderItem = orderItems[i];
+   	var computedStyle = window.getComputedStyle(orderItem);
+   	var backgroundColor = computedStyle.getPropertyValue('color');
+   	if(backgroundColor === 'rgb(0, 0, 0)'){
+   		order=orderItem.id;
+   	}
+   }
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;

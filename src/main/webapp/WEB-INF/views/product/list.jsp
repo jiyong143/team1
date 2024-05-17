@@ -915,13 +915,15 @@ function sendPrice(minPrice, maxPrice){
 	let order;
 	let search = $(".search-input").val();
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id; 
-	}	
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+    	var orderItem = orderItems[i];
+    	var computedStyle = window.getComputedStyle(orderItem);
+    	var backgroundColor = computedStyle.getPropertyValue('color');
+    	if(backgroundColor === 'rgb(0, 0, 0)'){
+    		order=orderItem.id;
+    	}
+    }
 	
     var data = {
         "apple" : apple,
@@ -1004,13 +1006,16 @@ function sendSearch(search) {
 	let mName = '${MName}';
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+     	var orderItem = orderItems[i];
+     	var computedStyle = window.getComputedStyle(orderItem);
+     	var backgroundColor = computedStyle.getPropertyValue('color');
+     	if(backgroundColor === 'rgb(0, 0, 0)'){
+     		order=orderItem.id;
+     	}
+     }
+	
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;
@@ -1083,13 +1088,15 @@ function sendPlace(place) {
 	let search = $(".search-input").val();
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+    	var orderItem = orderItems[i];
+    	var computedStyle = window.getComputedStyle(orderItem);
+    	var backgroundColor = computedStyle.getPropertyValue('color');
+    	if(backgroundColor === 'rgb(0, 0, 0)'){
+    		order=orderItem.id;
+    	}
+    }
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;
@@ -1344,13 +1351,15 @@ function sendCheckboxData() {
 	let mName = '${MName}';
 	let order;
 
-	// 클래스가 "bg-info"를 가지고 있는 요소를 찾습니다.
-	let activeButton = document.querySelector(".order-list-item.bg-info");
-
-	// activeButton이 존재하는 경우에만 id를 order 변수에 할당합니다.
-	if (activeButton) {
-	    order = activeButton.id;
-	}
+	const orderItems = document.querySelectorAll('.order-list-item');
+	 for(let i=0; i<orderItems.length; i++){
+    	var orderItem = orderItems[i];
+    	var computedStyle = window.getComputedStyle(orderItem);
+    	var backgroundColor = computedStyle.getPropertyValue('color');
+    	if(backgroundColor === 'rgb(0, 0, 0)'){
+    		order=orderItem.id;
+    	}
+    }
 	
 	if(minPrice=="" || minPrice == null){
 		minPrice =-100;

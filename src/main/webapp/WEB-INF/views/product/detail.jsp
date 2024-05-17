@@ -313,6 +313,7 @@
 	</div><!-- end container -->
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
+
 	$(document).on("click", ".btn-sse", function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
