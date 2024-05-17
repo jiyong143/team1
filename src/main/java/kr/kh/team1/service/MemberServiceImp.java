@@ -282,7 +282,6 @@ public class MemberServiceImp implements MemberService {
 		memberDao.subtractPoint(myUser, pr_price);
 	}
 
-
 //	@Override
 //	public boolean signupSns(String sns, String id, String email) {
 //		try {
