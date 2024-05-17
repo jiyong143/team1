@@ -270,7 +270,7 @@
 					</c:if>
 					<!-- 상품 삭제 화면으로 이동 -->
 					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-						<button class="jiyong-button flex flex-col items-center py-[6px]">
+						<button class="jiyong-button flex flex-col items-center py-[6px] deleteBtn">
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 								<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -408,6 +408,7 @@
 				<i class="bi bi-heart btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
 				`;
 		}else{
 			str += 
@@ -415,6 +416,7 @@
 				<i class="bi bi-heart-fill btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
 				`;
 		}
 		$(".btnBox").html(str);
@@ -457,8 +459,23 @@
 		$(".textUl").html(str);
 	}
 
-	// 일정한 간격으로 서버에 변경된 정보를 확인
-	//setInterval(pickAndViewCount, 5000);
+	$(document).on("click", ".deleteBtn", function(){
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value="/product/delete"/>',
+			type : 'post', 
+			data : {pr_num : ${pNum}},
+			dataType : "json",
+			success : function (data){
+	            console.log(data);
+	            alert(data.msg);
+	            let url = 
+			},
+			error : function(jqXHR, textStatus, errorThrown){
+		
+			}
+		});
+	});
 </script>
 </body>
 </html>

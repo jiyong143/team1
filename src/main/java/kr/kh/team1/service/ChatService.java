@@ -6,6 +6,7 @@ import kr.kh.team1.model.dto.MessageDTO;
 import kr.kh.team1.model.vo.ChatMessageVO;
 import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
+import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.pagination.Criteria;
 
 public interface ChatService {
@@ -40,4 +41,11 @@ public interface ChatService {
 	
 	ChatMessageVO getChatMessageRecent(int cm_cr_num);
 
+	ArrayList<ReportVO> getReportByProduct(int pr_num);
+
+	ArrayList<ReportVO> getReportByChat(int pr_num);
+
+	void updateProduct(int pr_num);
+
+	boolean deleteProduct(int pr_num);
 }

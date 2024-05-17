@@ -373,7 +373,6 @@ public class CJYController {
 	public Map<String, Object> idCheckDup(@RequestParam("tg_title") String tg_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		
 		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupListByTopGroup(tg_title);
 
 		map.put("data", midList);
@@ -398,7 +397,12 @@ public class CJYController {
 		int mNum = mGroup.getMg_num();
 		String mName = mg_title;
 		String tName = tg_title;
-		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		String place;
+		if(zip.getSido().equals("세종특별자치시")) {
+			place = zip.getSido() + " " + "		" + " " + zip.getH_dong_nm();	
+		}else {
+			place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		}
 		product.setPr_place(place);
 		
 		if(productService.insertProduct(product, user, file, mg_title)) {
