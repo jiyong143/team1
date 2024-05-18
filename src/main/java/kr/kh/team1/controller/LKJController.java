@@ -257,19 +257,6 @@ public class LKJController {
 		model.addAttribute("list", reportList);
 		return "/report/list";
 	}
-	/*
-	@GetMapping("/report/insertProduct")
-	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
-		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
-		ProductVO productList = reportService.getRePrNum(rePrNum); //거래글 리스트에서 하나의 거래글만 가져옴
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println(productList);
-		model.addAttribute("member", user);
-		model.addAttribute("info", productList); // 거래글 리스트를 모델에 추가
-	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
-	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
-	}
-	*/
 	@GetMapping("/report/insertProduct")
 	public String reportInsertProd(Model model, int rePrNum) {
 		//거래글 리스트에서 하나의 거래글만 가져옴
@@ -278,22 +265,7 @@ public class LKJController {
 		model.addAttribute("title", "거래글 신고");
 		return "/report/insertProduct";
 	}
-	/*
-	@PostMapping("/report/insertProduct")
-	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
-		System.out.println(report);
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReportProduct(report, user);
-		if(res) {
-			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/product/list");
-		}else {
-			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
-		}
-		return "message";
-	}
-	*/
+
 	@PostMapping("/report/insertProduct")
 	public String reportInsertProdPost(Model model, ReportVO report, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
@@ -362,10 +334,19 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, HttpSession session){
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		boolean res = reportService.updateState(report.getRe_pr_num());
+	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(reportInfo);
+		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
+												reportInfo.getRe_state());
 		
+		int date;
+		if(reportInfo.getRe_state().equals("기간 정지 3일")) {
+			date = 3;
+		}
+		
+		
+		System.out.println(res);
 		return map;
 	}
 	

@@ -90,29 +90,6 @@
 		   tabsize: 2,
 		   height: 400
 		});
-
-<script type="text/javascript">   
-   $("form").submit(function() {
-      let name = $("[name=re_name]").val();
-      if(title.length == 0){
-         alert("신고 유형을 선택해주세요.");
-         $("[name=re_name]").focus();
-         return false;
-      }
-      let content = $("[name=re_content]").val();
-      if(content.length = 0){
-         alert("내용은 공백으로 남길 수 없습니다.")
-         $("[name-su_content]").focus();
-         return false;
-      }
-      
-   });
-   
-   $('[name = re_content]').summernote({
-         placeholder: '내용을 입력하세요',
-         tabsize: 2,
-         height: 400
-      });
 </script>
 </body>
 </html>
