@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.MemberDTO;
+import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.FixedVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -29,6 +31,7 @@ import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
+import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.FixedService;
 import kr.kh.team1.service.MemberService;
@@ -56,6 +59,9 @@ public class LKJController {
 	
 	@Autowired
 	FixedService fixedService;
+	
+	@Autowired
+	ChatService chatService;
 	
 	@GetMapping("/admin/adminPage")
 	public String adminPage(Model model) {
@@ -340,12 +346,37 @@ public class LKJController {
 	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(reportInfo);
-		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
-												reportInfo.getRe_state());
+		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(), reportInfo.getRe_state());
+		if(res == false) {
+			res = reportService.updateReStateByChat(reportInfo.getRe_cr_num(), reportInfo.getRe_state());
+		}
 		
-		int date;
-		if(reportInfo.getRe_state().equals("기간 정지 3일")) {
-			date = 3;
+		int date = 0;
+		switch (reportInfo.getRe_state()) {
+			case "기간정지 : 3일":
+				date = 3;
+				break;
+			case "기간정지 : 7일":
+				date = 7;
+				break;
+			case "기간정지 : 14일":
+				date = 14;
+				break;
+			case "기간정지 : 21일":
+				date = 21;
+				break;
+			default:
+				break;
+		}
+		
+		ProductVO pro;
+		if(reportInfo.getRe_pr_num() != 0) {
+			pro = productService.getProductInfo(reportInfo.getRe_pr_num());
+			boolean res2 = reportService.updateStateMember(date, pro.getPr_me_id());
+		}else {
+			// 채팅방 정보 
+			ArrayList<ChatStateVO> idList = chatService.getChatState(reportInfo.getRe_cr_num());
+			
 		}
 		
 		

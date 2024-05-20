@@ -50,37 +50,42 @@
 		</thead>
 		<tbody>
 			<c:forEach items="${list}" var="report">
-			<tr>
-				<td>${report.re_num}</td>
-				<td class="list-title">
-					<c:url value="/report/detailProduct" var="url">
-						<c:param name="reNum" value="${report.re_num}"/>
-					</c:url>
-					<a href="${url}">${report.re_name}</a>
-				</td>
-				<td>
-					<a href="${url}">${report.re_me_id}</a>
-				</td>
-				<td>
-					<a class="re_pr_num" href="${url}">${report.re_pr_num}</a>
-				</td>
-				<td>${report.re_date}</td>
-				<td>${report.member.me_stop_date}</td>
-				<td>${report.member.me_report_count}</td>
-				<td>
-				  <select class="form-control re_state" name="re_state">
-					  <option value="신고접수" <c:if test='${report.re_state}'>selected</c:if>>${report.re_state}</option>
-					  <option value="회원차단" <c:if test='${report.re_state == "회원차단"}'>selected</c:if>>회원차단</option>
-					  <option value="기간정지 : 3일" <c:if test='${report.re_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
-					  <option value="기간정지 : 7일" <c:if test='${report.re_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
-					  <option value="기간정지 : 14일" <c:if test='${report.re_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
-					  <option value="기간정지 :21일" <c:if test='${report.re_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
-				  </select>
-			  	</td>
-			  	<td>
-				  <button type="button" class="btn btn-danger saveButton">저장</button>
-				</td>
-			</tr>
+				<tr>
+					<td>${report.re_num}</td>
+					<td class="list-title">
+						<c:url value="/product/detail" var="url">
+							<c:param name="pNum" value="${report.re_num}"/>
+						</c:url>
+						<a href="${url}">${report.re_name}</a>
+					</td>
+					<td>
+						<a href="${url}">${report.re_me_id}</a>
+					</td>
+					<td>
+						<c:if test="${report.re_pr_num != 0 }">
+							<a class="re_pr_num" href="${url}">${report.re_pr_num}</a>
+						</c:if>
+						<c:if test="${report.re_cr_num != 0 }">
+							<a class="re_cr_num" href="${url}">${report.re_cr_num}</a>
+						</c:if>
+					</td>
+					<td>${report.re_date}</td>
+					<td>${report.member.me_stop_date}</td>
+					<td>${report.member.me_report_count}</td>
+					<td>
+					  <select class="form-control re_state" name="re_state">
+						  <option value="신고접수" <c:if test='${report.re_state}'>selected</c:if>>${report.re_state}</option>
+						  <option value="회원차단" <c:if test='${report.re_state == "회원차단"}'>selected</c:if>>회원차단</option>
+						  <option value="기간정지 : 3일" <c:if test='${report.re_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
+						  <option value="기간정지 : 7일" <c:if test='${report.re_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
+						  <option value="기간정지 : 14일" <c:if test='${report.re_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
+						  <option value="기간정지 :21일" <c:if test='${report.re_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
+					  </select>
+				  	</td>
+				  	<td>
+					  <button type="button" class="btn btn-danger saveButton">저장</button>
+					</td>
+				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
@@ -129,13 +134,22 @@ $(document).ready(function() {
         // 현재 행에서 데이터를 가져와 배열에 추가
         var $row = $(this).closest("tr");
         var re_pr_num = $row.find(".re_pr_num").text(); // 아이디 가져오기
+        var re_cr_num = $row.find(".re_cr_num").text(); // 아이디 가져오기
         var re_state = $row.find(".re_state").val(); // 상태 가져오기
         
         // 서버에 전송할 데이터 객체 생성
-        var obj = {
-            re_pr_num: re_pr_num,
-            re_state: re_state
-        };
+        if(re_pr_num != 0){
+        	var obj = {
+                re_pr_num: re_pr_num,
+                re_state: re_state
+            };
+        }else{
+        	var obj = {
+        		re_cr_num: re_cr_num,
+                re_state: re_state
+            };	
+        }
+        
         
         console.log(data);
         console.log(obj);
