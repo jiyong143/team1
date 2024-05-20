@@ -15,6 +15,8 @@ public class ReportVO {
 	private String re_content; 
 	private Date re_date; 
 	private int re_cr_num;
+	private String re_state;
+	private MemberVO member;
 	
 	private int me_report_count;
 	private Date me_stop_date;
