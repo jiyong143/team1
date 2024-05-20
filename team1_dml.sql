@@ -29,7 +29,6 @@ insert into `product`(pr_mg_num, pr_me_id, pr_name, pr_place, pr_content, pr_pri
 
 select * from product;
 
-
 insert into `suport_manage`(sm_name) value ("공지사항");
 insert into `suport_manage`(sm_name) value ("문의사항");
 

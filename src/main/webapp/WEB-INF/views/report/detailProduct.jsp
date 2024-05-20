@@ -31,10 +31,15 @@
     margin-bottom : 5px;
     padding: 2px;
 }
+.container-report-detail{
+	margin-left: 500px;
+    width: 800px;
+    height: 500px;
+}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container-report-detail">
    <h1 class="page-title">신고글 상세내역</h1>
    <form action="<c:url value="/report/insertProduct"/>" method="post" enctype="multipart/form-data">
 		<div class="container-box">
@@ -59,7 +64,7 @@
 			<label for="re_content">내용</label>
 		  	<textarea class="content-box" id="re_content" name="re_content" readonly>${report.re_content}</textarea>
 		</div>
-		<button class="btn btn-dark col-12 mb-4">등록</button>
+			<a href="<c:url value="/report/list"/>" class="btn btn-dark mb-4 col-12">뒤로가기</a>
    </form>
 </div>
 
@@ -85,29 +90,6 @@
 		   tabsize: 2,
 		   height: 400
 		});
-
-<script type="text/javascript">   
-   $("form").submit(function() {
-      let name = $("[name=re_name]").val();
-      if(title.length == 0){
-         alert("신고 유형을 선택해주세요.");
-         $("[name=re_name]").focus();
-         return false;
-      }
-      let content = $("[name=re_content]").val();
-      if(content.length = 0){
-         alert("내용은 공백으로 남길 수 없습니다.")
-         $("[name-su_content]").focus();
-         return false;
-      }
-      
-   });
-   
-   $('[name = re_content]').summernote({
-         placeholder: '내용을 입력하세요',
-         tabsize: 2,
-         height: 400
-      });
 </script>
 </body>
 </html>

@@ -14,8 +14,6 @@
         ORDER BY ${crir.order} DESC
         LIMIT #{crir.pageStart}, #{crir.perPageNum}
     </select>
-
-
 	<select id="selectReportTotalCount" resultType="int">
 		SELECT COUNT(*) FROM report
 		<if test='crir.type == "writer"'>
@@ -26,11 +24,9 @@
 	<select id="selectProductList" resultType="ProductVO">
 		SELECT * FROM product
 	</select>
-	
 	<select id="selectRePrNum" resultType="ProductVO">
 		select * from product where pr_num = #{re_pr_num}	
 	</select>
-
 	<!-- 첫 번째 insert 쿼리: report에 새로운 레코드 추가 -->
 	<insert id="insertReportProd">    
 	    INSERT INTO 
@@ -38,7 +34,6 @@
 	    VALUES 
 	        (#{report.re_pr_num}, #{report.re_me_id}, #{report.re_name}, #{report.re_content})
 	</insert>
-	
 	<!-- 두 번째 insert 쿼리: 제품 번호를 포함하지 않는 보고서 추가 -->
 	<insert id="insertReportByIBH">
 	    INSERT INTO 
@@ -46,13 +41,12 @@
 	    VALUES
 	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now(), #{cr_num})
 	</insert>
-	
+	<!-- 신고글 상세 -->
 	<select id="selectReport" resultType="ReportVO">
-		select report.*, 
-			(select #{member.me_report_count} from member where #{me_id} = 'user') as #{me_report_count} from report
+		select * from report
 	</select>
 	
-	<update id="updateState">
-		UPDATE report SET re_state = re_state = #{re_state} WHERE re_pr_num = #{re_pr_num}
+	<update id="updateReState">
+		UPDATE report SET re_state = #{re_state} WHERE re_pr_num = #{re_pr_num}
 	</update>
 </mapper>

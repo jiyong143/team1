@@ -14,10 +14,14 @@
 .list-title{
 	color: red;
 }
+.container-report-list{
+	margin-left:300px;
+
+}
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container-report-list">
 <h1 class="page-title">신고 게시판</h1>
 
 	<form action="<c:url value="/report/list"/>" method="get">
@@ -58,19 +62,19 @@
 					<a href="${url}">${report.re_me_id}</a>
 				</td>
 				<td>
-					<a href="${url}">${report.re_pr_num}</a>
+					<a class="re_pr_num" href="${url}">${report.re_pr_num}</a>
 				</td>
 				<td>${report.re_date}</td>
-				<td>${report.me_stop_date}</td>
-				<td>${report.me_report_count}</td>
+				<td>${report.member.me_stop_date}</td>
+				<td>${report.member.me_report_count}</td>
 				<td>
-				  <select class="form-control me_state" name="me_state">
-					  <option value="신고접수" <c:if test='${member.me_state == "신고접수"}'>selected</c:if>>이용 중</option>
-					  <option value="회원차단" <c:if test='${member.me_state == "회원차단"}'>selected</c:if>>회원차단</option>
-					  <option value="기간정지 : 3일" <c:if test='${member.me_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
-					  <option value="기간정지 : 7일" <c:if test='${member.me_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
-					  <option value="기간정지 : 14일" <c:if test='${member.me_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
-					  <option value="기간정지 :21일" <c:if test='${member.me_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
+				  <select class="form-control re_state" name="re_state">
+					  <option value="신고접수" <c:if test='${report.re_state}'>selected</c:if>>${report.re_state}</option>
+					  <option value="회원차단" <c:if test='${report.re_state == "회원차단"}'>selected</c:if>>회원차단</option>
+					  <option value="기간정지 : 3일" <c:if test='${report.re_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
+					  <option value="기간정지 : 7일" <c:if test='${report.re_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
+					  <option value="기간정지 : 14일" <c:if test='${report.re_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
+					  <option value="기간정지 :21일" <c:if test='${report.re_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
 				  </select>
 			  	</td>
 			  	<td>
@@ -124,13 +128,13 @@ $(document).ready(function() {
         var data = [];
         // 현재 행에서 데이터를 가져와 배열에 추가
         var $row = $(this).closest("tr");
-        var re_pr_num = $row.find(".re_pr_num").val(); // 아이디 가져오기
-        var re_state = $row.find(".me_state").val(); // 상태 가져오기
+        var re_pr_num = $row.find(".re_pr_num").text(); // 아이디 가져오기
+        var re_state = $row.find(".re_state").val(); // 상태 가져오기
         
         // 서버에 전송할 데이터 객체 생성
         var obj = {
             re_pr_num: re_pr_num,
-            me_state: me_state
+            re_state: re_state
         };
         
         console.log(data);
