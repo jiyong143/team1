@@ -48,7 +48,6 @@ public class ProductServiceImp implements ProductService{
 					(uploadPath, originalFileName,file.getBytes());
 			// FileVO 객체를 생성
 			FileVO fileVo = new FileVO(pr_num, originalFileName, fileName); 
-			System.out.println(fileVo); 
 			// DB에 추가
 			productDao.insertFile(fileVo); 
 		} catch (Exception e) {

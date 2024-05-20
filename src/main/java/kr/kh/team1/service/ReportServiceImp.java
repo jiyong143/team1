@@ -18,11 +18,14 @@ public class ReportServiceImp implements ReportService{
 	ReportDAO reportDao;
 	//신고 리스트 출력
 	@Override
-	public ArrayList<ReportVO> getReportList(Criteria_report crir) {
+	public ArrayList<ReportVO> getReportList(String me_id, Criteria_report crir) {
 		if(crir == null)
 			crir = new Criteria_report();		
-		return reportDao.selectReportList(crir);
+		return reportDao.selectReportList(me_id, crir);
 	}
+	
+
+	
 
 	@Override
 	public int getReportTotalCount(Criteria_report crir) {
@@ -60,13 +63,13 @@ public class ReportServiceImp implements ReportService{
 	}
 	
 	@Override
-	public boolean insertReportByIBH(ReportVO report) {
+	public boolean insertReportByIBH(ReportVO report, int cr_num) {
 		
 		if(report.getRe_me_id() == null || report.getRe_me_id().isBlank() ||
 		   report.getRe_name() == null || report.getRe_name().isBlank() ||
 		   report.getRe_content() == null || report.getRe_content().isBlank())
 		   return false;
-		return reportDao.insertReportByIBH(report);
+		return reportDao.insertReportByIBH(report, cr_num);
 	}
 	
 	@Override
@@ -76,6 +79,7 @@ public class ReportServiceImp implements ReportService{
 	    }
 	    return reportDao.updateState(re_pr_num);
 	}
+
 
 	
 }

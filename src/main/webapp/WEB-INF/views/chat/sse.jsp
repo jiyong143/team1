@@ -16,15 +16,10 @@
 	}
 	/* 상대방 */
 	.y-container{ 
-	 	 border: 1px solid black;
-	 	 border-radius:20px;
-	     display: grid;
-	     padding : 5px;
-	     float: left;
-	     height: auto;
-	     overflow: auto;
-	     margin-bottom :10px;
-	     background-color: violet;
+	 	 border: 1px solid black; border-radius:20px; display: grid;
+	     gap : 10px; padding : 5px; float: left; height: auto;
+	     overflow: auto; margin-bottom :10px; background-color: violet;
+	     overflow-wrap: break-word; /* 긴 단어가 div의 폭을 넘어서면 줄바꿈을 한다 */
 	     grid-template-columns: repeat(3, 130px);
 	     grid-template-rows: repeat(3, 30px);
 	}
@@ -43,20 +38,14 @@
 	    grid-column: 1/3;
 	}
 	
-	
+
 	/* 본인 */
 	.mine-container{ 
-		border: 1px solid black;
-	 	border-radius:20px;
-		display: grid;
-        padding : 5px;
-        float: right;
-        text-align : right;
-        background-color: #ced4da;
-        margin-bottom :10px;
-        height:auto;
-        width:auto;
-        overflow: auto;
+		border: 1px solid black; border-radius:20px; display: grid;
+        padding : 5px; float: right; gap : 10px;
+        text-align : right;  background-color: #ced4da;
+        margin-bottom :10px; height:auto; width:auto;
+        overflow: auto; overflow-wrap: break-word; /* 긴 단어가 div의 폭을 넘어서면 줄바꿈을 한다 */
         grid-template-columns: repeat(3, 130px);
         grid-template-rows: repeat(3, 30px);
 	}
@@ -208,8 +197,6 @@
 			}
 		});
 	}
-	
-	//setInterval(getMsgList, 1000);
 </script>
 
 <script type="text/javascript">
@@ -229,7 +216,6 @@
 	});
 	
 	function displayReceive(obj){
-		console.log("asda");
 		let str =
 			`
 			<div class="y-container">

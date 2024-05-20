@@ -61,8 +61,8 @@
 					<a href="${url}">${report.re_pr_num}</a>
 				</td>
 				<td>${report.re_date}</td>
-				<td>${member.me_stop_date}</td>
-				<td>${member.me_report_count}</td>
+				<td>${report.me_stop_date}</td>
+				<td>${report.me_report_count}</td>
 				<td>
 				  <select class="form-control me_state" name="me_state">
 					  <option value="신고접수" <c:if test='${member.me_state == "신고접수"}'>selected</c:if>>이용 중</option>
