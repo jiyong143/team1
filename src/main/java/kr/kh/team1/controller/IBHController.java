@@ -25,6 +25,7 @@ import kr.kh.team1.model.vo.ChatRoomVO;
 import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.MidGroupVO;
+import kr.kh.team1.model.vo.ReportVO;
 import kr.kh.team1.model.vo.TopGroupVO;
 import kr.kh.team1.model.vo.ZipcodeVO;
 import kr.kh.team1.pagination.Criteria;
@@ -74,19 +75,55 @@ public class IBHController {
 		return map;
 	}
 	
+	@ResponseBody
+	@PostMapping("/product/delete")
+	// 상품 삭제
+	public Map<String, Object> productDeletePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		// 제품 번호 주고 해당 제품에 신고 확인
+		ArrayList<ReportVO> rpProList = chatService.getReportByProduct(pr_num);
+		
+		// 제품 번호 주고 채팅방 가져오기
+		ArrayList<ReportVO> rpChat = chatService.getReportByChat(pr_num);
+		
+		System.out.println(rpChat);
+		System.out.println(rpProList);
+		
+		if(rpChat.size() == 0 && rpProList.size() == 0) {
+			chatService.deleteProduct(pr_num);	// 파일 및 내용 다 삭제
+		}else {
+			chatService.updateProduct(pr_num);	// 유저들이 보이지 않게 삭제중으로 변경 후 (신고 제제 후 삭제 : 추가 예정)
+		}
+		map.put("msg", "삭제했습니다.");
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/liquidate")
+	// 포인트 결제 제약조건
+	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		MemberVO loginUser = (MemberVO)session.getAttribute("user");
+		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
+		if(crv == null) {
+			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
+		}
+		return map;
+	}
+	
 	@GetMapping("/chat/sse")
 	// 채팅방에 해당하지 않는 사람들 막기
 	public String sse(Model model, int cr_num, HttpSession session) {
 		
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-		
 		ChatRoomVO crv = chatService.getChatRoomByUser(loginUser.getMe_id(), cr_num);
 		if(crv == null) {
 			crv = chatService.getChatRoomBySeller(loginUser.getMe_id(), cr_num);	// 판매자
 		}
 		
 		ArrayList<ChatStateVO> cs = chatService.getChatState(cr_num);
-		
 		if(loginUser.getMe_authority().equals("user")) {
 			if (cs.isEmpty()) {
 			    model.addAttribute("error", "없는 채팅방입니다.");
@@ -116,9 +153,7 @@ public class IBHController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-
 		chatService.updateChatRoomStateById(num, loginUser.getMe_id());	// 로그인 유저의 채팅방 상태 변경
-		
 		ArrayList<ChatStateVO> cs = chatService.getChatState(num);	// 채팅방 번호에 해당하는 회원들의 상태
 		
 		if(cs.get(0).getCs_state().equals("나감") && !cs.get(0).getCs_me_id().equals(loginUser.getMe_id())) {
@@ -135,7 +170,7 @@ public class IBHController {
     // 채팅방 리스트
    	public String chatRoomList(Model model, HttpSession session, int page) {
     	Criteria cri = new Criteria();
-    	cri.setPerPageNum(2);	// 한 페이지에 게시글 5개 지정
+    	cri.setPerPageNum(5);	// 한 페이지에 게시글 5개 지정
     	cri.setPage(page);
     	
     	MemberVO loginUser = (MemberVO)session.getAttribute("user");
@@ -145,7 +180,7 @@ public class IBHController {
     	
     	int totalListCount = chatService.getChatRoomTotalCount(loginUser.getMe_id(), cri);
     	
-    	PageMaker_chat pm = new PageMaker_chat(2, cri, totalListCount);
+    	PageMaker_chat pm = new PageMaker_chat(5, cri, totalListCount);
     	
     	model.addAttribute("crv", crv);
     	model.addAttribute("loginUser", loginUser);
@@ -252,7 +287,7 @@ public class IBHController {
 	// 채팅방 나갈때 chatTotalCount 초기화
 	public String close(@RequestParam("cm_cr_num") int cm_cr_num, HttpSession session){
 		
-		chatTotalCount = 2;
+		chatTotalCount = 5;
 		return "";
 	}
 	
@@ -274,7 +309,6 @@ public class IBHController {
 	@PostMapping("/admin/topCategoryManager")
 	// 대분류 추가
 	public Map<String, Object> topCategoryManagerPost(String topGroup) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
@@ -296,7 +330,6 @@ public class IBHController {
 	@PostMapping("/admin/updateTopCategoryManager")
 	// 대분류 수정
 	public Map<String, Object> updateTopCategoryManagerPost(int tg_num, String topGroup) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		TopGroupVO tg = topGroupService.getTopGroupByTitle(topGroup);
@@ -318,8 +351,8 @@ public class IBHController {
 	@PostMapping("/admin/deleteTopCategoryManager")
 	// 대분류 삭제
 	public Map<String, Object> deleteTopCategoryManagerPost(int tg_num) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
+
 		boolean res = topGroupService.deleteTopGroup(tg_num);
 		if(res) {
 			map.put("msg", "삭제했습니다.");
@@ -332,7 +365,6 @@ public class IBHController {
 	@GetMapping("/admin/midCategoryManager")
 	// 중분류 페이지
 	public String midCategoryManager(Model model, Criteria cri) {
-		
 		ArrayList<TopGroupVO> topList = topGroupService.getTopGroupList();
 	
 		model.addAttribute("list", topList);
@@ -366,7 +398,6 @@ public class IBHController {
 	@PostMapping("/admin/addMidCategoryManager")
 	// 중분류 추가
 	public Map<String, Object> addMidCategoryManagerPost(String midGroup, String tg) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
@@ -389,14 +420,12 @@ public class IBHController {
 	@PostMapping("/admin/updateMidCategoryManager")
 	// 중분류 수정
 	public Map<String, Object> updateMidCategoryManagerPost(String tg, int tg_num, String midGroup) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		TopGroupVO topg = topGroupService.getTopGroupByTitle(tg);
 		MidGroupVO tgv = topGroupService.getMidGroupByTitle(topg.getTg_num(), midGroup);
 		if(tgv != null) {
 			map.put("msg", "해당 중분류는 이미 존재하는 중분류입니다.");
-			System.out.println("asdas");
 			return map;
 		}
 		
@@ -413,26 +442,13 @@ public class IBHController {
 	@PostMapping("/admin/deleteMidCategoryManager")
 	// 중분류 삭제
 	public Map<String, Object> deleteMidCategoryManagerPost(int tg_num) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
 		boolean res = topGroupService.deleteMidGroup(tg_num);
 		if(res) {
 			map.put("msg", "삭제했습니다.");
 		}else {
 			map.put("msg", "삭제하지 못했습니다.");
-		}
-		return map;
-	}
-	
-	// 중분류 삭제
-	public Map<String, Object> productLiquidatePost(HttpSession session, int pr_num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		MemberVO loginUser = (MemberVO)session.getAttribute("user");
-		
-		ChatRoomVO crv = chatService.getChatRoom(loginUser.getMe_id(), pr_num);
-		if(crv == null) {
-			map.put("msg", "채팅방 없이는 결제할 수 없습니다.");
 		}
 		return map;
 	}

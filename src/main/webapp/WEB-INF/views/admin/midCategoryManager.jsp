@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	.card-1 {
-		margin-left: 30%;
-		background-color:white;
 		padding: 30px;
-		text-align : center;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 		transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 	}
@@ -21,13 +18,17 @@
 		margin-top: 20px
 	}
 	.jum{
+		margin-left : 9%;
 		min-height: 800px;
 		background-color: white;
+	}
+	.container{
+		background-color: white;	
 	}
 </style>
 </head>
 <body>
-<div class="jumbotron jum">
+<div class="jum">
 	<div class="container mt-3 col-6 card-1">
 		<h2 style="font-weight: bold">중분류 관리</h2>
 		<div class="form-group mb-3" style="margin-top: 30px; width: 100%">

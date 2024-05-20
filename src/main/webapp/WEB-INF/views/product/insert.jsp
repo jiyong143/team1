@@ -272,16 +272,21 @@
 <!-- 최소 글자 제한 + summernote -->
 <script type="text/javascript">
 	$("#productForm").submit(function(e){
+		
 		if($(".priceTag").is(":checked")){
 			let a = $("[name=pr_price]").val();
 			let maxPrice1 = a.replace(/,/g, '');
 			a = parseInt(maxPrice1);
+			if(a < 1000){
+				$(".priceMessage").focus();
+				$(".priceMessage").css('display', 'block');				
+				alert("상품 가격은 1000원 이상이여야 합니다.");
+				return false;
+			}
 			$("[name=pr_price]").val(a);
 			$(".priceTag").val(a);
 		}
 		
-		addFilesToForm();
-
 		if($(".sido").val() == 'x' || $(".h_dong_nm").val() == 'x' ||
 			($(".sido").val() != '세종특별자치시' && $(".sigungu").val() == 'x' )){
 			alert("주소를 입력해야 합니다.");
@@ -308,20 +313,16 @@
 			$("[name = pr_content]").focus();
 			return false;
 		}
-		
-		let res = false;
-		for(let i = 0; i < 5; i++){
-			let fileTag = document.getElementsByName("media")[i];
-			if(fileTag.value.length != 0){
-				res = true;
-				return;
-			}
-		}
-		if(res == false){
+
+		const countElement = document.getElementById('imageCount');
+		const value1 = countElement.textContent.trim();
+		const value = value1.split('/')[0];
+
+		if(value==0){
 			alert("파일은 1개 이상 등록해야합니다.");
+			$("[name = file]").focus();
 			return false;
 		}
-		return true;
 	});
 
 	
@@ -483,21 +484,6 @@ function displayFile(file, fileInput) {
     
     // 파일 읽기 시작
     reader.readAsDataURL(file);
-}
-
-//파일 추가 함수
-function addFilesToForm() {
-    // Form 요소 가져오기
-    const form = document.getElementById('productForm'); // Form의 ID는 'productForm'입니다.
-    // 파일을 추가할 UL 요소 가져오기
-    const fileList = document.querySelector('.file-list');
-    // 파일 요소들을 가져오기
-    const fileInputs = fileList.querySelectorAll('.jiyong input[name="media"]');
-    // 파일 요소들을 Form에 추가
-    fileInputs.forEach(input => {
-        const cloneInput = input.cloneNode(true); // 입력 요소 복제
-        form.appendChild(cloneInput); // Form에 추가
-    });
 }
 </script>
 </body>

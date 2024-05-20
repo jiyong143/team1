@@ -153,6 +153,23 @@ table tr th, table tr td {
 	height:100%; 
 	margin-left: 800px;
 }
+.search-container input[type="text"] {
+    padding: 10px;
+    border: 3px solid #6a1b9a; /* 가지색 */
+    border-radius: 10px;
+    outline: none;
+    width: 300px;
+}
+
+.search-container button {
+    padding: 10px;
+    border: 2px solid #6a1b9a; /* 가지색 */
+    background-color: #6a1b9a; /* 가지색 */
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+    
 </style>
 </head>
 <body>
@@ -172,6 +189,22 @@ table tr th, table tr td {
 				</a>
 		    </li>
 		</ul>
+		<!-- Toggle button -->
+			<button class="navbar-toggler px-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExampleOnHover"
+					aria-controls="navbarExampleOnHover" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fas fa-bars"></i>
+			</button>
+				<!-- 카테고리 드롭다운 -->
+				<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 50px">
+					<a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button"
+					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
+					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 
+						 style="border-top-left-radius: 0; border-top-right-radius: 0;">
+						<div class="container">
+							<div class="row my-4 here"></div>
+						</div>
+					</div>
+				</li>	
 		<ul class="navbar-nav ms-auto ps-lg-0" style="padding-right: 0.15rem">
 			<c:if test="${user == null}">
 				<li class="nav-item">
@@ -214,26 +247,16 @@ table tr th, table tr td {
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/admin/managerPage"/>">메니저 페이지</a>
 				</li>
 			</c:if>	
+			<li class="search-container">
+			  <form action="<c:url value="/product/search"/>" method="get">
+               <input type="text" placeholder="찾으시는 상품이 있으신가요?" name="search" autocomplete="off" value="${search }">
+               <button type="submit">검색</button>
+              </form>
+            </li>
 				<li class="nav-item">
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/fixed/list"/>">고정문의</a>
 				</li>
 		</ul>
-			<!-- Toggle button -->
-			<button class="navbar-toggler px-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExampleOnHover"
-					aria-controls="navbarExampleOnHover" aria-expanded="false" aria-label="Toggle navigation">
-				<i class="fas fa-bars"></i>
-			</button>
-				<!-- 카테고리 드롭다운 -->
-				<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 50px">
-					<a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button"
-					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
-					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 
-						 style="border-top-left-radius: 0; border-top-right-radius: 0;">
-						<div class="container">
-							<div class="row my-4 here"></div>
-						</div>
-					</div>
-				</li>
 		<!-- Left links -->
 		</div>
 	<!-- Collapsible wrapper -->
