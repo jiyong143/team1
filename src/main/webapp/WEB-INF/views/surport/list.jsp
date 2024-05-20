@@ -17,6 +17,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 <h1 class="page-title">고객지원</h1>
 

@@ -536,7 +536,9 @@ li {
 
 </style>
 </head>
+
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 	<div class="container">
 		<div
 			class="h-full lg:h-20 xl:h-24 px-0 lg:px-8 2xl:px-16 max-w-[1024px] min-[1600px]:max-w-[1280px] flex items-center mx-auto box-content justify-between relative before:absolute before:w-screen before:bg-[#F1F1F1] before:bottom-0">
@@ -702,9 +704,8 @@ li {
 				</tr>
 			</tbody>
 		</table>
-		<br> <br>
-
-
+		<br> 
+		<br>
 		<div class="product-price-container">
 			<h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
 			<div

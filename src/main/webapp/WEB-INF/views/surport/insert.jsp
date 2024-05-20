@@ -22,6 +22,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 	<h1 class="page-title">고정문의 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">

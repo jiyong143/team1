@@ -70,12 +70,12 @@ public class ReportServiceImp implements ReportService{
 	}
 
 	@Override
-	public boolean updateReState(int re_pr_num, String re_state) {
-		if(re_pr_num <= 0 || re_state == null || re_state.isEmpty()) {
+	public boolean updateReState(int re_pr_num, String re_state, String me_state) {
+		if(re_pr_num <= 0 || re_state == null || re_state.isEmpty() || me_state == null || me_state.isEmpty()) {
 			return false;
 		}
 		System.out.println(re_state);
-		return reportDao.updateReState(re_pr_num, re_state);
+		return reportDao.updateReState(re_pr_num, re_state, me_state);
 	}
 	
 

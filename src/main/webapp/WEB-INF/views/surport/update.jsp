@@ -22,6 +22,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 	<h1 class="page-title">문의글 수정</h1>
 	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">

@@ -35,6 +35,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="jum">
 	<div class="container">
 		<form action="<c:url value="/product/insert"/>" method="post" enctype="multipart/form-data" id="productForm">
