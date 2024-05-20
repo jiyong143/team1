@@ -376,9 +376,12 @@ public class LKJController {
 		}else {
 			// 채팅방 정보 
 			ArrayList<ChatStateVO> idList = chatService.getChatState(reportInfo.getRe_cr_num());
-			
+			if(idList.get(0).getCs_me_id().equals(reportInfo.getRe_me_id())) {	// idList(0)이 신청자일 경우
+				reportService.updateStateMember(date, idList.get(0).getCs_me_id());	// 인덱스 0번이 아닌 1번을 제제
+			}else {	// idList(0)이 신청자가 아닌 경우 => idList(1)이 신청자인 경우
+				reportService.updateStateMember(date, idList.get(1).getCs_me_id());	// 인덱스 1번이 아닌 0번을 제제
+			}
 		}
-		
 		
 		System.out.println(res);
 		return map;
