@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고정문의 작성</title>
+<title>고객지원 수정</title>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
@@ -23,19 +23,15 @@
 </head>
 <body>
 <div class="container">
-	<h1 class="page-title">고정문의 작성</h1>
-	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
+	<h1 class="page-title">문의글 수정</h1>
+	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
+	 
 		<div class="select-box col-12 mt-4">
 			<label for="suport_manage">지원타입 선택</label>
 			<select class="form-control" id="suport_manage" name="su_sm_num">
 				<c:forEach items="${surportManageList}" var="sm">
-					<c:if test="${loginUser.me_authority != 'user' && sm.sm_name != '문의사항'}">
-						<option value="${sm.sm_num}">${sm.sm_name}</option>
-					</c:if>
-					<c:if test="${loginUser.me_authority == 'user' && sm.sm_name == '문의사항'}">
-						<option value="${sm.sm_num}">${sm.sm_name}</option>
-					</c:if>
+					<option value="${sm.sm_num}">${sm.sm_name}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -43,27 +39,21 @@
 			<label for="up_head">말머리 선택</label>
 			<select class="form-control" id="up_head" name="su_uh_num">
 				<c:forEach items="${upHeadList}" var="uh">
-					<c:if test="${loginUser.me_authority != 'user' && uh.uh_name != '문의'}">
-						<option value="${uh.uh_num}">${uh.uh_name}</option>
-					</c:if>
-					<c:if test="${loginUser.me_authority == 'user' && uh.uh_name == '문의'}">
-						<option value="${uh.uh_num}">${uh.uh_name}</option>
-					</c:if>
+					<option value="${uh.uh_num}">${uh.uh_name}</option>
 				</c:forEach>
 			</select>
 		</div>
 	 
-	 
 		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
-			<input type="text" class="form-control" id="su_title" name="su_title" required placeholder="제목을 입력해주세요.">
+			<input type="text" class="form-control" id="su_title" name="su_title" required value="${surport.su_title}">
 		</div>
 	</div>	
 		<div class="form-group mb-4">
 			<label for="su_content">내용</label>
-		  	<textarea class="content-box" id="su_content" name="su_content" required rows="10" placeholder="내용을 입력해주새요."></textarea>
+		  	<textarea class="form-control" id="su_content" name="su_content" required rows="10">${surport.su_content}</textarea>
 		</div>		
-		<button class="btn btn-dark col-12 mb-4">등록</button>
+		<button class="btn btn-dark col-12 mb-4">수정</button>
 	</form>
 </div>
 <script type="text/javascript">	

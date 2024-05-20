@@ -17,7 +17,7 @@ public class ProductVO {
 	private String pr_name;
 	private String pr_place; 
 	private String pr_content;  
-	private int pr_price; 
+	private int pr_price;
 	private String pr_ps_state;  
 	private int pr_basket; 
 	private int pr_view; 

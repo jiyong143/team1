@@ -4,38 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고객지원</title>
+<title>고정문의</title>
 <style type="text/css">
 .page-title{
 	font-size: 28px; 
 	font-weight:800;
 	margin-top:10px; 
 }
-.list-title{
-	color: red;
+.container{
+	margin-left: 300px;
 }
 </style>
 </head>
 <body>
 <div class="container">
-<h1 class="page-title">고객지원</h1>
-
-	<form action="<c:url value="/surport/list"/>" method="get">
-		<div class="input-group mb-3">
-			<select name="type" class="form-control">				
-				<option value="all" <c:if test="${pms.cris.type == 'all'}">selected</c:if>>전체</option>
-				<option value="title" <c:if test="${pms.cris.type == 'title'}">selected</c:if>>말머리</option>
-				<option value="writer" <c:if test="${pms.cris.type == 'writer'}">selected</c:if>>작성자</option>
-			</select>
-			<input type="text" name="search" class="form-control" placeholder="검색어" value="${pms.cris.search}">
-		</div>
-	</form>
-
+<h1 class="page-title">고정문의 리스트</h1>
 	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>번호</th>
-				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
@@ -43,24 +30,24 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list}" var="surport">
+			<c:forEach items="${list}" var="fixed">
 			<tr>
-				<td>${surport.su_num}</td>
+				<td>${fixed.fix_num}</td>
 				<td class="list-title">
-					<c:url value="/surport/detail" var="url">
-						<c:param name="suNum" value="${surport.su_num}"/>
+					<c:url value="/fixed/detail" var="url">
+						<c:param name="fixNum" value="${fixed.fix_num}"/>
 					</c:url>
-					<a href="${url}">${surport.su_title}</a>
+					<a href="${url}">${fixed.fix_title}</a>
 				</td>
 				<td>
-					<c:url value="/surpotr/list" var="aurl">
+					<c:url value="/fixed/list" var="aurl">
 						<c:param name="type" value="writer"/>
-						<c:param name="search" value="${surport.su_num}"/>
+						<c:param name="search" value="${fixed.fix_num}"/>
 					</c:url>
-					<a href="${aurl}">${surport.su_me_id}</a>
+					${fixed.fix_me_id}
 				</td>
-				<td>${surport.su_date}</td>
-				<td>${surport.su_view}</td>
+				<td>${fixed.fix_date}</td>
+				<td>${fixed.fix_view}</td>	
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -68,7 +55,7 @@
 	<ul class="pagination justify-content-center">
 		<c:if test="${pms.prev}">
 			<li class="page-item">
-				<c:url var="url" value="/surport/list">
+				<c:url var="url" value="/fixed/list">
 					<c:param name="page" value="${pms.startPage - 1}"/>
 					<c:param name="search" value="${pms.cris.search}"/>
 					<c:param name="type" value="${pms.cris.type}"/>
@@ -80,7 +67,7 @@
 		<c:forEach begin="${pms.startPage}" end="${pms.endPage}" var="i">
 			<c:set var="active" value="${pm.cris.page == i ?'active':'' }"/>
 			<li class="page-item ${active}">
-				<c:url var="url" value="/surport/list">
+				<c:url var="url" value="/fixed/list">
 					<c:param name="page" value="${i}"/>
 					<c:param name="search" value="${pms.cris.search}"/>
 					<c:param name="type" value="${pms.cris.type}"/>
@@ -91,7 +78,7 @@
 		</c:forEach>
 		<c:if test="${pms.next}">
 			<li class="page-item">
-				<c:url var="url" value="/surport/list">
+				<c:url var="url" value="/fixed/list">
 					<c:param name="page" value="${pms.endPage + 1}"/>
 					<c:param name="search" value="${pms.cris.search}"/>
 					<c:param name="type" value="${pms.cris.type}"/>
@@ -101,8 +88,9 @@
 			</li>
 		</c:if>
 	</ul>
-	<a href="<c:url value="/surport/insert"/>" class="btn btn-dark mb-4">문의하기</a>
-	<a href="<c:url value="/fixed/list"/>" class="btn btn-dark mb-4">고정문의</a>	
+	  	<c:if test="${member.me_authority != 'admin'}">
+			<a href="<c:url value="/fixed/insert"/>" class="btn btn-dark mb-4">고정문의 작성</a>
+		</c:if>
 </div>
 
 </body>

@@ -9,16 +9,33 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style type="text/css">
-#product-content{
-	width: 100%;
-}
-
-.count{
-	float: right;
-}
+	.jum{
+		margin-left : 12%;
+		min-height: 800px;
+		background-color: white;
+	}
+	#product-content{
+		width: 100%;
+	}
+	.count{
+		float: right;
+	}
+	.jiyong{
+		position : relative;
+		margin-right : 5px;
+	}
+	.delete-button{
+		position : absolute;
+		top :0;
+		right : 0;
+		background: none;
+		border: none;
+		padding: 0;
+	}
 </style>
 </head>
 <body>
+<div class="jum">
 	<div class="container">
 		<form action="<c:url value="/product/insert"/>" method="post" enctype="multipart/form-data" id="productForm">
 			<h1>상품 등록</h1>
@@ -75,23 +92,33 @@
 						<input type="radio" class="form-check-input priceTag" value="" name="optradio">가격 등록
 						<input type="text" class="form-control" id="pr_price" name="pr_price"
 						 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-						 autocomplete="off" disabled>
+						 autocomplete="off" value="0" style="visibility: hidden">
 					</label>
 				</div>
 			</div>
 			<div class="form-group">
-				<label>첨부파일(최대 5개)</label>
-				<input type="file" class="form-control" name="file">
-				<input type="file" class="form-control" name="file">
-				<input type="file" class="form-control" name="file">
-				<input type="file" class="form-control" name="file">
-				<input type="file" class="form-control" name="file">
+				<div class="image-picker">
+				    <input name="file" id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg" class="hidden" style="display: none;" multiple>
+					<button type="button" class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded" onclick="openFilePicker()">
+						<div class="flex flex-col">
+							<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z" fill="#C2C6CE"></path>
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M10.4564 7.32295C10.9376 6.00587 11.5097 5.15997 12.8118 5.15997H17.9241C19.2253 5.15997 19.7975 6.00463 20.2785 7.32003H20.7897C24.7543 7.32003 27.968 10.4192 27.968 14.2417V19.119C27.968 22.9409 24.7543 26.04 20.7897 26.04H10.6669C6.7023 26.04 3.48798 22.9409 3.48798 19.119V14.2417C3.48798 10.487 6.58918 7.4303 10.4564 7.32295ZM21.3772 16.68C21.3772 19.8001 18.8481 22.3292 15.728 22.3292C12.6079 22.3292 10.0788 19.8001 10.0788 16.68C10.0788 13.5599 12.6079 11.0308 15.728 11.0308C18.8481 11.0308 21.3772 13.5599 21.3772 16.68ZM21.5988 11.88C21.5988 12.4 22.0204 12.8216 22.5403 12.8216C23.0603 12.8216 23.4819 12.4 23.4819 11.88C23.4819 11.36 23.0603 10.9385 22.5403 10.9385C22.0204 10.9385 21.5988 11.36 21.5988 11.88Z" fill="#C2C6CE"></path>
+							</svg>
+							<p id="imageCount" class="mt-1 text-xs text-jnGray-500">0 / 5</p>
+						</div>
+					</button>
+				</div>
+				<div class="images-container" style="margin-left : 5px;">
+					<ul class="file-list">
+						<div class="jiyong add-li" style="display : flex;"></div>
+					</ul> 
+				</div>
 			</div>
 			<button class="btn btn-outline-success">상품 등록</button>
 		</form>
 	</div>
-	
-	
+</div>
 <!-- 대분류 변경시 ajax로 중분류 실시간 변경 -->
 <script type="text/javascript">
 	$("[name=mg_title]").hide();
@@ -219,18 +246,6 @@
 
 <!-- 가격 관련 -->
 <script type="text/javascript">
-	$(".form-check-input").change(function(){
-		let a = $(".priceTag").is(":checked");
-		if(a == true){
-			$("[name=pr_price]").prop('disabled',false);
-		}else{
-			$("[name=pr_price]").prop('disabled',true);
-		}
-	});
-</script>
-
-<!-- 최소 글자 제한 + summernote -->
-<script type="text/javascript">
 	const pr_price = document.querySelector('#pr_price');
 	pr_price.addEventListener('keyup', function(e) {
 		let value = e.target.value;
@@ -243,14 +258,34 @@
 		const formatValue = value.toLocaleString('ko-KR');
 		pr_price.value = formatValue; 
 	});
-	
-	// 서버에 전송하기 전에 파일, 대분류, 제목, 내용 글자수 확인
+
+	$(".form-check-input").change(function(){
+		let a = $(".priceTag").is(":checked");
+		if(a == true){
+			$("[name=pr_price]").css("visibility", "visible");
+		}else{
+			$("[name=pr_price]").css("visibility", "hidden");
+		}
+	});
+</script>
+
+<!-- 최소 글자 제한 + summernote -->
+<script type="text/javascript">
 	$("#productForm").submit(function(e){
-		let a = $("[name=pr_price]").val();
-		let maxPrice1 = a.replace(/,/g, '');
-		a = parseInt(maxPrice1);
-		$("[name=pr_price]").val(a);
-		$(".priceTag").val(a);
+		
+		if($(".priceTag").is(":checked")){
+			let a = $("[name=pr_price]").val();
+			let maxPrice1 = a.replace(/,/g, '');
+			a = parseInt(maxPrice1);
+			if(a < 1000){
+				$(".priceMessage").focus();
+				$(".priceMessage").css('display', 'block');				
+				alert("상품 가격은 1000원 이상이여야 합니다.");
+				return false;
+			}
+			$("[name=pr_price]").val(a);
+			$(".priceTag").val(a);
+		}
 		
 		if($(".sido").val() == 'x' || $(".h_dong_nm").val() == 'x' ||
 			($(".sido").val() != '세종특별자치시' && $(".sigungu").val() == 'x' )){
@@ -278,20 +313,16 @@
 			$("[name = pr_content]").focus();
 			return false;
 		}
-		
-		let res = false;
-		for(let i = 0; i < 5; i++){
-			let fileTag = document.getElementsByName("file")[i];
-			if(fileTag.value.length != 0){
-				res = true;
-				return;
-			}
-		}
-		if(res == false){
+
+		const countElement = document.getElementById('imageCount');
+		const value1 = countElement.textContent.trim();
+		const value = value1.split('/')[0];
+
+		if(value==0){
 			alert("파일은 1개 이상 등록해야합니다.");
+			$("[name = file]").focus();
 			return false;
 		}
-		return true;
 	});
 
 	
@@ -308,6 +339,152 @@
 	        span.textContent = inputTextLength;
 	    }
 	});
+</script>
+
+<!-- 파일 -->
+<script type="text/javascript">
+//이미지 갯수를 세어 화면에 표시하는 함수
+function displayImageCount() {
+    // ul 요소의 자식 노드 중 li 요소의 개수를 가져옴
+    const imageCount = document.querySelectorAll('.file-list li').length;
+    const containerCount = document.querySelectorAll('.add-img').length;
+    const tatalCount = imageCount + containerCount;
+    // 이미지 갯수를 표시할 요소를 가져옴
+    const countElement = document.getElementById('imageCount');
+    // 이미지 갯수를 화면에 표시
+    countElement.textContent = tatalCount + '/5';
+}
+
+//이미지 삭제 버튼 클릭 시 실행될 함수
+function deleteFile(button) {
+    // 삭제 버튼이 속한 부모 요소의 부모 요소를 찾아서 제거 (즉, li 태그 제거)
+    button.parentNode.parentNode.remove();
+    // 이때, 개수 다시 리뉴얼
+    displayImageCount(); 
+    button.parentNode.remove();// input에서 제거
+}
+
+function openFilePicker(){
+	 // type 이 file인 새로운 input 요소 만들고  그거  클릭
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.classList.add('file-input');
+    fileInput.setAttribute('name', 'file'); // name 속성을 "file"로 설정
+    fileInput.style.display = 'none'; 
+    fileInput.addEventListener('change', function(event) {
+        handleFileSelect(event, fileInput); // handleFileSelect 함수 호출 시 fileInput 변수를 전달
+    }, false); // 파일 입력(input) 요소에 이벤트 리스너 추가 
+    fileInput.addEventListener('input', function(event) {
+    	 fileInput.remove();// fileInput 없애기
+    }, false);
+    fileInput.click();
+}
+
+function handleFileSelect(event, fileInput) {
+    const files = event.target.files; // 선택된 파일들의 배열
+    
+    // 파일을 하나씩 반복하여 처리
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        displayFile(file, fileInput);
+    }
+}
+
+function displayFile(file, fileInput) {
+	
+	const countElement = document.getElementById('imageCount');
+	const value1 = countElement.textContent.trim();
+	const value = value1.split('/')[0];
+
+	if(value==5){
+		alert("최대 5장까지 가능합니다.");
+		return;
+	}
+	
+    const reader = new FileReader();
+    
+    // 파일 읽기가 완료되면 호출되는 콜백 함수
+    reader.onload = function(e) {
+        // 이미지를 담는 div 요소 생성
+        const container = document.createElement('div');
+        container.classList.add('jiyong'); // 컨테이너에 클래스 추가
+        
+        // 이미지 요소 생성 및 설정
+        const img = document.createElement('img');
+        img.src = e.target.result; // 파일 데이터의 URL을 설정
+        img.width = 80; // 이미지 너비 조절
+        img.height = 80; // 이미지 높이 조절
+        img.classList.add('add-img'); // 이미지에 클래스 추가
+        
+     	// 숨겨진 input 요소 생성 및 설정
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'media';
+        input.value = e.target.result; // 파일의 데이터 URL을 설정 (Base64)
+        
+        // 이미지를 담는 div 요소 생성
+        const imgContainer = document.createElement('div');
+        imgContainer.appendChild(img); 	 // 이미지를 div에 추가
+        
+        // 버튼 요소 생성 및 설정
+        const button = document.createElement('button');
+        button.classList.add('delete-button'); // 버튼에 클래스 추가
+        button.onclick = function() {
+            container.remove(); // 버튼을 클릭하면 컨테이너 요소 삭제
+            displayImageCount();
+        };
+        
+        // SVG 아이콘 요소 생성 및 설정
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '20px');
+        svg.setAttribute('height', '20px');
+        svg.setAttribute('viewBox', '0 0 20 20');
+        svg.setAttribute('fill', 'none');
+        
+        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path1.setAttribute('d', 'M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18Z');
+        path1.setAttribute('fill', 'white');
+        
+        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path2.setAttribute('d', 'M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5V18.5C14.6944 18.5 18.5 14.6944 18.5 10H17.5ZM10 17.5C5.85786 17.5 2.5 14.1421 2.5 10H1.5C1.5 14.6944 5.30558 18.5 10 18.5V17.5ZM2.5 10C2.5 5.85786 5.85786 2.5 10 2.5V1.5C5.30558 1.5 1.5 5.30558 1.5 10H2.5ZM10 2.5C14.1421 2.5 17.5 5.85786 17.5 10H18.5C18.5 5.30558 14.6944 1.5 10 1.5V2.5Z');
+        path2.setAttribute('fill', '#DADEE5');
+        
+        const path3 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path3.setAttribute('d', 'M7 7L13 13M13 7L7 13');
+        path3.setAttribute('stroke', '#363C45');
+        path3.setAttribute('stroke-linecap', 'round');
+        
+        svg.appendChild(path1);
+        svg.appendChild(path2);
+        svg.appendChild(path3);
+        
+        button.appendChild(svg);
+        
+        // 버튼을 담는 div 요소 생성
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.position = 'absolute'; // 상대적 위치 설정
+        buttonContainer.style.top = '0'; // 이미지의 상단에 위치
+        buttonContainer.style.right = '0'; // 이미지의 오른쪽에 위치
+        buttonContainer.appendChild(button); // 버튼을 div에 추가
+        
+     	// input 담는 div 요소 생성
+        const inputContainer = document.createElement('div');
+        inputContainer.appendChild(fileInput);
+        
+        // 이미지와 버튼을 담는 컨테이너에 이미지와 버튼 컨테이너 추가
+        container.appendChild(imgContainer); 
+        container.appendChild(buttonContainer);
+        container.appendChild(inputContainer);
+
+        // 선택한 요소에 컨테이너 추가
+        const addLiElement = document.querySelector('.add-li');
+        addLiElement.appendChild(container);
+        displayImageCount();
+    };
+    
+    // 파일 읽기 시작
+    reader.readAsDataURL(file);
+}
 </script>
 </body>
 </html>

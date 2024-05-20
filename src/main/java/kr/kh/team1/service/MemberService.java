@@ -3,6 +3,7 @@ package kr.kh.team1.service;
 import java.util.ArrayList;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.PaymentVO;
 import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberService {
@@ -48,6 +49,12 @@ public interface MemberService {
 	boolean addReportCount(MemberVO user, int meReportCount);
 
 	int getMannerScore(String me_id);
+
+	ArrayList<PaymentVO> getPaymentList(String myUser);
+
+	int getPoint(String userId);
+
+	void payment(String pr_me_id, String myUser, int pr_price);
 
 	//관리자 -> 회원관리에 필요한 코드 END 
 

@@ -9,6 +9,14 @@
 <style type="text/css">
 	.container{
 		margin-top: 80px;
+		margin-left: 25%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.crvContent{
+		max-width : 255px;
+		overflow: hidden; 
 	}
 </style>
 </head>
@@ -38,15 +46,10 @@
 								<c:if test="${loginUser.me_id ne crv.cr_me_id}">
 									<td onClick="location.href='${url}'">${crv.cr_me_id}</td>
 								</c:if>
-								<td onClick="location.href='${url}'">${crv.chatMessage.cm_content}</td>
+								<td class="crvContent" onClick="location.href='${url}'">${crv.chatMessage.cm_content}</td>
 								<td onClick="location.href='${url}'">${crv.chatMessage.date_str}</td>
 								<td>
-									<c:if test="${loginUser.me_id eq crv.cr_me_id}">
-										<button class="declarationBtn btn btn-outline-danger" data-id="${crv.product.pr_me_id}">신고하기</button>
-									</c:if>
-									<c:if test="${loginUser.me_id ne crv.cr_me_id}">
-										<button class="declarationBtn btn btn-outline-danger" data-id="${crv.cr_me_id}">신고하기</button>
-									</c:if>
+									<button class="declarationBtn btn btn-outline-danger" data-num="${crv.cr_num}">신고하기</button>
 								</td>
 								<td>
 									<button class="outBtn btn btn-outline-success" data-num="${crv.cr_num}">나가기</button>
@@ -123,10 +126,10 @@
 <script type="text/javascript">
 	$(document).on("click", ".declarationBtn", function(){
 		let page = ${pm.cri.page};
-		let id = $(this).data('id');	// 채팅방 번호
+		let num = $(this).data('num');	// 채팅방 번호
 		
 		if(confirm("채팅방을 신고하시겠습니까?")){
-			var url = '<c:url value="/report/insertChat"/>' + '?me_id='+ id;
+			var url = '<c:url value="/report/insertChat"/>' + '?cr_num='+ num;
 			console.log(url);
 			location.href = url;
 		}

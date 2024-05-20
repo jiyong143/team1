@@ -2,6 +2,7 @@ package kr.kh.team1.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
+import kr.kh.team1.model.vo.PaymentVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.model.vo.TradeOutcomeVO;
@@ -182,9 +185,8 @@ public class PJHController {
 			myUser = memberService.getMember(me_id);
 			model.addAttribute("myUserCheck", me_id);
 		}
-		
-		//int mannerScore = 0;
-		//mannerScore = memberService.getMannerScore(myUser.getMe_id());
+		ArrayList<PaymentVO> paymentList = memberService.getPaymentList(myUser.getMe_id());
+		model.addAttribute("paymentList", paymentList);
 
 		int tradeNum = -1;
 		tradeNum = memberService.getTradeNum(myUser.getMe_id()); //안전거래
@@ -271,11 +273,10 @@ public class PJHController {
 	@ResponseBody
 	@PostMapping("/member/payment")
 	public String payment(Model model, @RequestParam("orderUid") String orderUid,
-			@RequestParam("paymentPrice") int paymentPrice, @RequestParam("userId") String userId,
+			@RequestParam("paymentPrice") int paymentPrice, @RequestParam("userId") String userId, @RequestParam("now")Date now,
 			HttpSession session) {
-
 		memberService.addPoint(paymentPrice, userId);
-		paymentService.addPayment(orderUid, paymentPrice, userId);
+		paymentService.addPayment(orderUid, paymentPrice, userId, now);
 		MemberVO user = memberService.getMember(userId);
 		session.removeAttribute("user");
 		session.setAttribute("user", user);
@@ -388,6 +389,41 @@ public class PJHController {
 		reviewService.deleteReview(reviewDeleteVal, userId);
 		
 		return "/review/write";
+	}
+	
+	@ResponseBody
+	@PostMapping("/payment/refund")
+	public Map<String, Object> paymentRefund(Model model, HttpSession session, @RequestParam("pdNum")int pdNum, @RequestParam("pdPrice")int pdPrice) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		String userId = ((MemberVO)session.getAttribute("user")).getMe_id();
+		
+		int myPoint = memberService.getPoint(userId);
+		
+		if(myPoint<pdPrice) {//환불하려는 금액이 저장되어 있는 포인트보다 큰 경우
+			map.put("res", "이미 사용한 포인트는 환불할 수 없습니다.");
+			return map;
+		} else {
+			map.put("res", "환불 완료.");
+			return map;
+		}
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/liquidate")
+	public  Map<String, Object> pointLiquidate(Model model, @RequestParam("pr_num")int pr_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String myUser = ((MemberVO)session.getAttribute("user")).getMe_id();
+		int myPoint = memberService.getPoint(myUser);
+		ProductVO product = productService.getProductInfo(pr_num);
+		if(product.getPr_price() > myPoint) {
+			map.put("msg", "포인트가 부족합니다.");
+		} else {
+			memberService.payment(product.getPr_me_id(), myUser, product.getPr_price());
+			map.put("msg", "포인트 결제 완료.");
+		}
+		return map;
 	}
 
 //	@ResponseBody
