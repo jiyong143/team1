@@ -25,6 +25,6 @@ public interface ReportDAO {
 
 	boolean insertReportByIBH(@Param("report") ReportVO report, @Param("cr_num") int cr_num);
 
-	boolean updateReState(@Param("re_pr_num") int re_pr_num, @Param("re_state") String re_state);
+	boolean updateReState(@Param("re_pr_num") int re_pr_num, @Param("re_state") String re_state, @Param("me_state") String me_state);
 
 }

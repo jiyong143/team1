@@ -97,62 +97,12 @@ table tr th, table tr td {
 	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
 }
 
-.side-bar-nav {
-  margin: 0;
-  font-family: "Lato", sans-serif;
-}
-
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 250px;
-  background-color: #C0C0C0;
-  position: absolute;
-  height: 100%;
-  
-}
-
-.sidebar a {
-  display: block;
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-}
- 
-.sidebar a.active {
-  background-color: red;
-  color: white;
-}
-
-.sidebar a:hover:not(.active) {
-  background-color: black;
-  color: white;
-}
-
-.media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-.sidebar a {float: left;}
-.div.content {margin-left: 0;}
-}
-
-.media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-  }
-}
-
-.box3{display: inline-block;}
-
 .Manager-container{
 	width: 600px; 
 	height:100%; 
 	margin-left: 800px;
 }
+
 .search-container input[type="text"] {
     padding: 10px;
     border: 3px solid #6a1b9a; /* 가지색 */
@@ -263,18 +213,7 @@ table tr th, table tr td {
 	</div>
 <!-- Container wrapper -->
 </nav>
-<nav class="side-bar-nav">
-	<div class="sidebar">
-	  <a class="active" href="#home">사이트 정보</a>
-	  <c:if test="${user.me_authority != null}">
-	  	<a href="/team1/admin/memberManager">회원 관리</a>
-	  </c:if>
-	  <a href="/team1/report/list">신고관리</a>
-	  <a href="/team1/admin/topCategoryManager">대분류 관리</a>
-	  <a href="/team1/admin/midCategoryManager">중분류 관리</a>
-  	  <a href="/team1/fixed/list">고정문의 관리</a>
-	</div>
-</nav>
+
 <script type="text/javascript">
 getGroup();
 function getGroup(){

@@ -380,6 +380,7 @@ img {
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
     <a id="success" href="<c:url value="/product/detail?pNum=${pro.pr_num }"/>"></a> 
     <a id="login" href="<c:url value="/member/login"/>"></a>
     <a id="fail" href="<c:url value="/product/update?num=${pro.pr_num }"/>"></a>
