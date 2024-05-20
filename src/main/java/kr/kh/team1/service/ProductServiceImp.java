@@ -18,6 +18,7 @@ import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.utils.UploadFileUtils;
 
 @Service
@@ -264,6 +265,37 @@ public class ProductServiceImp implements ProductService{
 		}
 		
 		return 1;
+	}
+
+	@Override
+	public String getSearchMaxPrice(ProductCriteria cri) {
+		int maxPrice =  productDao.selectSearchMaxPrice(cri);
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(maxPrice);
+	}
+
+	@Override
+	public String getSearchAvgPrice(ProductCriteria cri) {
+		int avgPrice =  productDao.selectSearchAvgPrice(cri);
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(avgPrice);
+	}
+
+	@Override
+	public String getSearchMinPrice(ProductCriteria cri) {
+		int minPrice =  productDao.selectSearchMinPrice(cri);
+		DecimalFormat df = new DecimalFormat("###,###");
+		return df.format(minPrice);
+	}
+
+	@Override
+	public ArrayList<ProductVO> getSearchList(ProductCriteria cri) { 
+		return productDao.selectSearchList(cri);
+	}
+
+	@Override
+	public int getSearchTotalCount(ProductCriteria cri) {
+		return productDao.selectSearchTotalCount(cri);  
 	}
 
 }
