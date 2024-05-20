@@ -254,7 +254,6 @@ table tr th, table tr td {
                <button type="submit">검색</button>
               </form>
             </li>
-
 				<li class="nav-item">
 					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/fixed/list"/>">고정문의</a>
 				</li>
