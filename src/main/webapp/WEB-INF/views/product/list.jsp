@@ -755,7 +755,7 @@ li {
 			</ul>
 		</div>
 
-		<h4 class="productTotalCount">총${totalCount }개</h4>
+		<h4 class="productTotalCount" style="font-size : 20px;">총 ${totalCount }개</h4>
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
 				<a href="<c:url value="/product/detail?pNum=${pro.pr_num}"/>"

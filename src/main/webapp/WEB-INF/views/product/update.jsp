@@ -1520,6 +1520,8 @@ function clickMid(button){
         }
         if(!d){
         	update();
+        }else{
+        	alert("필수항목들을 다시 확인해주세요.");
         }
 	 });
 	     

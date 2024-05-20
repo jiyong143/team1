@@ -725,7 +725,10 @@ li {
 			</ul>
 		</div>
 
-        <h2>'${pm.cri.search }'검색 결과<h4 class="productTotalCount">총${totalCount }개</h4></h2>
+        <h2>
+		    <span id="searchResult">'${pm.cri.search}' 검색 결과</span>
+		    <span class="productTotalCount" style="font-size : 20px;">총 ${totalCount}개</span>
+		</h2>
         
 		<div class="product-list">
 			<c:forEach var="pro" items="${pList}" varStatus="loop">
