@@ -5,8 +5,8 @@
 <mapper namespace="kr.kh.team1.dao.ReportDAO">
  <select id="selectReportList" resultType="ReportVO">
         SELECT report.*, 
-        (SELECT me_report_count FROM member WHERE me_id = #{me_id}) AS me_report_count,
-        (SELECT me_stop_date FROM member WHERE me_id = #{me_id}) AS me_stop_date 
+        	(SELECT me_report_count FROM member WHERE me_id = #{me_id}) AS me_report_count,
+        	(SELECT me_stop_date FROM member WHERE me_id = #{me_id}) AS me_stop_date 
         FROM report
         <if test='crir.type == "writer"'>
             WHERE re_me_id LIKE CONCAT('%', #{crir.search}, '%')
@@ -42,11 +42,14 @@
 	        (#{report.re_me_id}, #{report.re_name}, #{report.re_content}, now(), #{cr_num})
 	</insert>
 	<!-- 신고글 상세 -->
-	<select id="selectReport" resultType="ReportVO">
-		select * from report
+	<select id="selectReport" parameterType="int" resultType="ReportVO">
+	    SELECT * FROM report WHERE re_num = #{re_num}
 	</select>
 	
 	<update id="updateReState">
-		UPDATE report SET re_state = #{re_state} WHERE re_pr_num = #{re_pr_num}
+	    UPDATE report 
+	    	SET re_state = #{re_state}, me_state = #{me_state} 
+	    WHERE re_pr_num = #{re_pr_num}
 	</update>
+
 </mapper>

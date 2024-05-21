@@ -42,8 +42,6 @@
 				<th>신고 신청자</th>
 				<th>신고 대상자</th>
 				<th>신고일</th>
-				<th>정지일</th>
-				<th>신고횟수</th>
 				<th>회원상태</th>
 				<th>비고</th>
 			</tr>
@@ -65,16 +63,13 @@
 					<a class="re_pr_num" href="${url}">${report.re_pr_num}</a>
 				</td>
 				<td>${report.re_date}</td>
-				<td>${report.member.me_stop_date}</td>
-				<td>${report.member.me_report_count}</td>
 				<td>
 				  <select class="form-control re_state" name="re_state">
 					  <option value="신고접수" <c:if test='${report.re_state}'>selected</c:if>>${report.re_state}</option>
-					  <option value="회원차단" <c:if test='${report.re_state == "회원차단"}'>selected</c:if>>회원차단</option>
 					  <option value="기간정지 : 3일" <c:if test='${report.re_state == "기간정지 : 3일"}'>selected</c:if>>기간정지 : 3일</option>
 					  <option value="기간정지 : 7일" <c:if test='${report.re_state == "기간정지 : 7일"}'>selected</c:if>>기간정지 : 7일</option>
 					  <option value="기간정지 : 14일" <c:if test='${report.re_state == "기간정지 : 14일"}'>selected</c:if>>기간정지 : 14일</option>
-					  <option value="기간정지 :21일" <c:if test='${report.re_state == "기간정지 :21일"}'>selected</c:if>>기간정지 :21일</option>
+					  <option value="기간정지 : 21일" <c:if test='${report.re_state == "기간정지 : 21일"}'>selected</c:if>>기간정지 : 21일</option>
 				  </select>
 			  	</td>
 			  	<td>

@@ -337,11 +337,12 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, HttpSession session){
+	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, MemberVO memberInfo, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(reportInfo);
 		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
-												reportInfo.getRe_state());
+												  reportInfo.getRe_state(),
+												  memberInfo.getMe_state());
 		
 		int date;
 		if(reportInfo.getRe_state().equals("기간 정지 3일")) {
