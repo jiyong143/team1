@@ -24,7 +24,7 @@
 .card-1 {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-	background-color: red;
+	background-color: #4A4C4E;
 }
 
 .card-1:hover {
@@ -136,12 +136,13 @@ body {
 		<!-- Collapsible wrapper -->
 		<div class="collapse navbar-collapse" id="navbarExampleOnHover">
 		<!-- Left links -->
-		<ul class="navbar-nav me-auto ps-lg-0"
-			style="padding-left: 0.15rem; margin-left: 20px">
+		<ul class="navbar-nav me-auto ps-lg-0" style="padding-left: 0.15rem; margin-left: 20px">
 			<li class="nav-item">
 				<a class="nav-link"href="<c:url value="/"/>"> 
 					<img src="<c:url value="/resources/img/eggplant.png"/>" alt="logo" style="width: 40px; margin-bottom: 2px;">
-					<span style="font-weight: bold; font-size: 24px; color: white; margin-right: 20px; margin-bottom: 4px;">가지</span>
+					<div style="float: right; margin-top: 5px;">
+						<span style="font-weight: bold; font-size: 24px; color: white; margin-right: 20px; margin-bottom: 4px;">가지</span>
+					</div>
 				</a>
 		    </li>
 		</ul>
@@ -151,7 +152,7 @@ body {
 				<i class="fas fa-bars"></i>
 			</button>
 				<!-- 카테고리 드롭다운 -->
-				<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 50px">
+				<li class="nav-item dropdown dropdown-hover position-static" style="margin-left: 20px; line-height: 60px; height: 80px;">
 					<a class="nav-link dropdown-toggle text-white font-weight-bold" href="#" id="navbarDropdown" role="button"
 					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
 					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 

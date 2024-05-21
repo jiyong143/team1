@@ -57,7 +57,7 @@
 				</c:forEach>
 			</select>
 			<select name="sigungu" class="form-control sigungu" style="width: 33%; display: inline;"></select>
-			<select name="h_dong_nm" class="form-control h_dong_nm" style="width: 33%; display: inline;"></select>	
+			<select name="h_dong_nm" class="form-control h_dong_nm" style="width: 33%; display: inline; float: right;"></select>
 		</div>
 		<div class="form-group">
 			<label for="pr_content">내용</label>
