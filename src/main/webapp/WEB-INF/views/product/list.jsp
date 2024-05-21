@@ -414,6 +414,7 @@ h5 {
 .product-list {
 	margin: 0 auto; /* 가로 여백을 화면 왼쪽과 오른쪽 모두 동일하게 설정 */
 	max-width: 1200px; /* 최대 너비를 지정하여 내용이 너무 퍼지지 않도록 설정 */
+	margin-top : 17px;
 }
 
 .search-input {
@@ -1229,7 +1230,6 @@ function sendPlace(place) {
 			"tName" : tName,
 			"mName" : mName
 		};
-		console.log(obj);
 		$.ajax({
 			async : false,
 			url : '<c:url value="/product/list2"/>', 
@@ -1303,10 +1303,7 @@ function sendPlace(place) {
 	            </div>
 	           </div>
 	        </a>
-	        `
-	       /*  <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
-	            <br>
-	        </c:if> */		
+	        `	
 		}
 		$(".product-list").html(str);
 	}

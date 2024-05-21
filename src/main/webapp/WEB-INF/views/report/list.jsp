@@ -124,13 +124,22 @@ $(document).ready(function() {
         // 현재 행에서 데이터를 가져와 배열에 추가
         var $row = $(this).closest("tr");
         var re_pr_num = $row.find(".re_pr_num").text(); // 아이디 가져오기
+        var re_cr_num = $row.find(".re_cr_num").text(); // 아이디 가져오기
         var re_state = $row.find(".re_state").val(); // 상태 가져오기
         
         // 서버에 전송할 데이터 객체 생성
-        var obj = {
-            re_pr_num: re_pr_num,
-            re_state: re_state
-        };
+        if(re_pr_num != 0){
+        	var obj = {
+                re_pr_num: re_pr_num,
+                re_state: re_state
+            };
+        }else{
+        	var obj = {
+        		re_cr_num: re_cr_num,
+                re_state: re_state
+            };	
+        }
+        
         
         console.log(data);
         console.log(obj);

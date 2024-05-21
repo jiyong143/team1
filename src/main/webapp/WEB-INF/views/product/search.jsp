@@ -726,7 +726,8 @@ li {
 		</div>
 
         <h2>
-		    <span id="searchResult">'${pm.cri.search}' 검색 결과</span>
+		    <span id="searchResult" style="font-weight : bold;">'${pm.cri.search}'</span>
+		    <span>검색 결과</span>
 		    <span class="productTotalCount" style="font-size : 20px;">총 ${totalCount}개</span>
 		</h2>
         

@@ -51,5 +51,14 @@
 	    	SET re_state = #{re_state}, me_state = #{me_state} 
 	    WHERE re_pr_num = #{re_pr_num}
 	</update>
+	
+	<update id="updateReStateByChat">
+		UPDATE report SET re_state = #{re_state} WHERE re_cr_num = #{re_cr_num}
+	</update>
+	
+	<update id="updateStateMember">
+		update member set me_stop_date = date_add(now(), interval #{date} day), me_state = '정지'
+		where me_id = #{pr_me_id}
+	</update>
 
 </mapper>

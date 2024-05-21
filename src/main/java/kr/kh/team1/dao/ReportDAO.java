@@ -27,4 +27,8 @@ public interface ReportDAO {
 
 	boolean updateReState(@Param("re_pr_num") int re_pr_num, @Param("re_state") String re_state, @Param("me_state") String me_state);
 
+	boolean updateReStateByChat(@Param("re_cr_num")int re_cr_num, @Param("re_state")String re_state);
+
+	boolean updateStateMember(@Param("date")int date, @Param("pr_me_id")String pr_me_id);
+
 }

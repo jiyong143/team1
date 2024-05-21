@@ -77,6 +77,22 @@ public class ReportServiceImp implements ReportService{
 		System.out.println(re_state);
 		return reportDao.updateReState(re_pr_num, re_state, me_state);
 	}
+
+	@Override
+	public boolean updateReStateByChat(int re_cr_num, String re_state) {
+		if(re_cr_num <= 0 || re_state == null || re_state.isEmpty()) {
+			return false;
+		}
+		System.out.println(re_state);
+		return reportDao.updateReStateByChat(re_cr_num, re_state);
+	}
+
+	@Override
+	public boolean updateStateMember(int date, String pr_me_id) {
+		if(pr_me_id == null || pr_me_id.isEmpty() || date == 0)
+			return false;
+		return reportDao.updateStateMember(date, pr_me_id);
+	}
 	
 
 

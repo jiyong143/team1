@@ -117,6 +117,9 @@
 	.sellerA, .sellerA:hover{
 		text-decoration: none; color: black;	
 	}
+	#product-content{
+		width: 100%;
+	}
 </style>
 </head>
 <body>
@@ -286,7 +289,10 @@
 		<div class="infoBox">
 			<h3>상품 정보</h3>
 			<hr>
-			${info.pr_content}
+			<textarea id="product-content" name="product-content"
+				class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
+				autocomplete="off" spellcheck="false" rows="20"
+				data-gtm-form-interact-field-id="0">${info.content }</textarea>
 		</div>
 		<div class="sellerContainer">
 			<a class="sellerA" href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
