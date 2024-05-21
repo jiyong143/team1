@@ -478,7 +478,6 @@
 			success : function (data){
 	            console.log(data);
 	            alert(data.msg);
-	            
 	            console.log(mNum + " " + mName + " " + tName)
 	            var url = "<c:url value='/product/list'/>" + '?mNum=' + mNum + '&mName=' + encodeURIComponent(mName) + '&tName=' + encodeURIComponent(tName);
 	            location.href = url;
