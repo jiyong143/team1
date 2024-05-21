@@ -30,7 +30,7 @@
 	    <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	    <beans:property name="order" value="1" /><!-- 순서를 우선으로 지정 -->
 	</beans:bean>
-	     
+	
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 	    <beans:property name="definitions">
 	        <beans:list>
@@ -38,17 +38,71 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
+	
 	<!-- 타일즈 설정 끝 -->
 	<context:component-scan base-package="kr.kh.team1.*" />
 	
-	<!-- 인터셉터 등록 -->
+	<!-- LoginInterceptor를 등록 -->
 	<beans:bean id="loginInterceptor" 
 		class="kr.kh.team1.interceptor.LoginInterceptor"/>
-	<!-- 인터셉터 맵핑 -->
+	<!-- MemberInterceptor를 등록 -->
+	<beans:bean id="memberInterceptor" 
+		class="kr.kh.team1.interceptor.MemberInterceptor"/>
+	<!-- GuestInterceptor를 등록 -->
+	<beans:bean id="guestInterceptor" 
+		class="kr.kh.team1.interceptor.GuestInterceptor"/>
+		
+	<!-- AdminInterceptor를 등록 -->
+	<beans:bean id="AdminInterceptor" 
+		class="kr.kh.team1.interceptor.AdminInterceptor"/>
+	<!-- ManagerInterceptor를 등록 -->
+	<beans:bean id="ManagerInterceptor" 
+		class="kr.kh.team1.interceptor.ManagerInterceptor"/>
+	
 	<interceptors>
+		<!-- LoginInterceptor가 실행된 URL 지정 -->
 		<interceptor>
-			<mapping path="/login"/>
+			<mapping path="/member/login"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<!-- MemberInceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/member/mypage"/>
+			<mapping path="/review/write"/>
+			<mapping path="/member/update"/>
+			<mapping path="/product/insert"/>
+			<mapping path="/product/update"/>
+			<mapping path="/chat/list"/>
+			<mapping path="/chat/sse"/>
+			<mapping path="/surport/insert"/>
+			<mapping path="/surport/update"/>
+			<mapping path="/report/list"/>
+			<mapping path="/admin/memberManager"/>
+			<mapping path="/admin/topCategoryManager"/>
+			<mapping path="/admin/midCategoryManager"/>
+			<mapping path="/admin/managerPage"/>
+			<beans:ref bean="memberInterceptor"/>
+		</interceptor>
+		<!-- GuestInterceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/member/login"/>
+			<mapping path="/member/signup"/>
+			<mapping path="/member/login/"/>
+			<mapping path="/member/signup/"/>
+			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
+		<!-- AdminInterceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/admin/memberManager"/>
+			<mapping path="/admin/topCategoryManager"/>
+			<mapping path="/admin/midCategoryManager"/>
+			<mapping path="/admin/managerPage"/>
+			<beans:ref bean="AdminInterceptor"/>
+		</interceptor>
+		<!-- ManagerInterceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/admin/memberManager"/>
+			<beans:ref bean="ManagerInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

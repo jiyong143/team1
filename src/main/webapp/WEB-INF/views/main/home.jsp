@@ -448,22 +448,21 @@ li {
 	font-weight: bold;
 	font-size: 25px;
 }
+
 </style>
 <title>Home</title>
 </head>
 <body>
+
 	<!-- 
 <div class="sidenav">
 
-<div class="container">
-  <div class="card" style="width:100%; background-color: gray;">
-	<img src="<c:url value="/resources/img/avatar1.png"/>" alt="Card image" style="width:100%;">
-    <div class="card-body">
-      <h4 class="card-title" style="font-size: 10px;">John Doe</h4>
-      <a href="#" class="btn btn-primary" style="width: 80px; font-size: 10px;">See Profile</a>
-    </div>
-  </div>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
+<div>
+
+
 </div>
+
 
   <a href="<c:url value="/product/insert"/>">판매하기</a>
   <a href="<c:url value="/report/list"/>">신고</a>
@@ -707,10 +706,6 @@ function addProducts(products){
 	$(".product-list").html(str);
 }
 
-
-
 </script>
-	
-
 </body>
 </html>

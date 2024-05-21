@@ -18,7 +18,9 @@
 </style>
 </head>
 <body>
-	  <p><a href="/team1/admin/memberManagement">회원 관리 바로가기</a></p>           
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
+<nav>
+  <div>
 	  <table class="table">
 	    <thead>
 	      <tr>

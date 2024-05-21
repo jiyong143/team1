@@ -123,6 +123,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="jum">
 	<div class="container">
 		<div class="imgContainer">
