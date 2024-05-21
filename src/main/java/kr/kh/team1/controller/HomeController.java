@@ -76,6 +76,7 @@ public class HomeController {
 		
 		ArrayList <ProductVO> products = productService.getNewProductsByStart(start);    
 		map.put("products", products);
+		map.put("page1", page);
 		return map;
 	}
 	
