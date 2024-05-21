@@ -309,4 +309,14 @@ public class ProductServiceImp implements ProductService{
 		return productDao.selectNewProductsByStart(start); 
 	}
 
+	@Override
+	public ArrayList<ProductVO> getPopularProducts() {
+		return productDao.selectPopularProducts(); 
+	}
+
+	@Override
+	public ArrayList<ProductVO> getPopularProductsByStart(int start) {
+		return productDao.selectPopularProductsByStart(start); 
+	}
+
 }
