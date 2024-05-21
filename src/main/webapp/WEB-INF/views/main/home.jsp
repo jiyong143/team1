@@ -202,7 +202,7 @@ html {
 }
 
 html {
-	line-height: 1.5;  
+	line-height: 1.5;
 	-webkit-text-size-adjust: 100%;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -452,19 +452,24 @@ li {
 .prev-button {
 	position: absolute;
 	left: 375px;
-	top : 375px;
+	top: 360px;
 }
 
 .next-button {
 	position: absolute;
 	left: 1518px;
-	top : 375px;
-}
-.next-button:hover,.prev-button:hover {
-background-color : black;
+	top: 360px;
 }
 
+.next-button:hover, .prev-button:hover {
+	background-color: black;
+}
 
+.swiper-pagination{
+position: absolute;
+	left: 1518px;
+	top: 500px;
+}
 </style>
 <title>Home</title>
 </head>
@@ -557,7 +562,7 @@ background-color : black;
 	<input id="page" class="page" type="hidden" value="1">
 	<!-- 오른쪽 -->
 
-	<button
+	<button style="height: 60px;"
 		class="next-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
 		id="next" aria-label="next-button">
 		<svg width="26" height="28" viewBox="0 0 26 28" fill="none"
@@ -592,7 +597,7 @@ background-color : black;
 
 	<!-- 왼쪽 -->
 
-	<button style="display: none;"
+	<button style="display: none; height: 60px;"
 		class="prev-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
 		id="prev" aria-label="next-button">
 		<svg width="26" height="28" viewBox="0 0 26 28" fill="none"
@@ -623,6 +628,15 @@ background-color : black;
         </defs>
     </svg>
 	</button>
+
+	<div
+		class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+		<span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+		<span class="swiper-pagination-bullet"></span> <span
+			class="swiper-pagination-bullet"></span> <span
+			class="swiper-pagination-bullet"></span> <span
+			class="swiper-pagination-bullet"></span>
+	</div>
 
 
 	<script type="text/javascript">  
