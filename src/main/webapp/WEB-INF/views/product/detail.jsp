@@ -124,7 +124,6 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
-<div class="jum">
 	<div class="container">
 		<div class="imgContainer">
 			<div id="demo" class="carousel slide" data-ride="carousel">
@@ -326,7 +325,6 @@
 			</a>
 		</div><!-- end seller -->
 	</div><!-- end container -->
-</div><!-- end jum -->
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 
@@ -416,7 +414,9 @@
 				<i class="bi bi-heart btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
-				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+				<c:if test="${info.pr_buyId == loginUser.me_id}">
+					<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+				</c:if>
 				`;
 		}else{
 			str += 
@@ -424,7 +424,9 @@
 				<i class="bi bi-heart-fill btn-pick"></i>
 				<button class="btn btn-outline-success btn-sse">채팅하기</button>
 				<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
-				<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+				<c:if test="${info.pr_buyId == loginUser.me_id}">
+					<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+				</c:if>
 				`;
 		}
 		$(".btnBox").html(str);
