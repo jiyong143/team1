@@ -67,25 +67,25 @@
 		text-align: center;
 		margin-bottom: 10px;
 	}
-	.msg-list{
-		min-height: 600px;
-	}
 	.input-box{
 		margin-bottom: 10px;
 	}
-	.containerA{overflow-y: auto;}
+	.containerA{
+		max-height : 700px;
+		overflow-y: auto;
+	}
 	.containerA::-webkit-scrollbar{display: none;}
    </style>
 </head>
 <body>
 <div class="container">
-	<div class="containerA">
-		<input type="hidden" value="${error}" class="error">
-		<div class="moreBox">
-			<div class="more">
-				<button class="chatmore btn btn-outline-success" onClick="moreChat()">더 보기</button>
-			</div>
+	<input type="hidden" value="${error}" class="error">
+	<div class="moreBox">
+		<div class="more">
+			<button class="chatmore btn btn-outline-success" onClick="moreChat()">더 보기</button>
 		</div>
+	</div>
+	<div class="containerA">
 		<div class="msg-list"></div>
 	</div>
 	<form id="sseForm">

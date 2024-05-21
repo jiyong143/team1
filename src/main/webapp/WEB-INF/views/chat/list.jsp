@@ -9,7 +9,6 @@
 <style type="text/css">
 	.container{
 		margin-top: 80px;
-		margin-left: 200px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
