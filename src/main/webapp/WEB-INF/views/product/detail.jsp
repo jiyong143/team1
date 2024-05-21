@@ -8,11 +8,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
-	.jum{
-		margin-left : 12%;
-		min-height: 800px;
-		background-color: white;
-	}
 	.container{
 		margin-top : 60px;
 		margin-bottom : 50px;
@@ -124,207 +119,207 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
-	<div class="container">
-		<div class="imgContainer">
-			<div id="demo" class="carousel slide" data-ride="carousel">
-			    <!-- Indicators -->
-				<ul class="carousel-indicators">
-					 <c:forEach items="${files}" var="list" varStatus="loop">
-			            <c:if test="${loop.index == 0}">
-			                <li data-target="#demo" data-slide-to="${loop.index}" class="active"></li>
-			            </c:if>
-			            <c:if test="${loop.index != 0}">
-			                <li data-target="#demo" data-slide-to="${loop.index}"></li>
-			            </c:if>
-			        </c:forEach>
-				</ul>
-			
-				<!-- 그림 -->
-				<div class="carousel-inner">
-					<c:forEach items="${files}" var="list" varStatus="loop">
-						<c:if test="${loop.index == 0}">
-							<div class="carousel-item active">
-								<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지">
-							</div>
-						</c:if>
-						<c:if test="${loop.index != 0}">
-							<div class="carousel-item">
-								<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지">
-							</div>
-						</c:if>
-					</c:forEach>
-				</div>
-	
-				<!-- 왼.오 화살표 -->
-				<a class="carousel-control-prev" href="#demo" data-slide="prev">
-					<span class="carousel-control-prev-icon"></span>
-				</a>
-				<a class="carousel-control-next" href="#demo" data-slide="next">
-					<span class="carousel-control-next-icon"></span>
-				</a>
+<div class="container">
+	<div class="imgContainer">
+		<div id="demo" class="carousel slide" data-ride="carousel">
+		    <!-- Indicators -->
+			<ul class="carousel-indicators">
+				 <c:forEach items="${files}" var="list" varStatus="loop">
+		            <c:if test="${loop.index == 0}">
+		                <li data-target="#demo" data-slide-to="${loop.index}" class="active"></li>
+		            </c:if>
+		            <c:if test="${loop.index != 0}">
+		                <li data-target="#demo" data-slide-to="${loop.index}"></li>
+		            </c:if>
+		        </c:forEach>
+			</ul>
+		
+			<!-- 그림 -->
+			<div class="carousel-inner">
+				<c:forEach items="${files}" var="list" varStatus="loop">
+					<c:if test="${loop.index == 0}">
+						<div class="carousel-item active">
+							<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지" class="rounded">
+						</div>
+					</c:if>
+					<c:if test="${loop.index != 0}">
+						<div class="carousel-item">
+							<img src="<c:url value="/download${list.fi_name}"/>" alt="이미지" class="rounded">
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
+
+			<!-- 왼.오 화살표 -->
+			<a class="carousel-control-prev" href="#demo" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</a>
+			<a class="carousel-control-next" href="#demo" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
 		</div>
-		<div class="infoContainer">
-			<div class="categoryContainer">
-				<!-- 대분류 중분류 제목 가격 -->
-				<ul class="categoryUl">
-					<li>홈</li>
-					<li>&gt;</li>
-					<li>${info.pr_tg_name}</li>
-					<li>&gt;</li>
-					<li>${info.pr_mg_name}</li>
-				</ul>
-				<div>
-					<h1>${info.pr_name}</h1>
-					<c:choose>
-						<c:when test="${info.pr_price == 0}">
-							<h2 style="font-weight: bold; font-size: 20px;">무료 나눔🧡</h2>
-						</c:when>
-						<c:when test="${info.pr_price == -10}">
-							<h2 style="font-size: 20px; color: #808080; font-weight: bold;">가격 제안</h2>	
-						</c:when>
-						<c:otherwise>
-							<h2>${info.price}원</h2>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${info.pr_ps_state eq '판매완료'}">
-							<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-							    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
-							    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
-							</svg>
-						</c:when>  
-						<c:when test="${info.pr_ps_state eq '예약중'}">
-							<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
-							    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
-							    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
-							</svg>
-						</c:when>
-					</c:choose>
-				</div>
-			</div>
-			<div class="textContainer">
-				<!-- 시간 조회 찜수 -->
-				<ul class="textUl">
-					<li>${info.time}</li>
-					<li>&#183;</li>
-					<li>조회 ${info.pr_view}</li>
-					<li>&#183;</li>
-					<li>찜 ${info.pr_pickCount}</li>
-					<li>&#183;</li>
-					<li>채팅 ${info.pr_chatCount}</li>
-				</ul>
-				<ul class="placeUl">
-					<li>&#186;</li>
-					<li>거래희망지역</li>
-					<li>${info.pr_place}</li>
-				</ul>
-			</div>
-			<div class="btnContainer btnBox">
+	</div>
+	<div class="infoContainer">
+		<div class="categoryContainer">
+			<!-- 대분류 중분류 제목 가격 -->
+			<ul class="categoryUl">
+				<li>홈</li>
+				<li>&gt;</li>
+				<li>${info.pr_tg_name}</li>
+				<li>&gt;</li>
+				<li>${info.pr_mg_name}</li>
+			</ul>
+			<div>
+				<h1>${info.pr_name}</h1>
 				<c:choose>
-					<c:when test="${!empty user}">
-						<c:if test="${loginUser.me_id ne prUser.me_id}">
-							<c:if test="${pick.pi_num != 0}">
-								<i class="bi bi-heart-fill btn-pick"></i>
-							</c:if>
-							<c:if test="${pick.pi_num == 0}">
-								<i class="bi bi-heart btn-pick"></i>
-							</c:if>
-							<button class="btn btn-outline-success btn-sse">채팅하기</button>
-							<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
-							<c:if test="${info.pr_buyId == loginUser.me_id}">
-								<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
-							</c:if>
-						</c:if>
+					<c:when test="${info.pr_price == 0}">
+						<h2 style="font-weight: bold; font-size: 20px;">무료 나눔🧡</h2>
+					</c:when>
+					<c:when test="${info.pr_price == -10}">
+						<h2 style="font-size: 20px; color: #808080; font-weight: bold;">가격 제안</h2>	
+					</c:when>
+					<c:otherwise>
+						<h2>${info.price}원</h2>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${info.pr_ps_state eq '판매완료'}">
+						<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+						    <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+						    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>
+						</svg>
+					</c:when>  
+					<c:when test="${info.pr_ps_state eq '예약중'}">
+						<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+						    <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+						    <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>
+						</svg>
 					</c:when>
 				</c:choose>
 			</div>
-			<input type="hidden" id="pickValue" value="${pick}">
-			
-			<c:if test="${loginUser.me_id eq prUser.me_id}">
-				<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
-				   <c:if test="${info.pr_ps_state ne '판매완료'  }">
-					   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
-						<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-							<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
-								<button class="jiyong-button flex flex-col items-center py-[6px]">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-										<rect x="4.25" y="4" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
-										<rect x="4.25" y="6" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
-										<path d="M15 7L18 4L21 7" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-									<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
-								</button>
-							</form>
-						</li>
-						<!-- 상품 수정 화면으로 이동 -->
-						<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-							<a href="<c:url value="/product/update?num=${info.pr_num }"/>" method="get">
-								<button class="jiyong-button flex flex-col items-center py-[6px]">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-										<path d="M7.91993 19.7931C8.05181 19.7601 8.17224 19.6919 8.26836 19.5958L19.9497 7.91448C20.2034 7.66076 20.4047 7.35954 20.542 7.02803C20.6793 6.69652 20.75 6.34121 20.75 5.98239C20.75 5.62357 20.6793 5.26826 20.542 4.93675C20.4047 4.60524 20.2034 4.30402 19.9497 4.0503C19.696 3.79657 19.3948 3.59531 19.0633 3.45799C18.7317 3.32068 18.3764 3.25 18.0176 3.25C17.2929 3.25 16.5979 3.53788 16.0855 4.0503L4.40418 15.7316C4.30806 15.8278 4.23987 15.9482 4.2069 16.0801L3.27239 19.8181C3.2085 20.0737 3.28338 20.344 3.46967 20.5303C3.65596 20.7166 3.92632 20.7915 4.1819 20.7276L7.91993 19.7931Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-									<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
-								</button>
-							</a>
-						</li>
+		</div>
+		<div class="textContainer">
+			<!-- 시간 조회 찜수 -->
+			<ul class="textUl">
+				<li>${info.time}</li>
+				<li>&#183;</li>
+				<li>조회 ${info.pr_view}</li>
+				<li>&#183;</li>
+				<li>찜 ${info.pr_pickCount}</li>
+				<li>&#183;</li>
+				<li>채팅 ${info.pr_chatCount}</li>
+			</ul>
+			<ul class="placeUl">
+				<li>&#186;</li>
+				<li>거래희망지역</li>
+				<li>${info.pr_place}</li>
+			</ul>
+		</div>
+		<div class="btnContainer btnBox">
+			<c:choose>
+				<c:when test="${!empty user}">
+					<c:if test="${loginUser.me_id ne prUser.me_id}">
+						<c:if test="${pick.pi_num != 0}">
+							<i class="bi bi-heart-fill btn-pick"></i>
+						</c:if>
+						<c:if test="${pick.pi_num == 0}">
+							<i class="bi bi-heart btn-pick"></i>
+						</c:if>
+						<button class="btn btn-outline-success btn-sse">채팅하기</button>
+						<a href="<c:url value="/report/insertProduct?rePrNum=${info.pr_num}"/>" class="btn btn-outline-success btn-report">신고하기</a>
+						<c:if test="${info.pr_buyId == loginUser.me_id}">
+							<button class="btn btn-outline-success btn-liquidate">포인트로 결제하기</button>
+						</c:if>
 					</c:if>
-					<!-- 상품 삭제 화면으로 이동 -->
+				</c:when>
+			</c:choose>
+		</div>
+		<input type="hidden" id="pickValue" value="${pick}">
+		
+		<c:if test="${loginUser.me_id eq prUser.me_id}">
+			<ul class="jiyong-ul flex w-full py-3 rounded bg-jnGray-100">
+			   <c:if test="${info.pr_ps_state ne '판매완료'  }">
+				   <!-- db에서 해당 상품의 시간을 현재로 수정 -->
 					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
-						<button class="jiyong-button flex flex-col items-center py-[6px] deleteBtn">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-								<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-								<path d="M10 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-							</svg>
-							<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품삭제</p>
-						</button>
+						<form action="<c:url value="/product/up?num=${info.pr_num }"/>" method="post">
+							<button class="jiyong-button flex flex-col items-center py-[6px]">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M5 8.99995V13.9656C5 17.8505 7.91015 21 11.5 21C15.0899 21 18 17.8505 18 13.9656V5" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									<rect x="4.25" y="4" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+									<rect x="4.25" y="6" width="1.5" height="1" rx="0.5" fill="#141313"></rect>
+									<path d="M15 7L18 4L21 7" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+								<p class="mt-1 text-xs font-medium text-center text-jnBlack">위로 올리기</p>
+							</button>
+						</form>
 					</li>
-				</ul>
-			</c:if>
-		</div>
-		<div class="infoBox">
-			<h3>상품 정보</h3>
+					<!-- 상품 수정 화면으로 이동 -->
+					<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+						<a href="<c:url value="/product/update?num=${info.pr_num }"/>" method="get">
+							<button class="jiyong-button flex flex-col items-center py-[6px]">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12 21H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									<path d="M7.91993 19.7931C8.05181 19.7601 8.17224 19.6919 8.26836 19.5958L19.9497 7.91448C20.2034 7.66076 20.4047 7.35954 20.542 7.02803C20.6793 6.69652 20.75 6.34121 20.75 5.98239C20.75 5.62357 20.6793 5.26826 20.542 4.93675C20.4047 4.60524 20.2034 4.30402 19.9497 4.0503C19.696 3.79657 19.3948 3.59531 19.0633 3.45799C18.7317 3.32068 18.3764 3.25 18.0176 3.25C17.2929 3.25 16.5979 3.53788 16.0855 4.0503L4.40418 15.7316C4.30806 15.8278 4.23987 15.9482 4.2069 16.0801L3.27239 19.8181C3.2085 20.0737 3.28338 20.344 3.46967 20.5303C3.65596 20.7166 3.92632 20.7915 4.1819 20.7276L7.91993 19.7931Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+								<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품수정</p>
+							</button>
+						</a>
+					</li>
+				</c:if>
+				<!-- 상품 삭제 화면으로 이동 -->
+				<li class="jiyong-li flex flex-1 basis-[25%] items-center justify-center px-3 relative after:absolute [&amp;:not(:first-child)]:after:w-[1px] after:bg-gray-300 after:h-9 after:left-0 [&amp;:not(:first-child)]:after:content-['']">
+					<button class="jiyong-button flex flex-col items-center py-[6px] deleteBtn">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M3 6H5H21" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+							<path d="M10 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11V17" stroke="#141313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+						</svg>
+						<p class="mt-1 text-xs font-medium text-center text-jnBlack">상품삭제</p>
+					</button>
+				</li>
+			</ul>
+		</c:if>
+	</div>
+	<div class="infoBox">
+		<h3>상품 정보</h3>
+		<hr>
+		<textarea id="product-content" name="product-content"
+			class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
+			autocomplete="off" spellcheck="false" rows="20"
+			data-gtm-form-interact-field-id="0">${info.content }</textarea>
+	</div>
+	<div class="sellerContainer">
+		<a class="sellerA" href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
+			<!-- 판매자 신상 -->
+			<h3>판매자</h3>
 			<hr>
-			<textarea id="product-content" name="product-content"
-				class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
-				autocomplete="off" spellcheck="false" rows="20"
-				data-gtm-form-interact-field-id="0">${info.content }</textarea>
-		</div>
-		<div class="sellerContainer">
-			<a class="sellerA" href="<c:url value='/member/mypage?me_id=${prUser.me_id}'/>">
-				<!-- 판매자 신상 -->
-				<h3>판매자</h3>
-				<hr>
-				<h2>${prUser.me_id}</h2>
-				<div>
-					<!-- 신뢰지수(온도) -->
-					<span class="font-medium text-base">신뢰지수</span>
-					<div class="progress mt-3">
-					  <div class="progress-bar" style="width:${prUser.me_manner}%">${prUser.me_manner}</div>
-					</div>		
-					<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
-						<table class="w-100">
-							<thead>
-								<tr style="width:auto">
-									<td style="text-align: center;">안전거래</td>
-									<td style="text-align: center;">거래후기</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="text-align: center;">${tradeNum}</td><!-- 거래횟수 -->
-									<td style="text-align: center;">${reviewNum}</td><!-- 거래후기갯수 -->
-								</tr>
-							</tbody>
-						</table>
-					</div>
+			<h2>${prUser.me_id}</h2>
+			<div>
+				<!-- 신뢰지수(온도) -->
+				<span class="font-medium text-base">신뢰지수</span>
+				<div class="progress mt-3">
+				  <div class="progress-bar" style="width:${prUser.me_manner}%">${prUser.me_manner}</div>
+				</div>		
+				<div class="mt-3 relative flex justify-evenly border border-gray-300 rounded-lg py-4 lg:py-6">
+					<table class="w-100">
+						<thead>
+							<tr style="width:auto">
+								<td style="text-align: center;">안전거래</td>
+								<td style="text-align: center;">거래후기</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td style="text-align: center;">${tradeNum}</td><!-- 거래횟수 -->
+								<td style="text-align: center;">${reviewNum}</td><!-- 거래후기갯수 -->
+							</tr>
+						</tbody>
+					</table>
 				</div>
-			</a>
-		</div><!-- end seller -->
-	</div><!-- end container -->
+			</div>
+		</a>
+	</div><!-- end seller -->
+</div><!-- end container -->
 <!-- sse관련 ajax -->
 <script type="text/javascript">	
 
@@ -380,7 +375,6 @@
 		}
 	});
 </script>
-
 
 <!-- 찜하기 관련 ajax -->
 <script type="text/javascript">
@@ -479,7 +473,12 @@
 			success : function (data){
 	            console.log(data);
 	            alert(data.msg);
-	            let url = 
+	            let mNum = ${info.pr_mg_num};
+	            var mName = ${info.pr_mg_name};
+	            var tName = ${info.pr_tg_name};
+	            console.log(mNum + " " + mName + " " + tName)
+	            var url = "<c:url value='/product/list'/>" + '?mNum=' + mNum + '&mName=' + mName + '&tName=' + tName;
+	            location.href = url;
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 		

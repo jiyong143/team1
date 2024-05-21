@@ -78,7 +78,7 @@ public class IBHController {
 	@ResponseBody
 	@PostMapping("/product/delete")
 	// 상품 삭제
-	public Map<String, Object> productDeletePost(HttpSession session, int pr_num) {
+	public Map<String, Object> productDeletePost(HttpSession session, @RequestParam("pr_num")int pr_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		// 제품 번호 주고 해당 제품에 신고 확인
@@ -86,9 +86,6 @@ public class IBHController {
 		
 		// 제품 번호 주고 채팅방 가져오기
 		ArrayList<ReportVO> rpChat = chatService.getReportByChat(pr_num);
-		
-		System.out.println(rpChat);
-		System.out.println(rpProList);
 		
 		if(rpChat.size() == 0 && rpProList.size() == 0) {
 			chatService.deleteProduct(pr_num);	// 파일 및 내용 다 삭제
