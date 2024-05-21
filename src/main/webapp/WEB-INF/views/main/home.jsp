@@ -202,7 +202,7 @@ html {
 }
 
 html {
-	line-height: 1.5;
+	line-height: 1.5;  
 	-webkit-text-size-adjust: 100%;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -449,6 +449,22 @@ li {
 	font-size: 25px;
 }
 
+.prev-button {
+	position: absolute;
+	left: 375px;
+	top : 375px;
+}
+
+.next-button {
+	position: absolute;
+	left: 1518px;
+	top : 375px;
+}
+.next-button:hover,.prev-button:hover {
+background-color : black;
+}
+
+
 </style>
 <title>Home</title>
 </head>
@@ -456,14 +472,9 @@ li {
 
 	<!-- 
 <div class="sidenav">
-
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div>
-
-
 </div>
-
-
   <a href="<c:url value="/product/insert"/>">판매하기</a>
   <a href="<c:url value="/report/list"/>">신고</a>
   <a href="#clients">Clients</a>
@@ -543,106 +554,153 @@ li {
 		</c:forEach>
 	</div>
 
-    <!-- 오른쪽 -->
-    <c:if test="${next}">
+	<input id="page" class="page" type="hidden" value="1">
+	<!-- 오른쪽 -->
+
 	<button
 		class="next-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
-		id="recent-next" aria-label="next-button">
+		id="next" aria-label="next-button">
 		<svg width="26" height="28" viewBox="0 0 26 28" fill="none"
-			xmlns="http://www.w3.org/2000/svg" class="rotate-[180deg]">
-	<g filter="url(#filter0_d_19461_8348)">
-	<path fill-rule="evenodd" clip-rule="evenodd"
-				d="M15.8122 5.34218C16.4517 6.0669 16.3825 7.17278 15.6578 7.81224L8.645 14L15.6578 20.1878C16.3825 20.8273 16.4517 21.9331 15.8122 22.6579C15.1727 23.3826 14.0669 23.4517 13.3421 22.8122L5.26706 15.6872C4.25192 14.7914 4.25192 13.2086 5.26706 12.3129L13.3421 5.1878C14.0669 4.54835 15.1727 4.61747 15.8122 5.34218Z"
-				fill="white"></path>
-	</g>
-	<defs>
-	<filter id="filter0_d_19461_8348" x="0.505707" y="0.75" width="19.7443"
-				height="26.5" filterUnits="userSpaceOnUse"
-				color-interpolation-filters="sRGB">
-	<feFlood flood-opacity="0" result="BackgroundImageFix">
-	</feFlood>
-	<feColorMatrix in="SourceAlpha" type="matrix"
-				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-				result="hardAlpha">
-	</feColorMatrix>
-	<feOffset>
-	</feOffset>
-	<feGaussianBlur stdDeviation="2">
-	</feGaussianBlur>
-	<feComposite in2="hardAlpha" operator="out">
-	</feComposite>
-	<feColorMatrix type="matrix"
-				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0">
-	</feColorMatrix>
-	<feBlend mode="normal" in2="BackgroundImageFix"
-				result="effect1_dropShadow_19461_8348">
-	</feBlend>
-	<feBlend mode="normal" in="SourceGraphic"
-				in2="effect1_dropShadow_19461_8348" result="shape">
-	</feBlend>
-	</filter>
-	</defs>
-	</svg>
-	</button>
-	</c:if>
-	
-	<!-- 왼쪽 -->
-	<c:if test="${prev }">
-	<button
-    class="prev-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
-    id="recent-next" aria-label="next-button">
-    <svg width="26" height="28" viewBox="0 0 26 28" fill="none"
-         xmlns="http://www.w3.org/2000/svg">
+			xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
         <g filter="url(#filter0_d_19461_8348)">
             <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M15.8122 5.34218C16.4517 6.0669 16.3825 7.17278 15.6578 7.81224L8.645 14L15.6578 20.1878C16.3825 20.8273 16.4517 21.9331 15.8122 22.6579C15.1727 23.3826 14.0669 23.4517 13.3421 22.8122L5.26706 15.6872C4.25192 14.7914 4.25192 13.2086 5.26706 12.3129L13.3421 5.1878C14.0669 4.54835 15.1727 4.61747 15.8122 5.34218Z"
-                  fill="white"></path>
+				d="M15.8122 5.34218C16.4517 6.0669 16.3825 7.17278 15.6578 7.81224L8.645 14L15.6578 20.1878C16.3825 20.8273 16.4517 21.9331 15.8122 22.6579C15.1727 23.3826 14.0669 23.4517 13.3421 22.8122L5.26706 15.6872C4.25192 14.7914 4.25192 13.2086 5.26706 12.3129L13.3421 5.1878C14.0669 4.54835 15.1727 4.61747 15.8122 5.34218Z"
+				fill="white"></path>
         </g>
         <defs>
-            <filter id="filter0_d_19461_8348" x="0.505707" y="0.75" width="19.7443"
-                    height="26.5" filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
+            <filter id="filter0_d_19461_8348" x="0.505707" y="0.75"
+				width="19.7443" height="26.5" filterUnits="userSpaceOnUse"
+				color-interpolation-filters="sRGB">
                 <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
                 <feColorMatrix in="SourceAlpha" type="matrix"
-                               values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                               result="hardAlpha"></feColorMatrix>
+				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+				result="hardAlpha"></feColorMatrix>
                 <feOffset></feOffset>
                 <feGaussianBlur stdDeviation="2"></feGaussianBlur>
                 <feComposite in2="hardAlpha" operator="out"></feComposite>
                 <feColorMatrix type="matrix"
-                               values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0"></feColorMatrix>
+				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0"></feColorMatrix>
                 <feBlend mode="normal" in2="BackgroundImageFix"
-                         result="effect1_dropShadow_19461_8348"></feBlend>
+				result="effect1_dropShadow_19461_8348"></feBlend>
                 <feBlend mode="normal" in="SourceGraphic"
-                         in2="effect1_dropShadow_19461_8348" result="shape"></feBlend>
+				in2="effect1_dropShadow_19461_8348" result="shape"></feBlend>
             </filter>
         </defs>
     </svg>
-</button>
-</c:if>
+	</button>
 
-<script type="text/javascript">
 
-$(".next-button").on("click", function(){
-	var page = '${page +1}';
-	
+	<!-- 왼쪽 -->
+
+	<button style="display: none;"
+		class="prev-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
+		id="prev" aria-label="next-button">
+		<svg width="26" height="28" viewBox="0 0 26 28" fill="none"
+			xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_d_19461_8348)">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+				d="M15.8122 5.34218C16.4517 6.0669 16.3825 7.17278 15.6578 7.81224L8.645 14L15.6578 20.1878C16.3825 20.8273 16.4517 21.9331 15.8122 22.6579C15.1727 23.3826 14.0669 23.4517 13.3421 22.8122L5.26706 15.6872C4.25192 14.7914 4.25192 13.2086 5.26706 12.3129L13.3421 5.1878C14.0669 4.54835 15.1727 4.61747 15.8122 5.34218Z"
+				fill="white"></path>
+        </g>
+        <defs>
+            <filter id="filter0_d_19461_8348" x="0.505707" y="0.75"
+				width="19.7443" height="26.5" filterUnits="userSpaceOnUse"
+				color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feColorMatrix in="SourceAlpha" type="matrix"
+				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+				result="hardAlpha"></feColorMatrix>
+                <feOffset></feOffset>
+                <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="out"></feComposite>
+                <feColorMatrix type="matrix"
+				values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0"></feColorMatrix>
+                <feBlend mode="normal" in2="BackgroundImageFix"
+				result="effect1_dropShadow_19461_8348"></feBlend>
+                <feBlend mode="normal" in="SourceGraphic"
+				in2="effect1_dropShadow_19461_8348" result="shape"></feBlend>
+            </filter>
+        </defs>
+    </svg>
+	</button>
+
+
+	<script type="text/javascript">  
+
+$(".next-button").on("click", function(){ 
+	let page = $(".page").val();
+	page = Number(page) +1;	
 	let obj = { 	
 			"page" : page
 		};
 		$.ajax({
 			async : false,
-			url : '<c:url value="/product/new"/>', 
+			url : '<c:url value="/product/new"/>',   
 			type : 'get',
 			data : obj,
 			dataType : "json", 
 			success : function (data){
 				addProducts(data.products);
+				savePage(data.page);
+				changeNextButton(data.page);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
 			}
 		});
 });
+
+$(".prev-button").on("click", function(){ 
+	let page = $(".page").val();
+	page = Number(page) -1;	
+	let obj = { 	
+			"page" : page
+		};
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/new"/>',   
+			type : 'get',
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				addProducts(data.products);
+				savePage(data.page);
+				changePrevButton(data.page);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log(jqXHR.responseText)
+			}
+		});
+});
+
+
+function changePrevButton(page){
+	var prevButton = document.getElementById('prev');
+	var nextButton = document.getElementById('next');
+	
+	nextButton.style.display='block'; // 다음 버튼 보이게 하기
+	if(page==1){
+		prevButton.style.display='none';
+	}
+}
+
+
+
+function changeNextButton(page){
+	var prevButton = document.getElementById('prev');
+	var nextButton = document.getElementById('next');
+	
+	prevButton.style.display='block'; // 이전 버튼 보이게 하기
+	if(page==5){
+		nextButton.style.display='none';
+	}
+}
+
+function savePage(page){
+	var page1 = document.getElementById('page');
+	page1.value='';
+	page1.value=page;
+}
 
 function addProducts(products){
 	let str='';

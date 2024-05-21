@@ -350,7 +350,6 @@ public class LKJController {
 		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
 												  reportInfo.getRe_state(),
 												  memberInfo.getMe_state());
-
 		
 		int date = 0;
 		switch (reportInfo.getRe_state()) {
