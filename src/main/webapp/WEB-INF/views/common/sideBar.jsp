@@ -126,15 +126,26 @@ body {
 		   	<a href="/team1/admin/midCategoryManager">중분류 관리</a>
 	  	  	<a href="/team1/fixed/list">고정문의 관리</a>
 	  	</c:if>
+	  	<c:if test="${user.me_authority == 'user'}">
+	  		<a href="/team1/member/mypage">마이페이지</a>
+  		</c:if>
 		<c:if test="${user.me_authority == 'user'}">
 	  		<a href="/team1/product/insert">판매하기</a>
+  		</c:if>
+  		<c:if test="${user.me_authority == 'user'}">
+	  		<a href="/team1/chat/list?page=1">채팅방</a>
   		</c:if>
  		<c:if test="${user.me_authority == 'user'}">
 	  		<a href="/team1/surport/list">고객지원</a>
   		</c:if>
+  		<c:if test="${user.me_authority == 'user'}">
+	  		<a href="/team1/fixed/list">고정문의</a>
+  		</c:if>
 	  </div>
 	</div>
-	<span style="font-size:40px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <c:if test="${user.me_authority == 'admin' || user.me_authority == 'manager' || user.me_authority == 'user'}">
+		<span style="font-size:40px;cursor:pointer" onclick="openNav()">&#9776;</span>
+	</c:if>
 </bady>
 <script>
 function openNav() {

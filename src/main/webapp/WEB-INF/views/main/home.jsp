@@ -453,6 +453,7 @@ li {
 <title>Home</title>
 </head>
 <body>
+
 	<!-- 
 <div class="sidenav">
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
@@ -700,12 +701,6 @@ function addProducts(products){
 	$(".product-list").html(str);
 }
 
-
-
 </script>
-
-
 </body>
-
-
 </html>
