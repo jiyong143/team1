@@ -91,6 +91,7 @@ li {
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 	<div
 		class="mt-3 mx-auto box-content max-w-[1024px] min-[1600px]:max-w-[1280px] basis-[calc(100%-180px)] flex-grow px-0 md:px-0 2xl:px-0">
 		<div class="block mt-8 lg:mt-[72px] mb-5 lg:mb-0">
