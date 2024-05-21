@@ -453,24 +453,7 @@ li {
 <title>Home</title>
 </head>
 <body>
-
-	<!-- 
-<div class="sidenav">
-
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
-<div>
-
-
-</div>
-
-
-  <a href="<c:url value="/product/insert"/>">판매하기</a>
-  <a href="<c:url value="/report/list"/>">신고</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
-</div>   
--->
-
 
 	<h3
 		class="newProduct text-lg md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">방금
