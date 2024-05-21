@@ -122,7 +122,10 @@ table tr th, table tr td {
     cursor: pointer;
    
 }
-    
+body {
+	margin: 0;
+	line-height: inherit;
+}
 </style>
 </head>
 <body>

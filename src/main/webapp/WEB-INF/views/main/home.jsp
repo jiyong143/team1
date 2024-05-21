@@ -118,7 +118,6 @@ body {
 }
 
 html {
-	line-height: 1.5;
 	-webkit-text-size-adjust: 100%;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
@@ -192,17 +191,11 @@ body, html {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body {
-	margin: 0;
-	line-height: inherit;
-}
-
 html {
 	-webkit-tap-highlight-color: transparent;
 }
 
 html {
-	line-height: 1.5;  
 	-webkit-text-size-adjust: 100%;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
