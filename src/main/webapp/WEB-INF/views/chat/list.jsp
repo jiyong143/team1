@@ -10,6 +10,13 @@
 	.container{
 		margin-top: 80px;
 		margin-left: 25%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.crvContent{
+		max-width : 255px;
+		overflow: hidden; 
 	}
 </style>
 </head>
@@ -39,7 +46,7 @@
 								<c:if test="${loginUser.me_id ne crv.cr_me_id}">
 									<td onClick="location.href='${url}'">${crv.cr_me_id}</td>
 								</c:if>
-								<td onClick="location.href='${url}'">${crv.chatMessage.cm_content}</td>
+								<td class="crvContent" onClick="location.href='${url}'">${crv.chatMessage.cm_content}</td>
 								<td onClick="location.href='${url}'">${crv.chatMessage.date_str}</td>
 								<td>
 									<button class="declarationBtn btn btn-outline-danger" data-num="${crv.cr_num}">신고하기</button>

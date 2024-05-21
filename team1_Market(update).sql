@@ -74,7 +74,8 @@ CREATE TABLE `report` (
    `re_name`   	 varchar(20)    NOT NULL,
    `re_content`  text 		  	NOT NULL,
    `re_date`   	 dateTime 	  	NOT NULL default now(),
-   `re_cr_num`	 int			NULL
+   `re_cr_num`	 int			NULL,
+   `re_state`	 varchar(30)    NOT NULL default '신고접수'
 );
 
 DROP TABLE IF EXISTS `pick`;
@@ -193,6 +194,17 @@ CREATE TABLE IF NOT EXISTS `addr` (
 SIDO VARCHAR(40) NULL COMMENT '시도명',
 SIGUNGU VARCHAR(20) NULL COMMENT '시군구명',
 h_dong_nm VARCHAR(20) NULL COMMENT '읍면동명'
+);
+
+DROP TABLE IF EXISTS `fixed`;
+
+CREATE TABLE `fixed` (
+	`fix_num`	int	NOT NULL primary key auto_increment,
+	`fix_me_id`	varchar(15)	NOT NULL,
+	`fix_title`	varchar(30)	NOT NULL,
+	`fix_content`	text	NOT NULL,
+	`fix_date`	dateTime	NOT NULL default now(),
+	`fix_view`	int	NOT NULL default 0
 );
 
 ALTER TABLE `midGroup` ADD CONSTRAINT `FK_topGroup_TO_midGroup_1` FOREIGN KEY (
@@ -379,6 +391,13 @@ REFERENCES `member` (
 
 ALTER TABLE `payment_detail` ADD CONSTRAINT `FK_member_TO_payment_detail_1` FOREIGN KEY (
 	`pd_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `fixed` ADD CONSTRAINT `FK_member_TO_fixed_1` FOREIGN KEY (
+	`fix_me_id`
 )
 REFERENCES `member` (
 	`me_id`

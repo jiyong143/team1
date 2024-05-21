@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.cj.Session;
-
 import kr.kh.team1.model.dto.MemberDTO;
 import kr.kh.team1.model.vo.CommentVO;
+import kr.kh.team1.model.vo.FixedVO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReportVO;
@@ -32,6 +30,7 @@ import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
 import kr.kh.team1.service.CommentService;
+import kr.kh.team1.service.FixedService;
 import kr.kh.team1.service.MemberService;
 import kr.kh.team1.service.ProductService;
 import kr.kh.team1.service.ReportService;
@@ -54,6 +53,18 @@ public class LKJController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	FixedService fixedService;
+	
+	@GetMapping("/admin/adminPage")
+	public String adminPage(Model model) {
+		return "/admin/adminPage";
+	}
+	@GetMapping("/admin/managerPage")
+	public String managerPage(Model model) {
+		return "/admin/managerPage";
+	}
 
 	@GetMapping("/surport/list")
 	public String surportList(Model model, Criteria_supot cris) {
@@ -68,11 +79,14 @@ public class LKJController {
 	}
 
 	@GetMapping("/surport/insert")
-	public String surportInsert(Model model) {
+	public String surportInsert(Model model, HttpSession session) {
 		// 고객지원타입 리스트를 화면에 전송 -> 1.공지사항 , 2.문의사항
 		// 글머리 리스트를 화면에 전송 -> 1.필독 , 2.공지 , 3.문의
+		MemberVO loginUser = (MemberVO) session.getAttribute("user");
 		ArrayList<SurportManageVO> surportManageList = surportService.getSurportManageList();
 		ArrayList<UpHeadVO> upHeadList = surportService.getUpHeadList();
+		
+		model.addAttribute("loginUser", loginUser);// 회원정보
 		model.addAttribute("surportManageList", surportManageList);// 지원타입
 		model.addAttribute("upHeadList", upHeadList);// 글머리
 		model.addAttribute("title", "고객문의 등록");
@@ -236,9 +250,9 @@ public class LKJController {
 	//회원관리 END
 	//신고 START
 	@GetMapping("/report/list")
-	public String reportList(Model model, Criteria_report crir) {
+	public String reportList(Model model, Criteria_report crir, String me_id) {
 		crir.setPerPageNum(10);
-		ArrayList<ReportVO> reportList = reportService.getReportList(crir);
+		ArrayList<ReportVO> reportList = reportService.getReportList(me_id, crir);
 		int totalCount = reportService.getReportTotalCount(crir);
 		PageMaker_report pmr = new PageMaker_report(5, crir, totalCount);
 		model.addAttribute(pmr);
@@ -246,19 +260,6 @@ public class LKJController {
 		model.addAttribute("list", reportList);
 		return "/report/list";
 	}
-	/*
-	@GetMapping("/report/insertProduct")
-	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
-		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
-		ProductVO productList = reportService.getRePrNum(rePrNum); //거래글 리스트에서 하나의 거래글만 가져옴
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println(productList);
-		model.addAttribute("member", user);
-		model.addAttribute("info", productList); // 거래글 리스트를 모델에 추가
-	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
-	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
-	}
-	*/
 	@GetMapping("/report/insertProduct")
 	public String reportInsertProd(Model model, int rePrNum) {
 		//거래글 리스트에서 하나의 거래글만 가져옴
@@ -267,22 +268,7 @@ public class LKJController {
 		model.addAttribute("title", "거래글 신고");
 		return "/report/insertProduct";
 	}
-	/*
-	@PostMapping("/report/insertProduct")
-	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
-		System.out.println(report);
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReportProduct(report, user);
-		if(res) {
-			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/product/list");
-		}else {
-			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
-		}
-		return "message";
-	}
-	*/
+
 	@PostMapping("/report/insertProduct")
 	public String reportInsertProdPost(Model model, ReportVO report, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
@@ -292,7 +278,7 @@ public class LKJController {
 			model.addAttribute("url", "/product/list");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
+			model.addAttribute("url", "/");
 		}
 		return "message";
 	}
@@ -351,10 +337,19 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, HttpSession session){
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		boolean res = reportService.updateState(report.getRe_pr_num());
+	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(reportInfo);
+		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
+												reportInfo.getRe_state());
 		
+		int date;
+		if(reportInfo.getRe_state().equals("기간 정지 3일")) {
+			date = 3;
+		}
+		
+		
+		System.out.println(res);
 		return map;
 	}
 	
@@ -364,36 +359,64 @@ public class LKJController {
 		return "/admin/inquityManager";
 	}
 
-	@GetMapping("/surportManage/list")
+	@GetMapping("/fixed/list")
 	// 고정 문의글 리스트
-	public String surportManageList(Model model) {
-		return "/surportManage/list";
-	}	
-
-	@GetMapping("/surportManage/adminList")
-	// 관리자 고정문의 타입 관리
-	public String surportAdminLis(Model model) {
-		return "/surportManage/adminList";
+	public String surportManageList(Model model, Criteria_supot cris) {
+		cris.setPerPageNum(10);
+		ArrayList<FixedVO> fixList = fixedService.getFixList(cris);
+		int totalCount = fixedService.getFixTotalCount(cris);
+		PageMaker_supot pms = new PageMaker_supot(5, cris, totalCount);
+		model.addAttribute("pms", pms);
+		model.addAttribute("title", "고정문의");
+		model.addAttribute("list", fixList);
+		return "/fixed/list";
+	}
+	
+	@GetMapping("/fixed/insert")
+	//고정 문으글 추가 
+	//고정 문의글은 admin, manager만 작성 가능하며 user는 조회만 가능하다 
+	public String fixedInsert(Model model) {
+		model.addAttribute("title", "고정문의 작성");
+		return "/fixed/insert";
+	}
+	
+	@PostMapping("/fixed/insert")
+	public String fixedInsertPost(Model model, FixedVO fixed, HttpSession session) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = fixedService.insertFixPost(fixed, user);
+		System.out.println(fixed);
+		if(res) {
+			model.addAttribute("msg", "고정문의글 작성이 완료되었습니다.");
+			model.addAttribute("url", "/fixed/list");
+		}else {
+			model.addAttribute("msg", "고정문의글 작성이 실패하였습니다.");
+			model.addAttribute("url", "/fixed/insert");
+		}
+		return "message";
+	}
+	
+	@GetMapping("/fixed/detail")
+	public String fixDetail(Model model, int fixNum) {
+		fixedService.fixUpdateView(fixNum);
+		FixedVO fixed = fixedService.getFixed(fixNum);
+		model.addAttribute("fixed", fixed);
+		model.addAttribute("title", "고정문의 상세내역");
+		return "/fixed/detail";//웹페이지 구성해야 함
+	}
+	
+	@GetMapping("/fixed/delete")
+	public String fixedDelete(Model model, int fixNum, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = fixedService.fixedDelete(fixNum, user);
+		if(res) {
+			model.addAttribute("url", "/fixed/list");
+			model.addAttribute("msg", "삭제 처리되었습니다.");
+		}else {
+			model.addAttribute("url", "/fixed/detail?fixNum="+fixNum);
+			model.addAttribute("msg", "삭제 처리 중 오류가 발생하였습니다.");
+		}
+		return "message";
 	}
 
-	// 고정문의 페이지 모음 -> 시작
-	@GetMapping("/surportManage/QnA/QnApage1")
-	public String userQnA(Model model) {
-		return "/surportManage/QnA/QnApage1";
-	}
 
-	@GetMapping("/surportManage/QnA/QnApage2")
-	public String userQnA2(Model model) {
-		return "/surportManage/QnA/QnApage2";
-	}
-
-	@GetMapping("/admin/adminPage")
-	// 관리자 페이지
-	public String adminPage(Model model) {
-		return "/admin/adminPage";
-	}
-	@GetMapping("/admin/managerPage")
-	public String managePage(Model model) {
-		return "/admin/managerPage";
-	}
 }

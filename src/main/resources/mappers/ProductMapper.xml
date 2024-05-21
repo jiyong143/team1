@@ -44,7 +44,9 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
-          
+
+          	  and pr_ps_state != "삭제중"
+
           <if test='cri.order == "desc"'>
               order by pr_price desc
           </if>
@@ -91,6 +93,7 @@
            <if test='cri.banana =="no"'>
               and pr_ps_state != "판매완료"
           </if>
+          and pr_ps_state != "삭제중"
 	</select>
   
   <select id="selectMaxPrice" resultType="int">
@@ -113,7 +116,9 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
+        and pr_ps_state != "삭제중"
   </select>
 
 	<select id="selectMinPrice" resultType="int">
@@ -136,7 +141,9 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
+        and pr_ps_state != "삭제중"
   </select>
 
   <select id="selectAvgPrice" resultType="int">
@@ -159,7 +166,9 @@
         <if test='cri.banana =="no"'>
             and pr_ps_state != "판매완료"
         </if>
+        and pr_ps_state != "삭제중"
         and pr_price > 0
+        and pr_ps_state != "삭제중"
 	</select>
 
 	<select id="selectMypagePro" resultType="kr.kh.team1.model.vo.ProductVO">
@@ -262,4 +271,108 @@
 	  update product set pr_mg_num = #{pro.pr_mg_num} , pr_name=#{pro.pr_name}, pr_place =#{pro.pr_place}, pr_content =#{pro.pr_content}, pr_price=#{pro.pr_price}, pr_ps_state = #{pro.pr_ps_state}, pr_buyId = #{pro.pr_buyId} where pr_num=#{pro.pr_num}
 	</update>
 
+	
+	<select id="selectSearchMaxPrice" resultType="int">
+	  select ifnull(max(pr_price),0) from product   
+          where (pr_name like concat('%', #{cri.search}, '%')
+          or pr_content like concat('%', #{cri.search}, '%')
+          or pr_place like concat('%', #{cri.search}, '%'))
+          and pr_place like concat('%', #{cri.place}, '%')
+          and pr_price between #{cri.minPrice} and #{cri.maxPrice}    
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
+            and pr_ps_state != "판매완료"
+        </if>
+        and pr_price > 0
+        and pr_ps_state != "삭제중"
+	</select>
+	
+	<select id="selectSearchMinPrice" resultType="int">
+	  select ifnull(min(pr_price),0) from product   
+          where (pr_name like concat('%', #{cri.search}, '%')
+          or pr_content like concat('%', #{cri.search}, '%')
+          or pr_place like concat('%', #{cri.search}, '%'))
+          and pr_place like concat('%', #{cri.place}, '%')
+          and pr_price between #{cri.minPrice} and #{cri.maxPrice}    
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
+            and pr_ps_state != "판매완료"
+        </if>
+        and pr_price > 0
+        and pr_ps_state != "삭제중"
+	</select>
+	
+	<select id="selectSearchAvgPrice" resultType="int">
+	  select ifnull(avg(pr_price),0) from product   
+          where (pr_name like concat('%', #{cri.search}, '%')
+          or pr_content like concat('%', #{cri.search}, '%')
+          or pr_place like concat('%', #{cri.search}, '%'))
+          and pr_place like concat('%', #{cri.place}, '%')
+          and pr_price between #{cri.minPrice} and #{cri.maxPrice}    
+        <if test='cri.apple =="no"'>
+            and pr_ps_state != "예약중"
+        </if>
+        <if test='cri.banana =="no"'>
+            and pr_ps_state != "판매완료"
+        </if>
+        and pr_price > 0
+        and pr_ps_state != "삭제중"
+	</select>
+	
+	<select id="selectSearchList" resultMap="ProductMap">
+	  select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
+                              join topgroup on mg_tg_num = tg_num
+           where (pr_name like concat('%', #{cri.search}, '%')
+          or pr_content like concat('%', #{cri.search}, '%')
+          or pr_place like concat('%', #{cri.search}, '%'))
+          and pr_place like concat('%', #{cri.place}, '%')
+          and pr_price between #{cri.minPrice} and #{cri.maxPrice}        
+          <if test='cri.apple =="no"'>
+              and pr_ps_state != "예약중"
+          </if>
+          
+           <if test='cri.banana =="no"'>
+              and pr_ps_state != "판매완료"
+          </if>
+          	  and pr_ps_state != "삭제중"
+          <if test='cri.order == "desc"'>
+              order by pr_price desc
+          </if>
+
+          <if test='cri.order == "asc"'>
+              order by pr_price asc
+          </if>
+
+          <if test='cri.order == "pr_num"'>
+              order by pr_date desc
+          </if>
+          <if test='cri.order == "pr_view"'>
+              order by pr_view desc
+          </if>
+          <if test='cri.order == "pr_basket"'>
+              order by pr_basket desc
+          </if>
+        limit #{cri.pageStart} , #{cri.perPageNum}
+	</select>
+	
+	<select id="selectSearchTotalCount" resultType="int">
+	  select count(*) from product join midgroup on pr_mg_num = mg_num 
+                              join topgroup on mg_tg_num = tg_num
+           where (pr_name like concat('%', #{cri.search}, '%')
+          or pr_content like concat('%', #{cri.search}, '%')
+          or pr_place like concat('%', #{cri.search}, '%'))
+          and pr_place like concat('%', #{cri.place}, '%')
+          and pr_price between #{cri.minPrice} and #{cri.maxPrice}         
+          <if test='cri.apple =="no"'>
+              and pr_ps_state != "예약중"
+          </if> 
+           <if test='cri.banana =="no"'>
+              and pr_ps_state != "판매완료"
+          </if>
+          and pr_ps_state != "삭제중"
+	</select>
 </mapper>

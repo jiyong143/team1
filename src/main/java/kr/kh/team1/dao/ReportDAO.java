@@ -10,7 +10,7 @@ import kr.kh.team1.pagination.Criteria_report;
 
 public interface ReportDAO {
 	
-	ArrayList<ReportVO> selectReportList(@Param("crir") Criteria_report crir);
+	ArrayList<ReportVO> selectReportList(@Param("me_id") String me_id, @Param("crir") Criteria_report crir);
  
 	int selectReportTotalCount(@Param("crir") Criteria_report crir);
 	
@@ -25,6 +25,6 @@ public interface ReportDAO {
 
 	boolean insertReportByIBH(@Param("report") ReportVO report, @Param("cr_num") int cr_num);
 
-	boolean updateState(@Param("re_pr_num") int re_pr_num);
+	boolean updateReState(@Param("re_pr_num") int re_pr_num, @Param("re_state") String re_state);
 
 }

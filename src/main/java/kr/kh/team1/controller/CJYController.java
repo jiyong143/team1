@@ -250,10 +250,11 @@ public class CJYController {
 		String avgPrice = productService.getAvgPrice(mNum, cri);
 		model.addAttribute("maxPrice", maxPrice);
 		model.addAttribute("minPrice", minPrice);
-		model.addAttribute("avgPrice", avgPrice);
+		model.addAttribute("avgPrice", avgPrice); 
 		ArrayList<ProductVO> productList = productService.getProductList(mNum, cri);
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
 		model.addAttribute("search", cri.getSearch());
 		model.addAttribute("place", cri.getPlace());
 		model.addAttribute("minimum", cri.getMinPrice());
@@ -264,6 +265,27 @@ public class CJYController {
 		session.setAttribute("MName", mName);
 		session.setAttribute("TName", tName);
 		return "/product/list";
+	}
+	
+	@GetMapping("/product/search")
+	public String productSearch(Model model, ProductCriteria cri,HttpSession session) {
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("avgPrice", avgPrice); 
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);  
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount);
+		session.setAttribute("search",cri.getSearch());
+		model.addAttribute("place", cri.getPlace());
+		model.addAttribute("minimum", cri.getMinPrice());
+		model.addAttribute("maximum", cri.getMaxPrice());
+		model.addAttribute("pm", pm);
+		model.addAttribute("pList", productList);
+		return "/product/search"; 
 	}
 
 	@GetMapping("/product/list3")
@@ -297,6 +319,7 @@ public class CJYController {
 		ArrayList<ProductVO> productList = productService.getProductList(mNum, cri);
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
 		model.addAttribute("search", cri.getSearch());
 		model.addAttribute("place", cri.getPlace());
 		model.addAttribute("pm", pm);
@@ -310,6 +333,49 @@ public class CJYController {
 		session.setAttribute("TName", tName);
 		return "/product/list";
 	}
+	
+	@GetMapping("/product/search3")
+	public String productSearch3(Model model , ProductCriteria cri) {
+		String min = null;
+		String max = null;
+		if (cri.getMinPrice() == -100) {
+			min = "";
+		} else if (cri.getMinPrice() == 0) {
+			min = "0";
+		} else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			min = formatter.format(cri.getMinPrice());
+		}
+
+		if (cri.getMaxPrice() == 1000000000) {
+			max = "";
+		} else if (cri.getMaxPrice() == 0) {
+			max = "0";
+		} else {
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			max = formatter.format(cri.getMaxPrice());
+		}
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("avgPrice", avgPrice);
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("totalCount",totalCount );
+		model.addAttribute("search", cri.getSearch());
+		model.addAttribute("place", cri.getPlace());
+		model.addAttribute("pm", pm);
+		model.addAttribute("pList", productList);
+		model.addAttribute("min", min);
+		model.addAttribute("max", max);
+		model.addAttribute("minimum", cri.getMinPrice());
+		model.addAttribute("maximum", cri.getMaxPrice());
+		return "/product/search";
+	}
+
 
 	@ResponseBody
 	@GetMapping("/product/list2")
@@ -321,6 +387,7 @@ public class CJYController {
 		int totalCount = productService.getProductTotalCount(mNum, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
 		map.put("place", cri.getPlace());
 		map.put("search", cri.getSearch());
 		map.put("order", cri.getOrder());
@@ -333,6 +400,32 @@ public class CJYController {
 		map.put("num", mNum);
 		map.put("pm", pm);
 		map.put("pList", productList);
+		map.put("maxPrice", maxPrice);
+		map.put("minPrice", minPrice);
+		map.put("avgPrice", avgPrice);
+		return map;
+	}
+	
+	@ResponseBody
+	@GetMapping("/product/search2")
+	public Map<String, Object> productSearch2(ProductCriteria cri) {
+		String maxPrice = productService.getSearchMaxPrice(cri);
+		String minPrice = productService.getSearchMinPrice(cri);
+		String avgPrice = productService.getSearchAvgPrice(cri);
+		ArrayList<ProductVO> productList = productService.getSearchList(cri);
+		int totalCount = productService.getSearchTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", totalCount);
+		map.put("place", cri.getPlace());
+		map.put("search", cri.getSearch());
+		map.put("order", cri.getOrder());
+		map.put("apple", cri.getApple());
+		map.put("banana", cri.getBanana());
+		map.put("min", cri.getMinPrice());
+		map.put("max", cri.getMaxPrice());
+		map.put("pm", pm);
+		map.put("pList", productList); 
 		map.put("maxPrice", maxPrice);
 		map.put("minPrice", minPrice);
 		map.put("avgPrice", avgPrice);
@@ -373,7 +466,6 @@ public class CJYController {
 	public Map<String, Object> idCheckDup(@RequestParam("tg_title") String tg_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		
 		ArrayList<MidGroupVO> midList = topGroupService.getMidGroupListByTopGroup(tg_title);
 
 		map.put("data", midList);
@@ -398,7 +490,12 @@ public class CJYController {
 		int mNum = mGroup.getMg_num();
 		String mName = mg_title;
 		String tName = tg_title;
-		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		String place;
+		if(zip.getSido().equals("세종특별자치시")) {
+			place = zip.getSido() + " " + "		" + " " + zip.getH_dong_nm();	
+		}else {
+			place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		}
 		product.setPr_place(place);
 		
 		if(productService.insertProduct(product, user, file, mg_title)) {
