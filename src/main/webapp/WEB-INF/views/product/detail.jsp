@@ -463,6 +463,10 @@
 		$(".textUl").html(str);
 	}
 
+	let mNum = ${info.pr_mg_num};
+    var mName = "${info.pr_mg_name}";
+    var tName = "${info.pr_tg_name}";
+	
 	$(document).on("click", ".deleteBtn", function(){
 		$.ajax({
 			async : true, //비동기 : true(비동기), false(동기)
@@ -473,11 +477,9 @@
 			success : function (data){
 	            console.log(data);
 	            alert(data.msg);
-	            let mNum = ${info.pr_mg_num};
-	            var mName = ${info.pr_mg_name};
-	            var tName = ${info.pr_tg_name};
+	            
 	            console.log(mNum + " " + mName + " " + tName)
-	            var url = "<c:url value='/product/list'/>" + '?mNum=' + mNum + '&mName=' + mName + '&tName=' + tName;
+	            var url = "<c:url value='/product/list'/>" + '?mNum=' + mNum + '&mName=' + encodeURIComponent(mName) + '&tName=' + encodeURIComponent(tName);
 	            location.href = url;
 			},
 			error : function(jqXHR, textStatus, errorThrown){
