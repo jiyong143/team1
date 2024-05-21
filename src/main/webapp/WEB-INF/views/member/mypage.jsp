@@ -91,6 +91,7 @@ li {
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 	<div
 		class="mt-3 mx-auto box-content max-w-[1024px] min-[1600px]:max-w-[1280px] basis-[calc(100%-180px)] flex-grow px-0 md:px-0 2xl:px-0">
 		<div class="block mt-8 lg:mt-[72px] mb-5 lg:mb-0">
@@ -266,12 +267,16 @@ li {
 							</tr>
 						</thead>
 						<tbody class="addPro1">
-						<c:forEach items="${paymentList}" var="paymentList">	
+						<c:forEach items="${paymentList}" var="paymentList" varStatus="status">	
 							<tr style="font-size: 15px;">
 								<td>${paymentList.pd_date}</td>
 								<td>${paymentList.pd_price}</td>
-								<td><span id="refund" style="font-size:30px; cursor:pointer;"><input id="pd_num" type="hidden" value="${paymentList.pd_num}">
-																							  <input id="pd_price" type="hidden" value="${paymentList.pd_price}">&times;</span></td>
+								<td class="refund">
+									<span style="font-size:30px; cursor:pointer;">
+										<input class="pd_num" type="hidden" value="${paymentList.pd_num}">
+										<input class="pd_price" type="hidden" value="${paymentList.pd_price}">&times;
+									</span>
+								</td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -329,9 +334,9 @@ li {
 				});
 			}
 		})
-		$("#refund").click(function() {
-			let pdNum = $("#pd_num").val();
-			let pdPrice = $("#pd_price").val();
+		$(".refund ").click(function() {
+			let pdNum = $(this).find(".pd_num").val();
+			let pdPrice = $(this).find(".pd_price").val();
 			let obj = {
 				pdNum, pdPrice
 			};
@@ -341,15 +346,35 @@ li {
 				type : 'post',
 				dataType : "json",
 				data : obj,
-				success : function (res){
-					if(res=="fail") {
-						alert("이미 사용하신 포인트는 환불될 수 없습니다.");
-					} else {
+				success : function (data){
+					if(data.res!=null) {
 						
+						// 인증 토큰 발급 받기
+						$.ajax({
+						  url: "https://api.iamport.kr/users/getToken",
+						  // POST method
+						  method: "post", 
+						  // "Content-Type": "application/json"
+						  headers: { "Content-Type": "application/json" }, 
+						  data: {
+						    // REST API키
+						    imp_key: "7442505070824768", 
+						    // REST API Secret
+						    imp_secret: "1UdCsxDijVKXClM1VqND28qfXu2dxDB1IH0WI8hXCrqHK6lpO19qHdK1StRauemvxfhoog6ApuT47YyM" 
+						  },
+						  success : function(res){
+							  alert("엑세스 토큰 : " + res.getResponseCode);
+						  },
+						  error : function(jqXHR, textStatus, errorThrown) {
+							  alert("엑세스 토큰 발급 오류");
+						  }
+						 });
+						
+						alert(data.res);
 					}
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
-					
+					alert("오류");
 				}
 			});
 		});

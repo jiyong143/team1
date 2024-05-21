@@ -10,6 +10,7 @@
 	.container{
 		margin-top: 80px;
 		width: 800px;
+		max-height : 100%;
 	}
 	.container>*{
 		margin:5px;
@@ -18,7 +19,7 @@
 	.y-container{ 
 	 	 border: 1px solid black; border-radius:20px; display: grid;
 	     gap : 10px; padding : 5px; float: left; height: auto;
-	     overflow: auto; margin-bottom :10px; background-color: violet;
+	     margin-bottom :10px; background-color: violet;
 	     overflow-wrap: break-word; /* 긴 단어가 div의 폭을 넘어서면 줄바꿈을 한다 */
 	     grid-template-columns: repeat(3, 130px);
 	     grid-template-rows: repeat(3, 30px);
@@ -72,17 +73,21 @@
 	.input-box{
 		margin-bottom: 10px;
 	}
+	.containerA{overflow-y: auto;}
+	.containerA::-webkit-scrollbar{display: none;}
    </style>
 </head>
 <body>
 <div class="container">
-	<input type="hidden" value="${error}" class="error">
-	<div class="moreBox">
-		<div class="more">
-			<button class="chatmore btn btn-outline-success" onClick="moreChat()">더 보기</button>
+	<div class="containerA">
+		<input type="hidden" value="${error}" class="error">
+		<div class="moreBox">
+			<div class="more">
+				<button class="chatmore btn btn-outline-success" onClick="moreChat()">더 보기</button>
+			</div>
 		</div>
+		<div class="msg-list"></div>
 	</div>
-	<div class="msg-list"></div>
 	<form id="sseForm">
 		<div class="input-group mb-3 input-box">
 			<input type="text" class="form-control" id="msg" name="msg" placeholder="입력창">

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team1.model.dto.MemberDTO;
+import kr.kh.team1.model.vo.ChatRoomVO;
+import kr.kh.team1.model.vo.ChatStateVO;
 import kr.kh.team1.model.vo.CommentVO;
 import kr.kh.team1.model.vo.FixedVO;
 import kr.kh.team1.model.vo.MemberVO;
@@ -29,6 +31,7 @@ import kr.kh.team1.pagination.Criteria_supot;
 import kr.kh.team1.pagination.PageMaker_member;
 import kr.kh.team1.pagination.PageMaker_report;
 import kr.kh.team1.pagination.PageMaker_supot;
+import kr.kh.team1.service.ChatService;
 import kr.kh.team1.service.CommentService;
 import kr.kh.team1.service.FixedService;
 import kr.kh.team1.service.MemberService;
@@ -56,6 +59,9 @@ public class LKJController {
 	
 	@Autowired
 	FixedService fixedService;
+	
+	@Autowired
+	ChatService chatService;
 	
 	@GetMapping("/admin/adminPage")
 	public String adminPage(Model model) {
@@ -260,19 +266,6 @@ public class LKJController {
 		model.addAttribute("list", reportList);
 		return "/report/list";
 	}
-	/*
-	@GetMapping("/report/insertProduct")
-	public String reportInsertProd(Model model, HttpSession session, int rePrNum) {
-		//ArrayList<ProductVO> productList = reportService.getRePrNum(rePrNum); => 하나의 거래글만 가져오는데 전체 게시글을 가져와 오류발생
-		ProductVO productList = reportService.getRePrNum(rePrNum); //거래글 리스트에서 하나의 거래글만 가져옴
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		System.out.println(productList);
-		model.addAttribute("member", user);
-		model.addAttribute("info", productList); // 거래글 리스트를 모델에 추가
-	    model.addAttribute("title", "거래글 신고"); // 제목을 모델에 추가
-	    return "/report/insertProduct"; // 거래글 신고 페이지로 이동
-	}
-	*/
 	@GetMapping("/report/insertProduct")
 	public String reportInsertProd(Model model, int rePrNum) {
 		//거래글 리스트에서 하나의 거래글만 가져옴
@@ -281,22 +274,7 @@ public class LKJController {
 		model.addAttribute("title", "거래글 신고");
 		return "/report/insertProduct";
 	}
-	/*
-	@PostMapping("/report/insertProduct")
-	public String reportInsertProdPost(Model model, ReportVO report, HttpSession session) {
-		System.out.println(report);
-		MemberVO user = (MemberVO) session.getAttribute("user");
-		boolean res = reportService.insertReportProduct(report, user);
-		if(res) {
-			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/product/list");
-		}else {
-			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
-		}
-		return "message";
-	}
-	*/
+
 	@PostMapping("/report/insertProduct")
 	public String reportInsertProdPost(Model model, ReportVO report, MemberVO member, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user");
@@ -306,7 +284,7 @@ public class LKJController {
 			model.addAttribute("url", "/product/list");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/product/detail");
+			model.addAttribute("url", "/");
 		}
 		return "message";
 	}
@@ -365,10 +343,47 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<Integer, Object> reportState(Model model, @RequestBody ReportVO report, HttpSession session){
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
-		boolean res = reportService.updateState(report.getRe_pr_num());
+	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, MemberVO memberInfo, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(reportInfo);
+
+		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
+												  reportInfo.getRe_state(),
+												  memberInfo.getMe_state());
 		
+		int date = 0;
+		switch (reportInfo.getRe_state()) {
+			case "기간정지 : 3일":
+				date = 3;
+				break;
+			case "기간정지 : 7일":
+				date = 7;
+				break;
+			case "기간정지 : 14일":
+				date = 14;
+				break;
+			case "기간정지 : 21일":
+				date = 21;
+				break;
+			default:
+				break;
+		}
+		
+		ProductVO pro;
+		if(reportInfo.getRe_pr_num() != 0) {
+			pro = productService.getProductInfo(reportInfo.getRe_pr_num());
+			boolean res2 = reportService.updateStateMember(date, pro.getPr_me_id());
+		}else {
+			// 채팅방 정보 
+			ArrayList<ChatStateVO> idList = chatService.getChatState(reportInfo.getRe_cr_num());
+			if(idList.get(0).getCs_me_id().equals(reportInfo.getRe_me_id())) {	// idList(0)이 신청자일 경우
+				reportService.updateStateMember(date, idList.get(0).getCs_me_id());	// 인덱스 0번이 아닌 1번을 제제
+			}else {	// idList(0)이 신청자가 아닌 경우 => idList(1)이 신청자인 경우
+				reportService.updateStateMember(date, idList.get(1).getCs_me_id());	// 인덱스 1번이 아닌 0번을 제제
+			}
+		}
+		
+		System.out.println(res);
 		return map;
 	}
 	

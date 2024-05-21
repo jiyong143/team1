@@ -24,9 +24,6 @@ public class ReportServiceImp implements ReportService{
 		return reportDao.selectReportList(me_id, crir);
 	}
 	
-
-	
-
 	@Override
 	public int getReportTotalCount(Criteria_report crir) {
 		return reportDao.selectReportTotalCount(crir);
@@ -71,14 +68,33 @@ public class ReportServiceImp implements ReportService{
 		   return false;
 		return reportDao.insertReportByIBH(report, cr_num);
 	}
-	
+
 	@Override
-	public boolean updateState(int re_pr_num) {
-	    if (re_pr_num <= 0) {
-	        return false;
-	    }
-	    return reportDao.updateState(re_pr_num);
+	public boolean updateReState(int re_pr_num, String re_state, String me_state) {
+		if(re_pr_num <= 0 || re_state == null || re_state.isEmpty() || me_state == null || me_state.isEmpty()) {
+			return false;
+		}
+		System.out.println(re_state);
+		return reportDao.updateReState(re_pr_num, re_state, me_state);
 	}
+
+	@Override
+	public boolean updateReStateByChat(int re_cr_num, String re_state) {
+		if(re_cr_num <= 0 || re_state == null || re_state.isEmpty()) {
+			return false;
+		}
+		System.out.println(re_state);
+		return reportDao.updateReStateByChat(re_cr_num, re_state);
+	}
+
+	@Override
+	public boolean updateStateMember(int date, String pr_me_id) {
+		if(pr_me_id == null || pr_me_id.isEmpty() || date == 0)
+			return false;
+		return reportDao.updateStateMember(date, pr_me_id);
+	}
+	
+
 
 
 	

@@ -12,6 +12,8 @@ import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.MainCriteria;
+import kr.kh.team1.pagination.ProductCriteria;
 
 public interface ProductService {
 
@@ -58,5 +60,19 @@ public interface ProductService {
 	void deleteFile(Integer integer);
 
 	int updateProduct(ProductVO pro, MemberVO user, List<Integer> resultList, List<MultipartFile> files);
+
+	String getSearchMaxPrice(ProductCriteria cri);
+
+	String getSearchAvgPrice(ProductCriteria cri);
+
+	String getSearchMinPrice(ProductCriteria cri);
+
+	ArrayList<ProductVO> getSearchList(ProductCriteria cri);
+
+	int getSearchTotalCount(ProductCriteria cri);
+
+	ArrayList<ProductVO> getNewProducts(MainCriteria cri);
+
+	ArrayList<ProductVO> getNewProductsByStart(int start);  
 
 }

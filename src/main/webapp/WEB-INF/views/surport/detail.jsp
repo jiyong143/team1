@@ -50,6 +50,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 	<div class="container">
 		<h1 class="page-title">문의글 상세</h1>
 		<div class="container-box">

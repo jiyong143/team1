@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,11 +96,12 @@ public class PJHController {
 		model.addAttribute("user", user);// user라는 이름으로 전송
 		session.setAttribute("user", user);
 		if (user != null) {
-			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인을 했습니다.");
+			model.addAttribute("url", "/");
 		} else {
-			model.addAttribute("url", "/member/login");
 			model.addAttribute("msg", "로그인을 하지 못했습니다.");
+			model.addAttribute("url", "/member/login");
+			
 		}
 		return "message";
 	}
@@ -308,6 +310,8 @@ public class PJHController {
 	
 	@GetMapping("/member/update")
 	public String updateMember(Model model, HttpSession session) {
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("title", "회원정보수정");
 		MemberVO member = (MemberVO) session.getAttribute("user");
 		model.addAttribute("member", member);
@@ -315,7 +319,11 @@ public class PJHController {
 	}
 
 	@PostMapping("/member/update")
-	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
+	public String updateMemberPost(Model model, MemberVO member, HttpSession session, ZipcodeVO zip) {
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		member.setMe_addr(place);
+		
 		boolean res = memberService.updateMember(member);
 		if (res) {
 			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
@@ -390,15 +398,23 @@ public class PJHController {
 		return "/review/write";
 	}
 	
+	@ResponseBody
 	@PostMapping("/payment/refund")
-	public String paymentRefund(Model model, HttpSession session, @RequestParam("pdNum")int pdNum, @RequestParam("pdPrice")int pdPrice) {
+	public Map<String, Object> paymentRefund(Model model, HttpSession session, @RequestParam("pdNum")int pdNum, @RequestParam("pdPrice")int pdPrice) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
 		String userId = ((MemberVO)session.getAttribute("user")).getMe_id();
+		
 		int myPoint = memberService.getPoint(userId);
+		
 		if(myPoint<pdPrice) {//환불하려는 금액이 저장되어 있는 포인트보다 큰 경우
-			return "fail";
+			map.put("res", "이미 사용한 포인트는 환불할 수 없습니다.");
+			return map;
+		} else {
+			map.put("res", "환불 완료.");
+			return map;
 		}
 		
-		return "message";
 	}
 	
 	@ResponseBody

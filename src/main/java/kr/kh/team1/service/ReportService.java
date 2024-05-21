@@ -22,10 +22,12 @@ public interface ReportService {
 
 	boolean insertReportProd(ReportVO report, MemberVO user);
 
-	boolean updateState(int re_pr_num);
-
 	ArrayList<ReportVO> getReportList(String me_id, Criteria_report crir);
 
+	boolean updateReState(int re_pr_num, String re_state, String me_state);
+
+	boolean updateReStateByChat(int re_cr_num, String re_state);
+
+	boolean updateStateMember(int date, String pr_me_id);
 
 }
-

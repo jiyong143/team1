@@ -31,6 +31,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 	<h1>회원관리</h1>
 	<table id="customers">

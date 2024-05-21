@@ -13,6 +13,8 @@ import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.MainCriteria;
+import kr.kh.team1.pagination.ProductCriteria;
 
 public interface ProductDAO { 
 
@@ -58,6 +60,20 @@ public interface ProductDAO {
 
 	void deleteFile(@Param("fi_num")Integer integer);
 
-	boolean updateProduct(@Param("pro")ProductVO pro); 
+	boolean updateProduct(@Param("pro")ProductVO pro);
+
+	int selectSearchMaxPrice(@Param("cri")ProductCriteria cri);
+
+	int selectSearchAvgPrice(@Param("cri")ProductCriteria cri);
+
+	int selectSearchMinPrice(@Param("cri")ProductCriteria cri);
+
+	ArrayList<ProductVO> selectSearchList(@Param("cri")ProductCriteria cri);
+
+	int selectSearchTotalCount(@Param("cri")ProductCriteria cri);
+
+	ArrayList<ProductVO> selectNewProducts(@Param("cri") MainCriteria cri);
+
+	ArrayList<ProductVO> selectNewProductsByStart(@Param("start")int start);  
 
 }
