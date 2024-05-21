@@ -507,21 +507,12 @@ li {
 }
 
 .place-container {
-	position: absolute;
-	left: 760px;
-	top: 285px;
 }
 
 .checkbox1 {
-	position: absolute;
-	left: 950px;
-	top: 350px;
 }
 
 .checkbox2 {
-	position: absolute;
-	left: 760px;
-	top: 350px;
 }
 
 .float-right {
@@ -666,41 +657,26 @@ li {
 					<td style="font-size: 20px; font-weight: bold;">주소</td>
 					<td class="price-filter" style="text-align: left">
 						<div class="place-container">
-							<input type="text"
-								class="place-input w-[152px] border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium"
-								placeholder="장소를 입력하세요" data-idx="0" name="place"
+							<input type="text" class="place-input border rounded border-jnGray-200 py-[10px] px-4 text-sm font-medium" style="vertical-align:middle;" placeholder="장소를 입력하세요" name="place"
 								value="${place }" autocomplete="off">
 							<button
-								class="w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
-								style="background-color: black">적용</button>
+								class="w-full lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								style="background-color: black; vertical-align:middle;">적용</button>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">옵션</td>
 					<td>
-						<ul class="flex undefined">
-							<li class="mr-5">
-								<div class="state-option">
-									<div class="checkbox-group checkbox1">
-										<input id="saleYn" name="apple" type="checkbox"
-											<c:if test="${pm.cri.apple == 'yes' }">checked</c:if>
-											value="yes"> <label for="saleYn"
-											class="checkbox-label"> <span class="checkbox-text">예약중
-												상품 포함</span>
-										</label>
-									</div>
-									<div class="checkbox-group checkbox2">
-										<input id="saleZn" name="banana" type="checkbox"
-											<c:if test="${pm.cri.banana == 'yes' }">checked</c:if>
-											value="yes"> <label for="saleZn"
-											class="checkbox-label"> <span class="checkbox-text">판매완료
-												상품 포함</span>
-										</label>
-									</div>
-								</div>
-							</li>
-						</ul>
+						<div class="float-left state-option">
+							<input id="saleYn" name="apple" type="checkbox"
+								<c:if test="${pm.cri.apple == 'yes' }">checked</c:if>
+								value="yes"> 
+							<label for="saleYn" class="checkbox-label"> <span class="checkbox-text">예약중 상품 포함</span></label>
+							<input id="saleZn" name="banana" type="checkbox"
+								<c:if test="${pm.cri.banana == 'yes' }">checked</c:if> value="yes"> 
+							<label for="saleZn" class="checkbox-label"> <span class="checkbox-text">판매완료 상품 포함</span></label>
+						</div>
 					</td>
 				</tr>
 			</tbody>
