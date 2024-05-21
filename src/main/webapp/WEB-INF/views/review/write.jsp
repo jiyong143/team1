@@ -12,6 +12,10 @@
 	box-sizing: border-box;
 }
 
+label {
+	margin-bottom:0px;
+}
+
 #btnWrap {
 	width: 500px;
 	margin: 100px auto;
@@ -61,10 +65,11 @@
 	content: "\00d7";
 	font-size: 30pt;
 }
+
 </style>
 </head>
 <body>
-	<div class="container text-center mt-3">
+	<div class="container mt-3">
 	<h1>리뷰 가능한 판매글 목록</h1>
 		<table class="table table-hover text-center">
 			<thead>
@@ -100,13 +105,12 @@
 				<fieldset>
 					<legend>상대방의 후기를 작성해주세요</legend>
 					<form action="<c:url value='/review/write'/>" method="post">
-					<input name="prNum" id="prNum" type="hidden" value="10"/>
+						<input name="prNum" id="prNum" type="hidden" value="10"/>
 						<c:forEach items="${reviewType}" var="reviewType">
 							<c:if test="${reviewType.rt_type!='default'}">
-								<div>
-									<input type="checkbox" id="${reviewType.rt_type}" value="${reviewType.rt_type}"
-										name="rt_type"/> <label
-										for="${reviewType.rt_type}">${reviewType.rt_type}</label>
+								<div class="mb-1">
+									<input class="" style="" type="checkbox" id="${reviewType.rt_type}" value=" ${reviewType.rt_type}" name="rt_type"/>
+									<label for="${reviewType.rt_type}">&nbsp;&nbsp;${reviewType.rt_type}</label>
 								</div>
 							</c:if>
 						</c:forEach>
