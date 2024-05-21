@@ -108,7 +108,7 @@ label {
 						<input name="prNum" id="prNum" type="hidden" value="10"/>
 						<c:forEach items="${reviewType}" var="reviewType">
 							<c:if test="${reviewType.rt_type!='default'}">
-								<div class="mb-1">
+								<div class="mb-3">
 									<input class="" style="" type="checkbox" id="${reviewType.rt_type}" value=" ${reviewType.rt_type}" name="rt_type"/>
 									<label for="${reviewType.rt_type}">&nbsp;&nbsp;${reviewType.rt_type}</label>
 								</div>
