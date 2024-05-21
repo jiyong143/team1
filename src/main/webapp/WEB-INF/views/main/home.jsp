@@ -538,6 +538,7 @@ li {
 		</c:forEach>
 	</div>
 
+    <input class="page" type="hidden" value="1">
     <!-- 오른쪽 -->
     <c:if test="${next}">
 	<button
@@ -619,8 +620,8 @@ li {
 <script type="text/javascript">
 
 $(".next-button").on("click", function(){
-	var page = '${page +1}';
-	
+	let page = $(".page").val();
+	page = Number(page) +1;	
 	let obj = { 	
 			"page" : page
 		};
@@ -632,6 +633,7 @@ $(".next-button").on("click", function(){
 			dataType : "json", 
 			success : function (data){
 				addProducts(data.products);
+				//savePage()
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
