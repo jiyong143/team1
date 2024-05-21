@@ -30,6 +30,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 	<form action="<c:url value="/product/insert"/>" method="post" enctype="multipart/form-data" id="productForm">
 		<h1>상품 등록</h1>

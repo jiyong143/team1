@@ -96,11 +96,12 @@ public class PJHController {
 		model.addAttribute("user", user);// user라는 이름으로 전송
 		session.setAttribute("user", user);
 		if (user != null) {
-			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인을 했습니다.");
+			model.addAttribute("url", "/");
 		} else {
-			model.addAttribute("url", "/member/login");
 			model.addAttribute("msg", "로그인을 하지 못했습니다.");
+			model.addAttribute("url", "/member/login");
+			
 		}
 		return "message";
 	}
@@ -309,6 +310,8 @@ public class PJHController {
 	
 	@GetMapping("/member/update")
 	public String updateMember(Model model, HttpSession session) {
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("title", "회원정보수정");
 		MemberVO member = (MemberVO) session.getAttribute("user");
 		model.addAttribute("member", member);
@@ -316,7 +319,11 @@ public class PJHController {
 	}
 
 	@PostMapping("/member/update")
-	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
+	public String updateMemberPost(Model model, MemberVO member, HttpSession session, ZipcodeVO zip) {
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		member.setMe_addr(place);
+		
 		boolean res = memberService.updateMember(member);
 		if (res) {
 			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());

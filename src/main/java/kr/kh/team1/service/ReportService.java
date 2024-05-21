@@ -24,7 +24,7 @@ public interface ReportService {
 
 	ArrayList<ReportVO> getReportList(String me_id, Criteria_report crir);
 
-	boolean updateReState(int re_pr_num, String re_state);
+	boolean updateReState(int re_pr_num, String re_state, String me_state);
 
 	boolean updateReStateByChat(int re_cr_num, String re_state);
 

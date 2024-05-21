@@ -343,13 +343,13 @@ public class LKJController {
 	
 	@ResponseBody
 	@PostMapping("/report/list")
-	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, HttpSession session){
+	public Map<String, Object> updateReState(Model model, ReportVO reportInfo, MemberVO memberInfo, HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(reportInfo);
-		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(), reportInfo.getRe_state());
-		if(res == false) {
-			res = reportService.updateReStateByChat(reportInfo.getRe_cr_num(), reportInfo.getRe_state());
-		}
+
+		boolean res = reportService.updateReState(reportInfo.getRe_pr_num(),
+												  reportInfo.getRe_state(),
+												  memberInfo.getMe_state());
 		
 		int date = 0;
 		switch (reportInfo.getRe_state()) {

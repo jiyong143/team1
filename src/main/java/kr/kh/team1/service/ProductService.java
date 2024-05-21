@@ -12,6 +12,7 @@ import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.MainCriteria;
 import kr.kh.team1.pagination.ProductCriteria;
 
 public interface ProductService {
@@ -68,6 +69,10 @@ public interface ProductService {
 
 	ArrayList<ProductVO> getSearchList(ProductCriteria cri);
 
-	int getSearchTotalCount(ProductCriteria cri); 
+	int getSearchTotalCount(ProductCriteria cri);
+
+	ArrayList<ProductVO> getNewProducts(MainCriteria cri);
+
+	ArrayList<ProductVO> getNewProductsByStart(int start);  
 
 }

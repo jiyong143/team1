@@ -9,7 +9,7 @@
 <style type="text/css">
 	.container{
 		margin-top: 80px;
-		margin-left: 25%;
+		margin-left: 200px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 	<div class="container">
 		<table class="table table-hover">
 			<thead>

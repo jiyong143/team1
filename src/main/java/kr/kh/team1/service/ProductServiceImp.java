@@ -18,6 +18,7 @@ import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.pagination.Criteria;
+import kr.kh.team1.pagination.MainCriteria;
 import kr.kh.team1.pagination.ProductCriteria;
 import kr.kh.team1.utils.UploadFileUtils;
 
@@ -296,6 +297,16 @@ public class ProductServiceImp implements ProductService{
 	@Override
 	public int getSearchTotalCount(ProductCriteria cri) {
 		return productDao.selectSearchTotalCount(cri);  
+	}
+
+	@Override
+	public ArrayList<ProductVO> getNewProducts(MainCriteria cri) {
+		return productDao.selectNewProducts(cri);
+	}
+
+	@Override
+	public ArrayList<ProductVO> getNewProductsByStart(int start) {
+		return productDao.selectNewProductsByStart(start); 
 	}
 
 }
