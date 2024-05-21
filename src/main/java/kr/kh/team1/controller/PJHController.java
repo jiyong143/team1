@@ -309,6 +309,8 @@ public class PJHController {
 	
 	@GetMapping("/member/update")
 	public String updateMember(Model model, HttpSession session) {
+		ArrayList<ZipcodeVO> sidoList = topGroupService.getSidoList();
+		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("title", "회원정보수정");
 		MemberVO member = (MemberVO) session.getAttribute("user");
 		model.addAttribute("member", member);
@@ -316,7 +318,11 @@ public class PJHController {
 	}
 
 	@PostMapping("/member/update")
-	public String updateMemberPost(Model model, MemberVO member, HttpSession session) {
+	public String updateMemberPost(Model model, MemberVO member, HttpSession session, ZipcodeVO zip) {
+		
+		String place = zip.getSido() + " " + zip.getSigungu() + " " + zip.getH_dong_nm();
+		member.setMe_addr(place);
+		
 		boolean res = memberService.updateMember(member);
 		if (res) {
 			MemberVO user = memberService.getMember(((MemberVO) session.getAttribute("user")).getMe_id());
