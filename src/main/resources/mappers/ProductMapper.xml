@@ -382,7 +382,7 @@
 	   order by pr_date desc  
 	   limit #{cri.start} , 6 
 	</select>
-	<select id="selectNewProductByStart" resultMap="ProductMap">
+	<select id="selectNewProductsByStart" resultMap="ProductMap">
 	select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
                               join topgroup on mg_tg_num = tg_num
 	   order by pr_date desc  

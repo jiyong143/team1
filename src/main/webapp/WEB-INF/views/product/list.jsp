@@ -1302,10 +1302,7 @@ function sendPlace(place) {
 	            </div>
 	           </div>
 	        </a>
-	        `
-	       /*  <c:if test="${loop.index % 5 == 4}"> <!-- 한 줄에 5개의 상품이 들어가면 줄 바꿈 -->
-	            <br>
-	        </c:if> */		
+	        `	
 		}
 		$(".product-list").html(str);
 	}

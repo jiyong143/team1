@@ -73,6 +73,6 @@ public interface ProductService {
 
 	ArrayList<ProductVO> getNewProducts(MainCriteria cri);
 
-	ArrayList<ProductVO> getNewProductsByStart(int start); 
+	ArrayList<ProductVO> getNewProductsByStart(int start);  
 
 }

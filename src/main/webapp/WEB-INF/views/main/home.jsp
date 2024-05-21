@@ -625,7 +625,8 @@ li {
 <script type="text/javascript">
 
 $(".next-button").on("click", function(){
-	var page = '${page}'+1;
+	var page = '${page +1}';
+	
 	let obj = { 	
 			"page" : page
 		};
@@ -636,13 +637,76 @@ $(".next-button").on("click", function(){
 			data : obj,
 			dataType : "json", 
 			success : function (data){
-				console.log(data.products);
+				addProducts(data.products);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
 			}
 		});
 });
+
+function addProducts(products){
+	let str='';
+	for(pro of products) {
+		str += 
+			`
+			<a href="<c:url value="/product/detail?pNum=\${pro.pr_num}"/>" style="color : black;">
+            <div class="product-container"> 
+                <!-- 이미지 추가 -->
+                <div class="product-image">
+            `
+            if(pro.fileList.length >= 1){
+                  str += `<img src="<c:url value='/download\${pro.fileList[0].fi_name}'/>" alt="${pro.pr_name}">`
+            }
+            str += `
+                </div>
+                <div class="product-box">
+                    <h7 class="product-name">\${pro.pr_name}</h7>
+                    <div class="product-information">
+                    <p class="price">
+              	`;
+            if(pro.pr_price == 0){
+            	str += `<span style="font-weight: bold; font-size: 18px;">무료 나눔🧡</span>`
+            }else if(pro.pr_price < 0){
+            	str += `<span style="font-size: 17px; color: #808080; font-weight: bold;">가격 제안</span>`
+            }else{
+            	str += `<span style="font-weight: bold; font-size: 20px;">\${pro.price }원</span>`
+            }
+            
+                str += `
+                    </p>
+                    <p class="state">
+                    `;
+                    
+            if(pro.pr_ps_state === '판매완료'){
+            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                         <rect x="0" y="0" width="40" height="20" rx="4" fill="#708090"></rect>
+                         <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="10">판매완료</text>`
+                        
+                       
+            }else if(pro.pr_ps_state === '예약중'){
+            	str += `<svg width="50" height="30" viewBox="0 0 40 20" xmlns="http://www.w3.org/2000/svg">
+                         <rect x="0" y="0" width="40" height="20" rx="4" fill="#0DCC5A"></rect>
+                         <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" fill="white" font-size="12">예약중</text>`                                       
+            }
+            
+               str += `
+                    </svg>
+                    </p>
+                    </div>
+                    <div class="bottom-container">
+                    <span class="text-sm text-gray-400 bottom-text">\${pro.dong}</span>
+                    <span class="text-sm text-gray-400 mx-1 bottom-text">|</span>
+                    <span class="text-sm text-gray-400 bottom-text">\${pro.time}</span>
+                </div>
+            </div>
+           </div>
+        </a>
+        `	
+	}
+	$(".product-list").html(str);
+}
+
 
 
 </script>

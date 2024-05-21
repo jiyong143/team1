@@ -59,7 +59,7 @@ public class HomeController {
 		model.addAttribute("page",page);
 		model.addAttribute("prev",prev);
 		model.addAttribute("next",next);
-		model.addAttribute("products",products);
+		model.addAttribute("products",products); 
 		return "/main/home"; 
 	}
 	
