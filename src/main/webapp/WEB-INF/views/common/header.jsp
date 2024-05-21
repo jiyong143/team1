@@ -109,6 +109,8 @@ table tr th, table tr td {
     border-radius: 10px;
     outline: none;
     width: 300px;
+    margin-left: 90px;
+    
 }
 
 .search-container button {
@@ -118,6 +120,7 @@ table tr th, table tr td {
     color: white;
     border-radius: 10px;
     cursor: pointer;
+   
 }
     
 </style>
@@ -203,9 +206,6 @@ table tr th, table tr td {
                <button type="submit">검색</button>
               </form>
             </li>
-				<li class="nav-item">
-					<a class="nav-link btn btn-dark text-white font-weight-bold" href="<c:url value="/fixed/list"/>">고정문의</a>
-				</li>
 		</ul>
 		<!-- Left links -->
 		</div>
