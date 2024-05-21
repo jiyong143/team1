@@ -72,9 +72,7 @@ public class HomeController {
 			start = 6*(page-1);
 		}
 		
-		
 		HashMap<String, Object> map = new HashMap<String, Object>(); 
-		
 		ArrayList <ProductVO> products = productService.getNewProductsByStart(start);    
 		map.put("products", products);
 		map.put("page", page);

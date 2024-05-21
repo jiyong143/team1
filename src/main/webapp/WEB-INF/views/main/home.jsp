@@ -449,6 +449,12 @@ li {
 	font-size: 25px;
 }
 
+.prev-button{
+position: absolute;
+	left: 380px;
+}
+
+
 </style>
 <title>Home</title>
 </head>
@@ -538,12 +544,12 @@ li {
 		</c:forEach>
 	</div>
 
-    <input class="page" type="hidden" value="1">
+    <input id="page" class="page" type="hidden" value="1">
     <!-- 오른쪽 -->
-    <c:if test="${next}">
+    
 	<button
 		class="next-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
-		id="recent-next" aria-label="next-button">
+		id="next" aria-label="next-button">
 		<svg width="26" height="28" viewBox="0 0 26 28" fill="none"
 			xmlns="http://www.w3.org/2000/svg" class="rotate-[180deg]">
 	<g filter="url(#filter0_d_19461_8348)">
@@ -580,13 +586,12 @@ li {
 	</defs>
 	</svg>
 	</button>
-	</c:if>
 	
 	<!-- 왼쪽 -->
-	<c:if test="${prev }">
-	<button
+	
+	<button style="display : none;"
     class="prev-button w-7 h-7 text-black absolute transition duration-250 transform hover:bg-gray-900 hover:text-white focus:outline-none text-sm md:text-base lg:w-9 lg:h-9 lg:text-xl xl:w-10 xl:h-10 3xl:w-12 3xl:h-12 3xl:text-2xl right-0 bg-white/25 shadow-transparent !w-12 !h-12 rounded-none hidden lg:flex justify-center items-center z-10 top-[66px] min-[1600px]:top-[84px] translate-y-0 m-0"
-    id="recent-next" aria-label="next-button">
+    id="prev" aria-label="next-button">
     <svg width="26" height="28" viewBox="0 0 26 28" fill="none"
          xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_d_19461_8348)">
@@ -615,11 +620,11 @@ li {
         </defs>
     </svg>
 </button>
-</c:if>
 
-<script type="text/javascript">
 
-$(".next-button").on("click", function(){
+<script type="text/javascript">  
+
+$(".next-button").on("click", function(){ 
 	let page = $(".page").val();
 	page = Number(page) +1;	
 	let obj = { 	
@@ -627,19 +632,72 @@ $(".next-button").on("click", function(){
 		};
 		$.ajax({
 			async : false,
-			url : '<c:url value="/product/new"/>', 
+			url : '<c:url value="/product/new"/>',   
 			type : 'get',
 			data : obj,
 			dataType : "json", 
 			success : function (data){
 				addProducts(data.products);
-				//savePage()
+				savePage(data.page);
+				changeNextButton(data.page);
 			}, 
 			error : function(jqXHR, textStatus, errorThrown){
 				console.log(jqXHR.responseText)
 			}
 		});
 });
+
+$(".prev-button").on("click", function(){ 
+	let page = $(".page").val();
+	page = Number(page) -1;	
+	let obj = { 	
+			"page" : page
+		};
+		$.ajax({
+			async : false,
+			url : '<c:url value="/product/new"/>',   
+			type : 'get',
+			data : obj,
+			dataType : "json", 
+			success : function (data){
+				addProducts(data.products);
+				savePage(data.page);
+				changePrevButton(data.page);
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+				console.log(jqXHR.responseText)
+			}
+		});
+});
+
+
+function changePrevButton(page){
+	var prevButton = document.getElementById('prev');
+	var nextButton = document.getElementById('next');
+	
+	nextButton.style.display='block'; // 다음 버튼 보이게 하기
+	if(page==1){
+		prevButton.style.display='none';
+	}
+}
+
+
+
+function changeNextButton(page){
+	var prevButton = document.getElementById('prev');
+	var nextButton = document.getElementById('next');
+	
+	prevButton.style.display='block'; // 이전 버튼 보이게 하기
+	if(page==5){
+		nextButton.style.display='none';
+	}
+}
+
+function savePage(page){
+	var page1 = document.getElementById('page');
+	page1.value='';
+	page1.value=page;
+}
 
 function addProducts(products){
 	let str='';
