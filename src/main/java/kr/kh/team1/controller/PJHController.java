@@ -96,11 +96,12 @@ public class PJHController {
 		model.addAttribute("user", user);// user라는 이름으로 전송
 		session.setAttribute("user", user);
 		if (user != null) {
-			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인을 했습니다.");
+			model.addAttribute("url", "/");
 		} else {
-			model.addAttribute("url", "/member/login");
 			model.addAttribute("msg", "로그인을 하지 못했습니다.");
+			model.addAttribute("url", "/member/login");
+			
 		}
 		return "message";
 	}

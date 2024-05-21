@@ -51,7 +51,6 @@
 	<!-- GuestInterceptor를 등록 -->
 	<beans:bean id="guestInterceptor" 
 		class="kr.kh.team1.interceptor.GuestInterceptor"/>
-		
 	<!-- AdminInterceptor를 등록 -->
 	<beans:bean id="AdminInterceptor" 
 		class="kr.kh.team1.interceptor.AdminInterceptor"/>
