@@ -85,4 +85,7 @@
 	<update id="subtractPoint">
 		update member set me_point = me_point - #{price} where me_id = #{me_id}
 	</update>
+	<select id="idCheck" resultType="kr.kh.team1.model.vo.MemberVO">
+		select * from member where me_id = #{id}
+	</select>
 </mapper>

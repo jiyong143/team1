@@ -51,6 +51,8 @@ public interface MemberDAO {
 
 	void subtractPoint(@Param("me_id")String myUser, @Param("price")int pr_price);
 
+	MemberVO idCheck(@Param("id")String id);
+
 	
 
 
