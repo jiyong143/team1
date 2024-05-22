@@ -68,6 +68,7 @@ table tr th, table tr td {
 
 /* 카테고리 메뉴 스타일 */
 .dropdown-menu {
+	width: 100%;
 	border: none; /* 테두리 없음 */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 	border-radius: 8px; /* 모서리 둥글게 */
@@ -129,6 +130,10 @@ body {
 	line-height: inherit;
 }
 
+.col-10 {
+	max-width:100%;
+}
+
 </style>
 </head>
 <body>
@@ -160,7 +165,7 @@ body {
 					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
 					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 
 						 style="border-top-left-radius: 0; border-top-right-radius: 0;">
-						<div class="container">
+						<div class="container" style="margin-left:9.5%;">
 							<div class="row my-4 here"></div>
 						</div>
 					</div>
@@ -232,7 +237,7 @@ function getGroup(){
 			let str = '';
 			for (topGroup of data.tList){
 				str += '<div class="" style="">';
-				str += '<div class="list-group">';
+				str += '<div class="list-group" style="text-align: center;">';
 				str += '<div class="ca-name">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
