@@ -126,6 +126,7 @@ body {
 	margin: 0;
 	line-height: inherit;
 }
+
 </style>
 </head>
 <body>
@@ -233,7 +234,7 @@ function getGroup(){
 				str += '<div class="ca-name">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
-					str += `<div class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
+					str += `<div style="cursor: pointer" class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
 				}
 			}
 			str += '</div>';

@@ -74,6 +74,10 @@ public interface ProductDAO {
 
 	ArrayList<ProductVO> selectNewProducts(@Param("cri") MainCriteria cri);
 
-	ArrayList<ProductVO> selectNewProductsByStart(@Param("start")int start);  
+	ArrayList<ProductVO> selectNewProductsByStart(@Param("start")int start);
+
+	ArrayList<ProductVO> selectPopularProducts();
+
+	ArrayList<ProductVO> selectPopularProductsByStart(@Param("start")int start);  
 
 }
