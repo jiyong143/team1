@@ -124,7 +124,6 @@ body {
 		    <a href="/team1/report/list">신고관리</a>
 		    <a href="/team1/admin/topCategoryManager">대분류 관리</a>
 		   	<a href="/team1/admin/midCategoryManager">중분류 관리</a>
-	  	  	<a href="/team1/fixed/list">고정문의 관리</a>
 	  	</c:if>
 	  	<c:if test="${user.me_authority == 'user'}">
 	  		<a href="/team1/member/mypage">마이페이지</a>
@@ -139,7 +138,7 @@ body {
 	  		<a href="/team1/surport/list">고객지원</a>
   		</c:if>
   		<c:if test="${user.me_authority == 'user' || user.me_authority == 'admin'}">
-	  		<a href="/team1/fixed/list">고정문의</a>
+	  		<a href="/team1/fixed/list">이용정책</a>
   		</c:if>
 	  </div>
 	</div>
