@@ -38,17 +38,11 @@
 	            WHERE su_me_id LIKE CONCAT('%', #{cris.search}, '%')
 	        </if>
     </select>
-	<select id="selectSurportManageList" resultType="SurportManageVO">
-		SELECT * FROM suport_manage
-	</select>
-	<select id="selectUpHeadList" resultType="UpHeadVO">
-		SELECT * FROM up_head
-	</select>
 	<insert id="insertSurport">
 		INSERT INTO 
-			surport (su_sm_num, su_uh_num, su_me_id, su_title, su_content)
+			surport (su_type, su_upHead, su_me_id, su_title, su_content)
 		VALUES 
-			(#{surport.su_sm_num}, #{surport.su_uh_num}, #{surport.su_me_id}, #{surport.su_title}, #{surport.su_content})
+			(#{surport.su_type}, #{surport.su_upHead}, #{surport.su_me_id}, #{surport.su_title}, #{surport.su_content})
 	</insert>
 	<update id="updateView">
 		UPDATE surport SET su_view = su_view + 1 WHERE su_num = #{su_num}
@@ -58,8 +52,6 @@
 	</select>
 	<update id="updateSurport">
 		update surport set 
-			su_sm_num = #{surport.su_sm_num},
-			su_uh_num = #{surport.su_uh_num},
 			su_title = #{surport.su_title},
 			su_content = #{surport.su_content}
 		where

@@ -19,7 +19,7 @@
 	margin: 100px auto;
 }
 
-#modalWrap, #paymentList {
+#modalWrap, #paymentList, #pick {
 	position: fixed; /* 화면에 고정 */
 	z-index: 1; /* 상위에 위치 */
 	padding-top: 100px;
@@ -41,7 +41,7 @@
 	background-color: #fff;
 }
 
-#closeBtn, #closeBtn2 {
+#closeBtn, #closeBtn2, #closeBtn3 {
 	float: right;
 	font-weight: bold;
 	color: #777;
@@ -126,6 +126,7 @@ li {
 								<td id="popupBtn1" style="text-align: center; cursor: pointer;">거래후기</td>
 								<c:if test="${user.me_id == myUserCheck}">
 									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">후기작성</a></td>
+									<td id="pickBtn1" style="text-align: center; cursor: pointer;">찜한상품</td>
 								</c:if>
 							</tr>
 						</thead>
@@ -134,10 +135,12 @@ li {
 								<!-- 거래횟수 -->
 								<td style="text-align: center;">${tradeNum}</td>
 								<!-- 거래후기개수 -->
-								<td id="popupBtn2" style="text-align: center; cursor: pointer;">${reviewNum}</td>
-								<!-- 작성 가능한 후기 개수 -->
+								<td id="popupBtn2" style="text-align: center; cursor: pointer;">${reviewNum}</td>		
 								<c:if test="${user.me_id == myUserCheck}">
+									<!-- 작성 가능한 후기 개수 -->
 									<td style="text-align: center;"><a href="<c:url value='/review/write'/>">${tradeReviewNum}</a></td>
+									<!-- 찜한 상품 개수 -->
+									<td id="pickBtn2" style="text-align: center; cursor: pointer;">${pickNum}</td>
 								</c:if>
 							</tr>
 						</tbody>
@@ -285,6 +288,40 @@ li {
 			</div>
 		</div>
 		
+		<div id="pick">
+			<!-- pick 모달창 -->
+			<div id="modalBody">
+				<!-- 모달을 닫는 X 버튼 -->
+				<span id="closeBtn3">&times;</span>
+				<!-- 모달 창 내용 -->
+				<fieldset>
+					<legend>찜한상품</legend>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="w-50">상품명</th>
+								<th class="w-25">가격</th>
+								<th class="w-25">찜 제거</th>
+							</tr>
+						</thead>
+						<tbody class="addPro1">
+						<c:forEach items="${pickList}" var="pickList">	
+							<tr style="font-size: 15px;">
+								<td>${pickList.pr_name}</td>
+								<td>${pickList.pr_price}</td>
+								<td class="pickDel">
+									<span style="font-size:30px; cursor:pointer;">
+										<input class="pi_num" type="hidden" value="${pickList.pi_num}">&times;
+									</span>
+								</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+					</table>
+				</fieldset>
+			</div>
+		</div>
+		
 	</div>
 	
 	
@@ -292,6 +329,7 @@ li {
 	<script type="text/javascript">
 		const modal = document.getElementById("modalWrap"); // 모달 창 요소 가져오기
 		const paymentList = document.getElementById("paymentList");
+		const pick = document.getElementById("pick");
 		
 		$("#popupBtn1, #popupBtn2").click(function() {
 			modal.style.display = "block"; // 버튼을 클릭하면 모달을 보이게 함
@@ -300,15 +338,6 @@ li {
 		$("#closeBtn").click(function() {
 			modal.style.display = "none"; // 모달을 닫는 버튼(X)을 클릭하면 모달을 숨김
 		});
-
-		window.onclick = function(event) {
-			if (event.target == modal || event.target == paymentList) {
-				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
-				paymentList.style.display = "none";
-			}
-		};
-
-		
 		
 		$("#paymentCheck").click(function() {
 			paymentList.style.display = "block";
@@ -317,6 +346,22 @@ li {
 		$("#closeBtn2").click(function() {
 			paymentList.style.display = "none"; // 모달을 닫는 버튼(X)을 클릭하면 모달을 숨김
 		});
+		
+		$("#pickBtn1, #pickBtn2").click(function() {
+			pick.style.display = "block";
+		});
+		
+		$("#closeBtn3").click(function() {
+			pick.style.display = "none";
+		});
+		
+		window.onclick = function(event) {
+			if (event.target == modal || event.target == paymentList || event.target == pick) {
+				modal.style.display = "none"; // 모달 외부를 클릭하면 모달을 숨김
+				paymentList.style.display = "none";
+				pick.style.display = "none";
+			}
+		};
 		
 		$("#memberDelete").click(function() {
 			if(confirm("탈퇴하시겠습니까?")){
@@ -333,7 +378,29 @@ li {
 					}
 				});
 			}
-		})
+		});
+		
+		$(".pickDel").click(function() {
+			let pi_num = $(this).find(".pi_num").val();
+			let obj = {
+				pi_num
+			};
+			$.ajax({
+				async : false,
+				url : '<c:url value="/pick/delete"/>', 
+				type : 'post',
+				dataType : "json",
+				data : obj,
+				success : function (data){
+					alert(data.msg);
+					location.reload();
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+					alert("찜 삭제 오류");
+				}
+			});
+		});
+		
 		$(".refund ").click(function() {
 			let pdNum = $(this).find(".pd_num").val();
 			let pdPrice = $(this).find(".pd_price").val();

@@ -26,23 +26,14 @@
 <div class="container">
 	<h1 class="page-title">문의글 수정</h1>
 	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">
-	<div class="container-box">
-	 
-		<div class="select-box col-12 mt-4">
-			<label for="suport_manage">지원타입 선택</label>
-			<select class="form-control" id="suport_manage" name="su_sm_num">
-				<c:forEach items="${surportManageList}" var="sm">
-					<option value="${sm.sm_num}">${sm.sm_name}</option>
-				</c:forEach>
-			</select>
+	<div class="container-box"> 
+		<div class="select-box col-12 mt-3">
+			<label for="su_type">지원타입 선택</label> 
+			<input class="form-control" id="su_type" name="su_type" readonly value="${surport.su_type}">
 		</div>
 		<div class="select-box col-12 mt-3">
-			<label for="up_head">말머리 선택</label>
-			<select class="form-control" id="up_head" name="su_uh_num">
-				<c:forEach items="${upHeadList}" var="uh">
-					<option value="${uh.uh_num}">${uh.uh_name}</option>
-				</c:forEach>
-			</select>
+			<label for="su_upHead">말머리 선택</label> 
+			<input class="form-control" id="su_upHead" name="su_upHead" readonly value="${surport.su_upHead}">
 		</div>
 	 
 		<div class="form-group col-12 mt-3">
@@ -71,6 +62,8 @@
 			$("[name-su_content]").focus();
 			return false;
 		}
+		console.log(val);
+		console.log(data);
 		
 	});
 	

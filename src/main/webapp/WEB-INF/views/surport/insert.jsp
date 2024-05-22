@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고정문의 작성</title>
+<title>문의 작성</title>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
@@ -24,36 +24,33 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
-	<h1 class="page-title">고정문의 작성</h1>
+	<h1 class="page-title">문의 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
 		<div class="select-box col-12 mt-4">
-			<label for="suport_manage">지원타입 선택</label>
-			<select class="form-control" id="suport_manage" name="su_sm_num">
-				<c:forEach items="${surportManageList}" var="sm">
-					<c:if test="${loginUser.me_authority != 'user' && sm.sm_name != '문의사항'}">						
-					</c:if>
-					<c:if test="${loginUser.me_authority == 'user' && sm.sm_name == '문의사항'}">
-						<option value="${sm.sm_num}">${sm.sm_name}</option>
-					</c:if>
-				</c:forEach>
-			</select>
+			<label for="su_type">지원타입 선택</label>
+				<select class="form-control" id="su_type" name="su_type">
+				<c:if test="${user.me_authority == 'admin'}">
+					<option value="공지사항" <c:if test='${surport.su_type == "공지사항"}'>selected</c:if>>공지사항</option>
+				</c:if>
+				<c:if test="${user.me_authority == 'user' || user.me_authority == 'admin'}">
+					<option value="문의사항" <c:if test='${surport.su_type == "문의사항"}'>selected</c:if>>문의사항</option>
+					<option value="일반게시글" <c:if test='${surport.su_type == "일반게시글"}'>selected</c:if>>일반게시글</option>
+				</c:if>
+				</select>
 		</div>
 		<div class="select-box col-12 mt-3">
-			<label for="up_head">말머리 선택</label>
-			<select class="form-control" id="up_head" name="su_uh_num">
-				<c:forEach items="${upHeadList}" var="uh">
-					<c:if test="${loginUser.me_authority != 'user' && uh.uh_name != '문의'}">
-						<option value="${uh.uh_num}">${uh.uh_name}</option>
-					</c:if>
-					<c:if test="${loginUser.me_authority == 'user' && uh.uh_name == '문의'}">
-						<option value="${uh.uh_num}">${uh.uh_name}</option>
-					</c:if>
-				</c:forEach>
+			<label for="su_upHead">말머리 선택</label>
+			<select class="form-control" id="su_upHead" name="su_upHead">
+				<c:if test="${user.me_authority == 'admin'}">
+					<option value="공지" <c:if test='${surport.su_upHead == "공지"}'>selected</c:if>>공지</option>
+				</c:if>
+				<c:if test="${user.me_authority == 'user' || user.me_authority == 'admin'}">
+					<option value="문의" <c:if test='${surport.su_upHead == "문의"}'>selected</c:if>>문의</option>
+					<option value="일반" <c:if test='${surport.su_upHead == "일반"}'>selected</c:if>>일반</option>
+				</c:if>
 			</select>
 		</div>
-	 
-	 
 		<div class="form-group col-12 mt-3">
 			<label for="su_title">제목</label>
 			<input type="text" class="form-control" id="su_title" name="su_title" required placeholder="제목을 입력해주세요.">

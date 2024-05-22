@@ -6,23 +6,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.PaymentVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.model.vo.ProductVO;
 import kr.kh.team1.model.vo.ReviewTypeVO;
 import kr.kh.team1.model.vo.TradeOutcomeVO;
@@ -197,6 +194,15 @@ public class PJHController {
 
 		int tradeReviewNum = -1;
 		tradeReviewNum = reviewService.getReviewProList(myUser.getMe_id()).size(); //후기작성
+		
+		//찜
+		
+		int pickNum = -1;
+		pickNum = memberService.getPickNum(myUser.getMe_id());
+		model.addAttribute("pickNum", pickNum);
+		ArrayList<PickVO> pickList = memberService.getPickList(myUser.getMe_id());
+		model.addAttribute("pickList", pickList);
+		//-찜
 		
 		ArrayList<ReviewTypeVO> reviewList = reviewService.getReviewList(); //db에 작성한 후기 타입들
 		
@@ -430,6 +436,15 @@ public class PJHController {
 			memberService.payment(product.getPr_me_id(), myUser, product.getPr_price());
 			map.put("msg", "포인트 결제 완료.");
 		}
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/pick/delete")
+	public Map<String, Object> pickDelete(Model model, @RequestParam("pi_num")int pi_num) {
+		memberService.deletePick(pi_num);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", "찜한 상품이 삭제되었습니다.");
 		return map;
 	}
 
