@@ -268,10 +268,10 @@ public class LKJController {
 		boolean res = reportService.insertReportProd(report, user);
 		if(res) {
 			model.addAttribute("msg", "거래글 신고완료");
-			model.addAttribute("url", "/product/list");
+			model.addAttribute("url", "/");
 		}else {
 			model.addAttribute("msg", "거래글 신고실패");
-			model.addAttribute("url", "/");
+			model.addAttribute("url", "/product/list");
 		}
 		return "message";
 	}
@@ -306,12 +306,10 @@ public class LKJController {
 	@PostMapping("/report/insertChat")
 	public String reportInsertPost(Model model, ReportVO report, HttpSession session, int cr_num) {
 
-		System.out.println(report);
-		System.out.println(cr_num);
 		boolean res = reportService.insertReportByIBH(report, cr_num);
 		if(res) {
 			model.addAttribute("msg", "신고 성공!");
-			model.addAttribute("url", "/report/list");
+			model.addAttribute("url", "/");
 		}else {
 			model.addAttribute("msg", "신고 실패!");
 			model.addAttribute("url", "/report/insertChat?cr_num=" + cr_num);

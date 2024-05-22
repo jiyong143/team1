@@ -145,10 +145,11 @@ CREATE TABLE `trade_outcome` (
 
 DROP TABLE IF EXISTS `surport`;
 
+
 CREATE TABLE `surport` (
    `su_num`   int   NOT NULL primary key auto_increment,
-   `su_sm_num`   int   NOT NULL,
-   `su_uh_num`   int   NOT NULL,
+   `su_type`	varchar(15)   NOT NULL,
+   `su_upHead`  varchar(15)   NOT NULL,
    `su_me_id`   varchar(15)   NOT NULL,
    `su_title`   varchar(30)   NOT NULL,
    `su_content`   text   NOT NULL,
@@ -163,20 +164,6 @@ CREATE TABLE `comment` (
 	`co_content`	text	NOT NULL,
 	`co_su_num`	int	NOT NULL,
 	`co_me_id`	varchar(15)	NOT NULL
-);
-
-DROP TABLE IF EXISTS `suport_manage`;
-
-CREATE TABLE `suport_manage` (
-   `sm_num`   int   NOT NULL primary key auto_increment,
-   `sm_name`   varchar(20)      NOT NULL
-);
-
-DROP TABLE IF EXISTS `up_head`;
-
-CREATE TABLE `up_head` (
-   `uh_num`   int   NOT NULL primary key auto_increment,
-   `uh_name`   varchar(5)   NOT NULL
 );
 
 DROP TABLE IF EXISTS `payment_detail`;
@@ -352,20 +339,6 @@ ALTER TABLE member ADD CONSTRAINT `FK_file_TO_member_1` FOREIGN KEY (
 )
 REFERENCES file (
    `fi_num`
-);
-
-ALTER TABLE `surport` ADD CONSTRAINT `FK_suport_manage_TO_surport_1` FOREIGN KEY (
-   `su_sm_num`
-)
-REFERENCES `suport_manage` (
-   `sm_num`
-);
-
-ALTER TABLE `surport` ADD CONSTRAINT `FK_up_head_TO_surport_1` FOREIGN KEY (
-   `su_uh_num`
-)
-REFERENCES `up_head` (
-   `uh_num`
 );
 
 ALTER TABLE `surport` ADD CONSTRAINT `FK_member_TO_surport_1` FOREIGN KEY (

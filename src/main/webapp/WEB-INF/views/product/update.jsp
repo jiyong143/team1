@@ -391,7 +391,7 @@ img {
 					class="flex items-center justify-center w-20 h-20 mr-1.5 bg-jnGray-200 rounded"
 					onclick="openFilePicker()">
 					<div class="flex flex-col">
-						<svg width="32px" height="32px" viewBox="0 0 32 32" fill="none"
+						<svg width="32px" height="38px" viewBox="0 0 32 32" fill="none"
 							xmlns="http://www.w3.org/2000/svg" class="">
 	          <path fill-rule="evenodd" clip-rule="evenodd"
 								d="M15.728 20.4461C13.6481 20.4461 11.9619 18.7599 11.9619 16.68C11.9619 14.6001 13.6481 12.9138 15.728 12.9138C17.8079 12.9138 19.4942 14.6001 19.4942 16.68C19.4942 18.7599 17.8079 20.4461 15.728 20.4461Z"
@@ -525,7 +525,7 @@ img {
 		<div class="content-update">
 			<textarea id="product-content" name="product-content"
 				class="px-4 py-3 items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0 bg-white border border-gray-300 focus:shadow focus:outline-none focus:border-heading placeholder-body inline-block w-full px-4 py-4 mt-6 outline-none align-middle overflow-x-scroll appearance-none resize-none border-solid border border-jnGray-300 placeholder:text-jnGray-500 h-[220px] text-sm"
-				autocomplete="off" spellcheck="false" rows="20"
+				autocomplete="off" spellcheck="false" rows="26"
 				data-gtm-form-interact-field-id="0"
 				placeholder="- 상품명(브랜드)																																																- 모델명																																																- 구매 시기																																																- 사용 기간																																																- 하자 여부																																																* 실제 촬영한 사진과 함께 상세 정보를 입력해주세요.																																																																																																 																																																안전하고 건전한 거래환경을 위해 과학기술정보통신부,                 한국인터넷진흥원, 가지가 함께합니다.">${pro.content }</textarea>
 			<p id="contentMessage"></p>
