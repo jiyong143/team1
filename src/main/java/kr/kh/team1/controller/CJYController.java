@@ -532,7 +532,6 @@ public class CJYController {
 			model.addAttribute("pick", pick);
 			model.addAttribute("loginUser", loginUser);
 		}
-
 		model.addAttribute("prUser", prUser);
 		model.addAttribute("tradeNum", tradeNum);
 		model.addAttribute("reviewNum", reviewNum);

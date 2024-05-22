@@ -33,11 +33,12 @@
 }
 
 .ca-name {
-	color : white;
-	background-color: red;
+	font-size: 18px;
+	background: #4A4C4E;
 	padding: 0 10px;
 	font-weight: bold;
-	color: #787878;
+	color: white;
+	font-weight: bold;
 	border-radius: 10px;
 	margin-left: 5px
 }
@@ -67,6 +68,7 @@ table tr th, table tr td {
 
 /* 카테고리 메뉴 스타일 */
 .dropdown-menu {
+	width: 100%;
 	border: none; /* 테두리 없음 */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 	border-radius: 8px; /* 모서리 둥글게 */
@@ -127,6 +129,11 @@ body {
 	margin: 0;
 	line-height: inherit;
 }
+
+.col-10 {
+	max-width:100%;
+}
+
 </style>
 </head>
 <body>
@@ -158,7 +165,7 @@ body {
 					   data-mdb-toggle="dropdown" aria-expanded="false">카테고리</a> <!-- Dropdown menu -->
 					<div class="dropdown-menu col-10 mt-0 card-1" aria-labelledby="navbarDropdown" 
 						 style="border-top-left-radius: 0; border-top-right-radius: 0;">
-						<div class="container">
+						<div class="container" style="margin-left:9.5%;">
 							<div class="row my-4 here"></div>
 						</div>
 					</div>
@@ -230,11 +237,11 @@ function getGroup(){
 			let str = '';
 			for (topGroup of data.tList){
 				str += '<div class="" style="">';
-				str += '<div class="list-group">';
+				str += '<div class="list-group" style="text-align: center;">';
 				str += '<div class="ca-name">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
-					str += `<div style="cursor: pointer" class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
+					str += `<div style="cursor: pointer; background: #4A4C4E; color: white; border: none;" class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
 				}
 			}
 			str += '</div>';

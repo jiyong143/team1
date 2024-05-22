@@ -388,4 +388,18 @@
 	   order by pr_date desc  
 	   limit #{start} , 6 
 	</select>
+	
+	<select id="selectPopularProducts" resultMap="ProductMap">
+	  select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
+                              join topgroup on mg_tg_num = tg_num
+	   order by pr_view desc  
+	   limit 0 , 6 
+	</select>
+	
+	<select id="selectPopularProductsByStart" resultMap="ProductMap">
+	  select product.*, mg_title as pr_mg_name, tg_title as pr_tg_name from product join midgroup on pr_mg_num = mg_num 
+                              join topgroup on mg_tg_num = tg_num
+	   order by pr_view desc  
+	   limit #{start} , 6 
+	</select>
 </mapper>

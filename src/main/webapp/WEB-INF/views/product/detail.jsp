@@ -114,6 +114,10 @@
 	#product-content{
 		width: 100%;
 		resize : none;
+		outline: none;
+	}
+	.btn-sse{
+		margin-bottom : 10px;
 	}
 </style>
 </head>

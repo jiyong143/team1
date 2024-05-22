@@ -12,6 +12,7 @@
     width: 100%;
     bottom: 0;
     font-size: 10px;
+    width: 100%;
 }
 
 .footer-title{
