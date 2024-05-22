@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고정문의</title>
+<title>이용정책</title>
 <style type="text/css">
 .page-title{
 	font-size: 28px; 
@@ -19,7 +19,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
-<h1 class="page-title">고정문의 리스트</h1>
+<h1 class="page-title">이용정책</h1>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -90,7 +90,7 @@
 		</c:if>
 	</ul>
   		<c:if test="${user.me_authority == 'admin'}">
-			<a href="<c:url value="/fixed/insert"/>" class="btn btn-dark mb-4">고정문의 작성</a>
+			<a href="<c:url value="/fixed/insert"/>" class="btn btn-dark mb-4">이용정책 작성</a>
 		</c:if>
 </div>
 
