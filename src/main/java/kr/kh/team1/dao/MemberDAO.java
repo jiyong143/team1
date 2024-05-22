@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.PaymentVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberDAO {
@@ -52,6 +53,12 @@ public interface MemberDAO {
 	void subtractPoint(@Param("me_id")String myUser, @Param("price")int pr_price);
 
 	MemberVO idCheck(@Param("id")String id);
+
+	int selectPickNum(@Param("me_id")String me_id);
+
+	ArrayList<PickVO> selectPickList(@Param("me_id")String me_id);
+
+	void deletePick(@Param("pi_num")int pi_num);
 
 	
 
