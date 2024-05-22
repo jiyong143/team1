@@ -33,10 +33,12 @@
 }
 
 .ca-name {
-	background: #F2F2F2;
+	font-size: 18px;
+	background: #4A4C4E;
 	padding: 0 10px;
 	font-weight: bold;
-	color: #787878;
+	color: white;
+	font-weight: bold;
 	border-radius: 10px;
 	margin-left: 5px
 }
@@ -234,7 +236,7 @@ function getGroup(){
 				str += '<div class="ca-name">' + topGroup.tg_title + '</div>'; // topGroup 이름 출력
 			for (midGroup of data.mList){
 				if (midGroup.mg_tg_num == topGroup.tg_num){
-					str += `<div style="cursor: pointer" class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
+					str += `<div style="cursor: pointer; background: #4A4C4E; color: white; border: none;" class="list-group-item list-group-item-action" onclick="showProduct(\${midGroup.mg_num}, '\${midGroup.mg_title}', '\${topGroup.tg_title}')"> \${midGroup.mg_title} </div>`; // 해당 topGroup에 속하는 midGroup 출력
 				}
 			}
 			str += '</div>';
