@@ -1345,7 +1345,7 @@ function addPrice(avgPrice, maxPrice, minPrice){
 
 function addTotalCount(count){
 	let str='';
-	str += `<span>총\${count}개</span>`
+	str += `<span>총 \${count}개</span>`
 	$(".productTotalCount").html(str);
 }
 
