@@ -5,33 +5,9 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
 body {
 	font-family: "Lato", sans-serif;
-}
-
-.sidenav {
-	height: 100%;
-	width: 210px;
-	position: auto;
-	z-index: 1;
-	top: 0;
-	left: 0;
-	background-color: #111;
-	overflow-x: hidden;
-	padding-top: 20px;
-	margin-bottom: 100px;
-}
-
-.sidenav a {
-	padding: 6px 8px 6px 16px;
-	text-decoration: none;
-	font-size: 25px;
-	color: #818181;
-	display: block;
-}
-
-.sidenav a:hover {
-	color: #f1f1f1;
 }
 
 .main {
@@ -53,9 +29,7 @@ body {
 	align-items: center;
 }
 
-.max-w-\[1024px\] {
-	max-width: 1024px;
-}
+
 
 .h-full {
 	height: 100%;
@@ -336,8 +310,22 @@ h5 {
 .product-list, .product-list1 {
 	margin: 0 auto; /* 가로 여백을 화면 왼쪽과 오른쪽 모두 동일하게 설정 */
 	max-width: 1200px; /* 최대 너비를 지정하여 내용이 너무 퍼지지 않도록 설정 */
-	margin-top: 200px;
+	margin-top: 120px;
 }
+
+.product-list{
+position : absolute;
+top : 1px;
+left: 360px;
+}
+
+.product-list1{
+position : absolute;
+top : 370px;
+left: 360px;
+}
+
+
 
 
 .search-input {
@@ -438,7 +426,7 @@ li {
 .newProduct {
 	position: absolute;
 	left: 380px;
-	top: 250px;
+	top: 100px;
 	font-weight: bold;
 	font-size: 25px;
 }
@@ -446,7 +434,7 @@ li {
 .polpularProduct {
 	position: absolute;
 	left: 380px;
-	top: 670px;
+	top: 460px;
 	font-weight: bold;
 	font-size: 25px;
 }
@@ -455,13 +443,13 @@ li {
 .prev-button {
 	position: absolute;
 	left: 375px;
-	top: 360px;
+	top: 210px;
 }
 
 .before-button {
 	position: absolute;
 	left: 375px;
-	top: 790px;
+	top: 580px;
 }
 
 
@@ -469,16 +457,16 @@ li {
 .next-button {
 	position: absolute;
 	left: 1518px;
-	top: 360px;
+	top: 210px;
 }
 
 .daum-button {
 	position: absolute;
 	left: 1518px;
-	top: 790px;
+	top: 580px;
 }
 
-.next-button:hover, .prev-button:hover {
+.next-button:hover, .prev-button:hover, .daum-button:hover,.before-button:hover {
 	background-color: black;
 }
 
@@ -513,13 +501,13 @@ li {
 .container-circle {
 	position: absolute;
 	left: 885px;
-	top: 640px;
+	top: 460px;
 }
 
 .container-circles {
 	position: absolute;
 	left: 885px;
-	top: 1060px;
+	top: 845px;
 }
 
 
@@ -527,18 +515,6 @@ li {
 <title>Home</title>
 </head>
 <body>
-
-	<!-- 
-<div class="sidenav">
-<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
-<div>
-</div>
-  <a href="<c:url value="/product/insert"/>">판매하기</a>
-  <a href="<c:url value="/report/list"/>">신고</a>
-  <a href="#clients">Clients</a>
-  <a href="#contact">Contact</a>
-</div>   
--->
 
 
 	<h3
@@ -827,7 +803,7 @@ li {
 		<div class="circle5 gray"></div>
 	</div>
 	
-	<div class="container-circles">
+	<div class="container-circles"> 
 		<div class="popularcircle1 black1"></div>
 		<div class="popularcircle2 gray1"></div>
 		<div class="popularcircle3 gray1"></div>
