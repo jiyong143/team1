@@ -391,12 +391,18 @@ h5 {
 
 /* 가격 정보 항목 간격 조정 */
 .product-price-item {
-	margin-bottom: 15px;
+	height : 100px;	
+    background-color: #D1D1D1;
+    width: 100%;
+    bottom: 0;
+    font-size: 10px;
+    width: 100%;
 }
+
 
 /* 각 span 태그 사이의 간격을 조정 */
 .product-price-item span {
-	margin-right: 20px; /* 우측 여백 추가 */
+	margin-right: 10px; /* 우측 여백 추가 */
 }
 
 /* 각 div 태그 사이에 구분선을 추가 */
@@ -422,7 +428,7 @@ h5 {
 .price-container {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: center; 
 }
 
 .minPrice-box, .maxPrice-box {
@@ -475,18 +481,18 @@ li {
 
 .anfruf {
 	position: absolute;
-	left: 992px;
+	left: 940px;
 }
 
 .maxPrice-box {
 	position: absolute;
-	left: 1010px;
+	left: 960px;
 }
 
 .price-button {
 	position: absolute;
-	left: 1243px;
-	top: 234px;
+	left: 1195px;
+	top: 273px;
 }
 
 .search {
@@ -518,6 +524,8 @@ li {
 	border: none;
 	background-color: transparent;
 }
+
+
 
 </style>
 </head>
@@ -679,28 +687,28 @@ li {
 		<div class="product-price-container">
 			<h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
 			<div
-				class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
+				class="product-price-items flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0  lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none"
 					aria-labelledby="product-item-price-title-1" tabindex="0">
 					<span id="product-item-price-title-1"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">평균
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">평균
 						가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0  lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
 					aria-labelledby="product-item-price-title-2" tabindex="0">
 					<span id="product-item-price-title-2"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장
 						높은 가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0  lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
 					aria-labelledby="product-item-price-title-3" tabindex="0">
 					<span id="product-item-price-title-3"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장
 						낮은 가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
@@ -1388,16 +1396,16 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	str += `
     <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
-        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">평균 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }<span style="font-size : 20px;">원</span></span>
     </div>
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
-        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장 높은 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }<span style="font-size : 20px;">원</span></span>
     </div>
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
-        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장 낮은 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }<span style="font-size : 20px;">원</span></span>
     </div>
   </div>`
