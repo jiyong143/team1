@@ -427,14 +427,11 @@ h5 {
 
 .price-container {
 	display: flex;
-	justify-content: space-between;
+	
 	align-items: center; 
 }
 
-.minPrice-box, .maxPrice-box {
-	flex: 1;
-	margin-right: 6px;
-}
+
 
 button {
 	flex-shrink: 0; /* 버튼이 너무 커지지 않도록 설정 */
@@ -479,22 +476,6 @@ li {
 	color: #A0AEC0; /* 회색으로 설정 */
 }
 
-.anfruf {
-	position: absolute;
-	left: 940px;
-}
-
-.maxPrice-box {
-	position: absolute;
-	left: 960px;
-}
-
-.price-button {
-	position: absolute;
-	left: 1195px;
-	top: 273px;
-}
-
 .search {
 	position: absolute;
 	left: 250px;
@@ -525,6 +506,9 @@ li {
 	background-color: transparent;
 }
 
+.minPrice-box, .anfruf, .maxPrice-box{
+margin-right : 5px;
+}
 
 
 </style>
@@ -631,7 +615,7 @@ li {
 									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
 									autocomplete="off">
 							</div>
-
+                            <div>
 							<span class="mx-[6px] anfruf"> <svg
 									xmlns="http://www.w3.org/2000/svg" width="10" height="4"
 									fill="none" class="inline">
@@ -639,6 +623,7 @@ li {
 										d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
                                   </svg>
 							</span>
+							</div>
 
 							<div class="maxPrice-box">
 								<input type="text" id="maxPrice"
@@ -649,7 +634,7 @@ li {
 									autocomplete="off">
 							</div>
 							<button type="submit"
-								class="price-button w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								class="price-button w-full lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
 								style="background-color: black;">적용</button>
 						</div>
 					</td>
