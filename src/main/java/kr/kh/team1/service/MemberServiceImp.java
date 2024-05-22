@@ -12,6 +12,7 @@ import kr.kh.team1.dao.MemberDAO;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.PaymentVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.pagination.Criteria_member;
 import kr.kh.team1.model.vo.ProductVO;
 
@@ -280,6 +281,21 @@ public class MemberServiceImp implements MemberService {
 	public void payment(String pr_me_id, String myUser, int pr_price) {
 		memberDao.addPoint(pr_me_id, pr_price);
 		memberDao.subtractPoint(myUser, pr_price);
+	}
+
+	@Override
+	public int getPickNum(String me_id) {
+		return memberDao.selectPickNum(me_id);
+	}
+
+	@Override
+	public ArrayList<PickVO> getPickList(String me_id) {
+		return memberDao.selectPickList(me_id);
+	}
+
+	@Override
+	public void deletePick(int pi_num) {
+		memberDao.deletePick(pi_num);
 	}
 
 //	@Override

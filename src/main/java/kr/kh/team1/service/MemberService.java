@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import kr.kh.team1.model.dto.LoginDTO;
 import kr.kh.team1.model.vo.MemberVO;
 import kr.kh.team1.model.vo.PaymentVO;
+import kr.kh.team1.model.vo.PickVO;
 import kr.kh.team1.pagination.Criteria_member;
 
 public interface MemberService {
@@ -55,6 +56,12 @@ public interface MemberService {
 	int getPoint(String userId);
 
 	void payment(String pr_me_id, String myUser, int pr_price);
+
+	int getPickNum(String me_id);
+
+	ArrayList<PickVO> getPickList(String me_id);
+
+	void deletePick(int pi_num);
 
 	//관리자 -> 회원관리에 필요한 코드 END 
 
