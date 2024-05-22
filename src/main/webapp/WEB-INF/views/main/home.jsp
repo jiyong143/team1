@@ -443,13 +443,13 @@ li {
 .prev-button {
 	position: absolute;
 	left: 375px;
-	top: 210px;
+	top: 205px;
 }
 
 .before-button {
 	position: absolute;
 	left: 375px;
-	top: 580px;
+	top: 575px;
 }
 
 
@@ -457,13 +457,13 @@ li {
 .next-button {
 	position: absolute;
 	left: 1518px;
-	top: 210px;
+	top: 205px;
 }
 
 .daum-button {
 	position: absolute;
 	left: 1518px;
-	top: 580px;
+	top: 575px;
 }
 
 .next-button:hover, .prev-button:hover, .daum-button:hover,.before-button:hover {

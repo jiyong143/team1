@@ -396,7 +396,12 @@ h5 {
 
 /* 가격 정보 항목 간격 조정 */
 .product-price-item {
-	margin-bottom: 15px;
+	height : 100px;	
+    background-color: #D1D1D1;
+    width: 100%;
+    bottom: 0;
+    font-size: 10px;
+    width: 100%;
 }
 
 /* 각 span 태그 사이의 간격을 조정 */
@@ -425,13 +430,7 @@ h5 {
 
 .price-container {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
-}
-
-.minPrice-box, .maxPrice-box {
-	flex: 1;
-	margin-right: 6px;
 }
 
 button {
@@ -477,22 +476,6 @@ li {
 	color: #A0AEC0; /* 회색으로 설정 */
 }
 
-.anfruf {
-	position: absolute;
-	left: 900px;
-}
-
-.maxPrice-box {
-	position: absolute;
-	left: 915px;
-}
-
-.price-button {
-	position: absolute;
-	left: 1150px;
-	top: 183px;
-}
-
 .search {
 	position: absolute;
 	left: 250px;
@@ -503,23 +486,6 @@ li {
 	margin-top: 80px;
 }
 
-.place-container {
-	position: absolute;
-	left: 670px;
-	top: 235px;
-}
-
-.checkbox1 {
-	position: absolute;
-	left: 860px;
-	top: 300px;
-}
-
-.checkbox2 {
-	position: absolute;
-	left: 670px;
-	top: 300px;
-}
 
 .float-right {
 	display: flex;
@@ -531,6 +497,11 @@ li {
 	border: none;
 	background-color: transparent;
 }
+
+.minPrice-box, .anfruf, .maxPrice-box{
+margin-right : 5px;
+}
+
 
 </style>
 </head>
@@ -604,7 +575,7 @@ li {
 									oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')"
 									autocomplete="off">
 							</div>
-
+                            <div>
 							<span class="mx-[6px] anfruf"> <svg
 									xmlns="http://www.w3.org/2000/svg" width="10" height="4"
 									fill="none" class="inline">
@@ -612,6 +583,7 @@ li {
 										d="M7.895.628 9.297.62q0 .651-.182 1.205-.182.545-.515.947-.326.401-.788.628-.454.22-1 .22-.636 0-1.129-.25-.484-.258-1.045-.773a3.5 3.5 0 0 0-.652-.507 1.25 1.25 0 0 0-.651-.182.94.94 0 0 0-.584.182 1.14 1.14 0 0 0-.378.5 2 2 0 0 0-.137.757H.796q0-.659.183-1.197.18-.545.507-.931.333-.395.788-.606a2.3 2.3 0 0 1 1-.213q.636 0 1.144.266.516.265 1.046.757.363.349.659.523.295.174.628.174a1 1 0 0 0 .599-.19q.257-.196.401-.537a1.95 1.95 0 0 0 .144-.765"></path>
                                   </svg>
 							</span>
+							</div>
 
 							<div class="maxPrice-box">
 								<input type="text" id="maxPrice"
@@ -622,7 +594,7 @@ li {
 									autocomplete="off">
 							</div>
 							<button type="submit"
-								class="price-button w-full mt-3 lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								class="price-button w-full lg:mt-0 lg:w-auto bg-black py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
 								style="background-color: black;">적용</button>
 						</div>
 					</td>
@@ -636,36 +608,36 @@ li {
 								placeholder="장소를 입력하세요" data-idx="0" name="place"
 								value="${place }" autocomplete="off">
 							<button
-								class="place-button w-full mt-3 lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
+								class="place-button w-full lg:mt-0 lg:w-auto bg-jnBlack py-[10px] px-4 m-0 lg:mx-2 rounded text-sm font-medium text-white"
 								style="background-color: black">적용</button>
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td style="font-size: 20px; font-weight: bold;">옵션</td>
-					<td>
-						<ul class="flex undefined">
-							<li class="mr-5">
+					<td style="text-align: left;">
+						
+							
 								<div class="state-option">
-									<div class="checkbox-group checkbox1">
+									
 										<input id="saleYn" name="apple" type="checkbox"
 											<c:if test="${pm.cri.apple == 'yes' }">checked</c:if>
 											value="yes"> <label for="saleYn"
 											class="checkbox-label"> <span class="checkbox-text">예약중
 												상품 포함</span>
 										</label>
-									</div>
-									<div class="checkbox-group checkbox2">
+									
+									
 										<input id="saleZn" name="banana" type="checkbox"
 											<c:if test="${pm.cri.banana == 'yes' }">checked</c:if>
 											value="yes"> <label for="saleZn"
 											class="checkbox-label"> <span class="checkbox-text">판매완료
 												상품 포함</span>
 										</label>
-									</div>
+									
 								</div>
-							</li>
-						</ul>
+							
+						
 					</td>
 				</tr>
 			</tbody>
@@ -678,26 +650,26 @@ li {
 			<div
 				class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none"
 					aria-labelledby="product-item-price-title-1" tabindex="0">
 					<span id="product-item-price-title-1"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">평균
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">평균
 						가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${avgPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
 					aria-labelledby="product-item-price-title-2" tabindex="0">
 					<span id="product-item-price-title-2"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장
 						높은 가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${maxPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
 				<div
-					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
+					class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300"
 					aria-labelledby="product-item-price-title-3" tabindex="0">
 					<span id="product-item-price-title-3"
-						class="font-medium text-sm lg:text-lg text-jnGray-800">가장
+						class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장
 						낮은 가격</span> <span tabindex="0"
 						class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">${minPrice }<span style="font-size : 20px;">원</span></span>
 				</div>
@@ -1354,16 +1326,16 @@ function addPrice(avgPrice, maxPrice, minPrice){
 	str += `
     <h4 class="product-price-title">현재 페이지의 상품 가격을 비교해봤어요</h4>
 	<div class="flex flex-col lg:bg-jnGray-100 overflow-hidden lg:flex-row lg:rounded-lg">
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
-        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800">평균 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300 before:content-none" aria-labelledby="product-item-price-title-1" tabindex="0">
+        <span id="product-item-price-title-1" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">평균 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${avgPrice }<span style="font-size : 20px;">원</span></span>
     </div>
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
-        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 높은 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-2" tabindex="0">
+        <span id="product-item-price-title-2" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장 높은 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${maxPrice }<span style="font-size : 20px;">원</span></span>
     </div>
-    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 bg-jnGray-100 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
-        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800">가장 낮은 가격</span>
+    <div class="product-price-item relative flex flex-1 justify-between items-center py-6 px-6 lg:px-12 lg:py-6 !mt-0 mb-2 rounded-lg lg:mb-0 lg:bg-none before:-left-0.5 :before:block before:absolute before:w-[1px] before:h-8 before:bg-jnGray-300" aria-labelledby="product-item-price-title-3" tabindex="0">
+        <span id="product-item-price-title-3" class="font-medium text-sm lg:text-lg text-jnGray-800" style="font-size: 15px; margin-left : 15px; font-weight : bold;">가장 낮은 가격</span>
         <span tabindex="0" class="product-price font-bold text-lg lg:text-2xl text-jnGray-800">\${minPrice }<span style="font-size : 20px;">원</span></span>
     </div>
   </div>`
