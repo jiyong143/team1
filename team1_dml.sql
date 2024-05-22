@@ -45,7 +45,7 @@ values (1, 2, "cjy0896", "문의사항 테스트", "테스트 입니다");
 
 show global variables like 'local_infile';
 set global local_infile=true;
-load data local infile "D:\addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
+load data local infile "D:\address/addr.txt" into table addr character set 'utf8' fields terminated by '	' ignore 1 lines;
 
 /*
 show global variables like 'local_infile';
