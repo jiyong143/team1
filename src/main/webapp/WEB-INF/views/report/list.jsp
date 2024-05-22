@@ -15,15 +15,15 @@
 	color: red;
 }
 .container-report-list{
-	margin-left:300px;
+	margin-left:100px;
 
 }
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container-report-list">
 <h1 class="page-title">신고 게시판</h1>
-
 	<form action="<c:url value="/report/list"/>" method="get">
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">				

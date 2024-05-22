@@ -516,6 +516,7 @@ li {
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 
 	<h3
 		class="newProduct text-lg md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">방금

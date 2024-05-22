@@ -24,7 +24,7 @@
 <body>
 <div class="container">
 	<h1 class="page-title">문의글 수정</h1>
-	<form action="<c:url value="/surport/update"/>" method="post" enctype="multipart/form-data">
+	<form action="<c:url value="/fixed/update"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
 	 
 		<div class="select-box col-12 mt-4">

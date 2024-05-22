@@ -96,7 +96,7 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean idCheck(String id) {
-		MemberVO member = memberDao.selectMember(id);
+		MemberVO member = memberDao.idCheck(id);
 		return member == null;
 	}
 
