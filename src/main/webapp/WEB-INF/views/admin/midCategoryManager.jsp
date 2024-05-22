@@ -18,7 +18,7 @@
 		margin-top: 20px
 	}
 	.jum{
-		margin-left : 9%;
+		margin-left : 5%;
 		min-height: 800px;
 		background-color: white;
 	}
@@ -28,6 +28,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="jum">
 	<div class="container mt-3 col-6 card-1">
 		<h2 style="font-weight: bold">중분류 관리</h2>

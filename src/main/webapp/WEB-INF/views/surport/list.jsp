@@ -20,7 +20,6 @@
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
 <h1 class="page-title">고객지원</h1>
-
 	<form action="<c:url value="/surport/list"/>" method="get">
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">				

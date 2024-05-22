@@ -89,7 +89,7 @@
 			</li>
 		</c:if>
 	</ul>
-	  	<c:if test="${member.me_authority != 'admin'}">
+  		<c:if test="${user.me_authority == 'admin'}">
 			<a href="<c:url value="/fixed/insert"/>" class="btn btn-dark mb-4">고정문의 작성</a>
 		</c:if>
 </div>

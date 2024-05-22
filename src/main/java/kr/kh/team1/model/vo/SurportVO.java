@@ -16,6 +16,7 @@ public class SurportVO {
 	private String su_content; 
 	private Date su_date;
 	private int su_view;
+	private SurportManageVO sm;
 	
 	public SurportVO(int suNum, String id, String title, String content, Date date, int view) {
 		this.su_num = suNum;

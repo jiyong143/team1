@@ -129,11 +129,10 @@ body {
 	margin: 0;
 	line-height: inherit;
 }
-
+  
 .col-10 {
 	max-width:100%;
 }
-
 </style>
 </head>
 <body>

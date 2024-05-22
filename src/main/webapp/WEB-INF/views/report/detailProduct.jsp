@@ -9,10 +9,11 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
 .container-box{
-   width: 100%; height: 370px;
-    box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
-    margin-bottom : 5px;
-    padding: 2px;
+   	width: 100%; 
+   	height: 200px;
+   	box-shadow: 0 1px 5px 0px rgba(0,0,0,0.2);
+   	margin-bottom : 5px;
+   	padding: 2px;
 }
 .form-group{ width: 100%;}
 .page-title{
@@ -20,10 +21,10 @@
 	font-weight:800;
 	margin-top:10px;
 	margin-bottom: 6px; 
-   font-size: 28px; 
-   font-weight:800;
-   margin-top:10px;
-   margin-bottom: 6px; 
+   	font-size: 28px; 
+   	font-weight:800;
+   	margin-top:10px;
+   	margin-bottom: 6px; 
 }
 .content-box{
 	width: 100%; height: auto;
@@ -35,15 +36,16 @@
 	margin-left: 500px;
     width: 800px;
     height: 500px;
+    margin-bottom: 100px;
 }
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container-report-detail">
    <h1 class="page-title">신고글 상세내역</h1>
    <form action="<c:url value="/report/insertProduct"/>" method="post" enctype="multipart/form-data">
 		<div class="container-box">
-		
 			<div class="form-group col-12 mt-3">
 			   <label for="re_me_id">신고 대상자</label>
 			   <input type="number" class="form-control" id="re_pr_num" name="re_pr_num" readonly value="${report.re_pr_num}">
@@ -53,18 +55,8 @@
 				<label for="suport_manage">신고유형</label>
 		      	<input type="text" class="form-control" id="re_name" name="re_name" readonly value="${report.re_name}"> 
 			</div>
-			<div class="form-group col-12 mt-3">
-				<label for="suport_manage">신고 횟수</label>
-		      	<input type="number" class="form-control" id="me_report_count" name="me_report_count" readonly value="${report.member.me_report_count}"> 
-			</div>
-			<div class="form-group col-12 mt-3">
-				<label for="suport_manage">정지일</label>
-		      	<input type="text" class="form-control" id="me_stop_date" name="me_stop_date" readonly value="${mereport.member.me_stop_date}"> 
-			</div>
-			
-			
 		</div>   
-		<div class="form-group mb-2">
+		<div class="form-group mb-2 mt-2">
 			<label for="re_content">내용</label>
 		  	<textarea class="content-box" id="re_content" name="re_content" readonly>${report.re_content}</textarea>
 		</div>
@@ -92,7 +84,7 @@
 	$('[name = re_content]').summernote({
 		   placeholder: '내용을 입력하세요',
 		   tabsize: 2,
-		   height: 400
+		   height: 300
 		});
 </script>
 </body>

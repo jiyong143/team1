@@ -93,7 +93,6 @@
 	    width: 1px; /* 경계선 너비 */
 	    height: 70%; /* 경계선 높이 */
 	    background-color: #D1D5DB; /* 회색 경계선 색상 */
-	    
 	}
 	.jiyong-button{
 	    display: flex; /* 버튼 내부 요소들을 세로로 배치 */
@@ -184,7 +183,7 @@
 						<h2 style="font-size: 20px; color: #808080; font-weight: bold;">가격 제안</h2>	
 					</c:when>
 					<c:otherwise>
-						<h2>${info.price}원</h2>
+						<h2 style="font-weight: bold; font-size: 30px;">${info.price}원</h2>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
