@@ -17,6 +17,7 @@ public class SurportVO {
 	private Date su_date;
 	private int su_view;
 	private SurportManageVO sm;
+	private UpHeadVO uh;
 	
 	public SurportVO(int suNum, String id, String title, String content, Date date, int view) {
 		this.su_num = suNum;
@@ -27,9 +28,9 @@ public class SurportVO {
 		this.su_view = view;
 	}
 
-	public SurportVO(int su_num, int su_sm_num, int su_uh_num, String su_me_id, String su_title, String su_content) {
-		this.su_num = su_num;
-		this.su_sm_num = su_sm_num;
+	public SurportVO(int sm_name, int uh_name, int su_uh_num, String su_me_id, String su_title, String su_content) {
+		this.su_sm_num = sm_name;
+		this.su_uh_num = uh_name;
 		this.su_uh_num = su_uh_num;
 		this.su_me_id = su_me_id;
 		this.su_title = su_title;

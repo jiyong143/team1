@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>고정문의 작성</title>
+<title>문의 작성</title>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
@@ -24,7 +24,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/sideBar.jsp"/>
 <div class="container">
-	<h1 class="page-title">고정문의 작성</h1>
+	<h1 class="page-title">문의 작성</h1>
 	<form action="<c:url value="/surport/insert"/>" method="post" enctype="multipart/form-data">
 	<div class="container-box">
 		<div class="select-box col-12 mt-4">
@@ -34,6 +34,13 @@
 					<c:if test="${loginUser.me_authority != 'user' && sm.sm_name != '문의사항'}">						
 					</c:if>
 					<c:if test="${loginUser.me_authority == 'user' && sm.sm_name == '문의사항'}">
+						<option value="${sm.sm_num}">${sm.sm_name}</option>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${surportManageList}" var="sm">
+					<c:if test="${loginUser.me_authority != 'admin' && sm.sm_name != '공지사항'}">						
+					</c:if>
+					<c:if test="${loginUser.me_authority == 'admin' && sm.sm_name == '공지사항'}">
 						<option value="${sm.sm_num}">${sm.sm_name}</option>
 					</c:if>
 				</c:forEach>

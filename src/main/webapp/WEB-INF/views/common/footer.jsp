@@ -7,7 +7,7 @@
 <style type="text/css">
 .bg-jnGray-100 {
     -tw-bg-opacity: 10;
-    margin-top: 100px;
+    margin-top: 300px;
     background-color: #D1D1D1;
     width: 100%;
     bottom: 0;
