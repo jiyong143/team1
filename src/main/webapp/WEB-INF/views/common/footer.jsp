@@ -10,8 +10,10 @@
     margin-top: 100px;
     background-color: #D1D1D1;
     width: 100%;
+
     bottom: 0;
     font-size: 10px;
+    width: 100%;
 }
 
 .footer-title{
@@ -34,5 +36,6 @@
 				<li>주소 : 서울특별시 서초구 서초대로 301 동익성봉빌딩 7층</li><li>대표번호 : 1533-7861</li>
 				<li>메일 : joongna@joonggonara.co.kr</li>
 			</ul>
+
 	</div>
 </footer>

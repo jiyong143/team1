@@ -42,9 +42,11 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, MainCriteria cri) {
 		// 최근에 올라온 상품
-		ArrayList <ProductVO> products = productService.getNewProducts(cri);	
+		ArrayList <ProductVO> products = productService.getNewProducts(cri);
+		ArrayList <ProductVO> popularProducts = productService.getPopularProducts();
 		model.addAttribute("products",products); 
-		return "/main/home"; 
+		model.addAttribute("popularProducts",popularProducts);
+		return "/main/home";  
 	}
 	
 	@ResponseBody 
@@ -57,6 +59,17 @@ public class HomeController {
 		}
 		HashMap<String, Object> map = new HashMap<String, Object>(); 
 		ArrayList <ProductVO> products = productService.getNewProductsByStart(start);    
+		map.put("products", products);
+		map.put("page", page);
+		return map;
+	}
+	
+	@ResponseBody 
+	@GetMapping("/product/popular")
+	public Map<String, Object> productPopular(Model model , int page){ 
+	    int start = 6*(page-1);
+		HashMap<String, Object> map = new HashMap<String, Object>(); 
+		ArrayList <ProductVO> products = productService.getPopularProductsByStart(start);    
 		map.put("products", products);
 		map.put("page", page);
 		return map;
