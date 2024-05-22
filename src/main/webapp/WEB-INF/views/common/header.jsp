@@ -33,7 +33,8 @@
 }
 
 .ca-name {
-	background: #F2F2F2;
+	color : white;
+	background-color: red;
 	padding: 0 10px;
 	font-weight: bold;
 	color: #787878;
@@ -126,7 +127,6 @@ body {
 	margin: 0;
 	line-height: inherit;
 }
-
 </style>
 </head>
 <body>

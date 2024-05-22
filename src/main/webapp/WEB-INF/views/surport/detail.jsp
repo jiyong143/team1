@@ -92,29 +92,22 @@
 		</c:if>
 		<!-- 댓글 기능 구현 START -->
 		<div class="box-comment-insert">
+  		<c:if test="${user.me_authority == 'admin'}">
 			<div class="input-group mb-3">
 				<textarea class="form-control textarea-comment"></textarea>
 				<button class="btn btn-outline-success btn-comment-insert">댓글 등록</button>
 			</div>
+		</c:if>
 		</div>
 		<div class="container-comment mt-3 mb-3">
-			<div class="comment-title">댓글(<span class="comment-total"></span>)</div>
+			<div class="comment-title mb-4">댓글(<span class="comment-total"></span>)</div>
 			<div class="box-comment-list">
 				<div class="box-comment row">
 					<div class="col-3">아이디</div>
 					<div class="col-9">내용</div>
 				</div>
 			</div>
-			<div class="box-pagination">
-				<ul class="pagination justify-content-center mt-4 mb-4"></ul>
-			</div>
 		</div>
-		<c:url value="/surport/list" var="url">
-			<c:param name="page" value="${cris.page}" />
-			<c:param name="type" value="${cris.type}" />
-			<c:param name="search" value="${cris.search}" />
-		</c:url>
-		<!-- 댓글기능 구현 END -->
 	</div>
 <script type="text/javascript">	
 //cris 객체의 댓글목록을 가져오기 위한 검색 조건

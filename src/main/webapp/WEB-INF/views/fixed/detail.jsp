@@ -81,8 +81,6 @@
 		<c:if test="${user.me_id == fixed.fix_me_id}">
 			<a href="<c:url value="/fixed/delete?fixNum=${fixed.fix_num}"/>"
 				class="btn btn-outline-success mb-3">삭제</a>
-			<a href="<c:url value="/fixed/update?fixNum=${fixed.fix_num}"/>"
-				class="btn btn-outline-warning mb-3">수정</a>
 		</c:if>
 		<a href="/team1/fixed/list" class="btn btn-outline-dark mb-4 mt-2">목록으로</a>
 	</div>

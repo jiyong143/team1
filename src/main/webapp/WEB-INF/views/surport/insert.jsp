@@ -31,8 +31,7 @@
 			<label for="suport_manage">지원타입 선택</label>
 			<select class="form-control" id="suport_manage" name="su_sm_num">
 				<c:forEach items="${surportManageList}" var="sm">
-					<c:if test="${loginUser.me_authority != 'user' && sm.sm_name != '문의사항'}">
-						<option value="${sm.sm_num}">${sm.sm_name}</option>
+					<c:if test="${loginUser.me_authority != 'user' && sm.sm_name != '문의사항'}">						
 					</c:if>
 					<c:if test="${loginUser.me_authority == 'user' && sm.sm_name == '문의사항'}">
 						<option value="${sm.sm_num}">${sm.sm_name}</option>
