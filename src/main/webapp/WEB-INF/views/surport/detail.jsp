@@ -55,14 +55,14 @@
 		<h1 class="page-title">문의글 상세</h1>
 		<div class="container-box">
 			<div class="select-box col-12 mt-3">
-				<label for="suport_manage">지원타입 선택</label> <input
-					class="form-control" id="su_sm_name" name="su_sm_name" readonly
-					value="${surport.su_sm_num}">
+				<label for="su_type">지원타입 선택</label> <input
+					class="form-control" id="su_type" name="su_type" readonly
+					value="${surport.su_type}">
 			</div>
 			<div class="select-box col-12 mt-3">
-				<label for="upHead">말머리 선택</label> <input class="form-control"
-					id="su_uh_name" name="su_uh_name" readonly
-					value="${surport.su_uh_num}">
+				<label for="su_upHead">말머리 선택</label> <input class="form-control"
+					id="su_upHead" name="su_upHead" readonly
+					value="${surport.su_upHead}">
 			</div>
 			<div class="form-group col-12 mt-3">
 				<label for="su_title">제목</label> <input type="text"

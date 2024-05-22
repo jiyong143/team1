@@ -7,9 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team1.dao.SurportDAO;
 import kr.kh.team1.model.vo.MemberVO;
-import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
-import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 
 @Service
@@ -29,20 +27,12 @@ public class SurportServiceImp implements SurportService{
 	public int getSurportTotalCount(Criteria_supot cris) {
 		return surportDao.selectSurportTotalCount(cris);
 	}
-
-	@Override
-	public ArrayList<SurportManageVO> getSurportManageList() {
-		return surportDao.selectSurportManageList();
-	}
-	
-	@Override
-	public ArrayList<UpHeadVO> getUpHeadList() {
-		return surportDao.selectUpHeadList();
-	}
 	
 	@Override
 	public boolean insertSurport(SurportVO surport, MemberVO user) {
 		if( surport == null || 
+			surport.getSu_type() == null ||
+			surport.getSu_upHead() == null ||
 			surport.getSu_title() == null || 
 			surport.getSu_content() == null) 
 				return false;
@@ -70,6 +60,7 @@ public class SurportServiceImp implements SurportService{
 		if( surport == null ||
 			!checkString(surport.getSu_title()) ||
 			!checkString(surport.getSu_content())) {
+			System.out.println("updateSurport");
 			return false;
 		}
 		if(user == null) {

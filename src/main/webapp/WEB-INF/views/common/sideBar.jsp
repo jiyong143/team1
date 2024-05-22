@@ -135,10 +135,10 @@ body {
   		<c:if test="${user.me_authority == 'user'}">
 	  		<a href="/team1/chat/list?page=1">채팅방</a>
   		</c:if>
- 		<c:if test="${user.me_authority == 'user'}">
+ 		<c:if test="${user.me_authority == 'user' || user.me_authority == 'admin'}">
 	  		<a href="/team1/surport/list">고객지원</a>
   		</c:if>
-  		<c:if test="${user.me_authority == 'user'}">
+  		<c:if test="${user.me_authority == 'user' || user.me_authority == 'admin'}">
 	  		<a href="/team1/fixed/list">고정문의</a>
   		</c:if>
 	  </div>
