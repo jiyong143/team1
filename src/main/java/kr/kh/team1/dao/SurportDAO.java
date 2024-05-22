@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.kh.team1.model.vo.SurportManageVO;
 import kr.kh.team1.model.vo.SurportVO;
-import kr.kh.team1.model.vo.UpHeadVO;
 import kr.kh.team1.pagination.Criteria_supot;
 
 public interface SurportDAO {
@@ -14,10 +12,6 @@ public interface SurportDAO {
 	ArrayList<SurportVO> selectSurportList(@Param("cris") Criteria_supot cris);
 
 	int selectSurportTotalCount(@Param("cris") Criteria_supot cris);
-
-	ArrayList<SurportManageVO> selectSurportManageList();
-
-	ArrayList<UpHeadVO> selectUpHeadList();
 	
 	boolean insertSurport(@Param("surport") SurportVO surport);
 

@@ -34,8 +34,7 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>번호</th>
-				<!-- 리스트 번호를 => 말버리 이름으로 변경 -->
+				<th>말머리</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
@@ -45,7 +44,7 @@
 		<tbody>
 			<c:forEach items="${list}" var="surport">
 			<tr>
-				<td>${surport.su_num}</td>
+				<td>${surport.su_upHead}</td>
 				<td class="list-title">
 					<c:url value="/surport/detail" var="url">
 						<c:param name="suNum" value="${surport.su_num}"/>
@@ -57,7 +56,7 @@
 						<c:param name="type" value="writer"/>
 						<c:param name="search" value="${surport.su_num}"/>
 					</c:url>
-					<a href="${aurl}">${surport.su_me_id}</a>
+					<a>${surport.su_me_id}</a>
 				</td>
 				<td>${surport.su_date}</td>
 				<td>${surport.su_view}</td>
