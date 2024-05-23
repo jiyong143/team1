@@ -529,7 +529,7 @@ li {
                     buyer_postcode : '123-456', // 임의의 값
                 },
                 function(rsp) {
-                    if (/*rsp.success*/true) { //테스트시에는 결제 취소되도 성공으로 처리되게
+                    if (rsp.success) { //테스트시에는 결제 취소되도 성공으로 처리되게
                         alert('결제 성공! : ' + JSON.stringify(rsp));
                         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                         // jQuery로 HTTP 요청
