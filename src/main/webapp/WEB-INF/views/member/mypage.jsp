@@ -452,7 +452,7 @@ li {
 	<!-- 결제 api 스크립트 -->
 	<script type="text/javascript">
 		var IMP = window.IMP;
-	    IMP.init("imp45810541"); //포트원에서 발급받은 고유 값
+	    IMP.init(""); //포트원에서 발급받은 고유 값
 	    var point;
 		$('[name=point]').on('input',function(){
 			point = $('[name=point]').val();
